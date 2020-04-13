@@ -1,0 +1,30 @@
+http://dynamicsteaching.com/legal-entity-vs-operating-units/
+
+https://docs.oracle.com/cd/E18727_01/doc.121/e13424/T433149T433153.htm
+
+
+<button type="button" class="btn btn-primary"  onclick="print_result(<?php 
+	  
+	$sql="select * from tbl_hierarchy_org where	employee_id=".
+	$this->session->userdata('login_emp_id');
+	$rowrecord = $this->projectmodel->get_records_from_sql($sql);	
+	foreach ($rowrecord as $row1)
+	{$hq_id=$row1->id; $parentuid=$row1->under_tbl_hierarchy_org;}
+	  
+	  echo $hq_id; ?>)">Print</button>
+
+
+
+<script language="javascript" type="text/javascript">
+		
+		function print_result() {
+				
+	var base_url = '<?php echo ADMIN_BASE_URL.'tour_plan_expense_controller/hq_to_location_master/';  ?>';
+			//url=base_url+visitdate+'/'+hqid;
+			
+			url=base_url;
+			newwindow=window.open(url,'name','height=600,width=800');
+			if (window.focus) {newwindow.focus()}
+			return false;
+		}
+</script>

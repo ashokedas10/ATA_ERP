@@ -1,0 +1,34 @@
+	<div class="form-row"><div class="form-group col-md-2">CONSIGNMENT NOTE</div></div>
+		
+	
+	<table  class="table table-bordered table-striped" >
+		
+				<thead>
+					<tr>
+					<td  align="left">Pkg No</td> 
+					<td  align="left">Pkg Mode</td> 
+					<td  align="left">Particulars </td> 
+					<td  align="left">Chg Wt</td> 
+					<td  align="left">Rate</td> 	
+					<td  align="left">Total</td> 				
+					<td  align="left">Edit</td> 
+					<td  align="left">Delete</td>
+					</tr>
+				</thead>
+			   
+			   <tbody>
+					
+					<tr ng-repeat="dtl in listOfDetails">
+						<td  align="left">{{dtl.pkg_no}}</td> 
+						<td  align="left">{{dtl.pkg_mode}}</td> 		
+						<td  align="left">{{dtl.particulars}}</td>
+						<td  align="left">{{dtl.charge_weight}}</td>
+						<td  align="left">{{dtl.rate}}</td>
+						<td  align="left">{{dtl.total}}</td>	
+						<td  align="left"><button class="btn-block btn-info" 
+						ng-click="get_set_value(dtl.id,'','VIEWDTL')" >Edit</button>
+						<td  align="left"><button class="btn-block btn-info" >Delete</button>
+						</td> 
+					</tr>			
+			 </tbody>
+		</table>   

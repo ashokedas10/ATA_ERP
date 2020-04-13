@@ -1,0 +1,3 @@
+[26-Dec-2017 14:17:23 Etc/GMT] PHP Fatal error:  Call to undefined method Tour_plan_expense_controller::logout() in /home/geneticalabs/public_html/application/controllers/Tour_plan_expense_controller.php on line 173
+[13-Jan-2018 12:46:26 Etc/GMT] PHP Fatal error:  Call to undefined method Tour_plan_expense_controller::logout() in /home/geneticalabs/public_html/application/controllers/Tour_plan_expense_controller.php on line 173
+[13-Jan-2018 12:46:32 Etc/GMT] PHP Fatal error:  Call to undefined method Tour_plan_expense_controller::logout() in /home/geneticalabs/public_html/application/controllers/Tour_plan_expense_controller.php on line 173

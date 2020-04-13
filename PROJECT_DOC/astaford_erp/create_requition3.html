@@ -1,0 +1,325 @@
+
+<!doctype html>
+<html lang="en">/
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    
+    <title>Bootstrap example</title>
+</head>
+  <body> 
+
+    
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css"> 
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container" style="width:100%">
+	
+	<div class="panel">
+	  <div class="panel-body bg-danger" align="center" >
+		<h5><strong>Create Requition 1</strong></h5>
+	  </div>
+	</div>
+	
+	<!--HEADER FILDSET-->
+	<fieldset class="col-md-12" >  	
+		<legend class="col-md-12 bg-primary"   text-align="center"></legend>
+		
+			<table  class="table"  style="100%;" cellpadding="0" cellspacing="0" border="0"> 
+					
+			<tr>
+					<td  align="right" ><label>Operating Unit</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 </td>
+					 
+			</tr>		
+			
+			<tr>
+					<td  align="right" ><label>Number</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 </td>
+					
+					<td  align="right" ><label>Type</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+
+					<td  align="right" ><label>Preparer</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>			
+			
+			<tr>
+					<td  align="right" ><label>Description</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 </td>
+					
+					<td  align="right" ><label>Status</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+
+					<td  align="right" ><label>Total</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>			
+			
+							
+		</table>		 
+		
+	
+			
+	</fieldset>		
+					
+	
+	<!--BODY FILDSET-->
+	<fieldset class="col-md-12" >  	
+		<div class="panel panel-default">
+				<legend class="col-md-12" text-align="center"><button type="button" class="btn btn-info">Lines</button>   <button type="button" class="btn btn-info">Source Details</button>   <button type="button" class="btn btn-info">Details</button>    <button type="button" class="btn btn-info">Currency</button></legend>
+					
+						<table  class="table"  style="100%" cellpadding="0" cellspacing="0" border="0"> 
+				
+				<tr class="bg-primary" >
+				<td ><label >Num</label></td>
+				<td ><label>Type</label></td>    
+				<td ><label>Item</label></td>    
+				<td ><label>Rev</label></td>      
+				<td><label>Category</label></td>
+				<td ><label>Description</label></td> 
+				<td ><label>UOM</label></td>    
+			  </tr>
+			  
+			
+			  <tr ng-repeat="layer in  [0,FormInputArray[0].list_of_values.length-1] | toRange"  style="padding-top:0px;">
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>		
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td>  
+				
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+				</td>
+
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				
+				   
+									
+				<!--<td  align="left">
+				<button class="btn-block btn-danger" 
+				ng-click="delete_product(FormInputArray[0].details_income_passengers[layer].id_detail)" 
+				onClick="return confirm('Do you want to Delete This Record ?');" >Delete</button>					</td>-->
+			  </tr>
+			  
+			    <td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>		
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td>  
+				
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+				</td>
+
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+				   
+									
+				<!--<td  align="left">
+				<button class="btn-block btn-danger" 
+				ng-click="delete_product(FormInputArray[0].details_income_passengers[layer].id_detail)" 
+				onClick="return confirm('Do you want to Delete This Record ?');" >Delete</button>					</td>-->
+			  </tr>
+			  
+			    <td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>		
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td>  
+				
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+				</td>
+
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+				   
+									
+				<!--<td  align="left">
+				<button class="btn-block btn-danger" 
+				ng-click="delete_product(FormInputArray[0].details_income_passengers[layer].id_detail)" 
+				onClick="return confirm('Do you want to Delete This Record ?');" >Delete</button>					</td>-->
+			  </tr>
+			  
+			    <td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>		
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td>  
+				
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+				</td>
+
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+				   
+									
+				<!--<td  align="left">
+				<button class="btn-block btn-danger" 
+				ng-click="delete_product(FormInputArray[0].details_income_passengers[layer].id_detail)" 
+				onClick="return confirm('Do you want to Delete This Record ?');" >Delete</button>					</td>-->
+			  </tr>
+			  
+			    <td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:50px;"></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>		
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td> 
+				 
+				<td align="left"  ><input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td></td>  
+				
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+				</td>
+
+				<td align="left"  >
+					<input type="text" id="start" class="form-control input_field_height"  style="width:100px;"></td>
+				</td> 
+				   
+									
+				<!--<td  align="left">
+				<button class="btn-block btn-danger" 
+				ng-click="delete_product(FormInputArray[0].details_income_passengers[layer].id_detail)" 
+				onClick="return confirm('Do you want to Delete This Record ?');" >Delete</button>					</td>-->
+			  </tr>
+			  </tr>
+			  
+			  <tr>
+							
+			<!--<button type="button" class="btn btn-primary" name="Save" ng-click="print_bill(id_header)">Print</button>-->
+			
+			</tr>
+			</table>		
+		</div>	
+	</fieldset>					
+	
+	
+	<!--FOOTER FILDSET-->
+	<fieldset class="col-md-12" >  						
+		<div class="panel panel-default">
+		<legend class="col-md-12 bg-primary"   text-align="center"></legend>
+			
+			<table  class="table"  style="100%" cellpadding="0" cellspacing="0" border="0"> 
+					
+			<tr>
+					<td  align="right" ><label>Destination Type</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 </td>
+					
+					<td  align="right" ><label>Source</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>		
+			
+			<tr>
+					<td  align="right" ><label>Requiester</label></td>
+					<td  align="left" >
+					 <input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					
+					<td  align="right" ><label>Supplier</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>			
+			
+			<tr>
+					<td  align="right" ><label>Organization</label></td>
+					<td  align="left" >
+					 <input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					
+					<td  align="right" ><label>Site</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>			
+			
+			<tr>
+					<td  align="right" ><label>Location</label></td>
+					<td  align="left" >
+					 <input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					
+					<td  align="right" ><label>Contact</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>	
+
+			<tr>
+					<td  align="right" ><label>Subinventory</label></td>
+					<td  align="left" >
+					 <input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					
+					<td  align="right" ><label>Phone</label></td>
+					<td  align="left" ><input type="text" id="start" class="form-control input_field_height"  style="width:200px;"></td>
+					 
+			</tr>
+			
+				
+		</table>
+		
+		<table  class="table"  style="100%" cellpadding="0" cellspacing="0" border="0"> 		 
+		<tr class="bg-warning">
+					<td align="center"><button type="submit" class="btn btn-success">Outside Services</button>  <button type="submit" class="btn btn-success">Catalog</button>  <button type="submit" class="btn btn-success">Distributins</button>  <button type="submit" class="btn btn-success">Approve</button></td>
+			</tr>					
+		</table>
+		
+			
+		</div>	
+	</fieldset>		
+	
+	
+	
+	
+	<div class="clearfix"></div>
+	
+</div>
+                
+
+  </body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,242 @@
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="#" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="#"><b>Phar</b>ma <?php  echo CI_VERSION; ?></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Pharma</b>Soft</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+       
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="hidden-xs">
+				  <?php echo $this->session->userdata('login_name'); ?></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                   <!-- 
+				   <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+				   -->
+                    <p>
+                      Hello	<?php echo $this->session->userdata('login_name'); ?>
+                      <small><?php echo date('d/m/Y');?></small>
+                    </p>
+                  </li>
+               
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Change Password</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+           			  
+            </ul>
+          </div>
+        </nav>
+      </header>
+	  
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel"></div>
+        
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+          <!--<li class="header">SELL SECTION</li>-->
+           
+		    <li><a href="<?php echo ADMIN_BASE_URL?>
+				project_controller/dashboard/"><i class="fa fa-book"></i> 
+			<span>Dash Board</span></a>
+			</li> 
+		
+<?php if($this->session->userdata('login_status')=='SUPER_STOCKIST') { ?>	   
+		
+	<li class="header">DYNAMIC FORM-RPT TEMPLATE</li>
+			<li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Master</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+ 				  <ul class="treeview-menu">
+		 
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteFormReport/list/">
+		<i class="fa fa-circle-o"></i>TEMPLATE FORM SET</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/2/list/">
+		<i class="fa fa-circle-o"></i>TEMPLATE FORM TESTING</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		Project_controller/TemplateReports/Products/">
+		<i class="fa fa-circle-o"></i>TEMPLATE REPORT</a>
+		</li> 
+				 
+        </ul>
+	  </li>
+	
+			
+	<li class="header">MASTER SECTION</li>
+			<li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Master</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+ 				  <ul class="treeview-menu">
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/7/list/">
+		<i class="fa fa-circle-o"></i>General Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/8/list/">
+		<i class="fa fa-circle-o"></i>Company Setting</a>
+		</li> 
+		
+		 
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/2/list/">
+		<i class="fa fa-circle-o"></i>Product Master</a>
+		</li> 
+		
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/4/list/">
+		<i class="fa fa-circle-o"></i>Speciality Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/5/list/">
+		<i class="fa fa-circle-o"></i>Gift Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/6/list/">
+		<i class="fa fa-circle-o"></i>Designation Master</a>
+		</li> 
+				
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+						project_controller/holiday_listing/">
+		<i class="fa fa-circle-o"></i>Office Calender</a>
+		</li>
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/9/list/">
+		<i class="fa fa-circle-o"></i>Vendor Master</a>
+		</li> 	
+				 
+        </ul>
+	  </li>
+	
+	
+			<li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Organisation Structure</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+ 		<ul class="treeview-menu">
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/10/list/">
+		<i class="fa fa-circle-o"></i>Employee Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/12/list/">
+		<i class="fa fa-circle-o"></i>Retailer Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		Project_controller/StockistMaster/13/list/">
+		<i class="fa fa-circle-o"></i>Stockist Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/OrganisationStructure/14/list/">
+		<i class="fa fa-circle-o"></i>Organisation Structure</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>project_controller/doctor_master/add/list/">
+		<i class="fa fa-circle-o"></i>Doctor Master</a>
+		</li> 
+						
+								 
+        </ul>
+	  </li>
+	
+	
+	
+	
+	
+	<li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Activity Entry</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+ 		<ul class="treeview-menu">
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/10/list/">
+		<i class="fa fa-circle-o"></i>Employee Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/TempleteForm/12/list/">
+		<i class="fa fa-circle-o"></i>Retailer Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		Project_controller/StockistMaster/13/list/">
+		<i class="fa fa-circle-o"></i>Stockist Master</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>
+		project_controller/OrganisationStructure/14/list/">
+		<i class="fa fa-circle-o"></i>Organisation Structure</a>
+		</li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>project_controller/doctor_master/add/list/">
+		<i class="fa fa-circle-o"></i>Doctor Master</a>
+		</li> 
+						
+								 
+        </ul>
+	  </li>
+			
+<?php } ?>	
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			  </ul>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>

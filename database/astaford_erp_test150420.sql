@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 12, 2020 at 09:34 PM
+-- Generation Time: Apr 15, 2020 at 12:27 PM
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -34,16 +34,6 @@ CREATE TABLE IF NOT EXISTS `account_setup` (
   `currency_id` int(10) NOT NULL,
   `start_date` date NOT NULL,
   `description` varchar(100) NOT NULL,
-  `grn_dr_ledger_id` int(10) NOT NULL,
-  `grn_cr_ledger_id` int(10) NOT NULL,
-  `service_dr_ledger_id` varchar(20) NOT NULL DEFAULT 'EXPENSES A/C',
-  `service_cr_ledger_id` int(10) NOT NULL,
-  `invoice_match_dr_ledger_id` int(10) NOT NULL,
-  `invoice_match_cr_ledger_id` varchar(20) NOT NULL DEFAULT 'CREDITORS',
-  `invoice_entry_dr_ledger` varchar(20) NOT NULL DEFAULT 'EXPENSES A/C',
-  `invoice_entry_cr_ledger` varchar(20) NOT NULL DEFAULT 'CREDITORS',
-  `payment_dr_ledger` varchar(20) NOT NULL,
-  `payment_cr_ledger` varchar(20) NOT NULL DEFAULT 'BANK_CASH',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -51,8 +41,8 @@ CREATE TABLE IF NOT EXISTS `account_setup` (
 -- Dumping data for table `account_setup`
 --
 
-INSERT INTO `account_setup` (`id`, `name`, `legal_entity_id`, `chart_of_account_id`, `calendar_id`, `currency_id`, `start_date`, `description`, `grn_dr_ledger_id`, `grn_cr_ledger_id`, `service_dr_ledger_id`, `service_cr_ledger_id`, `invoice_match_dr_ledger_id`, `invoice_match_cr_ledger_id`, `invoice_entry_dr_ledger`, `invoice_entry_cr_ledger`, `payment_dr_ledger`, `payment_cr_ledger`) VALUES
-(2, 'Test Setup', 4, 149, 9, 3, '2019-01-01', '', 0, 0, 'EXPENSES A/C', 0, 0, 'CREDITORS', 'EXPENSES A/C', 'CREDITORS', '', 'BANK_CASH');
+INSERT INTO `account_setup` (`id`, `name`, `legal_entity_id`, `chart_of_account_id`, `calendar_id`, `currency_id`, `start_date`, `description`) VALUES
+(2, 'Test Setup', 1, 264, 9, 3, '2019-01-01', '');
 
 -- --------------------------------------------------------
 
@@ -912,7 +902,7 @@ CREATE TABLE IF NOT EXISTS `company_details` (
 --
 
 INSERT INTO `company_details` (`id`, `parent_id`, `NAME`, `ADDRESS`, `MOB_NOS`, `EMAIL_IDS`, `SMS_KEY`, `COMP_ID`, `billing_emp_id`, `billing_emp_desig`, `DLNO1`, `GSTNo`, `BankDetails`, `company_type`, `location_id`) VALUES
-(1, 0, 'ATA ERP', '145, GOURI NATH SHASTRI SARANI, SHYAMNAGAR<br> ROAD, P.S. - DUM DUM, KOLKATA - 700055', '9831148647 / 6289228192 1', 'info@astaford.in', '77477AbwBFRMdBFd5533c1f5', 'Sanjeevani', 270, 2, 'WB/KOL/BIO/W/211109,WB/KOL/NBO/W/211109', '19ABBCS1813L1Z8', 'Bank Detail', 62, 2),
+(1, 0, 'ATA ERP-1', '145, GOURI NATH SHASTRI SARANI, SHYAMNAGAR<br> ROAD, P.S. - DUM DUM, KOLKATA - 700055', '9831148647 / 6289228192 1', 'info@astaford.in', '77477AbwBFRMdBFd5533c1f5', 'Sanjeevani', 270, 2, 'WB/KOL/BIO/W/211109,WB/KOL/NBO/W/211109', '19ABBCS1813L1Z8', 'Bank Detail', 62, 2),
 (2, 1, 'Branch', '', '', '', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 64, 0),
 (3, 1, 'Adequate Solutions', '', '', '', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 64, 0),
 (4, 0, 'PSG', '123 Shanta Western Tower Tejgoan road', '', 'xyz@psgbd.co', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '983464', '', '1299008867542', 60, 6);
@@ -933,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `frmrptgeneralmaster` (
   `comment` varchar(200) NOT NULL,
   `active_inactive` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=149 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=159 ;
 
 --
 -- Dumping data for table `frmrptgeneralmaster`
@@ -1066,8 +1056,18 @@ INSERT INTO `frmrptgeneralmaster` (`id`, `FieldID`, `FieldVal`, `Status`, `paren
 (144, 'Sales Invoice', 'Sales Invoice', 'TRANSACTION_TYPE', 0, 0, '', ''),
 (145, 'required', 'required', 'validation_type', 0, 0, '', ''),
 (146, 'NA', 'NA', 'validation_type', 0, 0, '', ''),
-(147, 'CHILD', 'CHILD', 'acc_type', 0, 0, '', ''),
-(148, 'PARENT', 'PARENT', 'acc_type', 0, 0, '', '');
+(147, 'PRIMARY', 'PRIMARY', 'OPM_PRICING', 0, 0, '', ''),
+(148, 'SECONDARY', 'SECONDARY', 'OPM_PRICING', 0, 0, '', ''),
+(149, 'OPM-RESOURCE-CLASS', 'OPM-RESOURCE-CLASS', 'LOV', 0, 0, '', ''),
+(150, 'OPM-COST-COMPONENT', 'OPM-COST-COMPONENT', 'LOV', 0, 0, '', ''),
+(151, 'Eqipment', 'Eqipment', 'LIST', 150, 0, 'Eqipment', 'ACTIVE'),
+(152, 'PRODUCT', 'PRODUCT', 'OPM_FORMULA_PRODUCCT_TYPE', 0, 0, '', ''),
+(153, 'BY-PRODUCT', 'BY-PRODUCT', 'OPM_FORMULA_PRODUCCT_TYPE', 0, 0, '', ''),
+(154, 'INGREDIENTS', 'INGREDIENTS', 'OPM_FORMULA_PRODUCCT_TYPE', 0, 0, '', ''),
+(155, 'HOUR', 'HOUR', 'LIST', 120, 0, 'HOUR', 'ACTIVE'),
+(156, 'RAW MATERIAL', 'RAW MATERIAL', 'ITEM_TYPE', 0, 0, '', ''),
+(157, 'PARENT', 'PARENT', 'acc_type', 0, 0, '', ''),
+(158, 'CHILD', 'CHILD', 'acc_type', 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -1097,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatedetails` (
   `LinkField` varchar(40) NOT NULL,
   `validation_type` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=969 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1647 ;
 
 --
 -- Dumping data for table `frmrpttemplatedetails`
@@ -1107,31 +1107,31 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (15, 7, 'FieldID', 'frmrptgeneralmaster', 'text', '', '', '', 'Field ID', '3', 1, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 0),
 (16, 7, 'FieldVal', 'frmrptgeneralmaster', 'text', '', '', '', 'Field Value', '6', 1, 2, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 0),
 (17, 7, 'Status', 'frmrptgeneralmaster', 'text', '', '', '', 'Status', '3', 1, 3, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 0),
-(18, 8, 'NAME', 'company_details', 'text', '', '', '', 'Name', '3', 1, 1, '', '', '', '', 'HEADER', 'company_details', 'id', 0),
-(19, 8, 'ADDRESS', 'company_details', 'text_area', '', '', '', 'Address', '6', 1, 2, '', '', '', '', 'HEADER', 'company_details', 'id', 0),
-(20, 8, 'MOB_NOS', 'company_details', 'text', '', '', '', 'Contact No', '3', 1, 3, '', '', '', '', 'HEADER', 'company_details', 'id', 0),
-(21, 8, 'EMAIL_IDS', 'company_details', 'text', '', '', '', 'Email', '3', 1, 4, '', '', '', '', 'HEADER', 'company_details', 'id', 0),
-(183, 8, 'location_id', 'company_details', 'SingleSelect', '', '', '', 'Location', '3', 1, 10, 'select id FieldID,name FieldVal  from tbl_location order by   NAME ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(182, 27, 'location_type', 'tbl_location', 'SingleSelect', '', '', '', 'Location Type', '3', 1, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=48 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(18, 8, 'NAME', 'company_details', 'text', '', '', '', 'Name', '3', 0, 1, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
+(19, 8, 'ADDRESS', 'company_details', 'text', '', '', '', 'Address', '6', 0, 2, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
+(20, 8, 'MOB_NOS', 'company_details', 'text', '', '', '', 'Contact No', '3', 0, 3, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
+(21, 8, 'EMAIL_IDS', 'company_details', 'text', '', '', '', 'Email', '3', 0, 4, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
+(183, 8, 'location_id', 'company_details', 'text', '', '', '', 'Location', '3', 0, 10, 'select id FieldID,name FieldVal  from tbl_location order by   NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(182, 27, 'location_type', 'tbl_location', 'text', '', '', '', 'Location Type', '3', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=48 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (163, 25, 'where_cond', 'frmrpt_simple_query_builder', 'text', '', '', '', 'where_cond', '6', 1, 5, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (162, 25, 'field_name', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Field Name', '3', 1, 4, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (161, 25, 'table_name', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Table Name/Sql Query', '3', 1, 3, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (160, 25, 'query_name', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Query Name', '3', 1, 2, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (159, 25, 'FormRptName', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Frm Report Name', '3', 1, 1, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
-(32, 10, 'code', 'tbl_employee_mstr', 'text', '', '', '', 'Code', '3', 1, 1, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(33, 10, 'name', 'tbl_employee_mstr', 'text', '', '', '', 'Name', '3', 1, 2, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 0),
-(34, 10, 'address', 'tbl_employee_mstr', 'text', '', '', '', 'Address', '3', 1, 3, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(35, 10, 'contactno', 'tbl_employee_mstr', 'text', '', '', '', 'Contact No', '3', 1, 4, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(36, 10, 'email', 'tbl_employee_mstr', 'text', '', '', '', 'Email', '6', 1, 6, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(187, 14, 'company_details_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Under Legal Entity', '2', 1, 4, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME ', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 0),
-(38, 10, 'userid', 'tbl_employee_mstr', 'text', '', '', '', 'User Id', '3', 1, 7, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(39, 10, 'password', 'tbl_employee_mstr', 'password', '', '', '', 'Password', '3', 1, 8, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(40, 10, 'login_status', 'tbl_employee_mstr', 'SingleSelect', '', '', '', 'Login Type', '3', 1, 9, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''LOGINTYPE''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(41, 10, 'status', 'tbl_employee_mstr', 'SingleSelect', '', '', '', 'Status', '3', 1, 10, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 0),
-(184, 10, 'USER_TYPE', 'tbl_employee_mstr', 'hidden', 'USER', '', '', 'USER_TYPE', '1', 1, 12, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 0),
-(69, 14, 'hierarchy_name', 'tbl_hierarchy_org', 'text', '', '', '', 'Unit Name', '4', 1, 2, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 0),
-(185, 14, 'unit_type_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Type', '2', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=53 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 0),
-(186, 14, 'under_tbl_hierarchy_org', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Parent Operation Unit', '2', 1, 3, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where id>1  order by   hierarchy_name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 0),
+(32, 10, 'code', 'tbl_employee_mstr', 'text', '', '', '', 'Code', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(33, 10, 'name', 'tbl_employee_mstr', 'text', '', '', '', 'Name', '3', 0, 2, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
+(34, 10, 'address', 'tbl_employee_mstr', 'text', '', '', '', 'Address', '3', 0, 3, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(35, 10, 'contactno', 'tbl_employee_mstr', 'text', '', '', '', 'Contact No', '3', 0, 4, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(36, 10, 'email', 'tbl_employee_mstr', 'text', '', '', '', 'Email', '6', 0, 6, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(187, 14, 'company_details_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Under Legal Entity', '2', 0, 4, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
+(38, 10, 'userid', 'tbl_employee_mstr', 'text', '', '', '', 'User Id', '3', 0, 7, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(39, 10, 'password', 'tbl_employee_mstr', 'text', '', '', '', 'Password', '3', 0, 8, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(40, 10, 'login_status', 'tbl_employee_mstr', 'text', '', '', '', 'Login Type', '3', 0, 9, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''LOGINTYPE''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(41, 10, 'status', 'tbl_employee_mstr', 'text', '', '', '', 'Status', '3', 0, 10, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(184, 10, 'USER_TYPE', 'tbl_employee_mstr', 'hidden', 'USER', '', '', 'USER_TYPE', '1', 0, 12, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
+(69, 14, 'hierarchy_name', 'tbl_hierarchy_org', 'text', '', '', '', 'Unit Name', '4', 0, 2, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 145),
+(185, 14, 'unit_type_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=53 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
+(186, 14, 'under_tbl_hierarchy_org', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Parent Operation Unit', '2', 0, 3, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where id>1  order by   hierarchy_name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
 (72, 15, 'tran_type', 'employee_daily_trn', 'SingleSelect', '', 'fa-edit', '', 'Tran Type', '3', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''EmployeeOtherActivity''  order by   FieldVal', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
 (73, 15, 'tran_date', 'employee_daily_trn', 'datefield', '', 'fa-edit', '', 'Date', '3', 1, 1, '', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
 (74, 15, 'tran_desc', 'employee_daily_trn', 'text', '', 'fa-edit', '', 'Description', '6', 1, 3, '', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
@@ -1142,97 +1142,97 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (191, 28, 'parent_id', 'software_architecture_details', 'SingleSelect', '', '', '', 'Parent(If Any)', '2', 1, 2, 'select  id FieldID,name FieldVal  from software_architecture_details where id>0  order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (190, 28, 'name', 'software_architecture_details', 'text', '', '', '', 'Name', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (108, 20, 'under_tbl_hierarchy_org', 'tbl_hierarchy_org', 'text', '', '', '', '', '1', 1, 2, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'under_tbl_hierarchy_org', 0),
-(180, 27, 'name', 'tbl_location', 'text', '', '', '', 'Name', '3', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(203, 10, 'software_archi_role_manage_id', 'tbl_employee_mstr', 'SingleSelect', '', '', '', 'Select Roll', '3', 1, 11, 'select  id FieldID,roll_name FieldVal  from software_archi_role_manage where data_type=''HEADER''  and status=''ACTIVE'' order by   roll_name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 0),
+(180, 27, 'name', 'tbl_location', 'text', '', '', '', 'Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(203, 10, 'software_archi_role_manage_id', 'tbl_employee_mstr', 'text', '', '', '', 'Select Roll', '3', 0, 11, 'select  id FieldID,roll_name FieldVal  from software_archi_role_manage where data_type=''HEADER''  and status=''ACTIVE'' order by   roll_name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
 (202, 30, 'data_type', 'software_archi_role_manage', 'hidden', 'HEADER', '', '', '', '1', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (201, 30, 'status', 'software_archi_role_manage', 'SingleSelect', '', '', '', 'Status', '4', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (199, 29, 'data_type', 'software_architecture_details', 'hidden', '73', '', '', '', '1', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (200, 30, 'roll_name', 'software_archi_role_manage', 'text', '', '', '', 'Roll Name', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (198, 29, 'status', 'software_architecture_details', 'SingleSelect', '', '', '', 'Status', '4', 1, 5, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(188, 14, 'city_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Location', '2', 1, 5, 'select  id FieldID,name FieldVal  from tbl_location   order by   name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 0),
+(188, 14, 'city_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Location', '2', 0, 5, 'select  id FieldID,name FieldVal  from tbl_location   order by   name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
 (197, 29, 'orderby', 'software_architecture_details', 'text', '', '', '', 'Order By', '4', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (196, 29, 'controller_path', 'software_architecture_details', 'text', '', '', '', 'Path(URL)', '6', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (195, 29, 'parent_id', 'software_architecture_details', 'SingleSelect', '', '', '', 'Menu header ', '3', 1, 2, 'select  id FieldID,name FieldVal  from software_architecture_details where data_type=72  order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (164, 25, 'type', 'frmrpt_simple_query_builder', 'SingleSelect', '', '', '', 'TYPE', '3', 1, 6, 'select FieldID,FieldVal from  frmrptgeneralmaster where Status=''QUERY_TYPE''', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
-(166, 8, 'BankDetails', 'company_details', 'text', '', '', '', 'Bank Details', '6', 1, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(172, 8, 'GSTNo', 'company_details', 'text', '', '', '', 'GSTNo', '2', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(173, 8, 'DLNO1', 'company_details', 'text', '', '', '', 'DLNO', '2', 1, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(179, 8, 'parent_id', 'company_details', 'SingleSelect', '', '', '', 'Parent Company', '3', 1, 9, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(178, 8, 'company_type', 'company_details', 'SingleSelect', '', '', '', 'Type of Company', '3', 1, 8, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=42 and active_inactive=''ACTIVE'' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(204, 27, 'code', 'tbl_location', 'text', '', '', '', 'Code', '2', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(205, 27, 'address', 'tbl_location', 'text', '', '', '', 'Address', '4', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(206, 27, 'contactno', 'tbl_location', 'text', '', '', '', 'Contact No', '3', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(207, 27, 'contact_person', 'tbl_location', 'text', '', '', '', 'Contact Person', '3', 1, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(166, 8, 'BankDetails', 'company_details', 'text', '', '', '', 'Bank Details', '6', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(172, 8, 'GSTNo', 'company_details', 'text', '', '', '', 'GSTNo', '2', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(173, 8, 'DLNO1', 'company_details', 'text', '', '', '', 'DLNO', '2', 0, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(179, 8, 'parent_id', 'company_details', 'text', '', '', '', 'Parent Company', '3', 0, 9, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(178, 8, 'company_type', 'company_details', 'text', '', '', '', 'Type of Company', '3', 0, 8, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=42 and active_inactive=''ACTIVE'' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(204, 27, 'code', 'tbl_location', 'text', '', '', '', 'Code', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(205, 27, 'address', 'tbl_location', 'text', '', '', '', 'Address', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(206, 27, 'contactno', 'tbl_location', 'text', '', '', '', 'Contact No', '3', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(207, 27, 'contact_person', 'tbl_location', 'text', '', '', '', 'Contact Person', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (208, 31, 'code', 'tbl_currency_master', 'text', '', '', '', 'Code', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (209, 31, 'name', 'tbl_currency_master', 'text', '', '', '', 'Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (210, 31, 'description', 'tbl_currency_master', 'text', '', '', '', 'Description', '3', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (211, 31, 'issue_teritory', 'tbl_currency_master', 'text', '', '', '', 'Issue Teritory', '3', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (212, 31, 'symbol', 'tbl_currency_master', 'text', '', '', '', 'Symbol', '2', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (213, 31, 'precision', 'tbl_currency_master', 'text', '', '', '', 'Precision', '1', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(214, 32, 'period_type', 'tbl_calender', 'text', '', '', '', 'Period Type', '2', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(215, 32, 'period_per_year', 'tbl_calender', 'text', '', '', '', 'period_per_year', '2', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(216, 32, 'description', 'tbl_calender', 'text', '', '', '', 'Description', '5', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(217, 33, 'country', 'mstr_bank', 'SingleSelect', '', '', '', 'Country', '3', 1, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where parent_id=86  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(218, 33, 'bank_name', 'mstr_bank', 'text', '', '', '', 'Bank Name', '3', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(219, 33, 'alternate_bank_name', 'mstr_bank', 'text', '', '', '', 'Alternate Bank Name', '3', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(220, 33, 'short_bank_name', 'mstr_bank', 'text', '', '', '', 'Short Bank Name', '3', 1, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(221, 33, 'bank_number', 'mstr_bank', 'text', '', '', '', 'Bank Number', '2', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(222, 33, 'description', 'mstr_bank', 'text', '', '', '', 'Description', '2', 1, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(223, 33, 'taxpayer_id', 'mstr_bank', 'text', '', '', '', 'Taxpayer Id', '2', 1, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(224, 33, 'tax_registration_number', 'mstr_bank', 'text', '', '', '', 'Tax Registration Number', '3', 1, 9, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(226, 33, 'inactive_date', 'mstr_bank', 'datefield', '', '', '', 'Inactive Date', '3', 1, 12, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(227, 33, 'context_value', 'mstr_bank', 'text', '', '', '', 'Context Value', '3', 1, 13, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(228, 33, 'line_of_bussiness_of_party', 'mstr_bank', 'text', '', '', '', 'Line Of Bussiness Of Party', '3', 1, 11, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(229, 33, 'line_of_bussiness_of_party', 'mstr_bank', 'text', '', '', '', 'Line Of Bussiness Of Party', '3', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(230, 33, 'address_line_1', 'mstr_bank', 'text', '', '', '', 'Address Line 1', '3', 1, 14, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(231, 33, 'address_line_2', 'mstr_bank', 'text', '', '', '', 'Address Line 2', '3', 1, 15, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(232, 33, 'city', 'mstr_bank', 'text', '', '', '', 'City', '3', 1, 16, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(233, 33, 'state', 'mstr_bank', 'text', '', '', '', 'state', '3', 1, 17, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(234, 33, 'postal_code', 'mstr_bank', 'text', '', '', '', 'Postal Code', '3', 1, 18, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(235, 33, 'status', 'mstr_bank', 'SingleSelect', '', '', '', 'Status', '3', 1, 21, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(269, 33, 'account_no', 'mstr_bank', 'text', '', '', '', 'Account No', '2', 1, 19, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(268, 33, 'ifc_code', 'mstr_bank', 'text', '', '', '', 'Ifc Code', '2', 1, 20, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(238, 35, 'customer_name', 'mstr_customer', 'text', '', '', '', 'Customer Name', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(239, 35, 'billing_name', 'mstr_customer', 'text', '', '', '', 'Billing Name', '3', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(240, 35, 'address', 'mstr_customer', 'text', '', '', '', 'Address', '2', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(241, 35, 'phone_no', 'mstr_customer', 'text', '', '', '', 'Phone No', '2', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(242, 35, 'credit_limit', 'mstr_customer', 'text', '', '', '', 'Credit Limit', '3', 1, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(243, 35, 'credit_days', 'mstr_customer', 'text', '', '', '', 'Credit Days', '3', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(244, 35, 'currency_id', 'mstr_customer', 'text', '', '', '', 'Currency Id', '3', 1, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(245, 35, 'status', 'mstr_customer', 'SingleSelect', '', '', '', 'Status', '2', 1, 8, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(246, 36, 'first_name', 'mstr_employee', 'text', '', '', '', 'First Name', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(247, 36, 'last_name', 'mstr_employee', 'text', '', '', '', 'Last Name', '3', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(248, 36, 'gender', 'mstr_employee', 'text', '', '', '', 'Gender', '2', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(249, 36, 'identification_id', 'mstr_employee', 'text', '', '', '', 'Identification Id', '3', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(250, 36, 'identification_no', 'mstr_employee', 'text', '', '', '', 'Identification No', '3', 1, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(251, 36, 'dob', 'mstr_employee', 'datefield', '', '', '', 'Date Of Birth', '3', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(252, 36, 'address', 'mstr_employee', 'text_area', '', '', '', 'Address', '4', 1, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(253, 36, 'phoneno', 'mstr_employee', 'text', '', '', '', 'Phone no', '3', 1, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(254, 36, 'effective_date_from ', 'mstr_employee', 'datefield', '', '', '', 'Effective Date From ', '3', 1, 9, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(255, 36, 'effective_date_to', 'mstr_employee', 'datefield', '', '', '', 'Effective Date To', '3', 1, 10, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(256, 36, 'latest_start_date', 'mstr_employee', 'datefield', '', '', '', 'Latest Start Date', '3', 1, 11, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(257, 36, 'employee_picture', 'mstr_employee', 'FILE_UPLOAD', '', '', '', 'Employee Picture', '3', 1, 12, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(258, 36, 'status', 'mstr_employee', 'SingleSelect', '', '', '', 'Status', '2', 1, 13, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(259, 37, 'name', 'mstr_product', 'text', '', '', '', 'Name', '2', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(260, 37, 'description', 'mstr_product', 'text', '', '', '', 'Description', '2', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(261, 37, 'status', 'mstr_product', 'SingleSelect', '', '', '', 'Status', '2', 1, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(262, 38, 'name', 'mstr_supplier', 'text', '', '', '', 'Name', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(263, 38, 'address', 'mstr_supplier', 'text', '', '', '', 'Address', '6', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(264, 38, 'phone_no', 'mstr_supplier', 'text', '', '', '', 'Phone No', '4', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(265, 38, 'contact_person', 'mstr_supplier', 'text', '', '', '', 'Contact Person', '4', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(266, 38, 'country', 'mstr_supplier', 'SingleSelect', '', '', '', 'Location', '4', 1, 5, 'select id FieldID,name FieldVal  from tbl_location order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(267, 38, 'status', 'mstr_supplier', 'SingleSelect', '', '', '', 'Status', '4', 1, 6, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(214, 32, 'period_type', 'tbl_calender', 'text', '', '', '', 'Period Type', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(215, 32, 'period_per_year', 'tbl_calender', 'text', '', '', '', 'period_per_year', '2', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(216, 32, 'description', 'tbl_calender', 'text', '', '', '', 'Description', '5', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(217, 33, 'country', 'mstr_bank', 'text', '', '', '', 'Country', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where parent_id=86  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(218, 33, 'bank_name', 'mstr_bank', 'text', '', '', '', 'Bank Name', '3', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(219, 33, 'alternate_bank_name', 'mstr_bank', 'text', '', '', '', 'Alt Bank Name', '3', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(220, 33, 'short_bank_name', 'mstr_bank', 'text', '', '', '', 'Short Bank Name', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(221, 33, 'bank_number', 'mstr_bank', 'text', '', '', '', 'Bank Number', '2', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(222, 33, 'description', 'mstr_bank', 'text', '', '', '', 'Description', '2', 0, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(223, 33, 'taxpayer_id', 'mstr_bank', 'text', '', '', '', 'Taxpayer Id', '2', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(224, 33, 'tax_registration_number', 'mstr_bank', 'text', '', '', '', 'Tax Reg No', '3', 0, 9, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(226, 33, 'inactive_date', 'mstr_bank', 'datefield', '', '', '', 'Inactive Date', '3', 0, 12, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(227, 33, 'context_value', 'mstr_bank', 'text', '', '', '', 'Context Value', '3', 0, 13, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(228, 33, 'line_of_bussiness_of_party', 'mstr_bank', 'text', '', '', '', 'Line Of Bussiness', '3', 0, 11, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(229, 33, 'line_of_bussiness_of_party', 'mstr_bank', 'text', '', '', '', 'Line Of Bussiness', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(230, 33, 'address_line_1', 'mstr_bank', 'text', '', '', '', 'Address Line 1', '3', 0, 14, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(231, 33, 'address_line_2', 'mstr_bank', 'text', '', '', '', 'Address Line 2', '3', 0, 15, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(232, 33, 'city', 'mstr_bank', 'text', '', '', '', 'City', '3', 0, 16, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(233, 33, 'state', 'mstr_bank', 'text', '', '', '', 'state', '3', 0, 17, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(234, 33, 'postal_code', 'mstr_bank', 'text', '', '', '', 'Postal Code', '3', 0, 18, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(235, 33, 'status', 'mstr_bank', 'text', '', '', '', 'Status', '3', 0, 21, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(269, 33, 'account_no', 'mstr_bank', 'text', '', '', '', 'Account No', '2', 0, 19, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(268, 33, 'ifc_code', 'mstr_bank', 'text', '', '', '', 'Ifc Code', '2', 0, 20, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(238, 35, 'customer_name', 'mstr_customer', 'text', '', '', '', 'Customer Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(239, 35, 'billing_name', 'mstr_customer', 'text', '', '', '', 'Billing Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(240, 35, 'address', 'mstr_customer', 'text', '', '', '', 'Address', '2', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(241, 35, 'phone_no', 'mstr_customer', 'text', '', '', '', 'Phone No', '2', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(242, 35, 'credit_limit', 'mstr_customer', 'text', '', '', '', 'Credit Limit', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(243, 35, 'credit_days', 'mstr_customer', 'text', '', '', '', 'Credit Days', '3', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(244, 35, 'currency_id', 'mstr_customer', 'text', '', '', '', 'Currency Id', '3', 0, 7, 'select  id FieldID,name FieldVal  from tbl_currency_master order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(245, 35, 'status', 'mstr_customer', 'text', '', '', '', 'Status', '2', 0, 8, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(246, 36, 'first_name', 'mstr_employee', 'text', '', '', '', 'First Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(247, 36, 'last_name', 'mstr_employee', 'text', '', '', '', 'Last Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(248, 36, 'gender', 'mstr_employee', 'text', '', '', '', 'Gender', '2', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(249, 36, 'identification_id', 'mstr_employee', 'text', '', '', '', 'Identification Id', '3', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(250, 36, 'identification_no', 'mstr_employee', 'text', '', '', '', 'Identification No', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(251, 36, 'dob', 'mstr_employee', 'datefield', '', '', '', 'Date Of Birth', '3', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(252, 36, 'address', 'mstr_employee', 'text', '', '', '', 'Address', '4', 0, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(253, 36, 'phoneno', 'mstr_employee', 'text', '', '', '', 'Phone no', '3', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(254, 36, 'effective_date_from', 'mstr_employee', 'datefield', '', '', '', 'Eff Date From', '3', 0, 9, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(255, 36, 'effective_date_to', 'mstr_employee', 'datefield', '', '', '', 'Effective Date To', '3', 0, 10, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(256, 36, 'latest_start_date', 'mstr_employee', 'datefield', '', '', '', 'Latest Start Date', '3', 0, 11, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(257, 36, 'employee_picture', 'mstr_employee', 'hidden', '', '', '', 'Employee Picture', '3', 0, 12, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(258, 36, 'status', 'mstr_employee', 'text', '', '', '', 'Status', '2', 0, 13, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(259, 37, 'name', 'mstr_product', 'text', '', '', '', 'Name', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(260, 37, 'description', 'mstr_product', 'text', '', '', '', 'Description', '2', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(261, 37, 'status', 'mstr_product', 'SingleSelect', '', '', '', 'Status', '2', 0, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(262, 38, 'name', 'mstr_supplier', 'text', '', '', '', 'Name', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(263, 38, 'address', 'mstr_supplier', 'text', '', '', '', 'Address', '6', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(264, 38, 'phone_no', 'mstr_supplier', 'text', '', '', '', 'Phone No', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(265, 38, 'contact_person', 'mstr_supplier', 'text', '', '', '', 'Contact Person', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(266, 38, 'country', 'mstr_supplier', 'SingleSelect', '', '', '', 'Location', '4', 0, 5, 'select id FieldID,name FieldVal  from tbl_location order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(267, 38, 'status', 'mstr_supplier', 'SingleSelect', '', '', '', 'Status', '4', 0, 6, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (278, 40, 'name', 'account_setup', 'text', '', '', '', 'Setup Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (279, 40, 'description', 'account_setup', 'text', '', '', '', 'Description', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(280, 40, 'start_date', 'account_setup', 'datefield', '', '', '', 'Start Date', '2', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(281, 40, 'chart_of_account_id', 'account_setup', 'SingleSelect', '', '', '', 'Chart Of Account', '3', 0, 4, 'select id FieldID,title FieldVal from tbl_chart_of_accounts where trantype=''CHART_OF_ACCOUNT'' and status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(282, 40, 'currency_id', 'account_setup', 'SingleSelect', '', '', '', 'Currency', '3', 0, 5, 'select id FieldID,name FieldVal from tbl_currency_master order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(283, 40, 'calendar_id', 'account_setup', 'SingleSelect', '', '', '', 'Calendar', '3', 0, 6, 'select id FieldID,period_type FieldVal from tbl_calender where parent_id=0 order by Description', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(280, 40, 'start_date', 'account_setup', 'datefield', '', '', '', 'Start Date', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(281, 40, 'chart_of_account_id', 'account_setup', 'text', '', '', '', 'Chart Of Account', '3', 0, 4, 'select id FieldID,title FieldVal from tbl_chart_of_accounts where trantype=''CHART_OF_ACCOUNT'' and status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(282, 40, 'currency_id', 'account_setup', 'text', '', '', '', 'Currency', '3', 0, 5, 'select id FieldID,name FieldVal from tbl_currency_master order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(283, 40, 'calendar_id', 'account_setup', 'text', '', '', '', 'Calendar', '3', 0, 6, 'select id FieldID,period_type FieldVal from tbl_calender where parent_id=0 order by Description', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (284, 41, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
 (286, 41, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '4', 0, 3, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
 (287, 41, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (288, 41, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(499, 10, 'account_setup_id', 'tbl_employee_mstr', 'SingleSelect', '', '', '', 'Account Setup', '3', 1, 13, 'select  id FieldID,name FieldVal  from account_setup order by  name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 0),
+(499, 10, 'account_setup_id', 'tbl_employee_mstr', 'text', '', '', '', 'Account Setup', '3', 0, 13, 'select  id FieldID,name FieldVal  from account_setup order by  name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
 (442, 41, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (464, 42, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '6', 3, 3, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=78 and active_inactive=''ACTIVE'' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
 (463, 42, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '6', 2, 2, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=79 and active_inactive=''ACTIVE'' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
@@ -1298,7 +1298,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (482, 48, 'category_id', 'invoice_details', 'text', '', '', '', 'category', '3', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (481, 48, 'type', 'invoice_details', 'text', '', '', '', 'Type', '2', 1, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (480, 48, 'req_srl_number', 'invoice_details', 'text', '', '', '', 'Number', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(498, 40, 'legal_entity_id', 'account_setup', 'SingleSelect', '', '', '', 'Legal Entity', '3', 0, 7, 'select id FieldID,NAME FieldVal from company_details where parent_id=0 order by NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(498, 40, 'legal_entity_id', 'account_setup', 'text', '', '', '', 'Legal Entity', '3', 0, 7, 'select id FieldID,NAME FieldVal from company_details where parent_id=0 order by NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (500, 41, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (501, 41, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (502, 41, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
@@ -1441,54 +1441,54 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (650, 56, 'invoice_paid_total', 'invoice_summary', 'text', '', '', '', 'Paid Total', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (651, 53, 'parent_id', 'invoice_tax_details', 'hidden', '', '', '', 'parent_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (652, 53, 'invoice_summary_id', 'invoice_tax_details', 'hidden', '', '', '', 'invoice_summary_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(653, 57, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(654, 57, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 1, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(655, 57, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 1, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(656, 57, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 1, 4, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(657, 57, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 1, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(658, 57, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 1, 6, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(659, 57, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 1, 7, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(660, 57, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 1, 8, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(661, 57, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 1, 9, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(662, 57, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(663, 57, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 1, 10, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(664, 57, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 1, 11, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
-(665, 57, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 1, 12, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
-(666, 57, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 1, 13, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
-(667, 57, 'Terms_date', 'invoice_summary', 'text', '', '', '', 'Terms Date', '3', 1, 14, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(668, 57, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 1, 15, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(669, 57, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 1, 16, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(670, 57, 'created_date_time', 'invoice_summary', 'LABEL', '', '', '', 'Created On', '3', 1, 17, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(671, 57, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 1, 18, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(672, 57, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 1, 19, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(673, 57, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(674, 57, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(675, 57, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 1, 20, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(676, 57, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(677, 57, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 21, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(678, 57, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(679, 57, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 1, 23, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(680, 57, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 1, 24, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(681, 57, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 1, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(682, 57, 'req_number', 'invoice_summary', 'text', '', '', '', 'Order No', '3', 1, 26, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(683, 57, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Date', '3', 1, 27, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(684, 57, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 1, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(685, 57, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '3', 1, 28, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(686, 57, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 2, 29, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', '', 0),
-(687, 57, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 2, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(688, 57, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 2, 31, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(689, 57, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 3, 32, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(690, 57, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 3, 33, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(691, 57, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 2, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(692, 57, 'req_status', 'invoice_summary', 'LABEL', '91', '', '', 'Status', '4', 2, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 0),
-(693, 57, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '3', 3, 35, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(694, 57, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 4, 36, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(695, 57, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 3, 37, '', '', '', '', 'HEADER', 'tbl_currency_master', '', 0),
-(696, 57, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '3', 4, 38, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(697, 57, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '3', 3, 39, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(698, 57, 'status', 'invoice_summary', 'hidden', 'SALES_ORDER', '', '', 'Tran Type', '4', 3, 40, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 0),
-(699, 57, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 5, 41, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 0),
-(700, 57, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 5, 42, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 0),
+(653, 57, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(654, 57, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(655, 57, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(656, 57, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 4, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(657, 57, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(658, 57, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 6, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(659, 57, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 7, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(660, 57, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 8, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(661, 57, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 9, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(662, 57, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(663, 57, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 10, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(664, 57, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 11, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(665, 57, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 12, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(666, 57, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 13, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(667, 57, 'Terms_date', 'invoice_summary', 'text', '', '', '', 'Terms Date', '3', 0, 14, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(668, 57, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 15, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(669, 57, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 16, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(670, 57, 'created_date_time', 'invoice_summary', 'LABEL', '', '', '', 'Created On', '3', 0, 17, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(671, 57, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 18, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(672, 57, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 19, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(673, 57, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(674, 57, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(675, 57, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 20, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(676, 57, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(677, 57, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 21, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(678, 57, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(679, 57, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 23, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(680, 57, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 24, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(681, 57, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(682, 57, 'req_number', 'invoice_summary', 'text', '', '', '', 'Order No', '3', 0, 26, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(683, 57, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Date', '3', 0, 27, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(684, 57, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(685, 57, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '3', 0, 28, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(686, 57, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 29, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', '', 145),
+(687, 57, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(688, 57, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 31, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(689, 57, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 32, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(690, 57, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 33, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(691, 57, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(692, 57, 'req_status', 'invoice_summary', 'LABEL', '91', '', '', 'Status', '4', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(693, 57, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '3', 0, 35, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(694, 57, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 36, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(695, 57, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 37, '', '', '', '', 'HEADER', 'tbl_currency_master', '', 145),
+(696, 57, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '3', 0, 38, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(697, 57, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '3', 0, 39, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(698, 57, 'status', 'invoice_summary', 'hidden', 'SALES_ORDER', '', '', 'Tran Type', '4', 0, 40, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
+(699, 57, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 41, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
+(700, 57, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 42, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
 (713, 58, 'item_id', 'invoice_details', 'text', '', '', '', 'Item', '4', 1, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'mstr_product', 'id', 0),
 (714, 58, 'category_id', 'invoice_details', 'text', '', '', '', 'category', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (709, 58, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
@@ -1516,80 +1516,80 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (733, 58, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (734, 58, 'Gl_date', 'invoice_details', 'text', '', '', '', 'GL Date', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (735, 58, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book ', '3', 1, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(736, 59, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '1', 1, 1, '', '', '', '', 'FOOTER1', 'tbl_chart_of_accounts', '', 0),
-(737, 59, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '1', 1, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 0),
-(738, 59, 'status', 'invoice_summary', 'hidden', 'ORDER_DESPATCH', '', '', 'Tran Type', '4', 1, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 0),
-(739, 59, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(740, 59, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(741, 59, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 1, 1, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 0),
-(742, 59, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 4, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(743, 59, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 4, 1, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(744, 59, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 2, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(745, 59, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(746, 59, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 3, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(747, 59, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 3, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(748, 59, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(749, 59, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 2, 1, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(750, 59, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 2, 1, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(751, 59, 'req_type', 'invoice_summary', 'text', '', '', '', 'Type', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 0),
-(752, 59, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 2, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(753, 59, 'req_accounting_date', 'invoice_summary', 'text', '', '', '', 'Accounting', '3', 2, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(754, 59, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(755, 59, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(756, 59, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(757, 59, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 1, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(758, 59, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(759, 59, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
-(760, 59, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(761, 59, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(762, 59, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(763, 59, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(764, 59, 'last_updated_by', 'invoice_summary', 'text', '', '', '', 'last_updated_by', '1', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(765, 59, 'last_updated_date_time', 'invoice_summary', 'text', '', '', '', 'last_updated_date_time', '1', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(766, 59, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(767, 59, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(768, 59, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(769, 59, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(770, 59, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(771, 59, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(772, 59, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(773, 59, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(774, 59, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(775, 59, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(776, 59, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(777, 59, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(778, 59, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(779, 59, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(780, 59, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(781, 59, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(782, 59, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 1, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 0),
-(783, 60, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(784, 60, 'price', 'invoice_details', 'text', '', '', '', 'Price', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(785, 60, 'qnty', 'invoice_details', 'text', '', '', '', 'Qnty', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(786, 60, 'description', 'invoice_details', 'text', '', '', '', 'Description', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(787, 60, 'item_id', 'invoice_details', 'text', '', '', '', 'Item', '4', 1, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(788, 60, 'category_id', 'invoice_details', 'text', '', '', '', 'category', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(789, 60, 'type', 'acc_group_ledgers', 'text', '', '', '', 'Type', '2', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(790, 60, 'req_srl_number', 'invoice_details', 'text', '', '', '', 'Number', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(791, 60, 'invoice_summary_id', 'invoice_details', 'hidden', '', '', '', 'invoice_summary_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(792, 60, 'id', 'invoice_details', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(793, 60, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(794, 60, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(795, 60, 'company_id', 'acc_group_ledgers', 'text', '', '', '', 'Company', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts\r\n', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(796, 60, 'segment4', 'invoice_details', 'text', '', '', '', 'segment4', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts\r\n', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(797, 60, 'segment5', 'invoice_details', 'text', '', '', '', 'segment5', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(798, 60, 'segment6', 'invoice_details', 'text', '', '', '', 'segment6', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(799, 60, 'segment7', 'invoice_details', 'text', '', '', '', 'segment7', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(800, 60, 'segment8', 'invoice_details', 'text', '', '', '', 'segment8', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(801, 60, 'segment9', 'invoice_details', 'text', '', '', '', 'segment9', '4', 1, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 0),
-(802, 60, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(803, 60, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(804, 60, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Despatch Qnty', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(805, 60, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(806, 60, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(807, 60, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(808, 60, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(809, 60, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book ', '3', 1, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
+(736, 59, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '1', 0, 5, '', '', '', '', 'FOOTER1', 'tbl_chart_of_accounts', '', 145),
+(737, 59, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '1', 0, 5, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
+(738, 59, 'status', 'invoice_summary', 'hidden', 'ORDER_DESPATCH', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
+(739, 59, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(740, 59, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(741, 59, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 1, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 145),
+(742, 59, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(743, 59, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 5, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(744, 59, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(745, 59, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(746, 59, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(747, 59, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(748, 59, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(749, 59, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 5, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(750, 59, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 2, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(751, 59, 'req_type', 'invoice_summary', 'text', '', '', '', 'Type', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 145),
+(752, 59, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(753, 59, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting', '3', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(754, 59, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(755, 59, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(756, 59, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(757, 59, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 5, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(758, 59, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 5, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(759, 59, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(760, 59, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(761, 59, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Sales Order', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''SALES_ORDER'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(762, 59, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(763, 59, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(764, 59, 'last_updated_by', 'invoice_summary', 'text', '', '', '', 'last_updated_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(765, 59, 'last_updated_date_time', 'invoice_summary', 'text', '', '', '', 'last_updated_date_time', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(766, 59, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(767, 59, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 5, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(768, 59, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 6, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(769, 59, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(770, 59, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(771, 59, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(772, 59, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(773, 59, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(774, 59, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(775, 59, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(776, 59, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(777, 59, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(778, 59, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(779, 59, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 6, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(780, 59, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(781, 59, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(782, 59, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(783, 60, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(784, 60, 'price', 'invoice_details', 'text', '', '', '', 'Price', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(785, 60, 'qnty', 'invoice_details', 'text', '', '', '', 'Qnty', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(786, 60, 'description', 'invoice_details', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(787, 60, 'item_id', 'invoice_details', 'text', '', '', '', 'Item', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(788, 60, 'category_id', 'invoice_details', 'text', '', '', '', 'category', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(789, 60, 'type', 'acc_group_ledgers', 'text', '', '', '', 'Type', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(790, 60, 'req_srl_number', 'invoice_details', 'text', '', '', '', 'Number', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(791, 60, 'invoice_summary_id', 'invoice_details', 'hidden', '', '', '', 'invoice_summary_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(792, 60, 'id', 'invoice_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(793, 60, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(794, 60, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(795, 60, 'company_id', 'acc_group_ledgers', 'text', '', '', '', 'Company', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(796, 60, 'segment4', 'invoice_details', 'text', '', '', '', 'segment4', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(797, 60, 'segment5', 'invoice_details', 'text', '', '', '', 'segment5', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(798, 60, 'segment6', 'invoice_details', 'text', '', '', '', 'segment6', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(799, 60, 'segment7', 'invoice_details', 'text', '', '', '', 'segment7', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(800, 60, 'segment8', 'invoice_details', 'text', '', '', '', 'segment8', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(801, 60, 'segment9', 'invoice_details', 'text', '', '', '', 'segment9', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(802, 60, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(803, 60, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(804, 60, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Despatch Qnty', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(805, 60, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(806, 60, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(807, 60, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(808, 60, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(809, 60, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (810, 61, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 5, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (811, 61, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 5, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (812, 61, 'status', 'invoice_summary', 'text', '', '', '', 'Tran Type', '4', 3, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 0),
@@ -1686,9 +1686,9 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (904, 63, 'req_number', 'invoice_payment_receive', 'text', '', '', '', 'Number', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (905, 63, 'req_unreserve_date', 'invoice_payment_receive', 'text', '', '', '', 'Unreserve date', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (906, 63, 'req_source', 'invoice_payment_receive', 'text', '', '', '', 'Source', '6', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
-(907, 63, 'req_operating_unit', 'invoice_payment_receive', 'text', '', '', '', 'Operating Unit', '3', 1, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(908, 63, 'req_submit_approval', 'invoice_payment_receive', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0);
+(907, 63, 'req_operating_unit', 'invoice_payment_receive', 'text', '', '', '', 'Operating Unit', '3', 1, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0);
 INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
+(908, 63, 'req_submit_approval', 'invoice_payment_receive', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (909, 63, 'req_destination_type', 'invoice_payment_receive', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (910, 63, 'parent_id', 'invoice_payment_receive', 'text', '', '', '', 'Requisition', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (911, 63, 'id', 'invoice_payment_receive', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
@@ -1733,19 +1733,594 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (953, 48, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 1, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
 (954, 48, 'tax_rate', 'invoice_details', 'text', '', '', '', 'Rate', '3', 1, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
 (955, 48, 'tax_amount', 'invoice_details', 'text', '', '', '', 'Tax Amount', '3', 1, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 0),
-(956, 49, 'acc_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent ?', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''acc_type''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(957, 40, 'grn_dr_ledger_id', 'account_setup', 'text', '', '', '', 'GRN Dr', '6', 0, 8, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
-(958, 40, 'grn_cr_ledger_id', 'account_setup', 'text', '', '', '', 'GRN Cr', '6', 0, 9, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
-(959, 40, 'service_dr_ledger_id', 'account_setup', 'LABEL', 'EXPENSES A/C', '', '', 'Service/Expense Dr', '6', 0, 10, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(960, 40, 'service_cr_ledger_id', 'account_setup', 'text', '', '', '', 'Service/Expense Cr', '6', 0, 11, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(961, 40, 'invoice_match_dr_ledger_id', 'account_setup', 'text', '', '', '', 'Invoice Match Dr', '6', 0, 12, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(962, 40, 'invoice_match_cr_ledger_id', 'account_setup', 'LABEL', 'CREDITORS', '', '', 'Invoice Match Cr', '6', 0, 13, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(964, 40, 'invoice_entry_cr_ledger', 'account_setup', 'LABEL', 'CREDITORS', '', '', 'Invoice Entry Cr', '6', 0, 15, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(963, 40, 'invoice_entry_dr_ledger', 'account_setup', 'LABEL', 'EXPENSES A/C', '', '', 'Invoice Entry Dr', '6', 0, 14, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(965, 40, 'payment_dr_ledger', 'account_setup', 'text', '', '', '', 'Payment Dr', '6', 0, 16, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
-(966, 40, 'payment_cr_ledger', 'account_setup', 'text', '', '', '', 'Payment Cr', '6', 0, 17, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
-(967, 31, 'id', 'tbl_currency_master', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(968, 40, 'id', 'account_setup', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146);
+(956, 65, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(957, 65, 'organization', 'acc_group_ledgers', 'LABEL', '', '', '', 'organization', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(958, 65, 'item', 'acc_group_ledgers', 'text', '', '', '', 'item', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(959, 65, 'description', 'acc_group_ledgers', 'text', '', '', '', 'description', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(960, 65, 'primary', 'acc_group_ledgers', 'text', '', '', '', 'primary', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(961, 65, 'secondary', 'acc_group_ledgers', 'text', '', '', '', 'secondary', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(962, 65, 'pricing', 'acc_group_ledgers', 'text', '', '', '', 'pricing', '4', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_PRICING''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(963, 31, 'id', 'tbl_currency_master', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(964, 66, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(965, 66, 'resource', 'acc_group_ledgers', 'text', '', '', '', 'Resource', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(966, 66, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(967, 66, 'usage_uom', 'acc_group_ledgers', 'text', '', '', '', 'Usage Uom', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(968, 66, 'resource_class', 'acc_group_ledgers', 'text', '', '', '', 'Resource Class', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=149', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(969, 66, 'cost_component_class', 'acc_group_ledgers', 'text', '', '', '', 'Cost Component Class', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=150', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(970, 67, 'id', 'opm_define_operations_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(971, 67, 'operation', 'opm_define_operations_summary', 'text', '', '', '', 'Operation', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(972, 67, 'status', 'opm_define_operations_summary', 'text', '', '', '', 'Status', '6', 0, 1, 'select  id FieldID,name FieldVal  from software_architecture_details where data_type=72  order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(973, 67, 'description', 'opm_define_operations_summary', 'text', '', '', '', 'Description', '9', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(974, 68, 'id', 'opm_define_operations_activity_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(975, 68, 'opm_define_operations_summary_id', 'opm_define_operations_activity_details', 'hidden', '', '', '', 'opm_define_operations_summary_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(976, 68, 'activity', 'opm_define_operations_activity_details', 'text', '', '', '', 'Activity', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(977, 68, 'description', 'opm_define_operations_activity_details', 'text', '', '', '', 'Description', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(978, 69, 'id', 'opm_define_operations_resource_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(979, 69, 'opm_define_operations_summary_id', 'opm_define_operations_resource_details', 'hidden', '', '', '', 'opm_define_operations_summary_id', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(980, 69, 'opm_define_operations_activity_details_id', 'opm_define_operations_resource_details', 'hidden', '', '', '', 'opm_define_operations_activity_details_id', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(981, 69, 'resource', 'opm_define_operations_resource_details', 'text', '', '', '', 'Resource', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(982, 69, 'description', 'opm_define_operations_resource_details', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(983, 69, 'process_quantity', 'opm_define_operations_resource_details', 'text', '', '', '', 'Process Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(984, 69, 'process_quantity_uom', 'opm_define_operations_resource_details', 'text', '', '', '', 'Process UOM', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(985, 69, 'percent', 'opm_define_operations_resource_details', 'text', '', '', '', 'Par', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(986, 69, 'usage_qnty', 'opm_define_operations_resource_details', 'text', '', '', '', 'Usage', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(987, 69, 'usage_uom', 'opm_define_operations_resource_details', 'text', '', '', '', 'Usage Uom', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(988, 70, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(989, 70, 'routing', 'acc_group_ledgers', 'text', '', '', '', 'Routing', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(990, 70, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(991, 70, 'routing_description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(992, 70, 'quentity', 'acc_group_ledgers', 'text', '', '', '', 'Quantity', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(993, 70, 'uom', 'acc_group_ledgers', 'text', '', '', '', 'UOM', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(994, 71, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(995, 71, 'steps', 'acc_group_ledgers', 'text', '', '', '', 'Steps', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(996, 71, 'operation_id', 'acc_group_ledgers', 'text', '', '', '', 'Operation', '4', 0, 1, 'select  id FieldID,operation FieldVal  from opm_define_operations_summary  ORDER BY operation', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(997, 71, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(998, 71, 'qnty', 'acc_group_ledgers', 'text', '', '', '', 'Quantity', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(999, 71, 'uom_id', 'acc_group_ledgers', 'text', '', '', '', 'UOM', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1000, 71, 'opm_define_routing_summery_id', 'acc_group_ledgers', 'hidden', '', '', '', 'opm_define_routing_summery_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1001, 72, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1002, 72, 'recipe', 'acc_group_ledgers', 'text', '', '', '', 'Recipe', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1003, 72, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1004, 72, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1005, 72, 'product_id', 'acc_group_ledgers', 'text', '', '', '', 'Product', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1006, 72, 'formula_id', 'acc_group_ledgers', 'text', '', '', '', 'Formula', '4', 0, 1, 'select  id FieldID,formula FieldVal  from opm_define_formula_summery  ORDER BY formula', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1007, 72, 'routing_id', 'acc_group_ledgers', 'text', '', '', '', 'Routing', '4', 0, 1, 'select  id FieldID,routing FieldVal  from opm_define_routing_summery  ORDER BY routing', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1008, 73, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1009, 73, 'formula', 'acc_group_ledgers', 'text', '', '', '', 'Formula', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1010, 73, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1011, 73, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1012, 74, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1013, 74, 'opm_define_formula_summery_id', 'acc_group_ledgers', 'hidden', '', '', '', 'opm_define_formula_summery_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1014, 74, 'line', 'acc_group_ledgers', 'text', '', '', '', 'Line', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1015, 74, 'product', 'acc_group_ledgers', 'text', '', '', '', 'Product', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1016, 74, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1017, 74, 'quentity', 'acc_group_ledgers', 'text', '', '', '', 'Quantity', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1018, 74, 'product_type', 'acc_group_ledgers', 'text', '', '', '', 'product_type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_FORMULA_PRODUCCT_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1019, 8, 'id', 'company_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1020, 27, 'id', 'tbl_location', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1021, 10, 'id', 'tbl_employee_mstr', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 146),
+(1022, 14, 'id', 'tbl_hierarchy_org', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 146),
+(1023, 32, 'id', 'tbl_calender', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1024, 33, 'id', 'mstr_bank', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1025, 35, 'id', 'mstr_customer', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1026, 36, 'id', 'mstr_employee', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1027, 37, 'id', 'mstr_product', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1028, 37, 'organization', 'mstr_product', 'LABEL', '', '', '', 'organization', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1029, 37, 'primary_uom', 'mstr_product', 'text', '', '', '', 'Primary UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1030, 37, 'secondary_uom', 'mstr_product', 'text', '', '', '', 'Secondary UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1031, 37, 'pricing_uom', 'mstr_product', 'text', '', '', '', 'Pricing UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1032, 37, 'user_item_type', 'mstr_product', 'text', '', '', '', 'User Item Type', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_FORMULA_PRODUCCT_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1034, 38, 'id', 'mstr_supplier', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1035, 38, 'credit_limit', 'mstr_supplier', 'text', '', '', '', 'Credit Limit', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1036, 38, 'credit_days', 'mstr_supplier', 'text', '', '', '', 'Credit Days', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1037, 38, 'currency_id', 'mstr_supplier', 'text', '', '', '', 'Currency', '1', 0, 1, 'select  id FieldID,name FieldVal  from tbl_currency_master order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1038, 75, 'id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1039, 75, 'code', 'tbl_chart_of_accounts', 'text', '', '', '', 'Code', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1040, 75, 'title', 'tbl_chart_of_accounts', 'text', '', '', '', 'Name', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1041, 75, 'description', 'tbl_chart_of_accounts', 'text', '', '', '', 'Description', '12', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1067, 78, 'description', 'tbl_chart_of_accounts', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1066, 78, 'title', 'tbl_chart_of_accounts', 'text', '', '', '', 'Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1065, 78, 'code', 'tbl_chart_of_accounts', 'text', '', '', '', 'Code', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1064, 78, 'parent_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'Chart Of Account', '1', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1063, 78, 'id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1062, 75, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1050, 77, 'id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1051, 77, 'parent_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'Chart Of Account', '1', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1052, 77, 'code', 'tbl_chart_of_accounts', 'text', '', '', '', 'Code', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1053, 77, 'title', 'tbl_chart_of_accounts', 'text', '', '', '', 'Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1054, 77, 'description', 'tbl_chart_of_accounts', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1055, 77, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT_SEGMENT', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1056, 77, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1057, 77, 'data_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Data Type', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_type_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1058, 77, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_main_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1059, 77, 'chart_of_account_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'chart_of_account_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1060, 77, 'segment_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'segment_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1061, 77, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=''CHART_OF_ACCOUNT_VALUESET''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1068, 78, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT_VALUESET', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1069, 78, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1070, 78, 'acc_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent?', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''acc_type''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1071, 78, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''CHART_OF_AC_QUALIFIER''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1072, 78, 'chart_of_account_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'chart_of_account_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1073, 78, 'segment_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'segment_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1074, 78, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=''CHART_OF_ACCOUNT_VALUESET''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1076, 40, 'id', 'account_setup', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1075, 75, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1077, 79, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1078, 79, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1079, 79, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1080, 79, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1081, 79, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1082, 79, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1083, 79, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1084, 79, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1085, 79, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1086, 79, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1087, 79, 'status', 'invoice_summary', 'hidden', 'REQUISITION', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1088, 79, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1089, 79, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1090, 79, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1091, 79, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1092, 79, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1093, 79, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1094, 79, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1095, 79, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1096, 79, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1097, 79, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1098, 79, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1099, 79, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1100, 79, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1101, 79, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1102, 79, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1103, 79, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1104, 79, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1105, 79, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1106, 79, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1107, 79, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1108, 79, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1109, 79, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1110, 79, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1111, 79, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1112, 79, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1113, 79, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1114, 79, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1115, 79, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1116, 79, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1117, 79, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1118, 79, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1119, 79, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1120, 79, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1121, 79, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1122, 79, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1123, 79, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1124, 79, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1125, 80, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1126, 80, 'segment7', 'invoice_details', 'text', '', '', '', 'segment7', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1127, 80, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1128, 80, 'segment5', 'invoice_details', 'text', '', '', '', 'segment5', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1129, 80, 'segment6', 'invoice_details', 'text', '', '', '', 'segment6', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1130, 80, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1131, 80, 'segment4', 'invoice_details', 'text', '', '', '', 'segment4', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1132, 80, 'id', 'invoice_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1133, 80, 'invoice_summary_id', 'invoice_details', 'hidden', '', '', '', 'invoice_summary_id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 145),
+(1134, 80, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 0, 8, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1135, 80, 'price', 'invoice_details', 'text', '', '', '', 'Price', '1', 0, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1136, 80, 'qnty', 'invoice_details', 'LABEL', '', '', '', 'Qnty', '1', 0, 6, '', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 145),
+(1137, 80, 'description', 'invoice_details', 'text', '', '', '', 'Description', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1138, 80, 'item_id', 'invoice_details', 'text', '', '', '', 'Item', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'tbl_location', 'id', 145),
+(1139, 80, 'category_id', 'invoice_details', 'text', '', '', '', 'category', '3', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1140, 80, 'type', 'invoice_details', 'text', '', '', '', 'Type', '2', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1141, 80, 'req_srl_number', 'invoice_details', 'text', '', '', '', 'Number', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1142, 80, 'segment8', 'invoice_details', 'text', '', '', '', 'segment8', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1143, 80, 'segment9', 'invoice_details', 'text', '', '', '', 'segment9', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1144, 80, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1145, 80, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1146, 80, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Received Qnty', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1147, 80, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1148, 80, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1149, 80, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1150, 80, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1151, 80, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1152, 80, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1153, 80, 'tax_rate', 'invoice_details', 'text', '', '', '', 'Rate', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1154, 80, 'tax_amount', 'invoice_details', 'text', '', '', '', 'Tax Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1155, 81, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1156, 81, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1157, 81, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1158, 81, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1159, 81, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1160, 81, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1161, 81, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1162, 81, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1163, 81, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1164, 81, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1165, 81, 'status', 'invoice_summary', 'text', 'REQUISITION', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1166, 81, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1167, 81, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1168, 81, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1169, 81, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1170, 81, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1171, 81, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1172, 81, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1173, 81, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1174, 81, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1175, 81, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1176, 81, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1177, 81, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1178, 81, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1179, 81, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1180, 81, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1181, 81, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1182, 81, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1183, 81, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1184, 81, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1185, 81, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1186, 81, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1187, 81, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1188, 81, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1189, 81, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1190, 81, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1191, 81, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1192, 81, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1193, 81, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1194, 81, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1195, 81, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1196, 81, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1197, 81, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1198, 81, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1199, 81, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1200, 81, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1201, 81, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1202, 81, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1203, 82, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1204, 82, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1205, 82, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145);
+INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
+(1206, 82, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1207, 82, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1208, 82, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1209, 82, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1210, 82, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1211, 82, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1212, 82, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1213, 82, 'status', 'invoice_summary', 'hidden', 'PO_ENTRY', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1214, 82, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1215, 82, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1216, 82, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1217, 82, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1218, 82, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1219, 82, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1220, 82, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1221, 82, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1222, 82, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1223, 82, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1224, 82, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1225, 82, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1226, 82, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1227, 82, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1228, 82, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1229, 82, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1230, 82, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1231, 82, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1232, 82, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1233, 82, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1234, 82, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1235, 82, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1236, 82, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1237, 82, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1238, 82, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1239, 82, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1240, 82, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1241, 82, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1242, 82, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1243, 82, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1244, 82, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1245, 82, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1246, 82, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1247, 82, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1248, 82, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1249, 82, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1250, 82, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1251, 83, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1252, 83, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1253, 83, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1254, 83, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1255, 83, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1256, 83, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1257, 83, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1258, 83, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1259, 83, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1260, 83, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1261, 83, 'status', 'invoice_summary', 'hidden', 'PO_ENTRY', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1262, 83, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1263, 83, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1264, 83, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1265, 83, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1266, 83, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1267, 83, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1268, 83, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1269, 83, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1270, 83, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1271, 83, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1272, 83, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1273, 83, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1274, 83, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1275, 83, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1276, 83, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1277, 83, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1278, 83, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1279, 83, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1280, 83, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1281, 83, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1282, 83, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1283, 83, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1284, 83, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1285, 83, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1286, 83, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1287, 83, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1288, 83, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1289, 83, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1290, 83, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1291, 83, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1292, 83, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1293, 83, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1294, 83, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1295, 83, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1296, 83, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1297, 83, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1298, 83, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1299, 84, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 2, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1300, 84, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1301, 84, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1302, 84, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1303, 84, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1304, 84, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1305, 84, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1306, 84, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1307, 84, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1308, 84, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1309, 84, 'status', 'invoice_summary', 'hidden', 'GRN_ENTRY', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1310, 84, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1311, 84, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1312, 84, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1313, 84, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1314, 84, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1315, 84, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1316, 84, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1317, 84, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1318, 84, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1319, 84, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1320, 84, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1321, 84, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1322, 84, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1323, 84, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter   PO No', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''PO_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1324, 84, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1325, 84, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1326, 84, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1327, 84, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1328, 84, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1329, 84, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1330, 84, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1331, 84, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1332, 84, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1333, 84, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1334, 84, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1335, 84, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1336, 84, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1337, 84, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1338, 84, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1339, 84, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1340, 84, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1341, 84, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1342, 84, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1343, 84, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1344, 84, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1345, 84, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1346, 84, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1433, 86, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1434, 86, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1432, 86, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1431, 86, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1430, 86, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1429, 86, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1428, 86, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1427, 86, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1426, 86, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1425, 86, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1424, 86, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1422, 86, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1423, 86, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1421, 86, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1420, 86, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1419, 86, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter GRN No', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''GRN_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1417, 86, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1418, 86, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1416, 86, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1415, 86, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1414, 86, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1413, 86, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1412, 86, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1411, 86, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1410, 86, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1409, 86, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1408, 86, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1407, 86, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1406, 86, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1405, 86, 'status', 'invoice_summary', 'hidden', 'INSPECTION', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1404, 86, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1403, 86, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1402, 86, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1401, 86, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1400, 86, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1399, 86, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1398, 86, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1397, 86, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1396, 86, 'req_type', 'invoice_summary', 'LABEL', '117', '', '', 'Type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=117', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1395, 86, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 2, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1435, 86, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1436, 86, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1437, 86, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1438, 86, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1439, 86, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1440, 86, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1441, 86, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1442, 86, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1443, 87, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1444, 87, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1445, 87, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1446, 87, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1447, 87, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1448, 87, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1449, 87, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1450, 87, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1451, 87, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1452, 87, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1453, 87, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1454, 87, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1455, 87, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1456, 87, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1457, 87, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1458, 87, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter GRN No', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''GRN_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1459, 87, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1460, 87, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1461, 87, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1462, 87, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1463, 87, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1464, 87, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1465, 87, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1466, 87, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1467, 87, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1468, 87, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1469, 87, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1470, 87, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1471, 87, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1472, 87, 'status', 'invoice_summary', 'hidden', 'INSPECTION', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1473, 87, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1474, 87, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1475, 87, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1476, 87, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1477, 87, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1478, 87, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1479, 87, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1480, 87, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1481, 87, 'req_type', 'invoice_summary', 'LABEL', '117', '', '', 'Type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=117', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1482, 87, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 2, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1483, 87, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1484, 87, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1485, 87, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1486, 87, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1487, 87, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1488, 87, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1489, 87, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1490, 87, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1491, 88, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1492, 88, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1493, 88, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1494, 88, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 4, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1495, 88, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1496, 88, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 6, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1497, 88, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 7, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1498, 88, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 8, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1499, 88, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 9, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1500, 88, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1501, 88, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 10, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1502, 88, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 11, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1503, 88, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 12, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1504, 88, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 13, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1505, 88, 'Terms_date', 'invoice_summary', 'text', '', '', '', 'Terms Date', '3', 0, 14, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1506, 88, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 15, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1507, 88, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 16, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1508, 88, 'created_date_time', 'invoice_summary', 'LABEL', '', '', '', 'Created On', '3', 0, 17, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(1509, 88, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 18, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(1510, 88, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 19, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(1511, 88, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1512, 88, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1513, 88, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 20, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(1514, 88, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1515, 88, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 21, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(1516, 88, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1517, 88, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 23, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1518, 88, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 24, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1519, 88, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1520, 88, 'req_number', 'invoice_summary', 'text', '', '', '', 'Order No', '3', 0, 26, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1521, 88, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Date', '3', 0, 27, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1522, 88, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1523, 88, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '3', 0, 28, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1524, 88, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 29, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', '', 145),
+(1525, 88, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1526, 88, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 31, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1527, 88, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 32, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
+(1528, 88, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 33, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1529, 88, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1530, 88, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '6', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1531, 88, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '3', 0, 35, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1532, 88, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 36, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1533, 88, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 37, '', '', '', '', 'HEADER', 'tbl_currency_master', '', 145),
+(1534, 88, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '3', 0, 38, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1535, 88, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '3', 0, 39, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145);
+INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
+(1536, 88, 'status', 'invoice_summary', 'hidden', 'SALES_ORDER', '', '', 'Tran Type', '4', 0, 40, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
+(1537, 88, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 41, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
+(1538, 88, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 42, '', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
+(1539, 89, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1540, 89, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1541, 89, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1542, 89, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1543, 89, 'Payment_method', 'invoice_summary', 'text', '', '', '', 'Pay Method', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=126', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1544, 89, 'Terms', 'invoice_summary', 'text', '', '', '', 'Terms', '3', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=124', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1545, 89, 'Terms_date', 'invoice_summary', 'datefield', '', '', '', 'Terms Date', '3', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1546, 89, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1547, 89, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 5, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
+(1548, 89, 'created_date_time', 'invoice_summary', 'text', '', '', '', 'Created Date Time', '3', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1549, 89, 'last_updated_date_time', 'invoice_summary', 'hidden', '', '', '', 'last_updated_date_time', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1550, 89, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1551, 89, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1552, 89, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
+(1553, 89, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1554, 89, 'parent_id', 'invoice_summary', 'hidden', '', '', '', 'Enter GRN No', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''GRN_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1555, 89, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1556, 89, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Pay Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
+(1557, 89, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1558, 89, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1559, 89, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
+(1560, 89, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1561, 89, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1562, 89, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1563, 89, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 4, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1564, 89, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1565, 89, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1566, 89, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1567, 89, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1568, 89, 'status', 'invoice_summary', 'hidden', 'SALES_INVOICE', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
+(1569, 89, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1570, 89, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1571, 89, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Invoice Date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1572, 89, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
+(1573, 89, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
+(1574, 89, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1575, 89, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1576, 89, 'req_number', 'invoice_summary', 'text', '', '', '', 'Invoice No', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1577, 89, 'req_type', 'invoice_summary', 'hidden', '144', '', '', 'Type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=117', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
+(1578, 89, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 5, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
+(1579, 89, 'invoice_withholding', 'invoice_summary', 'text', '', '', '', 'Withholding', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1580, 89, 'invoice_subtotal', 'invoice_summary', 'text', '', '', '', 'Sub Total', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1581, 89, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1582, 89, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1583, 89, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1584, 89, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1585, 89, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1586, 89, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1645, 91, 'planned_complete', 'opm_batch_summary', 'datefield', '', '', '', 'Planned Complate', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1646, 91, 'required_complate', 'opm_batch_summary', 'datefield', '', '', '', 'Required Complated', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1643, 91, 'product_uom', 'opm_batch_summary', 'text', '', '', '', 'Product UOM', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1644, 91, 'planned_start', 'opm_batch_summary', 'datefield', '', '', '', 'Planned Start', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1642, 91, 'product_qnty', 'opm_batch_summary', 'text', '', '', '', 'Product Qnty', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1641, 91, 'product_desc', 'opm_batch_summary', 'text', '', '', '', 'Product Description', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1640, 91, 'product_id', 'opm_batch_summary', 'text', '', '', '', 'Product', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1639, 91, 'receipe_description', 'opm_batch_summary', 'text', '', '', '', 'Receipe Description', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1638, 91, 'receipe_id', 'opm_batch_summary', 'text', '', '', '', 'Receipe', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1636, 91, 'batch_numbering', 'opm_batch_summary', 'text', '', '', '', 'Batch Number', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1637, 91, 'organisation_id', 'opm_batch_summary', 'text', '', '', '', 'Organisation', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1635, 91, 'id', 'opm_batch_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146);
 
 -- --------------------------------------------------------
 
@@ -1845,8 +2420,11 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatehdr` (
   `child_ids` varchar(100) NOT NULL,
   `FormRptName` varchar(100) NOT NULL,
   `Type` varchar(15) NOT NULL,
-  `GridHeader` varchar(250) NOT NULL,
-  `DataFields` varchar(200) NOT NULL,
+  `GridHeader` varchar(600) NOT NULL,
+  `DataFields` varchar(600) NOT NULL,
+  `DataFields2` varchar(600) NOT NULL,
+  `DataFields3` varchar(600) NOT NULL,
+  `DataFields4` varchar(600) NOT NULL,
   `TableName` varchar(100) NOT NULL,
   `WhereCondition` varchar(150) NOT NULL,
   `OrderBy` varchar(100) NOT NULL,
@@ -1855,51 +2433,75 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatehdr` (
   `DisplayGrid` varchar(3) NOT NULL DEFAULT 'YES',
   `NEWENTRYBUTTON` varchar(3) NOT NULL DEFAULT 'YES',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
 
 --
 -- Dumping data for table `frmrpttemplatehdr`
 --
 
-INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_table_field_name`, `child_table_field_name`, `child_ids`, `FormRptName`, `Type`, `GridHeader`, `DataFields`, `TableName`, `WhereCondition`, `OrderBy`, `ControllerFunctionLink`, `ViewPath`, `DisplayGrid`, `NEWENTRYBUTTON`) VALUES
-(7, 0, 0, '', '', '', 'General Master', 'FORM', '', 'id,FieldID,FieldVal,Status', 'frmrptgeneralmaster', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(8, 0, 0, '', '', '', 'Company Setting', 'FORM', '', 'id,NAME,ADDRESS', 'company_details', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(25, 0, 0, '', '', '', 'Query_bulder', 'FORM', '', 'id,FormRptName,query_name', 'frmrpt_simple_query_builder', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(10, 0, 0, '', '', '', 'User Master', 'FORM', '', 'id,name,userid,login_status', 'tbl_employee_mstr', 'id>0 and USER_TYPE=''USER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(14, 0, 0, '', '', '', 'Operating Unit', 'FORM', '', 'id,hierarchy_name', 'tbl_hierarchy_org', 'id>1', 'hierarchy_name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(15, 0, 0, '', '', '', 'Other Activity', 'FORM', '', 'id,tbl_employee_mstr_id,tran_date,tran_type,tran_desc', 'employee_daily_trn', 'id>0', '', 'Project_controller/EmployeeOtherActivity/', 'ActiveReport/Transactions/EmployeeOtherActivity', 'YES', 'YES'),
-(28, 0, 0, '', '', '', 'Application Architecture', 'FORM', '', 'id,name,status,data_type', 'software_architecture_details', 'id>1 and data_type!=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(20, 0, 0, '', '', '', 'CREATE MARKET', 'FORM', '', 'id,tbl_designation_id,hierarchy_name,under_tbl_hierarchy_org,employee_id', 'tbl_hierarchy_org', '', '', '', '', 'YES', 'YES'),
-(29, 0, 0, '', '', '', 'Menu management ', 'FORM', '', 'id,name,parent_id,status', 'software_architecture_details', 'id>0 and data_type=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(30, 0, 0, '', '', '', 'Roll Management', 'FORM', '', 'id,roll_name,status', 'software_archi_role_manage', 'id>1 and data_type=''HEADER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(27, 0, 0, '', '', '', 'Location Master', 'FORM', '', 'id,NAME,location_type', 'tbl_location', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(31, 0, 0, '', '', '', 'Currencies', 'FORM', 'id,code,name,symbol', 'id,code,name,description,issue_teritory,symbol', 'tbl_currency_master', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(32, 0, 0, '', '', '', 'Period Type', 'FORM', '', 'id,period_type', 'tbl_calender', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(33, 0, 0, '', '', '', 'Bank Setup', 'FORM', '', 'id,country,bank_name,alternate_bank_name', 'mstr_bank', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(35, 0, 0, '', '', '', 'Customer Setup', 'FORM', '', 'id,customer_name,billing_name,credit_limit', 'mstr_customer', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(36, 0, 0, '', '', '', 'Employee Setup', 'FORM', '', 'id,first_name,last_name,address,phoneno', 'mstr_employee', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(37, 0, 0, '', '', '', 'Product Setup', 'FORM', '', 'id,name,description,status', 'mstr_product', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(38, 0, 0, '', '', '', 'Supplier Setup', 'FORM', '', 'id,name,address,phone_no', 'mstr_supplier', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(40, 0, 0, '', '', '', 'Account Setup', 'FORM', 'id,name', 'id,start_date,name,description,chart_of_account_id,currency_id,calendar_id', 'account_setup', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(41, 0, 0, '', '', '42', 'Requisition Entry', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(42, 41, 0, 'id', 'invoice_summary_id', '', 'details_requisition', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(47, 0, 0, '', '', '48', 'Po Entry', 'FORM', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(48, 47, 0, 'id', 'invoice_summary_id', '', 'invoice_details TABLE', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(49, 0, 0, '', '', '', 'Chart of Account', 'FORM', '', 'id,acc_code,acc_name,parent_id,FINAL_AC_TYPE', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(50, 0, 0, '', '', '', 'item_wise_sale', 'FORM', '', '', 'item_wise_sale', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(51, 0, 0, '', '', '', 'category_wise_sale', 'FORM', '', '', 'category_wise_sale', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(52, 0, 0, '', '', '', 'sales trend', 'FORM', '', '', 'sales_trend', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(53, 41, 0, 'id', 'invoice_summary_id', '', 'tax table', 'FORM', '', 'id', 'invoice_tax_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(55, 0, 0, '', '', '', 'Bank payment Receive', 'FORM', '', 'id', 'invoice_payment_receive', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(56, 0, 0, '', '', '', 'invoice_summary', 'FORM', '', 'id', 'invoice_summary', 'id', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(57, 47, 0, '', '', '', 'sales_order_summery', 'FORM', '', 'id,acc_code,acc_name,parent_id,FINAL_AC_TYPE', 'sales_order_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(58, 0, 0, '', '', '', 'sales_order details', 'FORM', '', 'id,', 'sales_order_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(59, 0, 0, '', '', '', 'despatch_summery', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', 'despatch_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(60, 57, 0, 'id', 'invoice_summary_id', '', 'despatch_details', 'FORM', '', 'id,req_srl_number,type,item_id,rev,description,price', 'despatch_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(61, 0, 0, '', '', '', 'biil_summery', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', 'biil_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(62, 61, 0, 'id', 'invoice_summary_id', '', 'bill_details', 'FORM', '', 'id,req_srl_number,type,item_id,rev,description,price', 'bill_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(63, 0, 0, '', '', '', 'recipt_summery', 'FORM', '', 'id', 'recipt_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(64, 0, 0, '', '', '', 'recipt_details', 'FORM', '', 'id', 'recipt_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES');
+INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_table_field_name`, `child_table_field_name`, `child_ids`, `FormRptName`, `Type`, `GridHeader`, `DataFields`, `DataFields2`, `DataFields3`, `DataFields4`, `TableName`, `WhereCondition`, `OrderBy`, `ControllerFunctionLink`, `ViewPath`, `DisplayGrid`, `NEWENTRYBUTTON`) VALUES
+(7, 0, 0, '', '', '', 'General Master', 'FORM', '', 'id,FieldID,FieldVal,Status', '', '', '', 'frmrptgeneralmaster', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(8, 0, 0, '', '', '', 'Company Setting', 'FORM', 'id,NAME,ADDRESS', 'id,NAME,ADDRESS,MOB_NOS,EMAIL_IDS,BankDetails,GSTNo,company_type,parent_id,location_id', '', '', '', 'company_details', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(25, 0, 0, '', '', '', 'Query_bulder', 'FORM', '', 'id,FormRptName,query_name', '', '', '', 'frmrpt_simple_query_builder', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(10, 0, 0, '', '', '', 'User Master', 'FORM', 'id,code,name,contactno', 'id,code,name,address,contactno,email,userid,password,login_status', '', '', '', 'tbl_employee_mstr', 'id>0 and USER_TYPE=''USER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(14, 0, 0, '', '', '', 'Operating Unit', 'FORM', 'id,unit_type_id,hierarchy_name', 'id,unit_type_id,hierarchy_name,under_tbl_hierarchy_org,company_details_id,city_id', '', '', '', 'tbl_hierarchy_org', 'id>1', 'hierarchy_name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(15, 0, 0, '', '', '', 'Other Activity', 'FORM', '', 'id,tbl_employee_mstr_id,tran_date,tran_type,tran_desc', '', '', '', 'employee_daily_trn', 'id>0', '', 'Project_controller/EmployeeOtherActivity/', 'ActiveReport/Transactions/EmployeeOtherActivity', 'YES', 'YES'),
+(28, 0, 0, '', '', '', 'Application Architecture', 'FORM', '', 'id,name,status,data_type', '', '', '', 'software_architecture_details', 'id>1 and data_type!=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(20, 0, 0, '', '', '', 'CREATE MARKET', 'FORM', '', 'id,tbl_designation_id,hierarchy_name,under_tbl_hierarchy_org,employee_id', '', '', '', 'tbl_hierarchy_org', '', '', '', '', 'YES', 'YES'),
+(29, 0, 0, '', '', '', 'Menu management ', 'FORM', '', 'id,name,parent_id,status', '', '', '', 'software_architecture_details', 'id>0 and data_type=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(30, 0, 0, '', '', '', 'Roll Management', 'FORM', '', 'id,roll_name,status', '', '', '', 'software_archi_role_manage', 'id>1 and data_type=''HEADER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(27, 0, 0, '', '', '', 'Location Master', 'FORM', 'id,code,NAME,address', 'id,code,NAME,address,contactno,contact_person,location_type', '', '', '', 'tbl_location', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(31, 0, 0, '', '', '', 'Currencies', 'FORM', 'id,code,name', 'id,code,name,description,issue_teritory,symbol,precision', '', '', '', 'tbl_currency_master', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(32, 0, 0, '', '', '', 'Period Type', 'FORM', 'id,period_type,period_per_year,description', 'id,period_type,period_per_year,description', '', '', '', 'tbl_calender', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(33, 0, 0, '', '', '', 'Bank Setup', 'FORM', 'id,country,bank_name,account_no', 'id,country,bank_name,alternate_bank_name,short_bank_name,bank_number,line_of_bussiness_of_party,description,taxpayer_id,tax_registration_number,line_of_bussiness_of_party,inactive_date,context_value,address_line_1,address_line_2,city,state,postal_code,account_no,ifc_code,status', '', '', '', 'mstr_bank', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(35, 0, 0, '', '', '', 'Customer Setup', 'FORM', '', 'id,customer_name,billing_name,address,phone_no,credit_limit,credit_days,currency_id,status', '', '', '', 'mstr_customer', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(36, 0, 0, '', '', '', 'Employee Setup', 'FORM', '', 'id,first_name,last_name,gender,identification_id,identification_no,dob,address,phoneno,effective_date_from,effective_date_to,latest_start_date,status', '', '', '', 'mstr_employee', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(37, 0, 0, '', '', '', 'Product Setup', 'FORM', 'id,organization,name', 'id,organization,name,description,primary_uom,secondary_uom,pricing_uom,user_item_type,status', '', '', '', 'mstr_product', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(38, 0, 0, '', '', '', 'Supplier Setup', 'FORM', 'id,name,address,phone_no', 'id,name,address,phone_no,contact_person,country,credit_limit,credit_days,currency_id,status', '', '', '', 'mstr_supplier', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(40, 0, 0, '', '', '', 'Account Setup', 'FORM', '', 'id,name,description,start_date,legal_entity_id,currency_id,calendar_id,chart_of_account_id', '', '', '', 'account_setup', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(41, 0, 0, '', '', '42', 'Requisition Entry', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(42, 41, 0, 'id', 'invoice_summary_id', '', 'details_requisition', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(47, 0, 0, '', '', '48', 'Po Entry', 'FORM', '', '', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(48, 47, 0, 'id', 'invoice_summary_id', '', 'invoice_details TABLE', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(49, 0, 0, '', '', '', 'Chart of Account-old', 'FORM', '', 'id,acc_code,acc_name,parent_id,FINAL_AC_TYPE', '', '', '', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(50, 0, 0, '', '', '', 'item_wise_sale', 'FORM', '', '', '', '', '', 'item_wise_sale', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(51, 0, 0, '', '', '', 'category_wise_sale', 'FORM', '', '', '', '', '', 'category_wise_sale', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(52, 0, 0, '', '', '', 'sales trend', 'FORM', '', '', '', '', '', 'sales_trend', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(53, 41, 0, 'id', 'invoice_summary_id', '', 'tax table', 'FORM', '', 'id', '', '', '', 'invoice_tax_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(55, 0, 0, '', '', '', 'Bank payment Receive', 'FORM', '', 'id', '', '', '', 'invoice_payment_receive', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(56, 0, 0, '', '', '', 'invoice_summary', 'FORM', '', 'id', '', '', '', 'invoice_summary', 'id', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(57, 47, 0, '', '', '', 'sales_order_summery', 'FORM', '', 'id,req_operating_unit,created_date_time,req_number,req_accounting_date,req_type,req_supplier,req_site,req_contact,comment,status', 'req_preparer,req_organization,req_location,last_updated_by,last_updated_date_time,created_by,create_date_time,req_status', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(58, 0, 0, '', '', '', 'sales_order details', 'FORM', '', 'id,', '', '', '', 'sales_order_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(59, 0, 0, '', '', '', 'Despatch Summary', 'FORM', '', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(60, 57, 0, 'id', 'invoice_summary_id', '', 'Despatch Details', 'FORM', '', 'id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(61, 0, 0, '', '', '', 'biil_summery', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', '', '', '', 'biil_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(62, 61, 0, 'id', 'invoice_summary_id', '', 'bill_details', 'FORM', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', 'bill_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(63, 0, 0, '', '', '', 'recipt_summery', 'FORM', '', 'id', '', '', '', 'recipt_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(64, 0, 0, '', '', '', 'recipt_details', 'FORM', '', 'id', '', '', '', 'recipt_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(65, 0, 0, '', '', '', 'INVENTORY ITEM SUMMARY', 'FORM', 'id,organization,item,description,primary,secondary,pricing', 'id,organization,item,description,primary,secondary,pricing', '', '', '', 'opm_inventory_item_attributes_summery', '', '', '', '', 'YES', 'YES'),
+(66, 0, 0, '', '', '', 'Resource', 'FORM', 'id,resource,description,usage_uom,resource_class,cost_component_class', 'id,resource,description,usage_uom,resource_class,cost_component_class', '', '', '', 'opm_define_resources_summery', '', '', '', '', 'YES', 'YES'),
+(67, 0, 0, '', '', '68', 'Operation summary', 'FORM', 'id,operation,status,description', 'id,operation,status,description', '', '', '', 'opm_define_operations_summary', '', '', '', '', 'YES', 'YES'),
+(68, 0, 0, 'id', 'opm_define_operations_summary_id', '69', 'Operation Activity', 'GRID', 'id,opm_define_operations_summary_id,activity,description', 'id,opm_define_operations_summary_id,activity,description', '', '', '', 'opm_define_operations_activity_details', '', '', '', '', 'YES', 'YES'),
+(69, 0, 0, 'id', 'opm_define_operations_activity_details_id', '', 'Operation Resource', 'GRID', '', 'id,opm_define_operations_summary_id,opm_define_operations_activity_details_id,resource,description,process_quantity,process_quantity_uom,percent,usage_qnty,usage_uom', '', '', '', 'opm_define_operations_resource_details', '', '', '', '', 'YES', 'YES'),
+(70, 0, 0, '', '', '71', 'OPM Routing Summary', 'FORM', 'id,routing,status,routing_description,quentity,uom', 'id,routing,status,routing_description,quentity,uom', '', '', '', 'opm_define_routing_summery', '', '', '', '', 'YES', 'YES'),
+(71, 0, 0, 'id', '', '', 'OPM Routing Details', 'FORM', '', 'id,opm_define_routing_summery_id,steps,operation_id,description,qnty,uom_id', '', '', '', 'opm_define_routing_details', '', '', '', '', 'YES', 'YES'),
+(72, 0, 0, '', '', '', 'OPM Receipe summary', 'FORM', 'id,recipe,status,description,product_id,formula_id,routing_id', 'id,recipe,status,description,product_id,formula_id,routing_id', '', '', '', 'opm_define_recipe_summery', '', '', '', '', 'YES', 'YES'),
+(73, 0, 0, '', '', '74', 'OPM Formula summary', 'FORM', 'id,formula,description,status', 'id,formula,description,status', '', '', '', 'opm_define_formula_summery', '', '', '', '', 'YES', 'YES'),
+(74, 0, 0, '', '', '', 'OPM Formula Details', 'FORM', '', 'id,opm_define_formula_summery_id,line,product,description,quentity,product_type', '', '', '', 'opm_define_formula_details', '', '', '', '', 'YES', 'YES'),
+(75, 0, 0, '', '', '', 'Chart of Account', 'FORM', '', 'id,code,title,status,description,status,trantype', '', '', '', 'tbl_chart_of_accounts', '', '', '', '', 'YES', 'YES'),
+(78, 0, 0, '', '', '', 'Chart of Account-SEGMENTS-VALUES', 'FORM', '', 'id,parent_id,trantype,code,title,description,acc_type,parent_data_id,field_qualifier,status', '', '', '', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(77, 0, 0, '', '', '', 'Chart of Account-SEGMENTS', 'FORM', '', 'id,parent_id,trantype,code,title,description,data_type,field_qualifier,status', '', '', '', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(79, 0, 0, '', '', '42', 'Requisition Summary', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_currency_id,req_total,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_status', 'req_destination_type,req_source,req_requiester,req_supplier,req_organization,req_site,req_location,req_contact,req_subinventory,req_phone', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(80, 47, 0, 'id', 'invoice_summary_id', '', 'Requisition Details', 'GRID', '', 'id,invoice_summary_id,item_id,qnty,uom,price', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(81, 0, 0, '', '', '42', 'Requisition Approve', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_status,forward_to,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_preparer,req_requiester,req_organization,req_location,req_accounting_date', '', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(82, 0, 0, '', '', '42', 'PO Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,created_date_time,req_number,req_type,req_supplier,req_site,req_contact,comment,status,req_status', 'req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,last_updated_by,last_updated_date_time', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(83, 0, 0, '', '', '42', 'PO APPROVE', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_status,forward_to,last_updated_by,last_updated_date_time', '', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(84, 0, 0, '', '', '42', 'Receipt of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(86, 0, 0, '', '', '42', 'Inspection of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(87, 0, 0, '', '', '42', 'Purchase Invoice Summary', 'FORM', 'f56', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(88, 47, 0, '', '', '', 'SALES ORDER APPROVE', 'FORM', '', 'id,req_operating_unit,req_number,req_type,req_status,forward_to,last_updated_by,last_updated_date_time', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(89, 0, 0, '', '', '42', 'Sales Invoice Summary', 'FORM', 'f56', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(91, 0, 0, '', '', '', 'Batch Summary', 'FORM', 'id,organisation_id,batch_numbering,receipe_id', 'id,organisation_id,batch_numbering,receipe_id,receipe_description,product_id,product_desc,product_qnty,product_uom,planned_start,planned_complete,required_complate', '', '', '', 'opm_batch_summary', 'id>0', '', '', '', 'YES', 'YES');
 
 -- --------------------------------------------------------
 
@@ -1988,42 +2590,23 @@ CREATE TABLE IF NOT EXISTS `invoice_details` (
   `shipping_address` varchar(100) NOT NULL,
   `asset_book` varchar(5) NOT NULL DEFAULT 'NO',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=78 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `invoice_details`
 --
 
 INSERT INTO `invoice_details` (`id`, `invoice_summary_id`, `parent_id`, `status`, `grn_status`, `company_id`, `account_id`, `cost_center_id`, `segment4`, `segment5`, `segment6`, `segment7`, `segment8`, `segment9`, `segment10`, `segment11`, `segment12`, `segment13`, `segment14`, `segment15`, `segment16`, `segment17`, `segment18`, `segment19`, `segment20`, `type`, `req_srl_number`, `category_id`, `item_id`, `rev`, `description`, `price`, `qnty`, `total_amount`, `tax_ledger_id`, `tax_rate`, `tax_amount`, `Gl_date`, `received_qnty`, `uom`, `billing_address`, `shipping_address`, `asset_book`) VALUES
-(24, 23, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 1000.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(25, 24, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 1000.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'BILLING ADDRESS', 'SHIPPING ADDRESS', 'NO'),
-(26, 25, 25, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 8, '122', '', '', 'NO'),
-(27, 26, 26, '', '119', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 8, '122', '', '', 'NO'),
-(47, 34, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 1000.00, 0, 0.00, 0.00, '2020-02-11', 0, '', '', '', 'NO'),
-(49, 35, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 1000.00, 0, 0.00, 0.00, '2020-02-11', 0, '', '', '', 'NO'),
-(50, 36, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'billing', 'shipping', 'NO'),
-(51, 36, 0, '', '', 99, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 200.00, 200, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'billing1', 'shipping1', 'NO'),
-(52, 37, 50, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 90, '122', '', '', 'NO'),
-(53, 37, 51, '', '', 99, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 0.00, 200, 0.00, 0, 0.00, 0.00, '0000-00-00', 180, '121', '', '', 'NO'),
-(54, 38, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'billing add', 'shipping add', 'NO'),
-(55, 39, 54, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 80, '122', '', '', 'NO'),
-(57, 40, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 8000.00, 137, 4.00, 500.00, '2020-02-18', 0, '', '', '', 'NO'),
-(58, 41, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(59, 42, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(60, 43, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(61, 44, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 10.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(62, 44, 0, '', '', 99, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 10.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', '', '', 'NO'),
-(63, 45, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 10.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '79 DHIREN DHAR SARANI', '', 'NO'),
-(64, 45, 0, '', '', 97, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 10.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'Jaiprakash Nagar -', '(ITI) Road No.10  Bettiah West Champaran', 'NO'),
-(65, 46, 63, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 4, '122', '', '', 'NO'),
-(66, 46, 64, '', '', 97, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 0.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 4, '121', '', '', 'NO'),
-(67, 47, 65, '', '119', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 4, '122', '', '', 'NO'),
-(68, 47, 66, '', '119', 97, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 0.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 4, '121', '', '', 'NO'),
-(70, 48, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 500.00, 137, 4.00, 100.00, '2020-02-25', 0, '', '', '', 'YES'),
-(71, 48, 0, '', '', 97, 125, 135, 0, 0, 148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', '', 0.00, 0, 500.00, 139, 4.00, 200.00, '2020-02-25', 0, '', '', '', 'NO'),
-(74, 49, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 200.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'BILLING ADDRESS', 'SHIPPING ADDRESS', 'NO'),
-(75, 50, 74, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 8, '122', '', '', 'NO'),
-(77, 51, 0, '', '', 97, 125, 133, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 1000.00, 137, 4.00, 200.00, '2020-02-25', 0, '', '', '', 'NO');
+(1, 0, 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 1, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'DDD', 'HHH', 'NO'),
+(2, 1, 0, '', '', 268, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 100.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'billing', 'shipping', 'NO'),
+(3, 1, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0.00, 0, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '', '0', '0', 'NO'),
+(4, 1, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0.00, 0, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '', '0', '0', 'NO'),
+(5, 2, 0, '', '', 268, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 10.00, 100, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'billing', 'shipping', 'NO'),
+(6, 3, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0.00, 0, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '', '0', '0', 'NO'),
+(7, 3, 0, '', '', 268, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 40.00, 200, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '121', 'billing', 'shipping', 'NO'),
+(8, 3, 0, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', 0.00, 0, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '', '0', '0', 'NO'),
+(10, 4, 0, '', '', 268, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 2000.00, 137, 4.00, 100.00, '2020-04-14', 0, '', '', '', 'NO'),
+(13, 5, 0, '', '', 268, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', '', 0.00, 0, 200.00, 137, 4.00, 400.00, '2020-04-14', 0, '', '', '', 'NO');
 
 -- --------------------------------------------------------
 
@@ -2067,16 +2650,16 @@ CREATE TABLE IF NOT EXISTS `invoice_payment_receive` (
   `bank_account_no` varchar(30) NOT NULL,
   `bank_payment_doc` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `invoice_payment_receive`
 --
 
 INSERT INTO `invoice_payment_receive` (`id`, `parent_id`, `status`, `req_operating_unit`, `req_number`, `req_total`, `req_organization`, `req_supplier`, `ledger_id`, `req_site`, `req_contact`, `req_phone`, `req_status`, `req_accounting_date`, `comment`, `req_location`, `req_currency_id`, `created_date_time`, `PO_REV_NO`, `created_by`, `last_updated_by`, `create_date_time`, `last_updated_date_time`, `Gl_date`, `voucher_no`, `cleared_amount`, `clear_date`, `void_date`, `maturity_date`, `acknowledged_status`, `bank_id`, `bank_name`, `bank_account_no`, `bank_payment_doc`) VALUES
-(1, 0, '', 6696, '', 0.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-02-18 22:06:06', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0),
-(2, 0, '', 6696, 'PAY123', 1000.00, 0, 1, 0, 3, 'ASHOKE DAS', '9804152658', '', '2020-02-25', '', '', 3, '2020-02-25 21:13:49', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '2020-02-25', '0000-00-00', '0000-00-00', 0, 2, '', '123456789', 0),
-(3, 0, '', 6696, 'REC-123', 0.00, 0, 2, 0, 0, '', '', '', '0000-00-00', '', '', 3, '2020-02-25 21:20:57', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0);
+(5, 0, '', 6693, '', 0.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-14 09:39:42', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '123456789', 0),
+(6, 0, '', 6694, '', 0.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-14 12:33:43', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, '', '', 0),
+(7, 0, '', 6694, 'RCV-INVOICE-1', 0.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-14 20:14:31', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 0.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '123456789', 0);
 
 -- --------------------------------------------------------
 
@@ -2137,35 +2720,18 @@ CREATE TABLE IF NOT EXISTS `invoice_summary` (
   `invoice_accounted` int(10) NOT NULL,
   `invoice_payment_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `invoice_summary`
 --
 
 INSERT INTO `invoice_summary` (`id`, `parent_id`, `status`, `req_operating_unit`, `req_description`, `req_type`, `req_number`, `req_preparer`, `req_currency_id`, `req_total`, `req_destination_type`, `req_requiester`, `req_organization`, `req_location`, `req_subinventory`, `req_source`, `req_supplier`, `ledger_id`, `req_site`, `req_contact`, `req_phone`, `req_status`, `req_submit_approval`, `req_unreserve_date`, `req_accounting_date`, `forward_to`, `comment`, `created_date_time`, `PO_REV_NO`, `created_by`, `last_updated_by`, `create_date_time`, `last_updated_date_time`, `Gl_date`, `Terms_date`, `Terms`, `Payment_method`, `Pay_group`, `invoice_tot_items`, `invoice_retainage`, `invoice_prepayment_amount`, `invoice_withholding`, `invoice_subtotal`, `tax_amount`, `freight_amount`, `Misc_amount`, `invoice_grand_total`, `invoice_paid_total`, `invoice_status`, `invoice_accounted`, `invoice_payment_id`) VALUES
-(23, 0, 'REQUISITION', 6695, '', 92, 'REQ-1', 6, 3, 1000.00, 113, 6, 1, 'West bengal', '6693', 115, 1, 0, 3, 'ASHOKE DAS', '9804152658', '90', 'NO', '0000-00-00', '0000-00-00', 296, '', '2020-02-11 18:54:14', '', 6, 6, '2020-02-11 18:53:40', '2020-02-11 18:53:40', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(24, 23, 'PO_ENTRY', 6695, '', 93, 'REQ-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 3, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-11', 296, '', '2020-02-11 18:54:14', '', 6, 6, '2020-02-11 18:55:08', '2020-02-11 18:55:08', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(25, 24, 'GRN_ENTRY', 6695, '', 94, 'REQ-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 3, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-11', 0, '', '2020-02-11 18:55:59', '', 6, 0, '2020-02-11 18:56:10', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(26, 25, 'INSPECTION', 6695, '', 117, 'REQ-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 3, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-11', 0, '', '2020-02-11 18:56:22', '', 6, 0, '2020-02-11 18:56:35', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(34, 23, 'PURCHASE_INVOICE', 6695, '', 95, 'REQ-1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'NO', '0000-00-00', '2020-02-11', 0, '', '2020-02-11 21:03:53', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(35, 23, 'PURCHASE_INVOICE', 6695, '', 95, 'REQ-1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'NO', '0000-00-00', '2020-02-11', 0, '', '2020-02-11 21:07:05', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 1000, 100.00, 100.00, 200.00, 600.00, 50.00, 50.00, 50.00, 450.00, 0.00, 140, 21, 0),
-(36, 0, 'SALES_ORDER', 6695, '', 142, '123456', 6, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 4, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-16', 296, '', '2020-02-16 20:43:06', '', 6, 6, '2020-02-16 20:43:06', '2020-02-16 20:43:06', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(37, 36, 'ORDER_DESPATCH', 6695, '', 143, '123456', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 4, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-16', 0, '', '2020-02-16 21:55:32', '', 6, 0, '2020-02-16 21:55:40', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(38, 0, 'SALES_ORDER', 6696, '', 142, '123456', 6, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 4, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-18', 296, '', '2020-02-18 21:43:26', '', 6, 6, '2020-02-18 21:43:26', '2020-02-18 21:43:26', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(39, 38, 'ORDER_DESPATCH', 6696, '', 143, '123456', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 4, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-18', 0, '', '2020-02-18 21:44:46', '', 6, 0, '2020-02-18 21:44:54', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(40, 0, 'SALES_INVOICE', 6696, '', 144, '123456', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-02-18', 0, '', '2020-02-18 21:45:54', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-02-18', '0000-00-00', 130, 130, 129, 8000, 2000.00, 1000.00, 1000.00, 4000.00, 1000.00, 1000.00, 2000.00, 8000.00, 3000.00, 140, 21, 1),
-(41, 0, 'REQUISITION', 6696, '', 92, '1000', 6, 3, 1000.00, 113, 6, 1, 'West bengal', '6694', 115, 1, 0, 6, 'ASHOKE DAS', '9804152658', '90', 'NO', '0000-00-00', '0000-00-00', 296, '', '2020-02-19 20:55:36', '', 6, 6, '2020-02-19 20:55:11', '2020-02-19 20:55:11', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(42, 0, 'REQUISITION', 6696, '', 92, '1000', 6, 3, 1000.00, 113, 6, 1, 'West bengal', '6694', 115, 1, 0, 6, 'ASHOKE DAS', '9804152658', '91', 'NO', '0000-00-00', '0000-00-00', 0, '', '2020-02-19 20:55:45', '', 6, 6, '2020-02-19 20:55:11', '2020-02-19 20:55:11', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(43, 0, 'REQUISITION', 6696, '', 92, '1000', 6, 3, 1000.00, 113, 6, 1, 'West bengal', '6694', 115, 1, 0, 6, 'ASHOKE DAS', '9804152658', '91', 'NO', '0000-00-00', '0000-00-00', 0, '', '2020-02-19 20:56:01', '', 6, 6, '2020-02-19 20:55:11', '2020-02-19 20:55:11', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(44, 0, 'REQUISITION', 6696, '', 92, 'REQ-1', 6, 3, 1000.00, 113, 6, 1, 'West bengal', '6694', 116, 1, 0, 6, 'ASHOKE DAS', '9804152658', '90', 'NO', '0000-00-00', '0000-00-00', 296, '', '2020-02-25 20:53:44', '', 6, 6, '2020-02-25 20:54:08', '2020-02-25 20:54:08', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(45, 44, 'PO_ENTRY', 6696, '', 93, 'REQ-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 6, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-25', 296, '', '2020-02-25 20:53:44', '', 6, 6, '2020-02-25 20:55:16', '2020-02-25 20:55:16', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(46, 45, 'GRN_ENTRY', 6696, '', 94, 'RECEV-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 6, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-25', 0, '', '2020-02-25 20:56:08', '', 6, 0, '2020-02-25 20:56:16', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(47, 46, 'INSPECTION', 6696, '', 117, 'RECEV-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 6, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-02-25', 0, '', '2020-02-25 20:56:30', '', 6, 0, '2020-02-25 20:56:43', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(48, 44, 'PURCHASE_INVOICE', 6696, '', 95, 'REQ-1', 0, 3, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-02-25', 0, '', '2020-02-25 21:06:47', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-02-25', '2020-02-25', 127, 130, 129, 1000, 100.00, 50.00, 50.00, 800.00, 200.00, 200.00, 300.00, 1500.00, 700.00, 140, 21, 2),
-(49, 0, 'SALES_ORDER', 6696, '', 142, 'SORD-1', 6, 0, 0.00, 0, 0, 0, '', '', 0, 2, 0, 3, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-25', 296, '', '2020-02-25 21:15:21', '', 6, 6, '2020-02-25 21:15:21', '2020-02-25 21:15:21', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(50, 49, 'ORDER_DESPATCH', 6696, '', 143, 'SORD-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 2, 0, 3, '9804152658', '', '90', 'NO', '0000-00-00', '2020-02-25', 0, '', '2020-02-25 21:16:55', '', 6, 0, '2020-02-25 21:17:19', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(51, 0, 'SALES_INVOICE', 6696, '', 144, 'SORD-1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 2, 0, 0, '', '', '90', 'NO', '0000-00-00', '2020-02-25', 0, '', '2020-02-25 21:18:25', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 130, 130, 129, 1000, 100.00, 200.00, 100.00, 600.00, 300.00, 300.00, 300.00, 1500.00, 0.00, 140, 21, 0);
+(1, 0, 'SALES_ORDER', 6694, '', 142, 'sorder-2', 6, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '91', 'NO', '0000-00-00', '2020-04-14', 0, '', '2020-04-14 13:55:27', '', 6, 6, '2020-04-14 13:55:27', '2020-04-14 13:55:27', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(2, 0, 'SALES_ORDER', 6694, '', 142, 'sorfer-1', 6, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '91', 'NO', '0000-00-00', '2020-04-14', 296, '', '2020-04-14 20:02:26', '', 6, 6, '2020-04-14 20:02:26', '2020-04-14 20:02:26', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(3, 2, 'ORDER_DESPATCH', 6694, '', 143, 'sorfer-1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 0, 0, 0, '', '', '90', 'NO', '0000-00-00', '2020-04-14', 0, '', '2020-04-14 19:31:18', '', 6, 0, '2020-04-14 19:45:22', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(4, 0, 'SALES_INVOICE', 6694, '', 144, 'sorfer-1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '91', 'YES', '0000-00-00', '2020-04-14', 0, '', '2020-04-14 20:03:32', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-04-14', '0000-00-00', 0, 0, 0, 2000, 200.00, 200.00, 200.00, 1400.00, 200.00, 200.00, 230.00, 2030.00, 100.00, 140, 21, 7),
+(5, 0, 'SALES_INVOICE', 6694, '', 144, 'sales-Invoice-1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '91', 'YES', '0000-00-00', '2020-04-14', 0, '', '2020-04-14 20:09:40', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-04-14', '0000-00-00', 0, 0, 0, 200, 100.00, 300.00, 500.00, -700.00, 600.00, 700.00, 800.00, 1400.00, 200.00, 140, 21, 7);
 
 -- --------------------------------------------------------
 
@@ -2336,25 +2902,26 @@ INSERT INTO `mstr_bank` (`id`, `country`, `bank_name`, `alternate_bank_name`, `s
 
 CREATE TABLE IF NOT EXISTS `mstr_customer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `customer_name` varchar(20) NOT NULL,
-  `billing_name` varchar(20) NOT NULL,
-  `address` varchar(25) NOT NULL,
+  `customer_name` varchar(100) NOT NULL,
+  `billing_name` varchar(100) NOT NULL,
+  `address` varchar(250) NOT NULL,
   `phone_no` varchar(12) NOT NULL,
-  `credit_limit` varchar(10) NOT NULL,
-  `credit_days` varchar(10) NOT NULL,
+  `credit_limit` double(10,2) NOT NULL,
+  `credit_days` int(5) NOT NULL,
   `currency_id` int(11) NOT NULL,
-  `status` varchar(25) NOT NULL,
+  `status` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `mstr_customer`
 --
 
 INSERT INTO `mstr_customer` (`id`, `customer_name`, `billing_name`, `address`, `phone_no`, `credit_limit`, `credit_days`, `currency_id`, `status`) VALUES
-(1, 'PCL ', 'Partex Cables limite', '57, 57A Gulshan Ave, Dhak', '+880 9612-72', '', '', 0, 'ACTIVE'),
-(2, 'QJ consulting Pvt Lt', 'QJ consulting Pvt Lt', 'AE 60, A.E. Block sector ', '9831090200', '', '', 0, 'ACTIVE'),
-(3, 'SPBML', 'SPBML', 'Haripur, Madanpur, Bangla', '+880 9612-73', '', '', 0, 'ACTIVE');
+(1, 'PCL ', 'Partex Cables limite', '57, 57A Gulshan Ave, Dhak', '+880 9612-72', 0.00, 0, 0, 'ACTIVE'),
+(2, 'QJ consulting Pvt Lt', 'QJ consulting Pvt Lt', 'AE 60, A.E. Block sector ', '9831090200', 0.00, 0, 0, 'ACTIVE'),
+(3, 'SPBML', 'SPBML', 'Haripur, Madanpur, Bangla', '+880 9612-73', 0.00, 0, 0, 'ACTIVE'),
+(4, 'Ashoke Das', 'Ashoke Das', '79 d d sarani Kolkata-700', '9804152658', 100000.00, 20, 3, 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -2393,9 +2960,14 @@ CREATE TABLE IF NOT EXISTS `mstr_employee` (
 
 CREATE TABLE IF NOT EXISTS `mstr_product` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `organization` int(10) NOT NULL,
   `name` varchar(20) NOT NULL,
+  `primary_uom` int(10) NOT NULL,
+  `secondary_uom` int(10) NOT NULL,
+  `pricing_uom` int(10) NOT NULL,
+  `user_item_type` int(10) NOT NULL,
   `description` varchar(255) NOT NULL,
-  `status` varchar(25) NOT NULL,
+  `status` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -2403,9 +2975,9 @@ CREATE TABLE IF NOT EXISTS `mstr_product` (
 -- Dumping data for table `mstr_product`
 --
 
-INSERT INTO `mstr_product` (`id`, `name`, `description`, `status`) VALUES
-(1, 'Product1', 'cable', 'ACTIVE'),
-(2, 'Product2', 'Plywood', 'ACTIVE');
+INSERT INTO `mstr_product` (`id`, `organization`, `name`, `primary_uom`, `secondary_uom`, `pricing_uom`, `user_item_type`, `description`, `status`) VALUES
+(1, 0, 'Product1', 0, 0, 0, 0, 'cable', ''),
+(2, 0, 'Product2', 0, 0, 0, 0, 'Plywood', '');
 
 -- --------------------------------------------------------
 
@@ -2420,6 +2992,9 @@ CREATE TABLE IF NOT EXISTS `mstr_supplier` (
   `phone_no` varchar(12) NOT NULL,
   `contact_person` varchar(12) NOT NULL,
   `country` varchar(10) NOT NULL,
+  `credit_limit` double(10,2) NOT NULL,
+  `credit_days` int(5) NOT NULL,
+  `currency_id` int(10) NOT NULL,
   `status` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
@@ -2428,8 +3003,575 @@ CREATE TABLE IF NOT EXISTS `mstr_supplier` (
 -- Dumping data for table `mstr_supplier`
 --
 
-INSERT INTO `mstr_supplier` (`id`, `name`, `address`, `phone_no`, `contact_person`, `country`, `status`) VALUES
-(1, 'Aditya Solution Indi', 'Jaiprakash Nagar -, (ITI) Road', '9804152658', 'ASHOKE DAS', '4', 'ACTIVE');
+INSERT INTO `mstr_supplier` (`id`, `name`, `address`, `phone_no`, `contact_person`, `country`, `credit_limit`, `credit_days`, `currency_id`, `status`) VALUES
+(1, 'Aditya Solution Indi', 'Jaiprakash Nagar -, (ITI) Road', '9804152658', 'ASHOKE DAS', '4', 0.00, 0, 0, 'ACTIVE');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_batch_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_batch_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `opm_batch_summary_id` int(10) NOT NULL,
+  `line_no` int(5) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `target_qnty` double(10,2) NOT NULL,
+  `transact_qnty` double(10,2) NOT NULL,
+  `exceptional_qnty` double(10,2) NOT NULL,
+  `product_type` int(10) NOT NULL,
+  `uom` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_batch_details`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_batch_summary`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_batch_summary` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `batch_numbering` int(10) NOT NULL,
+  `batch_last_assigned` varchar(100) NOT NULL,
+  `organisation_id` int(10) NOT NULL,
+  `receipe_id` int(10) NOT NULL,
+  `receipe_description` varchar(100) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `product_desc` varchar(100) NOT NULL,
+  `product_qnty` double(10,2) NOT NULL,
+  `product_uom` int(10) NOT NULL,
+  `planned_start` date NOT NULL,
+  `planned_complete` date NOT NULL,
+  `required_complate` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `opm_batch_summary`
+--
+
+INSERT INTO `opm_batch_summary` (`id`, `batch_numbering`, `batch_last_assigned`, `organisation_id`, `receipe_id`, `receipe_description`, `product_id`, `product_desc`, `product_qnty`, `product_uom`, `planned_start`, `planned_complete`, `required_complate`) VALUES
+(1, 2, '', 1, 2, '22', 2, '2', 2.00, 2, '0000-00-00', '0000-00-00', '0000-00-00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_formula_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_formula_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `opm_define_formula_summery_id` int(10) NOT NULL,
+  `line` varchar(100) NOT NULL,
+  `product` varchar(100) NOT NULL,
+  `revision` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `quentity` varchar(100) NOT NULL,
+  `product_type` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `opm_define_formula_details`
+--
+
+INSERT INTO `opm_define_formula_details` (`id`, `opm_define_formula_summery_id`, `line`, `product`, `revision`, `description`, `quentity`, `product_type`) VALUES
+(1, 1, '1', '2', '', '2', '2', '2'),
+(2, 1, '2', '2', '', '2', '2', '2'),
+(3, 2, '1', '1', '', '', '1000', '152'),
+(4, 2, '2', '2', '', '', '200', '153'),
+(5, 3, '1', '1', '', '', '100', '152'),
+(6, 3, '2', '2', '', '0', '10', '153');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_formula_ingredient_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_formula_ingredient_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `line` varchar(100) NOT NULL,
+  `ingredients` varchar(100) NOT NULL,
+  `revision` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `quentity` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_define_formula_ingredient_details`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_formula_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_formula_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `formula` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `version` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `comments` varchar(100) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `class_description` varchar(100) NOT NULL,
+  `owner` varchar(100) NOT NULL,
+  `owner_descriptin` varchar(100) NOT NULL,
+  `skaling_allowd` int(10) NOT NULL,
+  `packaging` int(10) NOT NULL,
+  `calculate_product_quentity` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `opm_define_formula_summery`
+--
+
+INSERT INTO `opm_define_formula_summery` (`id`, `formula`, `status`, `version`, `description`, `comments`, `class`, `class_description`, `owner`, `owner_descriptin`, `skaling_allowd`, `packaging`, `calculate_product_quentity`) VALUES
+(1, '1', '1', '', '2', '', '', '', '', '', 0, 0, 0),
+(2, 'FORMULA', '90', '', '', '', '', '', '', '', 0, 0, 0),
+(3, 'CHOCOLATE_FG', '90', '', '', '', '', '', '', '', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_operations_activity_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_operations_activity_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `activity` varchar(100) NOT NULL,
+  `opm_define_operations_summary_id` int(10) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `activity_factor` varchar(100) NOT NULL,
+  `sequence_defended` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data for table `opm_define_operations_activity_details`
+--
+
+INSERT INTO `opm_define_operations_activity_details` (`id`, `activity`, `opm_define_operations_summary_id`, `description`, `activity_factor`, `sequence_defended`) VALUES
+(1, '1', 1, '1', '', ''),
+(2, '1', 2, '1', '', ''),
+(3, '111', 3, '222', '', ''),
+(4, '1', 4, '1', '', ''),
+(5, '2', 4, '2', '', ''),
+(6, '1', 5, '1', '', ''),
+(7, '1', 6, '1', '', ''),
+(8, '1', 7, '2', '', ''),
+(9, '1', 8, '2', '', ''),
+(10, '11', 9, '11', '', ''),
+(11, '1', 10, '11', '', ''),
+(12, '2', 10, '22', '', ''),
+(13, 'MIX', 11, 'MIXING', '', ''),
+(14, 'BOIL', 11, 'BOILING', '', ''),
+(15, 'COOKING', 11, 'COOKING', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_operations_resource_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_operations_resource_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `opm_define_operations_summary_id` int(10) NOT NULL,
+  `opm_define_operations_activity_details_id` int(10) NOT NULL,
+  `resource` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `process_quantity` double(10,2) NOT NULL,
+  `process_quantity_uom` int(10) NOT NULL,
+  `percent` varchar(100) NOT NULL,
+  `usage_qnty` double(10,2) NOT NULL,
+  `usage_uom` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `opm_define_operations_resource_details`
+--
+
+INSERT INTO `opm_define_operations_resource_details` (`id`, `opm_define_operations_summary_id`, `opm_define_operations_activity_details_id`, `resource`, `description`, `process_quantity`, `process_quantity_uom`, `percent`, `usage_qnty`, `usage_uom`) VALUES
+(1, 1, 1, '2', '2', 2.00, 2, '2', 2.00, 2),
+(2, 2, 2, '22', '22', 0.00, 0, '', 0.00, 0),
+(3, 3, 3, '222', '222', 222.00, 22, '', 0.00, 0),
+(4, 4, 4, '1', '1', 1.00, 1, '1', 1.00, 1),
+(5, 4, 4, '1', '1', 1.00, 1, '1', 1.00, 1),
+(6, 5, 6, '1', '1', 1.00, 1, '', 0.00, 0),
+(7, 6, 7, '333', '333', 33.00, 33, '33', 0.00, 0),
+(8, 7, 8, '222', '22', 22.00, 22, '22', 22.00, 22),
+(9, 7, 8, '222', '22', 22.00, 22, '22', 22.00, 22),
+(10, 7, 8, '222', '22', 22.00, 22, '22', 22.00, 22),
+(11, 8, 9, '222', '2', 2.00, 2, '2', 2.00, 0),
+(12, 8, 9, '222', '2', 2.00, 2, '2', 2.00, 0),
+(13, 9, 10, '222', '22', 22.00, 22, '22', 0.00, 22),
+(14, 10, 12, '222', '222', 222.00, 222, '22', 22.00, 22),
+(15, 10, 11, '11', '11', 11.00, 11, '11', 11.00, 11),
+(16, 11, 13, 'CHOCOLATE', '', 1.00, 0, '', 0.00, 0),
+(17, 11, 13, '', '0', 0.00, 0, '0', 0.00, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_operations_summary`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_operations_summary` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `operation` varchar(100) NOT NULL,
+  `status` int(10) NOT NULL,
+  `version` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `class_description` varchar(100) NOT NULL,
+  `valid_from` date NOT NULL,
+  `valid_to` date NOT NULL,
+  `owner_organization` varchar(100) NOT NULL,
+  `owner_description` varchar(100) NOT NULL,
+  `minimum_transfer_qty` varchar(100) NOT NULL,
+  `process_qty_uom` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Dumping data for table `opm_define_operations_summary`
+--
+
+INSERT INTO `opm_define_operations_summary` (`id`, `operation`, `status`, `version`, `description`, `class`, `class_description`, `valid_from`, `valid_to`, `owner_organization`, `owner_description`, `minimum_transfer_qty`, `process_qty_uom`) VALUES
+(1, '1', 1, '', '2', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(2, '2', 30, '', '223', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(3, '222', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(4, '222', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(5, '555', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(6, '666', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(7, '222', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(8, '555', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(9, '222', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(10, '555', 30, '', '222', '', '', '0000-00-00', '0000-00-00', '', '', '', ''),
+(11, 'CHOCOLATE MIX OP', 30, '', '', '', '', '0000-00-00', '0000-00-00', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_organization_detail`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_organization_detail` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parameter_name` varchar(100) NOT NULL,
+  `parameter_value` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_define_organization_detail`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_organization_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_organization_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `organization` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `organization_type` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_define_organization_summery`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_recipe_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_recipe_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `organization` varchar(100) NOT NULL,
+  `organization_name` varchar(100) NOT NULL,
+  `type` int(10) NOT NULL,
+  `planned_loss` varchar(100) NOT NULL,
+  `fixed_loss` varchar(100) NOT NULL,
+  `contiguous` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_define_recipe_details`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_recipe_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_recipe_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `recipe` varchar(100) NOT NULL,
+  `recipe_version` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `formula_id` int(10) NOT NULL,
+  `routing_id` int(10) NOT NULL,
+  `quentity` varchar(100) NOT NULL,
+  `uom` varchar(100) NOT NULL,
+  `formula_version` varchar(100) NOT NULL,
+  `cretionation_organiza` varchar(100) NOT NULL,
+  `planned_loss` varchar(100) NOT NULL,
+  `calculate_step_quentity` int(10) NOT NULL,
+  `owner` varchar(100) NOT NULL,
+  `theoratical_loss` varchar(100) NOT NULL,
+  `contiguous` int(10) NOT NULL,
+  `recipe_type` int(10) NOT NULL,
+  `fixed_loss` varchar(100) NOT NULL,
+  `fixed_loss_uom` varchar(100) NOT NULL,
+  `enhanced_process_instructions` int(10) NOT NULL,
+  `total_output_quentity` varchar(100) NOT NULL,
+  `total_output_quentity_uom` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `opm_define_recipe_summery`
+--
+
+INSERT INTO `opm_define_recipe_summery` (`id`, `recipe`, `recipe_version`, `status`, `description`, `product_id`, `formula_id`, `routing_id`, `quentity`, `uom`, `formula_version`, `cretionation_organiza`, `planned_loss`, `calculate_step_quentity`, `owner`, `theoratical_loss`, `contiguous`, `recipe_type`, `fixed_loss`, `fixed_loss_uom`, `enhanced_process_instructions`, `total_output_quentity`, `total_output_quentity_uom`) VALUES
+(1, 'ass', '', '1', '2', 2, 2, 2, '', '', '', '', '', 0, '', '', 0, 0, '', '', 0, '', ''),
+(2, 'CHOFGCOLATE', '', '90', '', 2, 3, 3, '', '', '', '', '', 0, '', '', 0, 0, '', '', 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_resources_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_resources_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `resource` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `usage_uom` int(10) NOT NULL,
+  `resource_class` int(10) NOT NULL,
+  `cost_component_class` int(10) NOT NULL,
+  `minimum` int(10) NOT NULL,
+  `maximum` int(10) NOT NULL,
+  `capacity_uom` int(100) NOT NULL,
+  `calculate_charges` int(10) NOT NULL,
+  `capacity_tolerace` double(10,2) NOT NULL,
+  `utilization` double(10,2) NOT NULL,
+  `efficiency` double(10,2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `opm_define_resources_summery`
+--
+
+INSERT INTO `opm_define_resources_summery` (`id`, `resource`, `description`, `usage_uom`, `resource_class`, `cost_component_class`, `minimum`, `maximum`, `capacity_uom`, `calculate_charges`, `capacity_tolerace`, `utilization`, `efficiency`) VALUES
+(1, 'CHOCOLATE MIX', 'C MIX', 155, 0, 151, 0, 0, 0, 0, 0.00, 0.00, 0.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_routing_details`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_routing_details` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `opm_define_routing_summery_id` int(10) NOT NULL,
+  `steps` int(5) NOT NULL,
+  `operation_id` int(10) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `qnty` double(10,2) NOT NULL,
+  `uom_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `opm_define_routing_details`
+--
+
+INSERT INTO `opm_define_routing_details` (`id`, `opm_define_routing_summery_id`, `steps`, `operation_id`, `description`, `qnty`, `uom_id`) VALUES
+(1, 1, 2, 2, '2', 2.00, 2),
+(2, 1, 3, 3, '3', 3.00, 3),
+(3, 1, 4, 4, '4', 4.00, 4),
+(4, 2, 1, 9, 'DESC', 200.00, 122),
+(5, 3, 1, 11, '', 100.00, 122),
+(6, 3, 2, 6, '', 50.00, 122);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_define_routing_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_define_routing_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `routing` varchar(100) NOT NULL,
+  `routing_version` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `routing_description` varchar(100) NOT NULL,
+  `class` varchar(100) NOT NULL,
+  `class_description` varchar(100) NOT NULL,
+  `valid_from` varchar(100) NOT NULL,
+  `valid_to` varchar(100) NOT NULL,
+  `quentity` varchar(100) NOT NULL,
+  `uom` varchar(100) NOT NULL,
+  `planned_loss` double(10,2) NOT NULL,
+  `enforce_step_defendency` int(10) NOT NULL,
+  `owner` varchar(100) NOT NULL,
+  `theoritical_loss` double(10,2) NOT NULL,
+  `contiguous` varchar(100) NOT NULL,
+  `owner_organization` varchar(100) NOT NULL,
+  `fixed_loss` varchar(100) NOT NULL,
+  `fixed_loss_uom` varchar(100) NOT NULL,
+  `change_status_to` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `opm_define_routing_summery`
+--
+
+INSERT INTO `opm_define_routing_summery` (`id`, `routing`, `routing_version`, `status`, `routing_description`, `class`, `class_description`, `valid_from`, `valid_to`, `quentity`, `uom`, `planned_loss`, `enforce_step_defendency`, `owner`, `theoritical_loss`, `contiguous`, `owner_organization`, `fixed_loss`, `fixed_loss_uom`, `change_status_to`) VALUES
+(1, '2', '', '2', '22', '', '', '', '', '22', '2', 0.00, 0, '', 0.00, '', '', '', '', 0),
+(2, 'ROUTING', '', '90', 'DESC', '', '', '', '', '1000', '121', 0.00, 0, '', 0.00, '', '', '', '', 0),
+(3, 'CHOCOLATE ROUTING', '', '90', '', '', '', '', '', '100', '122', 0.00, 0, '', 0.00, '', '', '', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_inventory_item_attributes_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_inventory_item_attributes_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `organization` int(10) NOT NULL,
+  `item` int(10) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `primary` varchar(100) NOT NULL,
+  `tracking` int(10) NOT NULL,
+  `pricing` varchar(30) NOT NULL,
+  `secondary` int(10) NOT NULL,
+  `defaulting` int(10) NOT NULL,
+  `deviation_factor_+` double(10,2) NOT NULL,
+  `deviation_factor_-` double(10,2) NOT NULL,
+  `conversions` int(10) NOT NULL,
+  `user_item_type` varchar(100) NOT NULL,
+  `item_status` varchar(100) NOT NULL,
+  `long_description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `opm_inventory_item_attributes_summery`
+--
+
+INSERT INTO `opm_inventory_item_attributes_summery` (`id`, `organization`, `item`, `description`, `primary`, `tracking`, `pricing`, `secondary`, `defaulting`, `deviation_factor_+`, `deviation_factor_-`, `conversions`, `user_item_type`, `item_status`, `long_description`) VALUES
+(1, 30, 1, '123654', '121', 0, 'PRIMARY', 122, 0, 0.00, 0.00, 0, '', '', ''),
+(2, 1, 1, '', '121', 0, 'SECONDARY', 123, 0, 0.00, 0.00, 0, '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_inventory_organization_parameters_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_inventory_organization_parameters_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `organization_code` int(10) NOT NULL,
+  `item_master_organization` varchar(100) NOT NULL,
+  `calender` varchar(100) NOT NULL,
+  `demand_class` varchar(100) NOT NULL,
+  `move_order_timeout_period` int(10) NOT NULL,
+  `move_order_timeout_action` int(10) NOT NULL,
+  `locator_control` int(10) NOT NULL,
+  `default_on_hand_material_status` varchar(100) NOT NULL,
+  `enforce_locator_alias_uniqueness` int(10) NOT NULL,
+  `quality_skipping_inspection_control` int(10) NOT NULL,
+  `allow_negative_balences` int(10) NOT NULL,
+  `auto_delete_allocations_at_move_order_cancel` int(10) NOT NULL,
+  `manufacturing_partner_organization` int(10) NOT NULL,
+  `eam_enabled` int(10) NOT NULL,
+  `process_manufacturing_enabled` int(10) NOT NULL,
+  `wms_enabled` int(10) NOT NULL,
+  `wcs_enabled` int(10) NOT NULL,
+  `lcm_enabled` int(10) NOT NULL,
+  `eam_organization` varchar(100) NOT NULL,
+  `load_weight` varchar(100) NOT NULL,
+  `load_weight_uom` varchar(100) NOT NULL,
+  `volume` varchar(100) NOT NULL,
+  `volume_uom` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_inventory_organization_parameters_summery`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `opm_validity_rule_summery`
+--
+
+CREATE TABLE IF NOT EXISTS `opm_validity_rule_summery` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `formula` varchar(100) NOT NULL,
+  `formula_version` varchar(100) NOT NULL,
+  `formula_description` varchar(100) NOT NULL,
+  `routing` varchar(100) NOT NULL,
+  `routing_version` varchar(100) NOT NULL,
+  `version_description` varchar(100) NOT NULL,
+  `status` varchar(100) NOT NULL,
+  `organization` varchar(100) NOT NULL,
+  `organization_description` varchar(100) NOT NULL,
+  `recipe_use` varchar(100) NOT NULL,
+  `product` varchar(100) NOT NULL,
+  `revison` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `preference` varchar(100) NOT NULL,
+  `standard` varchar(100) NOT NULL,
+  `minimum` varchar(100) NOT NULL,
+  `maximum` varchar(100) NOT NULL,
+  `quentities_uom` varchar(100) NOT NULL,
+  `theoretical` varchar(100) NOT NULL,
+  `planned` varchar(100) NOT NULL,
+  `fixed` varchar(100) NOT NULL,
+  `process_loss_uom` varchar(100) NOT NULL,
+  `effective_date_from` date NOT NULL,
+  `effective_date_to` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `opm_validity_rule_summery`
+--
+
 
 -- --------------------------------------------------------
 
@@ -23071,34 +24213,35 @@ CREATE TABLE IF NOT EXISTS `software_architecture_details` (
   `status` varchar(20) NOT NULL DEFAULT 'ACTIVE',
   `data_type` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=49 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `software_architecture_details`
 --
 
 INSERT INTO `software_architecture_details` (`id`, `parent_id`, `name`, `controller_path`, `orderby`, `status`, `data_type`) VALUES
-(32, 30, 'Legal Entity', 'Project_controller/TempleteForm/8/list/', 2, 'ACTIVE', 73),
+(32, 30, 'Legal Entity', 'Project_controller/load_form_report/master_form/master_form/8/', 2, 'ACTIVE', 73),
 (31, 30, 'List Of Values', 'Project_controller/load_form_report/list_of_value', 1, 'ACTIVE', 73),
 (30, 29, 'Org Structure', '', 0, 'ACTIVE', 72),
 (29, 28, 'CORE SETUP', '', 0, 'ACTIVE', 71),
 (28, 0, 'Module', '', 0, 'ACTIVE', 70),
-(33, 30, 'Location', 'Project_controller/TempleteForm/27/list/', 3, 'ACTIVE', 73),
-(34, 30, 'User master', 'Project_controller/TempleteForm/10/list/', 4, 'ACTIVE', 73),
-(35, 30, 'Operating Unit', 'Project_controller/TempleteForm/14/list/', 5, 'ACTIVE', 73),
-(36, 30, 'chart of Accounts', 'Project_controller/load_form_report/CHART_OF_ACCOUNT/acc_tran/47/', 5, 'ACTIVE', 73),
-(37, 30, 'Chart of Accounts-Segment', 'Project_controller/load_form_report/CHART_OF_ACCOUNT_SEGMENT/acc_tran/47/', 7, 'ACTIVE', 73),
+(33, 30, 'Location', 'Project_controller/load_form_report/master_form/master_form/27/', 3, 'ACTIVE', 73),
+(34, 30, 'User master', 'Project_controller/load_form_report/master_form/master_form/10/', 4, 'ACTIVE', 73),
+(35, 30, 'Operating Unit', 'Project_controller/load_form_report/master_form/master_form/14/', 5, 'ACTIVE', 73),
+(36, 30, 'chart of Accounts', 'Project_controller/load_form_report/CHART_OF_ACCOUNT/acc_tran/47/', 5, 'INACTIVE', 73),
+(37, 30, 'Chart of Accounts-Segment', 'Project_controller/load_form_report/CHART_OF_ACCOUNT_SEGMENT/acc_tran/47/', 7, 'INACTIVE', 73),
 (38, 30, 'Currencies', 'Project_controller/load_form_report/master_form/master_form/31/', 6, 'ACTIVE', 73),
 (39, 30, 'Daily Currency Rate', 'Project_controller/load_form_report/currency_daily_rate', 7, 'ACTIVE', 73),
-(40, 30, 'Period Type', 'Project_controller/TempleteForm/32/list/', 10, 'ACTIVE', 73),
-(41, 30, 'Bank Setup', 'Project_controller/TempleteForm/33/list/', 10, 'ACTIVE', 73),
-(42, 30, 'Customer Setup', 'Project_controller/TempleteForm/35/list/', 11, 'ACTIVE', 73),
-(43, 30, 'Employee Setup', 'Project_controller/TempleteForm/36/list/', 12, 'ACTIVE', 73),
-(44, 30, 'Product Setup', 'Project_controller/TempleteForm/37/list/', 13, 'ACTIVE', 73),
-(45, 30, 'Supplier Setup', 'Project_controller/TempleteForm/38/list/', 14, 'ACTIVE', 73),
+(40, 30, 'Period Type', 'Project_controller/load_form_report/master_form/master_form/32/', 10, 'ACTIVE', 73),
+(41, 30, 'Bank Setup', 'Project_controller/load_form_report/master_form/master_form/33/', 10, 'ACTIVE', 73),
+(42, 30, 'Customer Setup', 'Project_controller/load_form_report/master_form/master_form/35/', 11, 'ACTIVE', 73),
+(43, 30, 'Employee Setup', 'Project_controller/load_form_report/master_form/master_form/36/', 12, 'ACTIVE', 73),
+(44, 30, 'Product Setup', 'Project_controller/load_form_report/master_form/master_form/37/', 13, 'ACTIVE', 73),
+(45, 30, 'Supplier Setup', 'Project_controller/load_form_report/master_form/master_form/38/', 14, 'ACTIVE', 73),
 (46, 30, 'Account Setup', 'Project_controller/load_form_report/master_form/master_form/40/', 13, 'ACTIVE', 73),
 (47, 30, 'Calendar', 'Project_controller/load_form_report/calender', 10, 'ACTIVE', 73),
-(48, 30, 'chart of Accounts value Set', 'Project_controller/load_form_report/CHART_OF_ACCOUNT_VALUESET/acc_tran/47/', 8, 'ACTIVE', 73);
+(48, 30, 'chart of Accounts value Set', 'Project_controller/load_form_report/CHART_OF_ACCOUNT_VALUESET/acc_tran/47/', 8, 'INACTIVE', 73),
+(49, 30, 'Chart of Accounts', 'Project_controller/load_form_report/CHART_OF_ACCOUNTS/acc_tran/75/', 4, 'ACTIVE', 73);
 
 -- --------------------------------------------------------
 
@@ -23114,7 +24257,7 @@ CREATE TABLE IF NOT EXISTS `software_archi_role_manage` (
   `status` varchar(20) NOT NULL,
   `data_type` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
 
 --
 -- Dumping data for table `software_archi_role_manage`
@@ -23138,10 +24281,11 @@ INSERT INTO `software_archi_role_manage` (`id`, `roll_name`, `parent_id`, `softw
 (45, '', 31, 44, 'ACTIVE', 'DETAILS'),
 (46, '', 31, 45, 'INACTIVE', 'DETAILS'),
 (47, '', 31, 46, 'ACTIVE', 'DETAILS'),
-(48, '', 31, 47, 'ACTIVE', 'DETAILS'),
-(49, '', 31, 37, 'ACTIVE', 'DETAILS'),
-(50, '', 31, 48, 'ACTIVE', 'DETAILS'),
-(51, '', 31, 45, 'ACTIVE', 'DETAILS');
+(48, '', 31, 47, 'INACTIVE', 'DETAILS'),
+(49, '', 31, 37, 'INACTIVE', 'DETAILS'),
+(50, '', 31, 48, 'INACTIVE', 'DETAILS'),
+(51, '', 31, 45, 'ACTIVE', 'DETAILS'),
+(52, '', 31, 49, 'ACTIVE', 'DETAILS');
 
 -- --------------------------------------------------------
 
@@ -23210,155 +24354,18 @@ CREATE TABLE IF NOT EXISTS `tbl_chart_of_accounts` (
   `chart_of_account_id` int(10) NOT NULL,
   `segment_id` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=264 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=269 ;
 
 --
 -- Dumping data for table `tbl_chart_of_accounts`
 --
 
 INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
-(39, 4, '01', 'Balancing Segment', 'des4', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 4, 39),
-(4, 0, '01', 'ADEQUATE SOLUTIONS', 'DESCRIPTION', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 4, 0),
-(23, 0, '02', '02', '02', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 23, 0),
-(38, 4, '03', 'Cost Center', 'des3', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 78, 4, 38),
-(37, 4, '02', 'Natural Account', 'des2', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '76', 79, 4, 37),
-(40, 4, '04', 'Products', 'des5', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 96, 4, 40),
-(97, 39, '1', 'one', '1', 'CHILD', 99, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 39),
-(99, 39, '3', 'three', '3', 'CHILD', 109, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 39),
-(109, 39, '4', 'four', 'des', 'CHILD', 97, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 75, 4, 39),
-(121, 4, '05', 'Managing Segment', 'segment 5', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'INACTIVE', '74', 97, 4, 121),
-(123, 37, '01', 'Sundry Creditors', '--', 'CHILD', 123, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 4, 37),
-(125, 37, '02', 'Raman Mullick', '0', 'CHILD', 123, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 4, 37),
-(133, 38, '01', 'cost 1', 'des', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 38),
-(135, 38, '02', 'cost 2', 'des', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 38),
-(137, 38, '03', 'cost 3', 'dd', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 38),
-(139, 121, '01', 'SEG5 VALUE1', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 121),
-(141, 121, '02', 'SEG 5 VALUE 2', '0', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 121),
-(144, 4, '06', 'segment 6', 'description', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 98, 4, 144),
-(146, 144, '01', 'segment 123', 'DESSC', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 144),
-(148, 144, '02', 'SEGMENT345', 'DESC', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 4, 144),
-(149, 0, 'SPBML_COA', 'SPBML_COA', '', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 149, 0),
-(150, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT', '', '', 0, 150, 0),
-(151, 149, '01', 'Company', 'Company', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 149, 151),
-(152, 149, '02', 'Cost centre', 'Cost centre', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 78, 149, 152),
-(153, 149, '03', 'Product', 'Product', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 96, 149, 153),
-(154, 149, '04', 'Account', 'Account', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 79, 149, 154),
-(155, 149, '05', 'Sub-Account', 'Sub-Account', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'INACTIVE', '74', 97, 149, 155),
-(156, 149, '06', 'Inter Company', 'Inter company', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 98, 149, 156),
-(158, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(157, 149, '07', 'Future 1', 'Future 1', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 99, 149, 157),
-(159, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(160, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(161, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(162, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(163, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(164, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(165, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(166, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(167, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(168, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(169, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(170, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(171, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(172, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(173, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(174, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(175, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(176, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(177, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(178, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(179, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(180, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(181, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(182, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(183, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(184, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(185, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(186, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(187, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(188, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(189, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(191, 154, '10003', 'Share Capital', 'Share Capital', 'PARENT', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 149, 154),
-(193, 154, '10002', 'Inventory', 'Inventory on hand', 'CHILD', 191, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 154),
-(194, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(195, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(196, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(197, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(198, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(199, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(200, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(201, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(202, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(203, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(204, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(205, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(206, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(207, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(208, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(209, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(210, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(211, 0, '', '', '', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 149, 0),
-(213, 151, '01', 'SPBML 1', 'SPBML OU 1 Company', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 151),
-(215, 151, '02', 'SPBML 2', 'SPBML OU 2 Company', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 151),
-(217, 151, '03', 'SPBML 3', 'SPBML OU 3 Company', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 151),
-(229, 152, '101', 'Production', 'Production Department', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 152),
-(231, 152, '102', 'Factory 01', 'Factory - Site 1', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 152),
-(233, 152, '103', 'Factory 02', 'Factory - Site 2', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 152),
-(235, 152, '104', 'CW', 'Central Warehouse', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 152),
-(237, 154, '10001', 'Cash', 'Cash in Hand', 'CHILD', 191, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 154),
-(251, 153, 'P001', 'Wood', 'Wood', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 153),
-(253, 153, 'P02', 'Glass', 'Glass', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 153),
-(255, 155, '101', 'Cash at Bank', 'Cash at Bank', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 155),
-(257, 155, '102', 'Raw Material', '0', 'CHILD', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 155),
-(259, 154, '1004', 'Bank', 'bank', 'CHILD', 191, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 149, 154);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_chart_of_accounts070220`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_chart_of_accounts070220` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `parent_id` int(10) NOT NULL,
-  `code` varchar(100) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  `parent_data_id` int(10) NOT NULL,
-  `trantype` varchar(50) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `data_type` varchar(20) NOT NULL,
-  `field_qualifier` int(10) NOT NULL,
-  `chart_of_account_id` int(10) NOT NULL,
-  `segment_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=149 ;
-
---
--- Dumping data for table `tbl_chart_of_accounts070220`
---
-
-INSERT INTO `tbl_chart_of_accounts070220` (`id`, `parent_id`, `code`, `title`, `description`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
-(39, 4, '01', 'Balancing Segment', 'des4', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 4, 39),
-(4, 0, '01', 'ADEQUATE SOLUTIONS', 'DESCRIPTION', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 4, 0),
-(23, 0, '02', '02', '02', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 23, 0),
-(38, 4, '03', 'Cost Center', 'des3', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 78, 4, 38),
-(37, 4, '02', 'Natural Account', 'des2', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '76', 79, 4, 37),
-(40, 4, '04', 'Products', 'des5', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 96, 4, 40),
-(97, 39, '1', 'one', '1', 99, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 39),
-(99, 39, '3', 'three', '3', 109, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 39),
-(109, 39, '4', 'four', 'des', 97, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 75, 4, 39),
-(121, 4, '05', 'Managing Segment', 'segment 5', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'INACTIVE', '74', 97, 4, 121),
-(123, 37, '01', 'Sundry Creditors', '--', 123, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 4, 37),
-(125, 37, '02', 'Raman Mullick', '0', 123, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 4, 37),
-(133, 38, '01', 'cost 1', 'des', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 74, 4, 38),
-(135, 38, '02', 'cost 2', 'des', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 38),
-(137, 38, '03', 'cost 3', 'dd', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 38),
-(139, 121, '01', 'SEG5 VALUE1', '', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 121),
-(141, 121, '02', 'SEG 5 VALUE 2', '0', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 121),
-(144, 4, '06', 'segment 6', 'description', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 98, 4, 144),
-(146, 144, '01', 'segment 123', 'DESSC', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 4, 144),
-(148, 144, '02', 'SEGMENT345', 'DESC', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 4, 144);
+(264, 0, '1', '1', '2', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 264, 0),
+(265, 264, '1', '1', '1', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 264, 265),
+(266, 265, '2', '2', '2', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 264, 265),
+(267, 265, '3', '3', '3', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 264, 265),
+(268, 265, '4', '4', '4', '158', 266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 264, 265);
 
 -- --------------------------------------------------------
 
@@ -23399,7 +24406,7 @@ CREATE TABLE IF NOT EXISTS `tbl_currency_master` (
   `symbol` varchar(20) NOT NULL,
   `precision` int(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbl_currency_master`
@@ -23407,20 +24414,7 @@ CREATE TABLE IF NOT EXISTS `tbl_currency_master` (
 
 INSERT INTO `tbl_currency_master` (`id`, `code`, `name`, `description`, `issue_teritory`, `symbol`, `precision`) VALUES
 (3, 'BDT', 'BANGLADESH TAKA', 'BANGLADESH CURRENCY', 'BANGLADESH ', '', 0),
-(4, 'INR', 'INDIAN RUPEE', 'INDIAN RUPEE', 'INDIA', '', 0),
-(5, 'UORO', 'UOROPIAN', 'UOROPIAN', '', 'URO', 2),
-(6, '6', '66', '6', '6', '6', 0),
-(7, '7', '7', '7', '7', '7', 0),
-(8, '9', '9', '9', '9', '9', 0),
-(9, '888', '8', '8', '8', '8', 0),
-(10, '555', '5', '5', '5', '5', 0),
-(11, '555', '5', '5', '5', '5', 0),
-(12, '555', '5', '5', '5', '5', 0),
-(13, '555', '5', '5', '5', '5', 0),
-(14, '555', '5', '5', '5', '5', 0),
-(15, '15989', '99', '99', '99', '99', 0),
-(16, '99', '525', '22', '122', '15', 0),
-(17, '562', 'test employee', '123654', '2365', 'uom', 0);
+(4, 'INR', 'INDIAN RUPEE', 'INDIAN RUPEE', 'INDIA', '', 0);
 
 -- --------------------------------------------------------
 
@@ -23456,7 +24450,7 @@ CREATE TABLE IF NOT EXISTS `tbl_employee_mstr` (
 INSERT INTO `tbl_employee_mstr` (`id`, `code`, `name`, `address`, `contactno`, `email`, `city`, `tbl_designation_id`, `userid`, `password`, `login_status`, `ANDROID_CODE`, `status`, `USER_TYPE`, `login_key`, `software_archi_role_manage_id`, `account_setup_id`) VALUES
 (6, 'emp1', 'admin', 'admin', 'admin', 'admin@admin.com', 0, 1, 'admin', 'admin', 'ADMIN', 0, 'ACTIVE', 'USER', '', 31, 2),
 (281, 'DEVELOPER', 'DEVELOPER', '', '', '', 0, 7, 'SUPER', 'SUPER', 'SUPER', 0, 'REPORT_ACTIVE', 'USER', '', 0, 0),
-(296, 'U001', 'Avijit Mitra', '', '', '', 0, 0, 'USER', 'USER', 'USER', 0, 'ACTIVE', 'USER', '', 8, 2);
+(296, 'U0012', 'Avijit Mitra', '', '', '', 0, 0, 'USER', 'USER', 'USER', 0, 'ACTIVE', 'USER', '', 8, 2);
 
 -- --------------------------------------------------------
 
@@ -23555,7 +24549,7 @@ CREATE TABLE IF NOT EXISTS `test_table` (
 --
 
 INSERT INTO `test_table` (`id`, `test_data`, `select_data`) VALUES
-(1, '[{"header":[{"section_type":"FORM","id":0,"parent_id":"","TableName":"tbl_currency_master","fields":[{"id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"id","InputName":"id","Inputvalue":"","Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"code":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"2","Section":"0","SectionType":"HEADER","input_id_index":0,"LabelName":"Code","InputName":"code","Inputvalue":"555","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""},"name":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"3","Section":"0","SectionType":"HEADER","input_id_index":1,"LabelName":"Name","InputName":"name","Inputvalue":"5","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""},"description":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"3","Section":"0","SectionType":"HEADER","input_id_index":2,"LabelName":"Description","InputName":"description","Inputvalue":"5","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""},"issue_teritory":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"3","Section":"0","SectionType":"HEADER","input_id_index":3,"LabelName":"Issue Teritory","InputName":"issue_teritory","Inputvalue":"5","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""},"symbol":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"31","DIVClass":"2","Section":"0","SectionType":"HEADER","input_id_index":4,"LabelName":"Symbol","InputName":"symbol","Inputvalue":"5","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""}}]}]}]', '');
+(1, '[{"header":[{"section_type":"FORM","id":"4","parent_id":"","TableName":"invoice_summary","fields":[{"id":{"MainTable":"invoice_summary","LinkField":"id","frmrpttemplatehdrID":"81","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"id","InputName":"id","Inputvalue":"4","Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"req_operating_unit":{"MainTable":"tbl_hierarchy_org","LinkField":"id","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":0,"LabelName":"Operating Unit","InputName":"req_operating_unit","Inputvalue":"Sealdah Warehouse","Inputvalue_id":"6694","InputType":"text","validation_type":"146","validation_msg":"","datafields":[{"FieldID":"6693","FieldVal":"KOLKATA WARE HOUSE"},{"FieldID":"6694","FieldVal":"Sealdah Warehouse"},{"FieldID":"6695","FieldVal":"Inventory Under Sealdah"},{"FieldID":"6696","FieldVal":"operating unit 1"},{"FieldID":"6697","FieldVal":"operating unit 2"}]},"req_number":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":1,"LabelName":"Number","InputName":"req_number","Inputvalue":"222","Inputvalue_id":"","InputType":"text","validation_type":"145","validation_msg":"","datafields":""},"req_type":{"MainTable":"frmrptgeneralmaster","LinkField":"id","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":2,"LabelName":"Type","InputName":"req_type","Inputvalue":"Purchase Requisition","Inputvalue_id":"92","InputType":"LABEL","validation_type":"146","validation_msg":"","datafields":[{"FieldID":"92","FieldVal":"Purchase Requisition"}]},"req_status":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":3,"LabelName":"Status","InputName":"req_status","Inputvalue":"APPROVED","Inputvalue_id":"90","InputType":"text","validation_type":"146","validation_msg":"","datafields":[{"FieldID":"90","FieldVal":"APPROVED"},{"FieldID":"91","FieldVal":"OPEN"}]},"forward_to":{"MainTable":"tbl_employee_mstr","LinkField":"id","frmrpttemplatehdrID":"81","DIVClass":"6","Section":"0","SectionType":"FOOTER2","input_id_index":4,"LabelName":"Forward to","InputName":"forward_to","Inputvalue":"Avijit Mitra","Inputvalue_id":"296","InputType":"text","validation_type":"146","validation_msg":"","datafields":[{"FieldID":"296","FieldVal":"Avijit Mitra"}]},"status":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER3","input_id_index":5,"LabelName":"Tran Type","InputName":"status","Inputvalue":"REQUISITION","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"created_by":{"MainTable":"invoice_summary","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"created_by","InputName":"created_by","Inputvalue":"6","Inputvalue_id":"6","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"last_updated_by":{"MainTable":"invoice_summary","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"last_updated_by","InputName":"last_updated_by","Inputvalue":"6","Inputvalue_id":"6","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"create_date_time":{"MainTable":"invoice_summary","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"create_date_time","InputName":"create_date_time","Inputvalue":"2020-04-12 01:16:52","Inputvalue_id":"2020-04-12 02:06:56","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"last_updated_date_time":{"MainTable":"invoice_summary","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"last_updated_date_time","InputName":"last_updated_date_time","Inputvalue":"2020-04-12 01:16:52","Inputvalue_id":"2020-04-12 02:06:56","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"req_preparer":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":6,"LabelName":"Preparer","InputName":"req_preparer","Inputvalue":"admin","Inputvalue_id":"6","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"req_requiester":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"6","Section":"0","SectionType":"FOOTER1","input_id_index":7,"LabelName":"Requester","InputName":"req_requiester","Inputvalue":"admin","Inputvalue_id":"6","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"req_organization":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"6","Section":"0","SectionType":"FOOTER1","input_id_index":8,"LabelName":"Organization","InputName":"req_organization","Inputvalue":"ATA ERP-1","Inputvalue_id":"1","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"req_location":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"6","Section":"0","SectionType":"FOOTER1","input_id_index":9,"LabelName":"Location","InputName":"req_location","Inputvalue":"West bengal","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"req_accounting_date":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"81","DIVClass":"3","Section":"0","SectionType":"FOOTER2","input_id_index":10,"LabelName":"Accounting date","InputName":"req_accounting_date","Inputvalue":"2020-04-12","Inputvalue_id":"","InputType":"datefield","validation_type":"146","validation_msg":"","datafields":""}}]}]}]', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

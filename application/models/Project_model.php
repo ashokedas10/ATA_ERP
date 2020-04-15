@@ -429,38 +429,238 @@ function __construct()
 		}	
 
 
-	if($form_name=='INSPECTION')
-	{
+		if($form_name=='INSPECTION')
+		{
 
-		//FORM CUSTOM SETTING
+			//FORM CUSTOM SETTING
 
-		$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Inspection Of Goods';
-		$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-		$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Inspection Of Goods';
+			$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
+			$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
 
 
-		//USER
-		if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-		{				
+			//USER
+			if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
+			{				
 
-			$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];
-			$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];
-			
-			$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue_id']=
-			$setting['req_organization_id'];							
-			
-			$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue']=
-			$setting['req_organization_name'];	
-			
-			$form_structure["header"][0]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
-			$form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');
+				$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];
+				$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];
+				
+				$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue_id']=
+				$setting['req_organization_id'];							
+				
+				$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue']=
+				$setting['req_organization_name'];	
+				
+				$form_structure["header"][0]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
+				$form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');
 
-			$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-			$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
+				$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
+				$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
+
+			}
+
+		}	
+
+
+		if($form_name=='purchase_invoice')
+		{
+
+			//aanatuaral account ...link to credit account
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				if($field_qualifier_name=='account_id')
+				{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}
+											
+			}
+
+
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				}
+			}
+
+
+			$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
+			$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
+		 //	$form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
+			$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
+			//	$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
+			//	$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+
+			$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
+
+			$indx=3;
+			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
+			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
+			$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
+			$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
+			$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
+			$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
 
 		}
 
-	}	
+		if($form_name=='SALES_ORDER')
+		{
+
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+					$form_structure["header"][1]['fields'][$i]['qnty']['InputType']='text';
+				}
+			}
+
+
+			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Standard Sales Order';
+			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=142;
+			$form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d H:i:s');;
+			
+			
+	   
+			$form_structure["header"][2]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
+			$form_structure["header"][2]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+			$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue']='OPEN';
+			$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue_id']=91;
+
+			if($form_structure["header"][2]['fields'][0]['created_by']['Inputvalue_id']==0)
+			{				
+				$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
+				$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];
+				$form_structure["header"][2]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
+				$form_structure["header"][2]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
+				$form_structure["header"][0]['fields'][0]['created_date_time']['Inputvalue']=date('Y-m-d H:i:s');
+			}
+
+
+		
+		}
+
+		if($form_name=='DESPATCH_GOODS')
+		{
+
+			
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+					$form_structure["header"][1]['fields'][$i]['qnty']['InputType']='text';
+				}
+			}
+			
+			
+			
+			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='ORDER DESPATCH';
+			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=143;
+
+			$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
+			$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+
+			//USER
+			if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
+			{				
+
+				$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
+				$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];									
+				$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue_id']=$setting['req_organization_id'];							
+				$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue']=$setting['req_organization_name'];										
+				$form_structure["header"][0]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
+				$form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');	
+				$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
+				$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
+
+			}
+
+		}
+
+		if($form_name=='sale_invoice')
+		{
+
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				if($field_qualifier_name=='account_id')
+				{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
+			}
+
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				}
+			}
+
+						
+			$indx=3;
+			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
+			
+
+		}	
+
+		
 
 		return $form_structure;
 
@@ -489,7 +689,9 @@ function __construct()
 		}
 
 		if($form_name=='requisition' || $form_name=='requisition_approve' || $form_name=='po_entry'
-		|| $form_name=='po_approve' || $form_name=='receipt_of_goods' || $form_name=='INSPECTION')
+		|| $form_name=='po_approve' || $form_name=='receipt_of_goods' || $form_name=='INSPECTION' 
+		|| $form_name=='purchase_invoice' || $form_name=='SALES_ORDER'||$form_name=='SALES_ORDER_APPROVE' 
+		|| $form_name=='DESPATCH_GOODS' || $form_name=='sale_invoice')
 		{
 			
 				foreach($save_details as $key1=>$tables)
@@ -520,7 +722,8 @@ function __construct()
 							else 
 							{
 								$savedata[$key3]=$value; 
-								if($form_name=='requisition' || $form_name=='po_entry' )
+								if($form_name=='requisition' || $form_name=='po_entry' 
+								|| $form_name=='SALES_ORDER' || $form_name=='DESPATCH_GOODS')
 								{if($savedata['item_id']==0){$save_statue=false;}}
 
 							}
@@ -542,6 +745,49 @@ function __construct()
 				}
 				
 				$return_data['id_header']=$header_id;
+
+				if( $form_name=='purchase_invoice')
+				{
+					$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
+					$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
+
+					$savedata=array();	
+					$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
+					$headers = $this->projectmodel->get_records_from_sql($headers);			
+					if($headers[0]->cnt==0)
+					{
+						$savedata['invoice_summary_id']=0;
+						$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
+					}
+					//calculate item wise sum
+					$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
+					$headers = $this->projectmodel->get_records_from_sql($headers);									
+					$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
+				}
+
+				if($form_name=='sale_invoice')
+				{
+					$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
+					$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
+
+					$savedata=array();	
+					$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
+					$headers = $this->projectmodel->get_records_from_sql($headers);			
+					if($headers[0]->cnt==0)
+					{
+						$savedata['invoice_summary_id']=0;
+						$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
+					}
+
+					//calculate item wise sum
+					$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
+					$headers = $this->projectmodel->get_records_from_sql($headers);									
+					$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
+
+				}
+
+				// if($form_name=='DESPATCH_GOODS')
+				// {$this->segment_update($header_id);	}
 
 		}
 

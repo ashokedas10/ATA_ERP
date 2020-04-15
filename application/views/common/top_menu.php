@@ -301,7 +301,6 @@ if($login_status=='SUPER') {?>
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_operation_summary/acc_tran/67/">
 		 <i class="fa fa-circle-o"></i>3.Operation </a> </li>
 		 
-		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_routing/acc_tran/67/">
 		 <i class="fa fa-circle-o"></i>4.Routing </a> </li>
 		 		 
@@ -310,7 +309,9 @@ if($login_status=='SUPER') {?>
 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_receipe/acc_tran/67/">
 		 <i class="fa fa-circle-o"></i>6.Receipe </a> </li>
-
+		
+		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/master_form/master_form/91/">
+		 <i class="fa fa-circle-o"></i>7.Batch Create </a> </li>
 						 
         </ul>
 	  </li>

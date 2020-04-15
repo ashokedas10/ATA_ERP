@@ -158,23 +158,27 @@ class Project_controller  extends CI_Controller {
 				 print_r($form_structure);
 				 echo '</pre>';
 			*/
-				 		$form_name='requisition_approve';
-						$id= $indx=0;
-					  	$form_id=81;
-						$whr=" id=".$form_id;	
-						$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-						$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-						$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-						$rs[$indx]['section_type']=$section_type;	
-						$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-						$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-						$rs[$indx]['fields']=$DataFields;
-						$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				 		// $form_name='requisition_approve';
+						// $id= $indx=0;
+					  // 	$form_id=81;
+						// $whr=" id=".$form_id;	
+						// $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+						// $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+						// $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+						// $rs[$indx]['section_type']=$section_type;	
+						// $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+						// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+						// $rs[$indx]['fields']=$DataFields;
+						// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
 																
-						$form_structure=$this->FrmRptModel->create_form($rs,$id);
-						$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-						$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
+						// $form_structure=$this->FrmRptModel->create_form($rs,$id);
+						// $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+						// $form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
+
+						$form_name='SALES_ORDER';
+						$id=0;
+						$form_structure=$this->form_view($form_name,$id);
 					 
 					 echo '<pre>';
 					 print_r($form_structure);
@@ -183,6 +187,8 @@ class Project_controller  extends CI_Controller {
 	}	
 
 	
+
+
 	public function experimental_form($datatype='')
 	{
 					
@@ -195,931 +201,765 @@ class Project_controller  extends CI_Controller {
 			$setting=$this->projectmodel->user_wise_setting(); 
 			
 
-			//OPM SECTION
-
-			//opm_operation_summary
-			if($form_name=='opm_operation_summary')
-			{
-					
-				if($subtype=='view_list')
-				{
-
-					$indx=0;
-				  	$form_id=67;
-				    $id=$form_data1->id;	
-				    //$id=4;
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-					$indx=1;
-				  	$form_id=68;
-				    //$id=0;	
-				    $opm_define_operations_summary_id=$form_data1->id;
-				    //$opm_define_operations_summary_id=4;
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']='GRID_ENTRY';		
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_operations_summary_id=".$opm_define_operations_summary_id;
-					
-					
-
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
-
-				}
-
-				if($subtype=='SAVE_DATA')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							$save_details2['test_data']=$form_data1->raw_data;
-							$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-								true );
-							$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-						//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-					$header_id=$activity_id=$resource_id='';
-					foreach($save_details as $key1=>$tables)
-					{
-									
-						foreach($tables as $key2=>$fields)
-						{
-								$table_name=$key2;		
-								$savedata=array();	
-								$save_statue=true;
-													
-							foreach($fields as $key3=>$value)
-							{
-								//HERE REQUIRE CUSTOMIZATION
-								if($key3=='id' && $table_name=='opm_define_operations_summary')
-								{
-									if($value>0)
-									{$header_id=$value;}
-									else 
-									{$header_id='';}  											
-								}
-								
-								else if ($key3<>'id' && $table_name=='opm_define_operations_summary')
-								{$savedata[$key3]=$value;}
-								
-								//for opm_define_operations_activity_details
-								else if ($key3=='id' 
-									&& $table_name=='opm_define_operations_activity_details')
-								{if($value>0){$activity_id=$value;}else {$activity_id='';}   }
-								
-								else if ($key3=='opm_define_operations_summary_id' && $table_name=='opm_define_operations_activity_details')
-								{$savedata[$key3]=$header_id; }
-								
-								//for opm_define_operations_resource_details
-
-								else if ($key3=='id' 
-									&& $table_name=='opm_define_operations_resource_details')
-								{if($value>0){$resource_id=$value;}else {$resource_id='';}   }
-								
-								else if ($key3=='opm_define_operations_summary_id' 
-									&& $table_name=='opm_define_operations_resource_details')
-								{$savedata[$key3]=$header_id; }
-
-								else if ($key3=='opm_define_operations_activity_details_id' 
-									&& $table_name=='opm_define_operations_resource_details')
-								{$savedata[$key3]=$activity_id; }
-
-								else 
-								{$savedata[$key3]=$value;}
-
-							}
-								//echo $table_name.' - '.$header_id.' - '.$id;
-								// echo '<br>';
-								// echo '<pre>';
-								// print_r($savedata);
-								// echo '</pre>';
-
-								//HEADER SECTION
-								if($table_name=='opm_define_operations_summary')
-								{
-									$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-									if($key1==0 && $header_id=='')
-										{$header_id=$this->db->insert_id();}												
-								}
-
-								if($save_statue && $table_name=='opm_define_operations_activity_details')
-								{
-									$this->projectmodel->save_records_model($activity_id,$table_name,$savedata);
-									if($key1==0 && $activity_id=='')
-										{$activity_id=$this->db->insert_id();}	
-								}
-
-								if($save_statue && $table_name=='opm_define_operations_resource_details')
-								{
-									$this->projectmodel->save_records_model($resource_id,$table_name,$savedata);
-									if($key1==0 && $resource_id=='')
-										{$resource_id=$this->db->insert_id();}	
-								}
-
-
-						}	
-
-					}
-							
-
-
-
-							$return_data['id_header']=$header_id;
+						 //CHART OF ACCOUNT NEW
 		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
+							if($form_name=='CHART_OF_ACCOUNTS')
+							{
+									
+								if($subtype=='view_list')
+								{
 
-					}
-
-				}	
-
-				if($subtype=='resource_list')
-				{
-
-					$indx=0;
-				  	$form_id=69;
-				    $opm_define_operations_activity_details_id=$form_data1->id;	
-
-				     $count=0;
-					 $records="select count(*) cnt from opm_define_operations_resource_details where 
-					 opm_define_operations_activity_details_id=".$opm_define_operations_activity_details_id;
-					 $records = $this->projectmodel->get_records_from_sql($records);	
-					 foreach ($records as $record)
-					 {$count=$record->cnt;}	
-
-				     $id=$count;
-
-				    $whr=" id=".$opm_define_operations_activity_details_id;	
-					$opm_define_operations_summary_id=
-					$this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
+									$indx=0;
+										$form_id=75;
+										$id=$form_data1->id;	
+										//$id=1;			    
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
 
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					//$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']='GRID_ENTRY';
+									$indx=1;
+										$form_id=77;				    
+										$parent_id=$form_data1->id;	
+										//$parent_id=1;			   
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$parent_id;
 
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_operations_summary_id=".$opm_define_operations_summary_id." and 
-					opm_define_operations_activity_details_id=".$opm_define_operations_activity_details_id;
-					
+														
 
+									$form_structure=$this->FrmRptModel->create_form($rs,$id);
+											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);	
 
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
+								}
 
-				}
-
-
-				if($subtype=='resource_save')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							$opm_define_operations_activity_details_id=$form_data1->activity_id;
-
-							$whr=" id=".$opm_define_operations_activity_details_id;	
-							$opm_define_operations_summary_id=
-							$this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
-
-
-
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-						//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-						$header_id=$resource_id='';
-						foreach($save_details as $key1=>$tables)
-						{
+								if($subtype=='SAVE_DATA')
+								{
 										
-							foreach($tables as $key2=>$fields)
-							{
-									$table_name=$key2;		
-									$savedata=array();	
-									$save_statue=true;
-														
-								foreach($fields as $key3=>$value)
-								{
-									//HERE REQUIRE CUSTOMIZATION
-									if($key3=='id' && $table_name=='opm_define_operations_resource_details')
-									{
-										if($value>0)
-										{$header_id=$value;}
-										else 
-										{$header_id='';}  											
-									}
-									
-									else if 
-									($key3<>'id' && $table_name=='opm_define_operations_resource_details')
-									{$savedata[$key3]=$value;}
-
-									else 
-									{$savedata[$key3]=$value;}
-
-								}
-									
-									$savedata['opm_define_operations_activity_details_id']=
-									$opm_define_operations_activity_details_id;
-
-									$savedata['opm_define_operations_summary_id']=
-									$opm_define_operations_summary_id;
-
-
-									//HEADER SECTION
-									if($table_name=='opm_define_operations_resource_details')
-									{
-									$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-										if($key1==0 && $header_id=='')
-										{$header_id=$this->db->insert_id();}												
-									}
-
-
-							}	
-
-						}
-								
-
-
-
-							$return_data['id_header']=$header_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
-					}
-
-				}	
-			
-			
-			}
-
-			//opm_routing
-			if($form_name=='opm_routing')
-			{
-					
-				if($subtype=='view_list')
-				{
-
-					$indx=0;
-				  	$form_id=70;
-				    $id=$form_data1->id;	
-				   	$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-
-					$indx=1;
-				  	$form_id=71;
-				    $opm_define_routing_summery_id=$form_data1->id;				    
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']='GRID_ENTRY';		
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_routing_summery_id=".$opm_define_routing_summery_id;
-
-					
-
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
-
-				}
-
-				if($subtype=='SAVE_DATA')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-							$header_id=$id='';
-							foreach($save_details as $key1=>$tables)
-							{
-								
-								foreach($tables as $key2=>$fields)
-							{
-								$table_name=$key2;		
-								$savedata=array();	
-								$save_statue=true;
-													
-								foreach($fields as $key3=>$value)
-								{
-									//HERE REQUIRE CUSTOMIZATION
-									if($key3=='id' && $table_name=='opm_define_routing_summery')
-									{
-										if($value>0)
-										{$header_id=$value;}
-										else 
-										{$header_id='';}  											
-									}
-									else if ($key3<>'id' && $table_name=='opm_define_routing_summery')
-									{$savedata[$key3]=$value;}
-
-									else if ($key3=='id' && $table_name=='opm_define_routing_details')
-									{if($value>0){$id=$value;}else {$id='';}   }
-									
-									else if ($key3=='opm_define_routing_summery_id' 
-										&& $table_name=='opm_define_routing_details')
-										{$savedata[$key3]=$header_id; }
-
-									else 
-									{$savedata[$key3]=$value; }
-
-								}
-
-										 //echo $table_name.' - '.$header_id.' - '.$id;
-										// echo '<br>';
-										// echo '<pre>';
-										// print_r($savedata);
-										// echo '</pre>';
-
-										//HEADER SECTION
-										if($table_name=='opm_define_routing_summery')
-										{
-											$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-											if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-										}
-
-										if($save_statue && $table_name=='opm_define_routing_details')
-										{
-											$this->projectmodel->save_records_model($id,$table_name,$savedata);
-										}
-								}	
-
-							}
-							
-							$return_data['id_header']=$header_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
-					}
-
-				}	
-			
-			 }
-
-
-			 //opm_receipe
-			
-			if($form_name=='opm_receipe')
-			{
-					
-				if($subtype=='view_list')
-				{
-
-					$indx=0;
-				  	$form_id=72;
-				    $id=$form_data1->id;	
-				   	$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
-
-				}
-
-				if($subtype=='SAVE_DATA')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-							$header_id=$id='';
-							foreach($save_details as $key1=>$tables)
-							{
-								
-								foreach($tables as $key2=>$fields)
-							{
-								$table_name=$key2;		
-								$savedata=array();	
-								$save_statue=true;
-													
-								foreach($fields as $key3=>$value)
-								{
-									//HERE REQUIRE CUSTOMIZATION
-									if($key3=='id' && $table_name=='opm_define_recipe_summery')
-									{
-										if($value>0)
-										{$header_id=$value;}
-										else 
-										{$header_id='';}  											
-									}
-									else if ($key3<>'id' && $table_name=='opm_define_recipe_summery')
-									{$savedata[$key3]=$value;}
-
-
-								}
-
-										 //echo $table_name.' - '.$header_id.' - '.$id;
-										// echo '<br>';
-										// echo '<pre>';
-										// print_r($savedata);
-										// echo '</pre>';
-
-										//HEADER SECTION
-										if($table_name=='opm_define_recipe_summery')
-										{
-											$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-											if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-										}
-
-								}	
-
-							}
-							
-							$return_data['id_header']=$header_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
-					}
-
-				}	
-
-
-			
-			 }
-
-
-
-			 //opm_formula
-			
-			if($form_name=='opm_formula')
-			{
-					
-				if($subtype=='view_list')
-				{
-
-					$indx=0;
-				  	$form_id=73;
-				    $id=$form_data1->id;	
-				   	$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-
-					$indx=1;
-				  	$form_id=74;
-				    $opm_define_formula_summery_id=$form_data1->id;				    
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']='GRID_ENTRY';		
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_formula_summery_id=".$opm_define_formula_summery_id;
-
-					
-
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
-
-				}
-
-				if($subtype=='SAVE_DATA')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-							$header_id=$id='';
-							foreach($save_details as $key1=>$tables)
-							{
-								
-							foreach($tables as $key2=>$fields)
-							{
-								$table_name=$key2;		
-								$savedata=array();	
-								$save_statue=true;
-													
-								foreach($fields as $key3=>$value)
-								{
-									//HERE REQUIRE CUSTOMIZATION
-									if($key3=='id' && $table_name=='opm_define_formula_summery')
-									{
-										if($value>0)
-										{$header_id=$value;}
-										else 
-										{$header_id='';}  											
-									}
-									else if ($key3<>'id' && $table_name=='opm_define_formula_summery')
-									{$savedata[$key3]=$value;}
-
-									else if ($key3=='id' && $table_name=='opm_define_formula_details')
-									{if($value>0){$id=$value;}else {$id='';}   }
-									
-									else if ($key3=='opm_define_formula_summery_id' 
-										&& $table_name=='opm_define_formula_details')
-										{$savedata[$key3]=$header_id; }
-
-									else 
-									{$savedata[$key3]=$value; }
-
-								}
-
-										 //echo $table_name.' - '.$header_id.' - '.$id;
-										// echo '<br>';
-										// echo '<pre>';
-										// print_r($savedata);
-										// echo '</pre>';
-
-										//HEADER SECTION
-										if($table_name=='opm_define_formula_summery')
-										{
-											$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-											if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-										}
-
-										if($save_statue && $table_name=='opm_define_formula_details')
-										{
-											$this->projectmodel->save_records_model($id,$table_name,$savedata);
-										}
-								}	
-
-							}
-							
-							$return_data['id_header']=$header_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
-						}
-
-					}	
-			
-			 }
-			
-
-			//OPM SECTION
-
-
-			//ORDER TO CASH START
-
-			if($form_name=='SALES_ORDER')
-			{
-								
-					if($subtype=='view_list')
-					{			
-						
-							$id=mysql_real_escape_string($form_data1->id);
-							$form_structure=$this->form_view($form_name,$id);
-							array_push($output,$form_structure);
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($output);						
-
-					}
-
-					//save section
-					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
-								
-							//	$save_details2['test_data']=$form_data1->raw_data;
-								//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-							//	$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
-
-								// echo '<pre>';
-								// print_r($save_details);
-								// echo '</pre>';
-
-								$header_id=$id='';
-								foreach($save_details as $key1=>$tables)
-								{
-									
-									foreach($tables as $key2=>$fields)
-									{
-											$table_name=$key2;		
-											$savedata=array();	
-											$save_statue=true;
+									//VALIDATION PORTION
 																
-											foreach($fields as $key3=>$value)
-											{
-												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_summary')
-												{
-													if($value>0)
-													{$header_id=$value;}
-													else 
-													{$header_id='';}  											
-												}
-												else if ($key3<>'id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_details')
-												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_details')
-												{$savedata[$key3]=$header_id; }
-												else 
-												{$savedata[$key3]=$value; if($savedata['item_id']==0){$save_statue=false;}}
-
-											}
-
-											 //echo $table_name.' - '.$header_id.' - '.$id;
-											// echo '<br>';
-											// echo '<pre>';
-											// print_r($savedata);
-											// echo '</pre>';
-
-											//HEADER SECTION
-											if($table_name=='invoice_summary')
-											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-											}
-
-											if($save_statue && $table_name=='invoice_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
-									}	
-
-								}
+									$data_for_validation = json_decode($form_data1->raw_data, true);								
+									//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+									$VALID_STATUS='VALID';
+									//VALIDATION PORTION
 								
-								$return_data['id_header']=$header_id;
-			
-								header('Access-Control-Allow-Origin: *');
-								header("Content-Type: application/json");
-								echo json_encode($return_data);
-
-
-					}	
-
-					if($subtype=='MAIN_GRID')
-					{
-					
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=41;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-						$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-					}
-
-					if($subtype=='other_search')
-					{			
-												
-						$output= $someArray=array();
-
-						 $header_index=mysql_real_escape_string($form_data1->header_index);
-						 $field_index=mysql_real_escape_string($form_data1->field_index);
-						 $searchelement=mysql_real_escape_string($form_data1->searchelement);
-						 $someArray = json_decode($form_data1->raw_data, true);
-						 
-						if($searchelement=='parent_id')
-						{
-															
-									$id=0;
-									$parent_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id'];
-									
-									$entry_type='EDIT';
-									$whr=" parent_id=".$parent_id;	
-									$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
-
-									if($id==0)
+									if($VALID_STATUS=='VALID')
 									{
-										$whr=" id=".$parent_id;	
-										$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
-										$entry_type='NEW';
-									}				
-									 
 
-									$rs[0]['section_type']='FORM';	
-									$rs[0]['frmrpttemplatehdr_id']=41;
-									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-									$rs[0]['fields']='id,parent_id,req_operating_unit,created_date_time,req_number,req_type,req_supplier,req_site,req_contact,comment,status';
-									//,	req_preparer,req_organization,req_location,req_accounting_date,status,last_updated_by,last_updated_date_time,created_by,create_date_time
-		
-									//BODY OR GRID ENTRY SECTION					
-									$rs[1]['section_type']='GRID_ENTRY';		
-									$rs[1]['frmrpttemplatehdr_id']=48;
-									$rs[1]['id']=0;	$rs[1]['parent_id']=$id;$rs[1]['TableName']='invoice_details';		
-									$rs[1]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address'.$setting['segments'];
+											$form_data=json_decode($form_data1->raw_data);
+
+											//$main_id=json_decode($form_data1->id);
+											
+											//$save_details2['test_data']=$form_data1->raw_data;
+											//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+											//	true );
+											//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+											$header_scount=sizeof($headers);
+											$id_header=0;	
+											$count=sizeof($form_data[0]->header);		
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+											$save_details=$this->FrmRptModel->create_save_array($headers);
+										
+
+											// echo '<pre>';
+											// print_r($save_details);
+											// echo '</pre>';
+											$main_id=0;
+											$header_id=$activity_id=$resource_id='';
+											foreach($save_details as $key1=>$tables)
+											{
+															
+												foreach($tables as $key2=>$fields)
+												{
+														$table_name=$key2;		
+														$savedata=array();	
+														$save_statue=true;
+																			
+													foreach($fields as $key3=>$value)
+													{
+														//HERE REQUIRE CUSTOMIZATION
+														if($key3=='id' && $table_name=='tbl_chart_of_accounts')
+														{
+															if($value>0)
+															{$header_id=$value;}
+															else 
+															{$header_id='';}  											
+														}
 														
-									// //FOOTER SECTION
-									$rs[2]['section_type']='FORM';	
-									$rs[2]['frmrpttemplatehdr_id']=41;
-									$rs[2]['id']=$id;	$rs[2]['parent_id']='';$rs[2]['TableName']='invoice_summary';
-									$rs[2]['fields']='req_preparer,req_organization,req_location,req_accounting_date,last_updated_by,last_updated_date_time,created_by,create_date_time,req_status';
-		
-									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;					
-									$rs[1]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;	
-									$rs[2]['sql_query']="select ".$rs[2]['fields']." from ".$rs[2]['TableName']." where id=".$id;							
+														else if ($key3=='parent_id' && $table_name=='tbl_chart_of_accounts')
+														{$savedata[$key3]=$main_id; }
+														
+														else 
+														{$savedata[$key3]=$value;}
+
+													}
+													
+
+														//HEADER SECTION
+														if($table_name=='tbl_chart_of_accounts')
+														{
+															$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+															if($key1==0 && $header_id=='')
+															{$header_id=$this->db->insert_id();}
+
+															if($main_id==0)
+															{$main_id=$header_id;}	
+
+														}
+
+														
+												}	
+
+											}
+
+											$return_data['id_header']=$main_id;
+						
+											header('Access-Control-Allow-Origin: *');
+											header("Content-Type: application/json");
+											echo json_encode($return_data);
+
+									}
+
+								}	
+
+								if($subtype=='VALUE_SET_LIST')
+								{
+
+									$indx=0;
+										$form_id=78;
+										$segment_id=$form_data1->id;	
+
+										$whr=" id=".$segment_id." and trantype='CHART_OF_ACCOUNT_SEGMENT'";	
+									$main_id=$this->projectmodel->GetSingleVal('parent_id','tbl_chart_of_accounts',$whr);
+
+
+										$count=0;
+									$records="select count(*) cnt from tbl_chart_of_accounts where  parent_id=".$segment_id;
+									$records = $this->projectmodel->get_records_from_sql($records);	
+									foreach ($records as $record)
+									{$count=$record->cnt;}	
+											
+										$id=$count;
+
+
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+										
+									$rs[$indx]['section_type']='GRID_ENTRY';
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$segment_id;
 									
 									$form_structure=$this->FrmRptModel->create_form($rs,$id);
-									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
- 
-									$whr=" id=".$parent_id;	
+											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+
+
+
+									$cnts=sizeof($form_structure["header"][0]['fields']);
+									for($i=0;$i<$cnts;$i++)
+									{
+										$sql="select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype='CHART_OF_ACCOUNT_VALUESET'  
+										and acc_type=157 and parent_id=".$segment_id;
+										$datafields_array =$this->projectmodel->get_records_from_sql($sql);
+										$form_structure["header"][0]['fields'][$i]['parent_data_id']['datafields']=json_decode(json_encode($datafields_array), true);	
+																			
+										// $whr=" id=".
+										// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue_id'];	
+										// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue']=$this->projectmodel->GetSingleVal('title','tbl_chart_of_accounts',$whr);																		
+										
+										// $sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where  status='CHART_OF_AC_QUALIFIER'";
+										// $datafields_array =$this->projectmodel->get_records_from_sql($sql);
+										// $form_structure["header"][1]['fields'][$i]['field_qualifier']['datafields']=json_decode(json_encode($datafields_array), true);
+
+										// $whr=" id=".$form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue_id'];	
+										// $form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue']=$this->projectmodel->GetSingleVal('FieldVal','frmrptgeneralmaster',$whr);		
+
+
+									}
+
+
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);	
+
+								}
+
+
+								if($subtype=='VALUE_SET_SAVE')
+								{
+										
+									//VALIDATION PORTION
+																
+									$data_for_validation = json_decode($form_data1->raw_data, true);								
+									//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+									$VALID_STATUS='VALID';
+									//VALIDATION PORTION
+								
+									if($VALID_STATUS=='VALID')
+									{
+
+											$form_data=json_decode($form_data1->raw_data);
+											$segment_id=$form_data1->activity_id;
+
+											// $whr=" id=".$opm_define_operations_activity_details_id;	
+											// $opm_define_operations_summary_id=
+											// $this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
+
+
+
+											//$save_details2['test_data']=$form_data1->raw_data;
+											//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+											//	true );
+											//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+											$header_scount=sizeof($headers);
+											$id_header=0;	
+											$count=sizeof($form_data[0]->header);		
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+											$save_details=$this->FrmRptModel->create_save_array($headers);
+										
+											// echo '<pre>';
+											// print_r($save_details);
+											// echo '</pre>';
+
+										$header_id=$resource_id='';
+										foreach($save_details as $key1=>$tables)
+										{
+														
+											foreach($tables as $key2=>$fields)
+											{
+													$table_name=$key2;		
+													$savedata=array();	
+													$save_statue=true;
+																		
+												foreach($fields as $key3=>$value)
+												{
+													//HERE REQUIRE CUSTOMIZATION
+													if($key3=='id' && $table_name=='tbl_chart_of_accounts')
+													{
+														if($value>0)
+														{$header_id=$value;}
+														else 
+														{$header_id='';}  											
+													}
+													
+													// else if ($key3<>'id' && $table_name=='tbl_chart_of_accounts')
+													// {$savedata[$key3]=$value;}
+
+													else 
+													{$savedata[$key3]=$value;}
+
+												}
+													
+													$savedata['parent_id']=$segment_id;
+
+													// $savedata['opm_define_operations_summary_id']=
+													// $opm_define_operations_summary_id;
+
+
+												//HEADER SECTION
+												if($table_name=='tbl_chart_of_accounts')
+												{
+													$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+													//if($key1==0 && $header_id=='')
+													//{$header_id=$this->db->insert_id();}												
+												}
+
+
+											}	
+
+										}
+												
+
+
+
+											$return_data['id_header']=$header_id;
+						
+											header('Access-Control-Allow-Origin: *');
+											header("Content-Type: application/json");
+											echo json_encode($return_data);
+
+									}
+
+								}	
+							
+							
+							}
+
+						//CHART OF ACCOUNT NEW END
+
+
+
+						//ORDER TO CASH START
+
+						if($form_name=='SALES_ORDER')
+						{
+											
+								if($subtype=='view_list')
+								{			
+									
+										$id=mysql_real_escape_string($form_data1->id);
+										$form_structure=$this->form_view($form_name,$id);
+										array_push($output,$form_structure);
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($output);						
+
+								}
+
+								//save section
+								if($subtype=='SAVE_DATA')
+								{
+									$this->projectmodel->save_data($form_data1->raw_data,$form_name);
+								}	
+
+
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+								if($subtype=='other_search')
+								{			
+															
+									$output= $someArray=array();
+
+									$header_index=mysql_real_escape_string($form_data1->header_index);
+									$field_index=mysql_real_escape_string($form_data1->field_index);
+									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$someArray = json_decode($form_data1->raw_data, true);
+									
+								
+							
+
+								}
+
+						}
+
+						if($form_name=='SALES_ORDER_APPROVE')
+						{
+											
+								if($subtype=='view_list')
+								{			
+									
+										$id=mysql_real_escape_string($form_data1->id);
+										$indx=0;
+										$form_id=88;
+										$whr=" id=".$form_id;	
+										$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+										$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+										$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+										$rs[$indx]['section_type']=$section_type;	
+										$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+										$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+										$rs[$indx]['fields']=$DataFields;
+										$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+										$form_structure=$this->FrmRptModel->create_form($rs,$id);
+										$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									
+
+										$sql="select  id FieldID,name FieldVal  from tbl_employee_mstr
+										where  login_status<>'SUPER' and status='ACTIVE' and account_setup_id=".$setting['account_setup_id']." 
+										and id<>".$setting['login_emp_id']." order by name	";
+										$datafields_array =$this->projectmodel->get_records_from_sql($sql);
+										$form_structure["header"][0]['fields'][0]['forward_to']['datafields']=
+										json_decode(json_encode($datafields_array), true);	
+									
+
+										array_push($output,$form_structure);
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($output);						
+
+								}
+
+								//save section
+								if($subtype=='SAVE_DATA')
+								{
+									$this->projectmodel->save_data($form_data1->raw_data,$form_name);
+								}	
+
+
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER' and req_status='91'";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+								if($subtype=='other_search')
+								{			
+															
+									$someArray=array();
+
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
+									$someArray = json_decode($form_data1->raw_data, true);
+
+								}
+
+						}
+
+						if($form_name=='DESPATCH_GOODS')
+						{
+											
+								if($subtype=='view_list')
+								{			
+									
+										$id=mysql_real_escape_string($form_data1->id);
+										$form_structure=$this->form_view($form_name,$id);
+										array_push($output,$form_structure);
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($output);			
+								}
+
+									//save section
+									if($subtype=='SAVE_DATA')
+									{
+										$this->projectmodel->save_data($form_data1->raw_data,$form_name);
+									}	
+				
+							
+
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='GRN_ENTRY'";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+								if($subtype=='other_search')
+								{			
+															
+									$output= $someArray=array();
+									$header_index=mysql_real_escape_string($form_data1->header_index);
+									$field_index=mysql_real_escape_string($form_data1->field_index);
+									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$someArray = json_decode($form_data1->raw_data, true);
+
+									if($searchelement=='parent_id')
+									{
+									
+										$id=0;
+										$parent_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id'];
+										
+										$entry_type='EDIT';
+										$whr=" parent_id=".$parent_id;	
+										$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
+
+										if($id==0)
+										{
+											$whr=" id=".$parent_id;	
+											$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
+											$entry_type='NEW';
+										}		
+										
+										$form_structure=$this->form_view($form_name,$id);
+										
+										$whr=" id=".$parent_id;	
 										$req_number=$this->projectmodel->GetSingleVal('req_number','invoice_summary',$whr); //requisition id
-									$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue']=$req_number;
-									$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id']=$parent_id;
+										$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue']=$req_number;
+										$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id']=$parent_id;
+
+										if($entry_type=='NEW')
+										{
+													$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue']='';
+													$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue_id']=0;
+													
+													$count_parent=sizeof($form_structure['header'][1]['fields']);		
+													if($count_parent>0)
+													{
+															for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
+															{	
+																	//modify parent
+																	$form_structure["header"][1]['fields'][$cnt_parent]['parent_id']['Inputvalue']=
+																	$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue'];
+
+																	$form_structure["header"][1]['fields'][$cnt_parent]['parent_id']['Inputvalue_id']=
+																	$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id'];
+																	
+																	$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
+																	$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
+															}	
+													}
+										
+
+										}
+
+										array_push($output,$form_structure);
+										$this->FrmRptModel->tranfer_data($output);
+
+									}
+
+							
+
+								}
+
+						}
+
+
+						if($form_name=='sale_invoice')
+						{
+
+								if($subtype=='view_list')
+								{			
+									
+										$id=mysql_real_escape_string($form_data1->id);						
+										$form_structure=$this->form_view($form_name,$id);
+
+										array_push($output,$form_structure);
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($output);	
+								}
+
+								if($subtype=='SAVE_DATA')
+								{
+									$this->projectmodel->save_data($form_data1->raw_data,$form_name);
+								}	
+
+
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_INVOICE'";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+								if($subtype=='MATCH_PO')
+								{
+								
+									$output= $someArray=array();					
+									$someArray = json_decode($form_data1->raw_data, true);
+
+									$req_operating_unit=$someArray[0]["header"][0]['fields'][0]['req_operating_unit']['Inputvalue_id'];
+									$req_supplier_id=$someArray[0]["header"][0]['fields'][0]['req_supplier']['Inputvalue_id'];
+									
+									$po_ids=0;
+									$details="select * from  invoice_summary  where status='SALES_INVOICE' 
+									and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";					
+									$details = $this->projectmodel->get_records_from_sql($details);	
+									foreach ($details as $key2=>$detail)
+									{	$po_ids=$po_ids.','.$detail->parent_id;}
+									
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." 
+									where status='SALES_ORDER' and id not in (".$po_ids.")	and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+								if($subtype=='PO_DATA')
+								{
+								
+									$output= $someArray=array();					
+									$someArray = json_decode($form_data1->raw_data, true);
+									$parent_id=$form_data1->id;
+
+										$entry_type='EDIT';
+										$whr=" status='SALES_INVOICE' and parent_id=".$parent_id;	
+										$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
+
+										if($id==0)
+										{
+											$whr=" id=".$parent_id;	
+											$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
+											$entry_type='NEW';
+										}						
+										
+									///
+
+									$indx=0;
+									$rs[$indx]['section_type']='FORM';	
+									$rs[$indx]['frmrpttemplatehdr_id']=57;
+									$rs[$indx]['TableName']='invoice_summary';
+									$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
+						
+						
+									//BODY OR GRID ENTRY SECTION	
+									$indx=1;				
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=48;
+									$rs[$indx]['TableName']='invoice_details';								
+									$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
+						
+									//,tax_ledger_id,tax_rate,tax_amount
+						
+									//TAX SECTION
+									// $indx=2;
+									// $rs[$indx]['section_type']='GRID_ENTRY';		
+									// $rs[$indx]['frmrpttemplatehdr_id']=53;
+									// $rs[$indx]['TableName']='invoice_tax_details';								
+									// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
+									// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+									// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+									
+									$indx=2;
+									$rs[$indx]['section_type']='FORM';	
+									$rs[$indx]['frmrpttemplatehdr_id']=57;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
+									$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
+									
+									$indx=3;							
+									$rs[$indx]['section_type']='FORM';	
+									$rs[$indx]['frmrpttemplatehdr_id']=57;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
+									$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
+														
+									$form_structure=$this->FrmRptModel->create_form($rs,$id);
+									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+						
+						
+									//aanatuaral account ...link to credit account
+									$field_qualifier_name='';
+									$cnts=sizeof($setting['segment']);
+									for($cnt=0;$cnt<$cnts;$cnt++)
+									{
+										$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+										if($field_qualifier_name=='account_id')
+										{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
+									}
+						
+									$field_qualifier_name='';
+									$cnts=sizeof($setting['segment']);
+									for($cnt=0;$cnt<$cnts;$cnt++)
+									{
+										$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+										$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+										$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+									}
+						
+									$cnts=sizeof($form_structure["header"][1]['fields']);
+									for($i=0;$i<$cnts;$i++)
+									{
+										$field_qualifier_name='';
+										$cnts2=sizeof($setting['segment']);
+										for($cnt=0;$cnt<$cnts2;$cnt++)
+										{
+											$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+											$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+										}
+									}
+						
+									//created_by,create_date_time,req_preparer
+									//FORM WISE SETTING
+						
+									//for new entry
+									
+									$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
+									$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';		
+									$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
+									$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='hidden';
+									// $form_structure["header"][0]['fields'][0]['req_supplier']['LabelName']='Customer';
+											
+									
+									$indx=3;
+									$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
+									$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=144;
+									$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='SALES_INVOICE';
+									$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
+									$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
+									$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
+									$form_structure["header"][$indx]['fields'][0]['req_status']['InputType']='hidden';
+
+									///
+
+
+									// $form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
+									// $form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
+									// $form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
+									// $form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
+									// $form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
+									// $form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+								
+									// $form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
+
+
+									// $indx=3;
+									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
+									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
+									// $form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
+
+									// $form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
+									// $form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
+									// $form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
+
 
 									if($entry_type=='NEW')
 									{
-										$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue']='';
-										$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue_id']=0;
-										
+										$header_index=$field_index=0;
+										$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue']='';
+										$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue_id']=0;
+
+										// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;
+										// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;
+
+										// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=0;
+										// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=0;
+
+										$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;;
+										$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;;
+																
 										$count_parent=sizeof($form_structure['header'][1]['fields']);		
 										for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
 										{	
@@ -1128,881 +968,622 @@ class Project_controller  extends CI_Controller {
 										}	
 
 									}
-
-									//FORM CUSTOM SETTING
-
-							$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Standard Purchase Order';
-							$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=93;
-							$form_structure["header"][0]['fields'][0]['status']['Inputvalue']='PO_ENTRY';
-						
-							$form_structure["header"][2]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-							$form_structure["header"][2]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-							$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue']=91;
-							$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue_id']=91;
-
-
-
-							//USER
-							if($form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-							{				
-
-								$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
-								$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];
-
-								// $form_structure["header"][2]['fields'][0]['req_requiester']['Inputvalue_id']=$setting['login_emp_id'];							
-								// $form_structure["header"][2]['fields'][0]['req_requiester']['Inputvalue']=$setting['login_emp_name'];			
-								
-								$form_structure["header"][2]['fields'][0]['req_organization']['Inputvalue_id']=$setting['req_organization_id'];							
-								$form_structure["header"][2]['fields'][0]['req_organization']['Inputvalue']=$setting['req_organization_name'];	
-								
-								$form_structure["header"][2]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
-								$form_structure["header"][2]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');
-
-								$form_structure["header"][2]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-								$form_structure["header"][2]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
-
-							}
-						
-							// if($form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=='')
-							// {								
-							// 	$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=$setting['currency_id'];							
-							// 	$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue']=$setting['currency_name'];
-							// }
 											
-
-							$sql="select  id FieldID,req_number FieldVal  from invoice_summary where  status='REQUISITION' AND req_status=90 ";
-							$datafields_array =$this->projectmodel->get_records_from_sql($sql);
-							$form_structure["header"][0]['fields'][0]['parent_id']['datafields']=json_decode(json_encode($datafields_array), true);		
-							$form_structure["header"][0]['fields'][0]['parent_id']['LabelName']='Enter Requisition';					
+											//FORM CUSTOM SETTING END
 
 
-							//FORM CUSTOM SETTING END
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);						
 
-							$someArray[0]['header']=$form_structure['header'];
-							$someArray=$this->FrmRptModel->re_arrange_input_index_type2($someArray);
-							$this->FrmRptModel->tranfer_data($someArray);
-			 	
-						//	array_push($output,$form_structure);
-						//	$this->FrmRptModel->tranfer_data($output);
+
+								}
+
+							
+
+								if($subtype=='other_search')
+								{			
+															
+									$output= $someArray=array();
+
+									$header_index=mysql_real_escape_string($form_data1->header_index);
+									$field_index=mysql_real_escape_string($form_data1->field_index);
+									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$someArray = json_decode($form_data1->raw_data, true);
+
+									if($searchelement=='parent_id')
+									{
+
+									}
+
+								}
 
 						}
 
-				
 
-					}
-
-			}
-
-			if($form_name=='SALES_ORDER_APPROVE')
-			{
-								
-					if($subtype=='view_list')
-					{			
-						
-							$id=mysql_real_escape_string($form_data1->id);
-
-							//HEADER SECTION
-							$rs[0]['section_type']='FORM';	
-							$rs[0]['frmrpttemplatehdr_id']=57;
-							$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-							$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_status,forward_to,last_updated_by,last_updated_date_time';
-							$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;		
-																
-							$form_structure=$this->FrmRptModel->create_form($rs,$id);
-							$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-							//FORM SETTING//
-
-							$form_structure["header"][0]['fields'][0]['req_status']['InputType']='text';
-							$form_structure["header"][0]['fields'][0]['req_status']['DIVClass']=6;						
-
-							$sql="select  id FieldID,name FieldVal  from tbl_employee_mstr
-								where  login_status<>'SUPER' and status='ACTIVE' and account_setup_id=".$setting['account_setup_id']." 
-								and id<>".$setting['login_emp_id']." order by name	";
-							$datafields_array =$this->projectmodel->get_records_from_sql($sql);
-							$form_structure["header"][0]['fields'][0]['forward_to']['datafields']=json_decode(json_encode($datafields_array), true);	
-						
-
-						array_push($output,$form_structure);
-						header('Access-Control-Allow-Origin: *');
-						header("Content-Type: application/json");
-						echo json_encode($output);						
-
-					}
-
-					//save section
-					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
-								
-							//	$save_details2['test_data']=$form_data1->raw_data;
-								//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-							//	$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
-
-								// echo '<pre>';
-								// print_r($save_details);
-								// echo '</pre>';
-
-								$header_id=$id='';
-								foreach($save_details as $key1=>$tables)
-								{
+						if($form_name=='receive_amt')
+						{
+											
+								if($subtype=='view_list')
+								{			
 									
-									foreach($tables as $key2=>$fields)
-									{
-											$table_name=$key2;		
-											$savedata=array();	
-											$save_statue=true;
-																
-											foreach($fields as $key3=>$value)
-											{
-												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_summary')
-												{
-													if($value>0)
-													{$header_id=$value;}
-													else 
-													{$header_id='';}  											
-												}
-												else if ($key3<>'id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_details')
-												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_details')
-												{$savedata[$key3]=$header_id; }
-												else 
-												{$savedata[$key3]=$value; if($savedata['item_id']==0){$save_statue=false;}}
+										$id=mysql_real_escape_string($form_data1->id);
+										$form_structure=$this->form_view($form_name,$id);
 
-											}
+										//FORM WISE SETTING
+									
+										if($form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=='')
+										{								
+											$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=$setting['currency_id'];							
+											$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue']=$setting['currency_name'];
+										}
+									
+										//FORM WISE SETTING
 
-											//HEADER SECTION
-											if($table_name=='invoice_summary')
-											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-											}
-
-											if($save_statue && $table_name=='invoice_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
-									}	
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);						
 
 								}
-								
-								$return_data['id_header']=$header_id;
-			
-								header('Access-Control-Allow-Origin: *');
-								header("Content-Type: application/json");
-								echo json_encode($return_data);
 
-
-					}	
-
-					if($subtype=='MAIN_GRID')
-					{
-					
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=41;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-						$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER' and req_status='91'";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-					}
-
-					if($subtype=='other_search')
-					{			
-												
-						 $someArray=array();
-
-						 $header_index=$form_data1->header_index;
-						 $field_index=$form_data1->field_index;
-						 $searchelement=$form_data1->searchelement;
-					   $someArray = json_decode($form_data1->raw_data, true);
-
-					}
-
-			}
-
-			if($form_name=='DESPATCH_GOODS')
-			{
-								
-					if($subtype=='view_list')
-					{			
-						
-							$id=mysql_real_escape_string($form_data1->id);
-							$form_structure=$this->form_view($form_name,$id);
-							array_push($output,$form_structure);
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($output);			
-					}
-
-					//save section
-					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
-								
-							//	$save_details2['test_data']=$form_data1->raw_data;
-								//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-							//	$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
-
-								// echo '<pre>';
-								// print_r($save_details);
-								// echo '</pre>';
-
-								$header_id=$id='';
-								foreach($save_details as $key1=>$tables)
+								//save section
+								if($subtype=='SAVE_DATA')
 								{
 									
-									foreach($tables as $key2=>$fields)
-									{
-											$table_name=$key2;		
-											$savedata=array();	
-											$save_statue=true;
-																
-											foreach($fields as $key3=>$value)
+											$form_data=json_decode($form_data1->raw_data);
+											
+											// $save_details2['test_data']=$form_data1->raw_data;
+											// //$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
+											// $this->projectmodel->save_records_model('','test_table',$save_details2);
+
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+											$header_scount=sizeof($headers);
+											$id_header=0;	
+											$count=sizeof($form_data[0]->header);		
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+											$save_details=$this->FrmRptModel->create_save_array($headers);
+										
+
+											$header_id=$id='';
+											foreach($save_details as $key1=>$tables)
 											{
-												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_summary')
+												
+												foreach($tables as $key2=>$fields)
 												{
-													if($value>0)
-													{$header_id=$value;}
-													else 
-													{$header_id='';}  											
-												}
-												else if ($key3<>'id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_details')
-												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_details')
-												{$savedata[$key3]=$header_id; }
-												else 
-												{
-													$savedata[$key3]=$value; 
-													//if($savedata['item_id']==0){$save_statue=false;}
-												}
+														$table_name=$key2;		
+														$savedata=array();	
+														$save_statue=true;
+																			
+														foreach($fields as $key3=>$value)
+														{
+															//HERE REQUIRE CUSTOMIZATION
+															if($key3=='id' && $table_name=='invoice_payment_receive')
+															{
+																if($value>0)
+																{$header_id=$value;}
+																else 
+																{$header_id='';}  											
+															}
+															else if ($key3<>'id' && $table_name=='invoice_payment_receive')
+															{$savedata[$key3]=$value;}
+															else if ($key3=='id' && $table_name=='invoice_summary')
+															{if($value>0){$id=$value;}else {$id='';}   }
+															else if ($key3=='invoice_payment_id' && $table_name=='invoice_summary')
+															{$savedata[$key3]=$header_id; }
+															else 
+															{$savedata[$key3]=$value; }
+
+														}
+
+														//HEADER SECTION
+														if($table_name=='invoice_payment_receive')
+														{
+															$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+															if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+														}
+														if($table_name=='invoice_summary')
+														{
+															if($savedata['req_submit_approval']=='YES'){$this->projectmodel->save_records_model($id,$table_name,$savedata);}												
+														}
+												}	
 
 											}
+											
+											$return_data['id_header']=$header_id;
+						
+											header('Access-Control-Allow-Origin: *');
+											header("Content-Type: application/json");
+											echo json_encode($return_data);
 
-											 //echo $table_name.' - '.$header_id.' - '.$id;
-											// echo '<br>';
+
+								}	
+
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=55;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_payment_receive';
+									$rs[0]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." ";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+								if($subtype=='other_search')
+								{			
+															
+									$someArray=array();
+
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
+									$someArray = json_decode($form_data1->raw_data, true);
+
+									if($searchelement=='req_supplier')
+									{							
+											$supplier_id=$someArray[0]['header'][$header_index]['fields'][$field_index]['req_supplier']['Inputvalue_id'];
+											$req_operating_unit=$someArray[0]['header'][0]['fields'][0]['req_operating_unit']['Inputvalue_id'];
+
+											$whr=" id=".$supplier_id;							
+											$someArray[0]['header'][$header_index]['fields'][$field_index]['req_contact']['Inputvalue']=$this->projectmodel->GetSingleVal('contact_person','mstr_supplier',$whr);
+											$someArray[0]['header'][$header_index]['fields'][$field_index]['req_phone']['Inputvalue']=$this->projectmodel->GetSingleVal('phone_no','mstr_supplier',$whr);		
+												
+											
+										
+											$details="select count(*) count from  invoice_summary  where invoice_payment_id=0 and 
+											req_supplier=".$supplier_id." and req_operating_unit=".$req_operating_unit." and status='SALES_INVOICE'";					
+											$details = $this->projectmodel->get_records_from_sql($details);	
+											if($details[0]->count>0)
+											{
+
+												$id=17;
+												$indx=3;
+												$rs[$indx]['section_type']='GRID_ENTRY';		
+												$rs[$indx]['frmrpttemplatehdr_id']=56;
+												$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_summary';								
+												$rs[$indx]['fields']='id,parent_id,req_number,req_accounting_date,invoice_subtotal,invoice_paid_total,Gl_date,req_submit_approval,invoice_payment_id';
+												$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
+												where invoice_payment_id=0 and  req_supplier=".$supplier_id." and req_operating_unit=".$req_operating_unit." and status='SALES_INVOICE'	 ";				
+														
+												$form_structure=$this->FrmRptModel->create_form($rs,$id);								
+												$someArray[0]['header'][3]=$form_structure['header'][3];
+												$someArray=$this->FrmRptModel->re_arrange_input_index_type2($someArray);
+
+											}
+										
+											$this->FrmRptModel->tranfer_data($someArray);
+
+
+									}
+
+								}
+
+
+						}
+
+		  			//ORDER TO CASH END
+
+
+
+
+
+					//OPM SECTION
+
+					//opm_operation_summary
+					if($form_name=='opm_operation_summary')
+					{
+							
+						if($subtype=='view_list')
+						{
+
+									$indx=0;
+										$form_id=67;
+										$id=$form_data1->id;	
+										//$id=4;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+
+									$indx=1;
+										$form_id=68;
+										//$id=0;	
+										$opm_define_operations_summary_id=$form_data1->id;
+										//$opm_define_operations_summary_id=4;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_operations_summary_id=".$opm_define_operations_summary_id;
+									
+									
+
+									$form_structure=$this->FrmRptModel->create_form($rs,$id);
+											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);	
+
+						}
+
+						if($subtype=='SAVE_DATA')
+						{
+								
+									//VALIDATION PORTION
+																
+									$data_for_validation = json_decode($form_data1->raw_data, true);								
+									//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+									$VALID_STATUS='VALID';
+									//VALIDATION PORTION
+								
+									if($VALID_STATUS=='VALID')
+									{
+
+											$form_data=json_decode($form_data1->raw_data);
+											$save_details2['test_data']=$form_data1->raw_data;
+											$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+												true );
+											$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+											$header_scount=sizeof($headers);
+											$id_header=0;	
+											$count=sizeof($form_data[0]->header);		
+											$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+											$save_details=$this->FrmRptModel->create_save_array($headers);
+										
+
 											// echo '<pre>';
-											// print_r($savedata);
+											// print_r($save_details);
 											// echo '</pre>';
 
-											//HEADER SECTION
-											if($table_name=='invoice_summary')
+										$header_id=$activity_id=$resource_id='';
+										foreach($save_details as $key1=>$tables)
+										{
+														
+											foreach($tables as $key2=>$fields)
 											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-											}
+													$table_name=$key2;		
+													$savedata=array();	
+													$save_statue=true;
+																		
+												foreach($fields as $key3=>$value)
+												{
+													//HERE REQUIRE CUSTOMIZATION
+													if($key3=='id' && $table_name=='opm_define_operations_summary')
+													{
+														if($value>0)
+														{$header_id=$value;}
+														else 
+														{$header_id='';}  											
+													}
+													
+													else if ($key3<>'id' && $table_name=='opm_define_operations_summary')
+													{$savedata[$key3]=$value;}
+													
+													//for opm_define_operations_activity_details
+													else if ($key3=='id' 
+														&& $table_name=='opm_define_operations_activity_details')
+													{if($value>0){$activity_id=$value;}else {$activity_id='';}   }
+													
+													else if ($key3=='opm_define_operations_summary_id' && $table_name=='opm_define_operations_activity_details')
+													{$savedata[$key3]=$header_id; }
+													
+													//for opm_define_operations_resource_details
 
-											if($save_statue && $table_name=='invoice_details')
-											{
-												if($savedata['item_id']<>0)
-												{	$this->projectmodel->save_records_model($id,$table_name,$savedata);}												
-											}
-									}	
+													else if ($key3=='id' 
+														&& $table_name=='opm_define_operations_resource_details')
+													{if($value>0){$resource_id=$value;}else {$resource_id='';}   }
+													
+													else if ($key3=='opm_define_operations_summary_id' 
+														&& $table_name=='opm_define_operations_resource_details')
+													{$savedata[$key3]=$header_id; }
 
-								}
-								
-									//segment value update
-									$this->projectmodel->segment_update($header_id);	
+													else if ($key3=='opm_define_operations_activity_details_id' 
+														&& $table_name=='opm_define_operations_resource_details')
+													{$savedata[$key3]=$activity_id; }
 
-								$return_data['id_header']=$header_id;
-			
-								header('Access-Control-Allow-Origin: *');
-								header("Content-Type: application/json");
-								echo json_encode($return_data);
+													else 
+													{$savedata[$key3]=$value;}
+
+												}
+													//echo $table_name.' - '.$header_id.' - '.$id;
+													// echo '<br>';
+													// echo '<pre>';
+													// print_r($savedata);
+													// echo '</pre>';
+
+													//HEADER SECTION
+													if($table_name=='opm_define_operations_summary')
+													{
+														$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+														if($key1==0 && $header_id=='')
+															{$header_id=$this->db->insert_id();}												
+													}
+
+													if($save_statue && $table_name=='opm_define_operations_activity_details')
+													{
+														$this->projectmodel->save_records_model($activity_id,$table_name,$savedata);
+														if($key1==0 && $activity_id=='')
+															{$activity_id=$this->db->insert_id();}	
+													}
+
+													if($save_statue && $table_name=='opm_define_operations_resource_details')
+													{
+														$this->projectmodel->save_records_model($resource_id,$table_name,$savedata);
+														if($key1==0 && $resource_id=='')
+															{$resource_id=$this->db->insert_id();}	
+													}
 
 
-					}	
+											}	
 
-					if($subtype=='MAIN_GRID')
-					{
+										}
+									
+
+
+
+										$return_data['id_header']=$header_id;
 					
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=41;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-						$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='GRN_ENTRY'";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($return_data);
 
-					}
+									}
 
-					if($subtype=='other_search')
-					{			
-												
-						$output= $someArray=array();
+						}	
 
-						 $header_index=mysql_real_escape_string($form_data1->header_index);
-						 $field_index=mysql_real_escape_string($form_data1->field_index);
-						 $searchelement=mysql_real_escape_string($form_data1->searchelement);
-					   $someArray = json_decode($form_data1->raw_data, true);
-
-						// if($searchelement=='item_id')
-						// {
-						// 	$sql="select  id FieldID,name FieldVal  from tbl_currency_master where id in (1,2) ";
-						// 	$datafields_array =$this->projectmodel->get_records_from_sql($sql);
-						// 	$someArray[0]["header"][$header_index]['fields'][$field_index]['qnty']['datafields']=json_decode(json_encode($datafields_array), true);							
-						// 	$this->FrmRptModel->tranfer_data($someArray);						
-						// }
-
-						if($searchelement=='parent_id')
+						if($subtype=='resource_list')
 						{
-							//$id=$parent_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id'];
-							//$whr=" id=".$parent_id;	
-					  	//	$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);
-							
-							$id=0;
-							$parent_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id'];
-							
-							 $entry_type='EDIT';
-							 $whr=" parent_id=".$parent_id;	
-							 $id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
 
-							 if($id==0)
-							 {
-								$whr=" id=".$parent_id;	
-								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
-								$entry_type='NEW';
-							 }						
-						 
+							$indx=0;
+								$form_id=69;
+								$opm_define_operations_activity_details_id=$form_data1->id;	
 
-							 $rs[0]['section_type']='FORM';	
-							 $rs[0]['frmrpttemplatehdr_id']=59;
-							 $rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-							 $rs[0]['fields']='id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status';
- 
-							 //BODY OR GRID ENTRY SECTION					
-							 $rs[1]['section_type']='GRID_ENTRY';		
-							 $rs[1]['frmrpttemplatehdr_id']=60;
-							 $rs[1]['id']=0;	$rs[1]['parent_id']=$id;$rs[1]['TableName']='invoice_details';		
-							 $rs[1]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom';
-												 
-							 $rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;					
-							 $rs[1]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;		
-						 
-							 $form_structure=$this->FrmRptModel->create_form($rs,$id);
-							 $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
- 
-							 //FORM WISE SETTING
-							 $form_structure["header"][0]['fields'][0]['status']['Inputvalue']='ORDER_DESPATCH';
-							 $form_structure["header"][0]['fields'][0]['status']['Inputvalue_id']=0;
-							 $form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='ORDER DESPATCH';
-							 $form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=143;
- 
-							 $sql="select  id FieldID,req_number FieldVal  from invoice_summary where  status='SALES_ORDER' AND req_status=90 ";
-							 $datafields_array =$this->projectmodel->get_records_from_sql($sql);
-							 $form_structure["header"][0]['fields'][0]['parent_id']['datafields']=json_decode(json_encode($datafields_array), true);		
-							 $form_structure["header"][0]['fields'][0]['parent_id']['LabelName']='Sales order';					
-							 //FORM WISE SETTING
- 
- 
-								 //FORM CUSTOM SETTING
- 
-	 
-								 $form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-								 $form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
- 
- 
-								 //USER
-								 if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-								 {				
-	 
-									 $form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
-									 $form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];									
-									 $form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue_id']=$setting['req_organization_id'];							
-									 $form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue']=$setting['req_organization_name'];										
-									 $form_structure["header"][0]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
-									 $form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');	
-									 $form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-									 $form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
-	 
-								 }
-							 
+								$count=0;
+							$records="select count(*) cnt from opm_define_operations_resource_details where 
+							opm_define_operations_activity_details_id=".$opm_define_operations_activity_details_id;
+							$records = $this->projectmodel->get_records_from_sql($records);	
+							foreach ($records as $record)
+							{$count=$record->cnt;}	
 
-							
-							 $whr=" id=".$parent_id;	
-						   $req_number=$this->projectmodel->GetSingleVal('req_number','invoice_summary',$whr); //requisition id
-							 $form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue']=$req_number;
-							 $form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id']=$parent_id;
+								$id=$count;
 
-							 if($entry_type=='NEW')
-							 {
-								$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue']='';
-								$form_structure["header"][$header_index]['fields'][$field_index]['id']['Inputvalue_id']=0;
-								
-								$count_parent=sizeof($form_structure['header'][1]['fields']);		
-								if($count_parent>0)
-								{
-									for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
-									{	
-										//modify parent
-										$form_structure["header"][1]['fields'][$cnt_parent]['parent_id']['Inputvalue']=
-										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue'];
+								$whr=" id=".$opm_define_operations_activity_details_id;	
+							$opm_define_operations_summary_id=
+							$this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
 
-										$form_structure["header"][1]['fields'][$cnt_parent]['parent_id']['Inputvalue_id']=
-										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id'];
-										
-										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
-										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
-									}	
-								}
+
+							$whr=" id=".$form_id;	
+							$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+							$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+							//$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+							$rs[$indx]['section_type']='GRID_ENTRY';
+
+							$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+							$rs[$indx]['fields']=$DataFields;
+							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_operations_summary_id=".$opm_define_operations_summary_id." and 
+							opm_define_operations_activity_details_id=".$opm_define_operations_activity_details_id;
 							
 
-							 }
 
-							array_push($output,$form_structure);
-							$this->FrmRptModel->tranfer_data($output);
-
-						}
-
-				
-
-					}
-
-			}
-
-
-			if($form_name=='sale_invoice')
-			{
-
-					if($subtype=='view_list')
-					{			
-						
-							$id=mysql_real_escape_string($form_data1->id);						
-							$form_structure=$this->form_view($form_name,$id);
-
+							$form_structure=$this->FrmRptModel->create_form($rs,$id);
+									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 							array_push($output,$form_structure);
 							header('Access-Control-Allow-Origin: *');
 							header("Content-Type: application/json");
 							echo json_encode($output);	
-					}
 
-					//save section
-					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
+						}
+
+
+						if($subtype=='resource_save')
+						{
 								
-							//	$save_details2['test_data']=$form_data1->raw_data;
-								//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-							//	$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+							//VALIDATION PORTION
+														
+							$data_for_validation = json_decode($form_data1->raw_data, true);								
+							//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+							$VALID_STATUS='VALID';
+							//VALIDATION PORTION
+						
+							if($VALID_STATUS=='VALID')
+							{
 
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
+									$form_data=json_decode($form_data1->raw_data);
+									$opm_define_operations_activity_details_id=$form_data1->activity_id;
 
-								// echo '<pre>';
-								// print_r($save_details);
-								// echo '</pre>';
+									$whr=" id=".$opm_define_operations_activity_details_id;	
+									$opm_define_operations_summary_id=
+									$this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
 
-								$header_id=$id='';
+
+
+									//$save_details2['test_data']=$form_data1->raw_data;
+									//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+									//	true );
+									//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+									$headers=json_decode(json_encode($form_data[0]->header), true );
+									$header_scount=sizeof($headers);
+									$id_header=0;	
+									$count=sizeof($form_data[0]->header);		
+									$headers=json_decode(json_encode($form_data[0]->header), true );
+								//	$save_details=$this->create_save_array($headers);
+									$save_details=$this->FrmRptModel->create_save_array($headers);
+								
+									// echo '<pre>';
+									// print_r($save_details);
+									// echo '</pre>';
+
+								$header_id=$resource_id='';
 								foreach($save_details as $key1=>$tables)
 								{
-									
+												
 									foreach($tables as $key2=>$fields)
 									{
 											$table_name=$key2;		
 											$savedata=array();	
 											$save_statue=true;
 																
-											foreach($fields as $key3=>$value)
+										foreach($fields as $key3=>$value)
+										{
+											//HERE REQUIRE CUSTOMIZATION
+											if($key3=='id' && $table_name=='opm_define_operations_resource_details')
 											{
-												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_summary')
-												{
-													if($value>0){$header_id=$value;}
-													else {$header_id='';}  											
-												}
-												else if ($key3<>'id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_details')
-												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_details')
-												{$savedata[$key3]=$header_id; }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_tax_details')
-												{$savedata[$key3]=$header_id; }
-												else if ($key3=='id' && $table_name=='invoice_tax_details')
-												{if($value>0){$id=$value;}else {$id='';} }
+												if($value>0)
+												{$header_id=$value;}
 												else 
-												{
-													$savedata[$key3]=$value; 
-													//	if($savedata['total_amount']==0){$save_statue=false;}
-
-												}
-
+												{$header_id='';}  											
 											}
+											
+											else if 
+											($key3<>'id' && $table_name=='opm_define_operations_resource_details')
+											{$savedata[$key3]=$value;}
 
-											 //echo $table_name.' - '.$header_id.' - '.$id;
-											// echo '<br>';
-											// echo '<pre>';
-											// print_r($savedata);
-											// echo '</pre>';
+											else 
+											{$savedata[$key3]=$value;}
+
+										}
+											
+											$savedata['opm_define_operations_activity_details_id']=
+											$opm_define_operations_activity_details_id;
+
+											$savedata['opm_define_operations_summary_id']=
+											$opm_define_operations_summary_id;
+
 
 											//HEADER SECTION
-											if($table_name=='invoice_summary')
+											if($table_name=='opm_define_operations_resource_details')
 											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+											$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+												if($key1==0 && $header_id=='')
+												{$header_id=$this->db->insert_id();}												
 											}
-											if($save_statue && $table_name=='invoice_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
-											if($table_name=='invoice_tax_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
+
 
 									}	
 
 								}
+										
+
+
+
+									$return_data['id_header']=$header_id;
+				
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($return_data);
+
+							}
+
+						}	
+					
+					
+					}
+
+					//opm_routing
+					if($form_name=='opm_routing')
+					{
+							
+							if($subtype=='view_list')
+							{
+
+								$indx=0;
+									$form_id=70;
+									$id=$form_data1->id;	
+									$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+
+
+								$indx=1;
+								$form_id=71;
+								$opm_define_routing_summery_id=$form_data1->id;				    
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$rs[$indx]['section_type']='GRID_ENTRY';		
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_routing_summery_id=".$opm_define_routing_summery_id;
+
 								
-								$return_data['id_header']=$header_id;
 
-								$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-								$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
-
-								$savedata=array();	
-								$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-								$headers = $this->projectmodel->get_records_from_sql($headers);			
-								if($headers[0]->cnt==0)
-								{
-									$savedata['invoice_summary_id']=0;
-									$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-								}
-
-								//calculate item wise sum
-								$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-								$headers = $this->projectmodel->get_records_from_sql($headers);									
-								$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
-
-
-			
+								$form_structure=$this->FrmRptModel->create_form($rs,$id);
+										$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+								array_push($output,$form_structure);
 								header('Access-Control-Allow-Origin: *');
 								header("Content-Type: application/json");
-								echo json_encode($return_data);
+								echo json_encode($output);	
 
-
-					}	
-
-					if($subtype=='MAIN_GRID')
-					{
-					
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=41;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-						$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_INVOICE'";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-					}
-					if($subtype=='MATCH_PO')
-					{
-					
-					   $output= $someArray=array();					
-						 $someArray = json_decode($form_data1->raw_data, true);
-
-						 $req_operating_unit=$someArray[0]["header"][0]['fields'][0]['req_operating_unit']['Inputvalue_id'];
-						 $req_supplier_id=$someArray[0]["header"][0]['fields'][0]['req_supplier']['Inputvalue_id'];
-						 
-						$po_ids=0;
-						$details="select * from  invoice_summary  where status='SALES_INVOICE' 
-						and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";					
-						$details = $this->projectmodel->get_records_from_sql($details);	
-						foreach ($details as $key2=>$detail)
-						{	$po_ids=$po_ids.','.$detail->parent_id;}
-						
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=41;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-						$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." 
-						where status='SALES_ORDER' and id not in (".$po_ids.")	and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-					}
-
-					if($subtype=='PO_DATA')
-					{
-					
-					   $output= $someArray=array();					
-						 $someArray = json_decode($form_data1->raw_data, true);
-						 $parent_id=$form_data1->id;
-
-							$entry_type='EDIT';
-							$whr=" status='SALES_INVOICE' and parent_id=".$parent_id;	
-							$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
-
-							if($id==0)
-							{
-								$whr=" id=".$parent_id;	
-								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
-								$entry_type='NEW';
-							}						
-							
-						///
-
-						$indx=0;
-						$rs[$indx]['section_type']='FORM';	
-						$rs[$indx]['frmrpttemplatehdr_id']=57;
-						$rs[$indx]['TableName']='invoice_summary';
-						$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-						$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
-			
-			
-						//BODY OR GRID ENTRY SECTION	
-						$indx=1;				
-						$rs[$indx]['section_type']='GRID_ENTRY';		
-						$rs[$indx]['frmrpttemplatehdr_id']=48;
-						$rs[$indx]['TableName']='invoice_details';								
-						$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-						$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
-			
-						//,tax_ledger_id,tax_rate,tax_amount
-			
-						//TAX SECTION
-						// $indx=2;
-						// $rs[$indx]['section_type']='GRID_ENTRY';		
-						// $rs[$indx]['frmrpttemplatehdr_id']=53;
-						// $rs[$indx]['TableName']='invoice_tax_details';								
-						// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
-						// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-						// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
-						
-						$indx=2;
-						$rs[$indx]['section_type']='FORM';	
-						$rs[$indx]['frmrpttemplatehdr_id']=57;
-						$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-						$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-						$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-						
-						$indx=3;							
-						$rs[$indx]['section_type']='FORM';	
-						$rs[$indx]['frmrpttemplatehdr_id']=57;
-						$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-						$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-						$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
-											
-						$form_structure=$this->FrmRptModel->create_form($rs,$id);
-						$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-			
-			
-						//aanatuaral account ...link to credit account
-						$field_qualifier_name='';
-						$cnts=sizeof($setting['segment']);
-						for($cnt=0;$cnt<$cnts;$cnt++)
-						{
-							$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-							if($field_qualifier_name=='account_id')
-							{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
-						}
-			
-						$field_qualifier_name='';
-						$cnts=sizeof($setting['segment']);
-						for($cnt=0;$cnt<$cnts;$cnt++)
-						{
-							$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-							$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-							$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-						}
-			
-						$cnts=sizeof($form_structure["header"][1]['fields']);
-						for($i=0;$i<$cnts;$i++)
-						{
-							$field_qualifier_name='';
-							$cnts2=sizeof($setting['segment']);
-							for($cnt=0;$cnt<$cnts2;$cnt++)
-							{
-								$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-								$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
 							}
-						}
-			
-						//created_by,create_date_time,req_preparer
-						//FORM WISE SETTING
-			
-						//for new entry
-						
-						$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-						$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';		
-						$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-						$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='hidden';
-						// $form_structure["header"][0]['fields'][0]['req_supplier']['LabelName']='Customer';
-								
-						
-						$indx=3;
-						$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
-						$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=144;
-						$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='SALES_INVOICE';
-						$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-						$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-						$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-						$form_structure["header"][$indx]['fields'][0]['req_status']['InputType']='hidden';
 
-						///
-
-
-						// $form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-						// $form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-						// $form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-						// $form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-						// $form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-						// $form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-					
-						// $form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-
-						// $indx=3;
-						// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-						// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-						// $form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-
-						// $form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-						// $form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-						// $form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-
-
-						if($entry_type=='NEW')
-						{
-							$header_index=$field_index=0;
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue']='';
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue_id']=0;
-
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;
-
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=0;
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=0;
-
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;;
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;;
-													
-							$count_parent=sizeof($form_structure['header'][1]['fields']);		
-							for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
-							{	
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
-							}	
-
-						}
-								
-								//FORM CUSTOM SETTING END
-
-
-						array_push($output,$form_structure);
-						header('Access-Control-Allow-Origin: *');
-						header("Content-Type: application/json");
-						echo json_encode($output);						
-
-
-					}
-
-				
-
-					if($subtype=='other_search')
-					{			
-												
-						$output= $someArray=array();
-
-						 $header_index=mysql_real_escape_string($form_data1->header_index);
-						 $field_index=mysql_real_escape_string($form_data1->field_index);
-						 $searchelement=mysql_real_escape_string($form_data1->searchelement);
-					   $someArray = json_decode($form_data1->raw_data, true);
-
-						if($searchelement=='parent_id')
-						{
-
-						}
-
-					}
-
-			}
-
-
-			if($form_name=='receive_amt')
-			{
-								
-					if($subtype=='view_list')
-					{			
-						
-							$id=mysql_real_escape_string($form_data1->id);
-							$form_structure=$this->form_view($form_name,$id);
-
-							//FORM WISE SETTING
-						
-							if($form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=='')
-							{								
-								$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue_id']=$setting['currency_id'];							
-								$form_structure["header"][0]['fields'][0]['req_currency_id']['Inputvalue']=$setting['currency_name'];
-							}
-						
-							//FORM WISE SETTING
-
-						array_push($output,$form_structure);
-						header('Access-Control-Allow-Origin: *');
-						header("Content-Type: application/json");
-						echo json_encode($output);						
-
-					}
-
-					//save section
-					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
-								
-								// $save_details2['test_data']=$form_data1->raw_data;
-								// //$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-								// $this->projectmodel->save_records_model('','test_table',$save_details2);
-
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
-
-								$header_id=$id='';
-								foreach($save_details as $key1=>$tables)
-								{
+							if($subtype=='SAVE_DATA')
+							{
 									
-									foreach($tables as $key2=>$fields)
-									{
+								//VALIDATION PORTION
+															
+								$data_for_validation = json_decode($form_data1->raw_data, true);								
+								//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+								$VALID_STATUS='VALID';
+								//VALIDATION PORTION
+							
+								if($VALID_STATUS=='VALID')
+								{
+
+										$form_data=json_decode($form_data1->raw_data);
+										//$save_details2['test_data']=$form_data1->raw_data;
+										//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+										//	true );
+										//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+										$headers=json_decode(json_encode($form_data[0]->header), true );
+										$header_scount=sizeof($headers);
+										$id_header=0;	
+										$count=sizeof($form_data[0]->header);		
+										$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+										$save_details=$this->FrmRptModel->create_save_array($headers);
+									
+
+										// echo '<pre>';
+										// print_r($save_details);
+										// echo '</pre>';
+
+										$header_id=$id='';
+										foreach($save_details as $key1=>$tables)
+										{
+											
+											foreach($tables as $key2=>$fields)
+										{
 											$table_name=$key2;		
 											$savedata=array();	
 											$save_statue=true;
@@ -2010,431 +1591,329 @@ class Project_controller  extends CI_Controller {
 											foreach($fields as $key3=>$value)
 											{
 												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_payment_receive')
+												if($key3=='id' && $table_name=='opm_define_routing_summery')
 												{
 													if($value>0)
 													{$header_id=$value;}
 													else 
 													{$header_id='';}  											
 												}
-												else if ($key3<>'id' && $table_name=='invoice_payment_receive')
+												else if ($key3<>'id' && $table_name=='opm_define_routing_summery')
 												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_summary')
+
+												else if ($key3=='id' && $table_name=='opm_define_routing_details')
 												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_payment_id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$header_id; }
+												
+												else if ($key3=='opm_define_routing_summery_id' 
+													&& $table_name=='opm_define_routing_details')
+													{$savedata[$key3]=$header_id; }
+
 												else 
 												{$savedata[$key3]=$value; }
 
 											}
 
-											//HEADER SECTION
-											if($table_name=='invoice_payment_receive')
-											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-											}
-											if($table_name=='invoice_summary')
-											{
-												if($savedata['req_submit_approval']=='YES'){$this->projectmodel->save_records_model($id,$table_name,$savedata);}												
-											}
-									}	
+													//echo $table_name.' - '.$header_id.' - '.$id;
+													// echo '<br>';
+													// echo '<pre>';
+													// print_r($savedata);
+													// echo '</pre>';
 
-								}
-								
-								$return_data['id_header']=$header_id;
-			
-								header('Access-Control-Allow-Origin: *');
-								header("Content-Type: application/json");
-								echo json_encode($return_data);
+													//HEADER SECTION
+													if($table_name=='opm_define_routing_summery')
+													{
+														$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+														if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+													}
 
+													if($save_statue && $table_name=='opm_define_routing_details')
+													{
+														$this->projectmodel->save_records_model($id,$table_name,$savedata);
+													}
+											}	
 
-					}	
-
-					if($subtype=='MAIN_GRID')
-					{
-					
-						$id=33;	
-						$rs[0]['section_type']='GRID_ENTRY';	
-						$rs[0]['frmrpttemplatehdr_id']=55;
-						$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_payment_receive';
-						$rs[0]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id';
-						$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." ";		
-						$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-					}
-
-					if($subtype=='other_search')
-					{			
-												
-						 $someArray=array();
-
-						 $header_index=$form_data1->header_index;
-						 $field_index=$form_data1->field_index;
-						 $searchelement=$form_data1->searchelement;
-					   $someArray = json_decode($form_data1->raw_data, true);
-
-						if($searchelement=='req_supplier')
-						{							
-								$supplier_id=$someArray[0]['header'][$header_index]['fields'][$field_index]['req_supplier']['Inputvalue_id'];
-								$req_operating_unit=$someArray[0]['header'][0]['fields'][0]['req_operating_unit']['Inputvalue_id'];
-
-								$whr=" id=".$supplier_id;							
-								$someArray[0]['header'][$header_index]['fields'][$field_index]['req_contact']['Inputvalue']=$this->projectmodel->GetSingleVal('contact_person','mstr_supplier',$whr);
-								$someArray[0]['header'][$header_index]['fields'][$field_index]['req_phone']['Inputvalue']=$this->projectmodel->GetSingleVal('phone_no','mstr_supplier',$whr);		
-									
-								
-							
-								$details="select count(*) count from  invoice_summary  where invoice_payment_id=0 and 
-								req_supplier=".$supplier_id." and req_operating_unit=".$req_operating_unit." and status='SALES_INVOICE'";					
-								$details = $this->projectmodel->get_records_from_sql($details);	
-								if($details[0]->count>0)
-								{
-
-									$id=17;
-									$indx=3;
-									$rs[$indx]['section_type']='GRID_ENTRY';		
-									$rs[$indx]['frmrpttemplatehdr_id']=56;
-									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_summary';								
-									$rs[$indx]['fields']='id,parent_id,req_number,req_accounting_date,invoice_subtotal,invoice_paid_total,Gl_date,req_submit_approval,invoice_payment_id';
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
-									where invoice_payment_id=0 and  req_supplier=".$supplier_id." and req_operating_unit=".$req_operating_unit." and status='SALES_INVOICE'	 ";				
-											
-									$form_structure=$this->FrmRptModel->create_form($rs,$id);								
-									$someArray[0]['header'][3]=$form_structure['header'][3];
-									$someArray=$this->FrmRptModel->re_arrange_input_index_type2($someArray);
-
-								}
-							
-								$this->FrmRptModel->tranfer_data($someArray);
-
-
-						}
-
-					}
-
-
-			}
-
-			//DESPATCH_GOODS
-
-
-			//ORDER TO CASH END
-
-
-
-
-			//CHART OF ACCOUNT NEW
-			//opm_operation_summary
-			if($form_name=='CHART_OF_ACCOUNTS')
-			{
-					
-				if($subtype=='view_list')
-				{
-
-					$indx=0;
-				  	$form_id=75;
-				    $id=$form_data1->id;	
-				    //$id=1;			    
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-					$indx=1;
-				  	$form_id=77;				    
-				    $parent_id=$form_data1->id;	
-				    //$parent_id=1;			   
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']='GRID_ENTRY';		
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$parent_id;
-
+										}
 										
+										$return_data['id_header']=$header_id;
+					
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($return_data);
 
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
+								}
 
-				}
+							}	
+					
+					}
 
-				if($subtype=='SAVE_DATA')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
+
+					//opm_receipe
+					if($form_name=='opm_receipe')
 					{
-
-							$form_data=json_decode($form_data1->raw_data);
-
-							//$main_id=json_decode($form_data1->id);
 							
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-						//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-							$main_id=0;
-							$header_id=$activity_id=$resource_id='';
-							foreach($save_details as $key1=>$tables)
+							if($subtype=='view_list')
 							{
-											
-								foreach($tables as $key2=>$fields)
-								{
-										$table_name=$key2;		
-										$savedata=array();	
-										$save_statue=true;
-															
-									foreach($fields as $key3=>$value)
-									{
-										//HERE REQUIRE CUSTOMIZATION
-										if($key3=='id' && $table_name=='tbl_chart_of_accounts')
-										{
-											if($value>0)
-											{$header_id=$value;}
-											else 
-											{$header_id='';}  											
-										}
-										
-										else if ($key3=='parent_id' && $table_name=='tbl_chart_of_accounts')
-										{$savedata[$key3]=$main_id; }
-										
-										else 
-										{$savedata[$key3]=$value;}
 
-									}
-									
+									$indx=0;
+										$form_id=72;
+										$id=$form_data1->id;	
+										$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-										//HEADER SECTION
-										if($table_name=='tbl_chart_of_accounts')
-										{
-											$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-											if($key1==0 && $header_id=='')
-											{$header_id=$this->db->insert_id();}
 
-											if($main_id==0)
-											{$main_id=$header_id;}	
-
-										}
-
-										
-								}	
+									$form_structure=$this->FrmRptModel->create_form($rs,$id);
+											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									array_push($output,$form_structure);
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);	
 
 							}
 
-							$return_data['id_header']=$main_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
-					}
-
-				}	
-
-				if($subtype=='VALUE_SET_LIST')
-				{
-
-					$indx=0;
-				  	$form_id=78;
-				    $segment_id=$form_data1->id;	
-
-				    $whr=" id=".$segment_id." and trantype='CHART_OF_ACCOUNT_SEGMENT'";	
-					$main_id=$this->projectmodel->GetSingleVal('parent_id','tbl_chart_of_accounts',$whr);
-
-
-				     $count=0;
-					 $records="select count(*) cnt from tbl_chart_of_accounts where  parent_id=".$segment_id;
-					 $records = $this->projectmodel->get_records_from_sql($records);	
-					 foreach ($records as $record)
-					 {$count=$record->cnt;}	
-				      
-				    $id=$count;
-
-
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-						
-					$rs[$indx]['section_type']='GRID_ENTRY';
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$segment_id;
-					
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  	    $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-
-
-					$cnts=sizeof($form_structure["header"][0]['fields']);
-					for($i=0;$i<$cnts;$i++)
-					{
-						$sql="select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype='CHART_OF_ACCOUNT_VALUESET'  
-						and acc_type=157 and parent_id=".$segment_id;
-						$datafields_array =$this->projectmodel->get_records_from_sql($sql);
-						$form_structure["header"][0]['fields'][$i]['parent_data_id']['datafields']=json_decode(json_encode($datafields_array), true);	
-															
-						// $whr=" id=".
-						// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue_id'];	
-						// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue']=$this->projectmodel->GetSingleVal('title','tbl_chart_of_accounts',$whr);																		
-						
-						// $sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where  status='CHART_OF_AC_QUALIFIER'";
-						// $datafields_array =$this->projectmodel->get_records_from_sql($sql);
-						// $form_structure["header"][1]['fields'][$i]['field_qualifier']['datafields']=json_decode(json_encode($datafields_array), true);
-
-						// $whr=" id=".$form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue_id'];	
-						// $form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue']=$this->projectmodel->GetSingleVal('FieldVal','frmrptgeneralmaster',$whr);		
-
-
-					}
-
-
-					array_push($output,$form_structure);
-					header('Access-Control-Allow-Origin: *');
-					header("Content-Type: application/json");
-					echo json_encode($output);	
-
-				}
-
-
-				if($subtype=='VALUE_SET_SAVE')
-				{
-						
-					//VALIDATION PORTION
-												
-					$data_for_validation = json_decode($form_data1->raw_data, true);								
-					//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-					$VALID_STATUS='VALID';
-					//VALIDATION PORTION
-				
-					if($VALID_STATUS=='VALID')
-					{
-
-							$form_data=json_decode($form_data1->raw_data);
-							$segment_id=$form_data1->activity_id;
-
-							// $whr=" id=".$opm_define_operations_activity_details_id;	
-							// $opm_define_operations_summary_id=
-							// $this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
-
-
-
-							//$save_details2['test_data']=$form_data1->raw_data;
-							//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-							//	true );
-							//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-							$header_scount=sizeof($headers);
-							$id_header=0;	
-							$count=sizeof($form_data[0]->header);		
-							$headers=json_decode(json_encode($form_data[0]->header), true );
-						//	$save_details=$this->create_save_array($headers);
-							$save_details=$this->FrmRptModel->create_save_array($headers);
-						
-							// echo '<pre>';
-							// print_r($save_details);
-							// echo '</pre>';
-
-						$header_id=$resource_id='';
-						foreach($save_details as $key1=>$tables)
-						{
-										
-							foreach($tables as $key2=>$fields)
+							if($subtype=='SAVE_DATA')
 							{
-									$table_name=$key2;		
-									$savedata=array();	
-									$save_statue=true;
-														
-								foreach($fields as $key3=>$value)
-								{
-									//HERE REQUIRE CUSTOMIZATION
-									if($key3=='id' && $table_name=='tbl_chart_of_accounts')
-									{
-										if($value>0)
-										{$header_id=$value;}
-										else 
-										{$header_id='';}  											
-									}
 									
-									// else if ($key3<>'id' && $table_name=='tbl_chart_of_accounts')
-									// {$savedata[$key3]=$value;}
+								//VALIDATION PORTION
+															
+								$data_for_validation = json_decode($form_data1->raw_data, true);								
+								//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+								$VALID_STATUS='VALID';
+								//VALIDATION PORTION
+							
+								if($VALID_STATUS=='VALID')
+								{
 
-									else 
-									{$savedata[$key3]=$value;}
+										$form_data=json_decode($form_data1->raw_data);
+										//$save_details2['test_data']=$form_data1->raw_data;
+										//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+										//	true );
+										//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+										$headers=json_decode(json_encode($form_data[0]->header), true );
+										$header_scount=sizeof($headers);
+										$id_header=0;	
+										$count=sizeof($form_data[0]->header);		
+										$headers=json_decode(json_encode($form_data[0]->header), true );
+										//	$save_details=$this->create_save_array($headers);
+										$save_details=$this->FrmRptModel->create_save_array($headers);
+									
+
+										// echo '<pre>';
+										// print_r($save_details);
+										// echo '</pre>';
+
+										$header_id=$id='';
+										foreach($save_details as $key1=>$tables)
+										{
+											
+											foreach($tables as $key2=>$fields)
+										{
+											$table_name=$key2;		
+											$savedata=array();	
+											$save_statue=true;
+																
+											foreach($fields as $key3=>$value)
+											{
+												//HERE REQUIRE CUSTOMIZATION
+												if($key3=='id' && $table_name=='opm_define_recipe_summery')
+												{
+													if($value>0)
+													{$header_id=$value;}
+													else 
+													{$header_id='';}  											
+												}
+												else if ($key3<>'id' && $table_name=='opm_define_recipe_summery')
+												{$savedata[$key3]=$value;}
+
+
+											}
+
+													//echo $table_name.' - '.$header_id.' - '.$id;
+													// echo '<br>';
+													// echo '<pre>';
+													// print_r($savedata);
+													// echo '</pre>';
+
+													//HEADER SECTION
+													if($table_name=='opm_define_recipe_summery')
+													{
+														$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+														if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+													}
+
+											}	
+
+										}
+										
+										$return_data['id_header']=$header_id;
+					
+										header('Access-Control-Allow-Origin: *');
+										header("Content-Type: application/json");
+										echo json_encode($return_data);
 
 								}
-									
-									$savedata['parent_id']=$segment_id;
-
-									// $savedata['opm_define_operations_summary_id']=
-									// $opm_define_operations_summary_id;
-
-
-								//HEADER SECTION
-								if($table_name=='tbl_chart_of_accounts')
-								{
-									$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-									//if($key1==0 && $header_id=='')
-									//{$header_id=$this->db->insert_id();}												
-								}
-
 
 							}	
 
-						}
-								
 
-
-
-							$return_data['id_header']=$header_id;
-		
-							header('Access-Control-Allow-Origin: *');
-							header("Content-Type: application/json");
-							echo json_encode($return_data);
-
+					
 					}
 
-				}	
-			
-			
-			}
+			 		//opm_formula			
+					if($form_name=='opm_formula')
+					{
+							
+								if($subtype=='view_list')
+								{
 
-			
-			
+											$indx=0;
+											$form_id=73;
+											$id=$form_data1->id;	
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+
+
+											$indx=1;
+											$form_id=74;
+											$opm_define_formula_summery_id=$form_data1->id;				    
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['section_type']='GRID_ENTRY';		
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_formula_summery_id=".$opm_define_formula_summery_id;
+
+
+
+											$form_structure=$this->FrmRptModel->create_form($rs,$id);
+												$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+											array_push($output,$form_structure);
+											header('Access-Control-Allow-Origin: *');
+											header("Content-Type: application/json");
+											echo json_encode($output);	
+
+								}
+
+								if($subtype=='SAVE_DATA')
+								{
+										
+									//VALIDATION PORTION
+																
+									$data_for_validation = json_decode($form_data1->raw_data, true);								
+									//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+									$VALID_STATUS='VALID';
+									//VALIDATION PORTION
+								
+									if($VALID_STATUS=='VALID')
+									{
+
+													$form_data=json_decode($form_data1->raw_data);
+													//$save_details2['test_data']=$form_data1->raw_data;
+													//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+													//	true );
+													//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+
+													$headers=json_decode(json_encode($form_data[0]->header), true );
+													$header_scount=sizeof($headers);
+													$id_header=0;	
+													$count=sizeof($form_data[0]->header);		
+													$headers=json_decode(json_encode($form_data[0]->header), true );
+													//	$save_details=$this->create_save_array($headers);
+													$save_details=$this->FrmRptModel->create_save_array($headers);
+												
+
+													// echo '<pre>';
+													// print_r($save_details);
+													// echo '</pre>';
+
+														$header_id=$id='';
+														foreach($save_details as $key1=>$tables)
+														{
+															
+																	foreach($tables as $key2=>$fields)
+																	{
+																							$table_name=$key2;		
+																							$savedata=array();	
+																							$save_statue=true;
+																										
+																							foreach($fields as $key3=>$value)
+																							{
+																								//HERE REQUIRE CUSTOMIZATION
+																								if($key3=='id' && $table_name=='opm_define_formula_summery')
+																								{
+																									if($value>0)
+																									{$header_id=$value;}
+																									else 
+																									{$header_id='';}  											
+																								}
+																								else if ($key3<>'id' && $table_name=='opm_define_formula_summery')
+																								{$savedata[$key3]=$value;}
+
+																								else if ($key3=='id' && $table_name=='opm_define_formula_details')
+																								{if($value>0){$id=$value;}else {$id='';}   }
+																								
+																								else if ($key3=='opm_define_formula_summery_id' 
+																									&& $table_name=='opm_define_formula_details')
+																									{$savedata[$key3]=$header_id; }
+
+																								else 
+																								{$savedata[$key3]=$value; }
+
+																							}
+
+																									//echo $table_name.' - '.$header_id.' - '.$id;
+																									// echo '<br>';
+																									// echo '<pre>';
+																									// print_r($savedata);
+																									// echo '</pre>';
+
+																									//HEADER SECTION
+																									if($table_name=='opm_define_formula_summery')
+																									{
+																										$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+																										if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+																									}
+
+																									if($save_statue && $table_name=='opm_define_formula_details')
+																									{
+																										$this->projectmodel->save_records_model($id,$table_name,$savedata);
+																									}
+																	}	
+
+														}
+														
+														$return_data['id_header']=$header_id;
+									
+														header('Access-Control-Allow-Origin: *');
+														header("Content-Type: application/json");
+														echo json_encode($return_data);
+
+										}
+
+									}	
+					
+					}
+			 
+			 		//OPM SECTION
+
 
 
 			//PROCURE TO PAY START 
@@ -2564,8 +2043,6 @@ class Project_controller  extends CI_Controller {
 
 
 			}
-
-
 
 			if($form_name=='po_entry')
 			{
@@ -2993,117 +2470,8 @@ class Project_controller  extends CI_Controller {
 
 					//save section
 					if($subtype=='SAVE_DATA')
-					{
-						
-								$form_data=json_decode($form_data1->raw_data);
-								
-							//	$save_details2['test_data']=$form_data1->raw_data;
-								//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), true );
-							//	$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+					{$this->projectmodel->save_data($form_data1->raw_data,$form_name);}
 
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-								$header_scount=sizeof($headers);
-								$id_header=0;	
-								$count=sizeof($form_data[0]->header);		
-								$headers=json_decode(json_encode($form_data[0]->header), true );
-							//	$save_details=$this->create_save_array($headers);
-								$save_details=$this->FrmRptModel->create_save_array($headers);
-							
-
-								// echo '<pre>';
-								// print_r($save_details);
-								// echo '</pre>';
-
-								$header_id=$id='';
-								foreach($save_details as $key1=>$tables)
-								{
-									
-									foreach($tables as $key2=>$fields)
-									{
-											$table_name=$key2;		
-											$savedata=array();	
-											$save_statue=true;
-																
-											foreach($fields as $key3=>$value)
-											{
-												//HERE REQUIRE CUSTOMIZATION
-												if($key3=='id' && $table_name=='invoice_summary')
-												{
-													if($value>0){$header_id=$value;}
-													else {$header_id='';}  											
-												}
-												else if ($key3<>'id' && $table_name=='invoice_summary')
-												{$savedata[$key3]=$value;}
-												else if ($key3=='id' && $table_name=='invoice_details')
-												{if($value>0){$id=$value;}else {$id='';}   }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_details')
-												{$savedata[$key3]=$header_id; }
-												else if ($key3=='invoice_summary_id' && $table_name=='invoice_tax_details')
-												{$savedata[$key3]=$header_id; }
-												else if ($key3=='id' && $table_name=='invoice_tax_details')
-												{if($value>0){$id=$value;}else {$id='';} }
-												else 
-												{
-													$savedata[$key3]=$value; 
-													//	if($savedata['total_amount']==0){$save_statue=false;}
-
-												}
-
-											}
-
-											 //echo $table_name.' - '.$header_id.' - '.$id;
-											// echo '<br>';
-											// echo '<pre>';
-											// print_r($savedata);
-											// echo '</pre>';
-
-											//HEADER SECTION
-											if($table_name=='invoice_summary')
-											{
-												$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-												if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-											}
-											if($save_statue && $table_name=='invoice_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
-											if($table_name=='invoice_tax_details')
-											{
-												$this->projectmodel->save_records_model($id,$table_name,$savedata);
-											}
-
-									}	
-
-								}
-								
-								$return_data['id_header']=$header_id;
-
-								$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-								$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
-
-								$savedata=array();	
-								$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-								$headers = $this->projectmodel->get_records_from_sql($headers);			
-								if($headers[0]->cnt==0)
-								{
-									$savedata['invoice_summary_id']=0;
-									$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-								}
-
-
-								//calculate item wise sum
-								$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-								$headers = $this->projectmodel->get_records_from_sql($headers);									
-								$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
-
-
-			
-								header('Access-Control-Allow-Origin: *');
-								header("Content-Type: application/json");
-								echo json_encode($return_data);
-
-
-					}	
 
 					if($subtype=='MAIN_GRID')
 					{
@@ -3161,157 +2529,27 @@ class Project_controller  extends CI_Controller {
 								$whr=" id=".$parent_id;	
 								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
 								$entry_type='NEW';
-							}						
+							}			
 							
-							$indx=0;
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
-
-
-							//BODY OR GRID ENTRY SECTION	
-							$indx=1;				
-							$rs[$indx]['section_type']='GRID_ENTRY';		
-							$rs[$indx]['frmrpttemplatehdr_id']=48;
-							$rs[$indx]['TableName']='invoice_details';								
-							$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-							$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
-
-
-							//TAX SECTION
-							// $indx=2;
-							// $rs[$indx]['section_type']='GRID_ENTRY';		
-							// $rs[$indx]['frmrpttemplatehdr_id']=53;
-							// $rs[$indx]['TableName']='invoice_tax_details';								
-							// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
-							// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-							// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+								$form_structure=$this->form_view($form_name,$id);
 							
-							$indx=2;
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-							
-							$indx=3;							
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
-							
-							$form_structure=$this->FrmRptModel->create_form($rs,$id);
-							$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-								//aanatuaral account ...link to credit account
-								$field_qualifier_name='';
-								$cnts=sizeof($setting['segment']);
-								for($cnt=0;$cnt<$cnts;$cnt++)
+								if($entry_type=='NEW')
 								{
-									$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-									if($field_qualifier_name=='account_id')
-									{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}
-																
-								}
-
-
-								$field_qualifier_name='';
-								$cnts=sizeof($setting['segment']);
-								for($cnt=0;$cnt<$cnts;$cnt++)
-								{
-									$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-									$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-									$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-								}
-
-								$cnts=sizeof($form_structure["header"][1]['fields']);
-								for($i=0;$i<$cnts;$i++)
-								{
-									$field_qualifier_name='';
-									$cnts2=sizeof($setting['segment']);
-									for($cnt=0;$cnt<$cnts2;$cnt++)
-									{
-										$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-										$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-									}
-								}
-
-								//created_by,create_date_time,req_preparer
-								//FORM WISE SETTING
-
-								//for new entry
+									$header_index=$field_index=0;
+									$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue']='';
+									$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue_id']=0;
+									$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;;
+									$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;;													
 								
-								$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-								$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-							//	$form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-								$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-							//	$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-							//	$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
+									$count_parent=sizeof($form_structure['header'][1]['fields']);		
+									for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
+									{	
+										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
+										$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
+									}	
 
-								$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-								$indx=3;
-								$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-								$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-								$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-								$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-								$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-								$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-
-						if($entry_type=='NEW')
-						{
-							$header_index=$field_index=0;
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue']='';
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue_id']=0;
-
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;
-
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=0;
-							// $form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=0;
-
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;;
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;;
-													
-							$count_parent=sizeof($form_structure['header'][1]['fields']);		
-							for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
-							{	
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
-							}	
-
-						}
+								}
 								
-
-							// $form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-							// $form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-							// $form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-							// $form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-							// $form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-							// $form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-						
-							// $form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-
-							// $indx=4;
-							// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-							// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-							// $form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-							// $form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-							// $form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-							// $form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-
-							// 	//USER
-							// if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-							// {	
-							// 	$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-							// 	$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');	
-							// }
-							
-	
 								//FORM CUSTOM SETTING END
 
 
@@ -3322,178 +2560,6 @@ class Project_controller  extends CI_Controller {
 
 
 					}
-
-					if($subtype=='TAX_DETAILS')
-					{
-					
-					   $output= $someArray=array();	
-						 $someArray = json_decode($form_data1->raw_data, true);
-
-							//$parent_id=$someArray[0]['header'][0]['id'];
-
-							$parent_id=$form_data1->id;
-
-							$entry_type='EDIT';
-							$whr=" status='PURCHASE_INVOICE' and parent_id=".$parent_id;	
-							$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //PO ID
-
-							if($id==0)
-							{
-								$whr=" id=".$parent_id;	
-								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr); //requisition id
-								$entry_type='NEW';
-							}						
-							
-							$indx=0;
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
-
-
-							//BODY OR GRID ENTRY SECTION	
-							$indx=1;				
-							$rs[$indx]['section_type']='GRID_ENTRY';		
-							$rs[$indx]['frmrpttemplatehdr_id']=48;
-							$rs[$indx]['TableName']='invoice_details';								
-							$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book';
-							$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;		
-							
-							
-							//TAX SECTION
-							$indx=2;
-							$invoice_summary_id=0;
-
-							$cnt=0;
-							$details="select count(*) cnt from  invoice_tax_details  where invoice_summary_id=".$id." ";					
-							$details = $this->projectmodel->get_records_from_sql($details);	
-							foreach ($details as $key2=>$detail)
-							{$cnt=$detail->cnt;}
-							if($cnt>0){$invoice_summary_id=$id;}
-							else {$invoice_summary_id=0;}	
-
-							$rs[$indx]['section_type']='GRID_ENTRY';		
-							$rs[$indx]['frmrpttemplatehdr_id']=53;
-							$rs[$indx]['TableName']='invoice_tax_details';								
-							$rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
-							$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$invoice_summary_id;
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$invoice_summary_id;
-						
-							
-							$indx=3;
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-							
-							$indx=4;							
-							$rs[$indx]['section_type']='FORM';	
-							$rs[$indx]['frmrpttemplatehdr_id']=41;
-							$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-							$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-							$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
-										
-						
-							$form_structure=$this->FrmRptModel->create_form($rs,$id);
-							$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-							//aanatuaral account ...link to credit account
-							$field_qualifier_name='';
-							$cnts=sizeof($setting['segment']);
-							for($cnt=0;$cnt<$cnts;$cnt++)
-							{
-								$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-								if($field_qualifier_name=='account_id')
-								{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}
-
-							}
-
-
-							$field_qualifier_name='';
-							$cnts=sizeof($setting['segment']);
-							for($cnt=0;$cnt<$cnts;$cnt++)
-							{
-								$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-								$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-								$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-							}
-
-							$cnts=sizeof($form_structure["header"][1]['fields']);
-							for($i=0;$i<$cnts;$i++)
-							{
-								$field_qualifier_name='';
-								$cnts2=sizeof($setting['segment']);
-								for($cnt=0;$cnt<$cnts2;$cnt++)
-								{
-									$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-									$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-								}
-							}
-
-							//created_by,create_date_time,req_preparer
-							//FORM WISE SETTING
-
-							//for new entry
-
-						// 	$whr=" id=".$parent_id;	
-						// 	$req_number=$this->projectmodel->GetSingleVal('req_number','invoice_summary',$whr); //requisition id
-						// $form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue']=$req_number;
-						// $form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id']=$parent_id;
-
-						if($entry_type=='NEW')
-						{
-							$header_index=$field_index=0;
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue']='';
-							$form_structure["header"][0]['fields'][$field_index]['id']['Inputvalue_id']=0;
-
-							// $form_structure["header"][3]['fields'][0]['parent_id']['Inputvalue']=$parent_id;
-							// $form_structure["header"][3]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;
-
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue']=$parent_id;;
-							$form_structure["header"][0]['fields'][0]['parent_id']['Inputvalue_id']=$parent_id;;
-													
-							$count_parent=sizeof($form_structure['header'][1]['fields']);		
-							for($cnt_parent=0;$cnt_parent<=$count_parent-1;$cnt_parent++)
-							{	
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue']='';
-								$form_structure["header"][1]['fields'][$cnt_parent]['id']['Inputvalue_id']=0;
-							}	
-
-						}
-								
-
-							$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-							$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-							$form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-							$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-							$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-							$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-							$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-							$indx=4;
-							$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-							$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-							$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-
-							$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-							$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-							$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-						
-	
-							//FORM CUSTOM SETTING END
-
-
-						array_push($output,$form_structure);
-						header('Access-Control-Allow-Origin: *');
-						header("Content-Type: application/json");
-						echo json_encode($output);						
-
-					}
-					
 
 					if($subtype=='other_search')
 					{			
@@ -3677,6 +2743,7 @@ class Project_controller  extends CI_Controller {
 
 
 			}
+
 			//PROCURE TO PAY END 
 
 
@@ -3864,11 +2931,19 @@ class Project_controller  extends CI_Controller {
 		{
 
 				$indx=0;
-				$rs[$indx]['section_type']='FORM';	
-				$rs[$indx]['frmrpttemplatehdr_id']=41;
-				$rs[$indx]['TableName']='invoice_summary';
-				$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
+				$form_id=87;
+				$whr=" id=".$form_id;	
+				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+				$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+				$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+				$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
 
 				//BODY OR GRID ENTRY SECTION	
@@ -3877,102 +2952,27 @@ class Project_controller  extends CI_Controller {
 				$rs[$indx]['frmrpttemplatehdr_id']=48;
 				$rs[$indx]['TableName']='invoice_details';								
 				$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
-
-
-				//TAX SECTION
-				// $indx=2;
-				// $rs[$indx]['section_type']='GRID_ENTRY';		
-				// $rs[$indx]['frmrpttemplatehdr_id']=53;
-				// $rs[$indx]['TableName']='invoice_tax_details';								
-				// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
-				// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-				// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
-				
+				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
+			
 				$indx=2;
-				$rs[$indx]['section_type']='FORM';	
-				$rs[$indx]['frmrpttemplatehdr_id']=41;
-				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-				$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-				
-				$indx=3;							
-				$rs[$indx]['section_type']='FORM';	
-				$rs[$indx]['frmrpttemplatehdr_id']=41;
-				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-				$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields2;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+				$indx=3;		
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields3;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
 									
 				$form_structure=$this->FrmRptModel->create_form($rs,$id);
 				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-
-				//aanatuaral account ...link to credit account
-				$field_qualifier_name='';
-				$cnts=sizeof($setting['segment']);
-				for($cnt=0;$cnt<$cnts;$cnt++)
-				{
-					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-					if($field_qualifier_name=='account_id')
-					{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}
-												
-				}
-
-
-				$field_qualifier_name='';
-				$cnts=sizeof($setting['segment']);
-				for($cnt=0;$cnt<$cnts;$cnt++)
-				{
-					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-					$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-					$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-				}
-
-				$cnts=sizeof($form_structure["header"][1]['fields']);
-				for($i=0;$i<$cnts;$i++)
-				{
-					$field_qualifier_name='';
-					$cnts2=sizeof($setting['segment']);
-					for($cnt=0;$cnt<$cnts2;$cnt++)
-					{
-						$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-						$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-					}
-				}
-
-				//created_by,create_date_time,req_preparer
-				//FORM WISE SETTING
-
-				//for new entry
-				
-				$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-				$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-			 //	$form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-				$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-			//	$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-			//	$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-
-				$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-				$indx=3;
-				$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-				$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-				$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-				$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-				$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-				$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-
-				// 	//USER
-				// if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-				// {	
-				// 	$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-				// 	$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');	
-				// }
-					
-				// $sql="select  id FieldID,req_number FieldVal  from invoice_summary where  status='GRN_ENTRY' AND req_status=90 ";
-				// $datafields_array =$this->projectmodel->get_records_from_sql($sql);
-				// $form_structure["header"][0]['fields'][0]['parent_id']['datafields']=json_decode(json_encode($datafields_array), true);		
-				// $form_structure["header"][0]['fields'][0]['parent_id']['LabelName']='GRN No';					
+				$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 
 
 					//FORM CUSTOM SETTING END
@@ -4015,6 +3015,39 @@ class Project_controller  extends CI_Controller {
 				$form_structure=$this->FrmRptModel->create_form($rs,$id);
 				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 
+
+				//-------------------
+				// $supplier_id=$form_structure['header'][$header_index]['fields'][$field_index]['req_supplier']['Inputvalue_id'];
+				// $req_operating_unit=$form_structure['header'][0]['fields'][0]['req_operating_unit']['Inputvalue_id'];
+
+				// $whr=" id=".$supplier_id;							
+				// $form_structur['header'][$header_index]['fields'][$field_index]['req_contact']['Inputvalue']=$this->projectmodel->GetSingleVal('contact_person','mstr_supplier',$whr);
+				// $form_structure['header'][$header_index]['fields'][$field_index]['req_phone']['Inputvalue']=$this->projectmodel->GetSingleVal('phone_no','mstr_supplier',$whr);		
+					
+				// $details="select count(*) count from  invoice_summary  where invoice_payment_id=0 and 
+				// req_supplier=".$supplier_id." and req_operating_unit=".$req_operating_unit." and status='PURCHASE_INVOICE'";					
+				// $details = $this->projectmodel->get_records_from_sql($details);	
+				// if($details[0]->count>0)
+				// {
+
+				// 	$id=17;
+				// 	$indx=3;
+				// 	$rs[$indx]['section_type']='GRID_ENTRY';		
+				// 	$rs[$indx]['frmrpttemplatehdr_id']=56;
+				// 	$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_summary';								
+				// 	$rs[$indx]['fields']='id,parent_id,req_number,req_accounting_date,invoice_subtotal,invoice_paid_total,Gl_date,req_submit_approval,invoice_payment_id';
+				// 	$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
+				// 	where invoice_payment_id=0 and  req_supplier=".$supplier_id." 
+				// 	and req_operating_unit=".$req_operating_unit." and status='PURCHASE_INVOICE'	 ";				
+							
+				// 	$form_structure=$this->FrmRptModel->create_form($rs,$id);								
+				// 	//$someArray[0]['header'][3]=$form_structure['header'][3];
+				// //	$form_structure=$this->FrmRptModel->re_arrange_input_index_type2($form_structure);
+
+				// }
+
+				//-------------------
+
 				return $form_structure;
 
 		}	
@@ -4024,72 +3057,42 @@ class Project_controller  extends CI_Controller {
 		if($form_name=='SALES_ORDER')
 		{
 
-				//HEADER SECTION
-				$rs[0]['section_type']='FORM';	
-				$rs[0]['frmrpttemplatehdr_id']=57;
-				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-				$rs[0]['fields']='id,req_operating_unit,created_date_time,req_number,req_accounting_date,req_type,req_supplier,req_site,req_contact,comment,status';
-		
-				//BODY OR GRID ENTRY SECTION					
-				$rs[1]['section_type']='GRID_ENTRY';		
-				$rs[1]['frmrpttemplatehdr_id']=58;
-				$rs[1]['id']=0;	$rs[1]['parent_id']=$id;$rs[1]['TableName']='invoice_details';		
-				$rs[1]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address'.$setting['segments'];
-									
-				// //FOOTER SECTION
-				$rs[2]['section_type']='FORM';	
-				$rs[2]['frmrpttemplatehdr_id']=57;
-				$rs[2]['id']=$id;	$rs[2]['parent_id']='';$rs[2]['TableName']='invoice_summary';
-				$rs[2]['fields']='req_preparer,req_organization,req_location,last_updated_by,last_updated_date_time,created_by,create_date_time,req_status';
+			$indx=0;
+			$form_id=57;
+			$whr=" id=".$form_id;	
+			$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+			$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+			$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+			$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+			$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+			$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+			$rs[$indx]['section_type']=$section_type;	
+			$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+			$rs[$indx]['fields']=$DataFields;
+			$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-				$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;					
-				$rs[1]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;	
-				$rs[2]['sql_query']="select ".$rs[2]['fields']." from ".$rs[2]['TableName']." where id=".$id;							
-				
+
+			//BODY OR GRID ENTRY SECTION	
+			$indx=1;				
+			$rs[$indx]['section_type']='GRID_ENTRY';		
+			$rs[$indx]['frmrpttemplatehdr_id']=58;
+			$rs[$indx]['id']=0;	$rs[1]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
+			$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address'.$setting['segments'];								
+			$rs[$indx]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;	
+
+
+			$indx=2;
+			$rs[$indx]['section_type']=$section_type;	
+			$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+			$rs[$indx]['fields']=$DataFields2;
+			$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+			
+										
 				$form_structure=$this->FrmRptModel->create_form($rs,$id);
 				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-
-				//FORM CUSTOM SETTING
-
-				$field_qualifier_name='';
-				$cnts=sizeof($setting['segment']);
-				for($cnt=0;$cnt<$cnts;$cnt++)
-				{
-					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-					$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-					$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-				}
-
-				$cnts=sizeof($form_structure["header"][1]['fields']);
-				for($i=0;$i<$cnts;$i++)
-				{
-					$field_qualifier_name='';
-					$cnts2=sizeof($setting['segment']);
-					for($cnt=0;$cnt<$cnts2;$cnt++)
-					{
-						$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-						$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-						$form_structure["header"][1]['fields'][$i]['qnty']['InputType']='text';
-					}
-				}
-
-				 $form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Standard Sales Order';
-				 $form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=142;
-				 
-			
-				$form_structure["header"][2]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-				$form_structure["header"][2]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-				$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue']='OPEN';
-				$form_structure["header"][2]['fields'][0]['req_status']['Inputvalue_id']=91;
-
-				if($form_structure["header"][2]['fields'][0]['created_by']['Inputvalue_id']==0)
-				{				
-					$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
-					$form_structure["header"][2]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];
-					$form_structure["header"][2]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-					$form_structure["header"][2]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
-					$form_structure["header"][0]['fields'][0]['created_date_time']['Inputvalue']=date('Y-m-d H:i:s');
-				}
+				$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 
 				return $form_structure;
 
@@ -4098,166 +3101,93 @@ class Project_controller  extends CI_Controller {
 		if($form_name=='DESPATCH_GOODS')
 		{
 
-							$rs[0]['section_type']='FORM';	
-							$rs[0]['frmrpttemplatehdr_id']=59;
-							$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-							$rs[0]['fields']='id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status';
+						$indx=0;
+						$form_id=59;
+						$whr=" id=".$form_id;	
+						$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+						//$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+						//$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+						//$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+						$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+						$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+						$rs[$indx]['section_type']=$section_type;	
+						$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+						$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+						$rs[$indx]['fields']=$DataFields;
+						$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-							//BODY OR GRID ENTRY SECTION					
-							$rs[1]['section_type']='GRID_ENTRY';		
-							$rs[1]['frmrpttemplatehdr_id']=60;
-							$rs[1]['id']=0;	$rs[1]['parent_id']=$id;$rs[1]['TableName']='invoice_details';		
-							$rs[1]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom';
-												
-							$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;					
-							$rs[1]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;		
+
+						//BODY OR GRID ENTRY SECTION	
+
+						$indx=1;				
+						$form_id=60;
+						$whr=" id=".$form_id;	
+						$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);							
+						$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+						$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+						$rs[$indx]['section_type']='GRID_ENTRY';		
+						$rs[$indx]['frmrpttemplatehdr_id']=58;
+						$rs[$indx]['id']=0;	$rs[1]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
+						$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+						$rs[$indx]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;	
+			
 						
-							$form_structure=$this->FrmRptModel->create_form($rs,$id);
-							$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+						$form_structure=$this->FrmRptModel->create_form($rs,$id);
+						$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+						$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 
-							//FORM WISE SETTING
-							$form_structure["header"][0]['fields'][0]['status']['Inputvalue']='ORDER_DESPATCH';
-							$form_structure["header"][0]['fields'][0]['status']['Inputvalue_id']=0;
-							$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='ORDER DESPATCH';
-							$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=143;
-
-							$sql="select  id FieldID,req_number FieldVal  from invoice_summary where  status='SALES_ORDER' AND req_status=90 ";
-							$datafields_array =$this->projectmodel->get_records_from_sql($sql);
-							$form_structure["header"][0]['fields'][0]['parent_id']['datafields']=json_decode(json_encode($datafields_array), true);		
-							$form_structure["header"][0]['fields'][0]['parent_id']['LabelName']='Sales order';					
-							//FORM WISE SETTING
-
-
-								//FORM CUSTOM SETTING
-
-	
-								$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-								$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-
-
-								//USER
-								if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
-								{				
-	
-									$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=$setting['login_emp_id'];							
-									$form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue']=$setting['login_emp_name'];									
-									$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue_id']=$setting['req_organization_id'];							
-									$form_structure["header"][0]['fields'][0]['req_organization']['Inputvalue']=$setting['req_organization_name'];										
-									$form_structure["header"][0]['fields'][0]['req_location']['Inputvalue']=$setting['req_location'];	
-									$form_structure["header"][0]['fields'][0]['req_accounting_date']['Inputvalue']=date('Y-m-d');	
-									$form_structure["header"][0]['fields'][0]['created_by']['Inputvalue_id']=	$setting['login_emp_id'];
-									$form_structure["header"][0]['fields'][0]['create_date_time']['Inputvalue_id']=	date('Y-m-d H:i:s');
-	
-								}
-							
-								
-								return $form_structure;
+						return $form_structure;
 
 		}	
+
 
 		if($form_name=='sale_invoice')
 		{
 
-			$indx=0;
-			$rs[$indx]['section_type']='FORM';	
-			$rs[$indx]['frmrpttemplatehdr_id']=57;
-			$rs[$indx]['TableName']='invoice_summary';
-			$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
+				$indx=0;
+				$form_id=89;
+				$whr=" id=".$form_id;	
+				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+				$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+				$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+				$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
 
-			//BODY OR GRID ENTRY SECTION	
-			$indx=1;				
-			$rs[$indx]['section_type']='GRID_ENTRY';		
-			$rs[$indx]['frmrpttemplatehdr_id']=48;
-			$rs[$indx]['TableName']='invoice_details';								
-			$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-			$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
-
-			//,tax_ledger_id,tax_rate,tax_amount
-
-			//TAX SECTION
-			// $indx=2;
-			// $rs[$indx]['section_type']='GRID_ENTRY';		
-			// $rs[$indx]['frmrpttemplatehdr_id']=53;
-			// $rs[$indx]['TableName']='invoice_tax_details';								
-			// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
-			// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-			// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+				//BODY OR GRID ENTRY SECTION	
+				$indx=1;				
+				$rs[$indx]['section_type']='GRID_ENTRY';		
+				$rs[$indx]['frmrpttemplatehdr_id']=48;
+				$rs[$indx]['TableName']='invoice_details';								
+				$rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
 			
-			$indx=2;
-			$rs[$indx]['section_type']='FORM';	
-			$rs[$indx]['frmrpttemplatehdr_id']=57;
-			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-			$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-			$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-			
-			$indx=3;							
-			$rs[$indx]['section_type']='FORM';	
-			$rs[$indx]['frmrpttemplatehdr_id']=57;
-			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-			$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-			$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
-								
-			$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+				$indx=2;
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields2;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
+				$indx=3;		
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields3;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-			//aanatuaral account ...link to credit account
-			$field_qualifier_name='';
-			$cnts=sizeof($setting['segment']);
-			for($cnt=0;$cnt<$cnts;$cnt++)
-			{
-				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-				if($field_qualifier_name=='account_id')
-				{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
-			}
+									
+				$form_structure=$this->FrmRptModel->create_form($rs,$id);
+				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+				$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 
-			$field_qualifier_name='';
-			$cnts=sizeof($setting['segment']);
-			for($cnt=0;$cnt<$cnts;$cnt++)
-			{
-				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-			}
-
-			$cnts=sizeof($form_structure["header"][1]['fields']);
-			for($i=0;$i<$cnts;$i++)
-			{
-				$field_qualifier_name='';
-				$cnts2=sizeof($setting['segment']);
-				for($cnt=0;$cnt<$cnts2;$cnt++)
-				{
-					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-				}
-			}
-
-			//created_by,create_date_time,req_preparer
-			//FORM WISE SETTING
-
-			//for new entry
-			
-			$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-			$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';		
-			$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-			$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='hidden';
-			// $form_structure["header"][0]['fields'][0]['req_supplier']['LabelName']='Customer';
-
-			
-			
-			$indx=3;
-			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
-			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=144;
-			$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='SALES_INVOICE';
-			$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-			$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-			$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-			$form_structure["header"][$indx]['fields'][0]['req_status']['InputType']='hidden';
-
-
-				//FORM CUSTOM SETTING END
 				return $form_structure;
 
 		}	
@@ -4437,7 +3367,7 @@ class Project_controller  extends CI_Controller {
 										echo json_encode($return_data);
 
 							}
-				}	
+			}	
 
 			if($subtype=='MAIN_GRID')
 			{

@@ -273,9 +273,17 @@ font-weight:600;
 						 <div class="box box-success">
 								<div class="box-header with-border">	
 								
+								
+	<!--<tr ng-repeat="field_index in [0,FormInputArray[0]['header'][header_index]['fields'].length] | toRange">
+	<td ng-repeat="steps in FormInputArray[0]['header'][header_index]['fields'][field_index]" 
+	ng-init="Index2 = $index" ng-if="steps['InputType']!= 'hidden'">	-->
+								
+								
+								
 								<table class="table table-bordered table-hover table-condensed" >	
 									<tr>
-									<td  align="left" style="width:{{50*field.DIVClass}}px;" class="bg-warning" ng-repeat="(key,value) in return_object[0]" 
+									<td  align="left" style="width:{{50*field.DIVClass}}px;" class="bg-warning" 
+									ng-repeat="(key,value) in return_object[0]" 
 									 ng-if="key!='id'">{{key}}</td>	
 									<td  align="left" class="bg-warning">View</td>					
 									</tr>

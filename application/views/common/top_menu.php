@@ -264,8 +264,10 @@ if($login_status=='SUPER') {?>
  		 <ul class="treeview-menu">
 		 
 				
-		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/SALES_ORDER/acc_tran/47/"><i class="fa fa-circle-o"></i>
-		 Sales Order </a> </li>
+		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/SALES_ORDER/acc_tran/47/">
+		 <i class="fa fa-circle-o"></i>
+		 Sales Order </a> 
+		 </li>
 		
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/SALES_ORDER_APPROVE/acc_tran/47/"><i class="fa fa-circle-o"></i>
 		 Sales Order Approve </a> </li>
@@ -312,6 +314,14 @@ if($login_status=='SUPER') {?>
 		
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/master_form/master_form/91/">
 		 <i class="fa fa-circle-o"></i>7.Batch Create </a> </li>
+		 
+		 
+		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/batch_create_final/acc_tran/47/">
+		 <i class="fa fa-circle-o"></i>
+		 View Batch </a> 
+		 </li>
+		 
+		 
 						 
         </ul>
 	  </li>

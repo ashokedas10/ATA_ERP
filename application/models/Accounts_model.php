@@ -37,10 +37,10 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
  function ledger_transactions_delete($tran_table_id='',$TRAN_TYPE='')
  {
  		 
-			if($TRAN_TYPE=='SALE' or $TRAN_TYPE=='PURCHASE' or $TRAN_TYPE=='PURCHASE_RTN' )//sell invoice section
+			if($TRAN_TYPE=='GRN_ENTRY' || $TRAN_TYPE=='PURCHASE_INVOICE' || $TRAN_TYPE=='ORDER_DESPATCH' || $TRAN_TYPE=='SALES_INVOICE')
 			{
 				
-				   $acc_tran_details_id=$acc_tran_header_id=0;
+				  $acc_tran_details_id=$acc_tran_header_id=0;
 
 					$sql_led="select * 	from acc_tran_header where
 					tran_table_name='invoice_summary' and  
@@ -67,6 +67,40 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 					$this->db->query($sql);
 				
 			}
+
+			if($TRAN_TYPE=='SUPPLIER_PAYMENT')
+			{
+				
+				   $acc_tran_details_id=$acc_tran_header_id=0;
+
+					$sql_led="select * 	from acc_tran_header where
+					tran_table_name='invoice_payment_receive' and  
+					tran_table_id=".$tran_table_id;			
+					$rowledgers = $this->projectmodel->get_records_from_sql($sql_led);	
+					foreach ($rowledgers as $rowledger)
+					{ $acc_tran_header_id=$rowledger->id; }
+
+					$sql_led="select * 	from acc_tran_details where
+					acc_tran_header_id=".$acc_tran_header_id;			
+					$rowledgers = $this->projectmodel->get_records_from_sql($sql_led);	
+					foreach ($rowledgers as $rowledger)
+					{ $acc_tran_details_id= $acc_tran_details_id.','.$rowledger->id; }
+				
+					$sql="delete from acc_tran_details_details  
+					where acc_tran_details_id in (".$acc_tran_details_id.") ";
+					$this->db->query($sql);
+
+					$sql="delete from acc_tran_details  
+					where acc_tran_header_id=".$acc_tran_header_id;
+					$this->db->query($sql);
+					
+					$sql="delete from acc_tran_header  where id=".$acc_tran_header_id;
+					$this->db->query($sql);
+				
+			}
+
+
+			
 			
 			
  }
@@ -86,327 +120,393 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 
  }
 
-	function ledger_transactions($tran_table_id='',$TRAN_TYPE='')
+ function ledger_transactions($tran_table_id='',$TRAN_TYPE='')
  {
-	$acc_tran_details_id=0;
+		
+		$acc_tran_details_id=0;
 
-	if($TRAN_TYPE=='SALE')//sell invoice section
-	{	
-		$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
-		
-		$save_hdr['tran_table_name']='invoice_summary';
-		$save_hdr['tran_table_id']=$tran_table_id;
-		
-		$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
-		$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
-		foreach ($fields as $field)
+
+		//PURCHASE SECTION
+
+		if($TRAN_TYPE=='receipt_of_goods')//RECEIPT OF GOODS
 		{	
-			$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
-			$save_hdr['tran_date']=$field->invoice_date;
-			$save_hdr['tran_code']=$field->invoice_no;
-			$save_hdr['TRAN_TYPE']='SALE';
-			$AMOUNT=$field->grandtot;
-
-			$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
-			$id_header=$this->db->insert_id();
 			
-			//DETAILS OF TRANSACTIONS
-			$matching_tran_id=1;
-			$amount=$field->total_amt-$field->tot_discount-$field->tot_cash_discount;
-			$cr_ledger_account=323; //sales a/c
-			$dr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			if($amount>0)
-			{
-			$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-
-			$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
-			$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
-			}
-			
-			$matching_tran_id=$matching_tran_id+1;			
-			$amount=$field->interest_charge;
-			$cr_ledger_account=95; //Interest Receive
-			$dr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			if($amount>0)
-			{
-			$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-			}
-			
-			$matching_tran_id=$matching_tran_id+1;					
-			$amount=$field->freight_charge;
-			$dr_ledger_account=94; //Freight Charge
-			$cr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			if($amount>0)
-			{
-			$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-			}
-			
-			//TAX SECTION
-			$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
-			from invoice_details where invoice_summary_id=".$tran_table_id."  ";
-			$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
-			foreach ($rowsql_vatper as $rows_vatper)
-			{ 
-				$tax_ledger_id=$rows_vatper->tax_ledger_id;	
+				$TRAN_TYPE='GRN_ENTRY';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
 				
-				$taxamt=0;	
-				$sql_vatamt="select sum(taxamt) taxamt
-				from invoice_details where invoice_summary_id=".$tran_table_id." 
-				and  tax_ledger_id=".$tax_ledger_id;
-				$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
-				foreach ($rowsql_vatamt as $rows_vatamt)
-				{$taxamt=$rows_vatamt->taxamt;}
-				
-				$matching_tran_id=$matching_tran_id+1;		
-				$amount=$taxamt;
-				$dr_ledger_account=$tbl_party_id;
-				$cr_ledger_account=$tax_ledger_id; 								
-				if($amount>0)
-				{
-				$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-				$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-				}
-			}
-		
-		
-		}
-	}
-	//sell invoice section end
-	
-	//PURCHASE SECTION	
-	if($TRAN_TYPE=='PURCHASE')//sell invoice section
-	{	
-		$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
-		
-		$save_hdr['tran_table_name']='invoice_summary';
-		$save_hdr['tran_table_id']=$tran_table_id;
-		
-		$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
-		$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
-		foreach ($fields as $field)
-		{				
-			$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
-			$save_hdr['tran_date']=$field->invoice_date;
-			$save_hdr['tran_code']=$field->invoice_no;
-			$save_hdr['TRAN_TYPE']='PURCHASE';
-			$AMOUNT=$field->grandtot;
+				$save_hdr['tran_table_name']='invoice_summary';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->invoice_grand_total;
 
-			$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
-			$id_header=$this->db->insert_id();
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
 						
-			//DETAILS OF TRANSACTIONS
-			$matching_tran_id=0;
-			$matching_tran_id=$matching_tran_id+1;		
-			$amount=$field->total_amt-$field->tot_cash_discount-$field->tot_discount;
-			$dr_ledger_account=322; //purchase ledger
-			$cr_ledger_account=$tbl_party_id; // a/c sundry creditor
-			if($amount>0)
-			{
-			
-			$acc_tran_details_id=$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);			
-			$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
-			$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$cr_ledger_account=$setup_records[0]->p2p_grn_cr; 
+						$dr_ledger_account=$setup_records[0]->p2p_grn_dr; 
 
-			$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-			}
-			
-			//TAX SECTION
-			$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
-			from invoice_details where invoice_summary_id=".$tran_table_id."  ";
-			$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
-			foreach ($rowsql_vatper as $rows_vatper)
-			{ 
-				$tax_ledger_id=$rows_vatper->tax_ledger_id;	
-				
-				$taxamt=0;	
-				$sql_vatamt="select sum(taxamt) taxamt
-				from invoice_details where invoice_summary_id=".$tran_table_id." 
-				and  tax_ledger_id=".$tax_ledger_id;
-				$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
-				foreach ($rowsql_vatamt as $rows_vatamt)
-				{$taxamt=$rows_vatamt->taxamt;}
-				
-				$matching_tran_id=$matching_tran_id+1;		
-				$amount=$taxamt;
-				$cr_ledger_account=$tbl_party_id;
-				$dr_ledger_account=$tax_ledger_id; 								
-				if($amount>0)
-				{
-				$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-				$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-				}
-			}
-			
-		}
-		
-	}
-	//PURCHASE SECTION END
-	
-
-	//PURCHASE_RTN SECTION	
-	if($TRAN_TYPE=='PURCHASE_RTN')//sell invoice section
-	{	
-		$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
-		
-		$save_hdr['tran_table_name']='invoice_summary';
-		$save_hdr['tran_table_id']=$tran_table_id;
-		
-		$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
-		$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
-		foreach ($fields as $field)
-		{				
-			$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
-			$save_hdr['tran_date']=$field->invoice_date;
-			$save_hdr['tran_code']=$field->invoice_no;
-			$save_hdr['TRAN_TYPE']='PURCHASE_RTN';
-			$AMOUNT=$field->grandtot;
-
-			$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
-			$id_header=$this->db->insert_id();
-						
-			//DETAILS OF TRANSACTIONS
-			$matching_tran_id=0;
-			$matching_tran_id=$matching_tran_id+1;		
-			$amount=$field->total_amt-$field->tot_cash_discount-$field->tot_discount;
-
-			$dr_ledger_account=$tbl_party_id; // a/c sundry creditor
-			$cr_ledger_account=322; //purchase ledger
-		
-			if($amount>0)
-			{
-			
-					$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);			
-
-					$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-					$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
-					$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
-					}
-			
-					//TAX SECTION
-					$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
-					from invoice_details where invoice_summary_id=".$tran_table_id."  ";
-					$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
-					foreach ($rowsql_vatper as $rows_vatper)
-					{ 
-						$tax_ledger_id=$rows_vatper->tax_ledger_id;	
-						
-						$taxamt=0;	
-						$sql_vatamt="select sum(taxamt) taxamt
-						from invoice_details where invoice_summary_id=".$tran_table_id." 
-						and  tax_ledger_id=".$tax_ledger_id;
-						$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
-						foreach ($rowsql_vatamt as $rows_vatamt)
-						{$taxamt=$rows_vatamt->taxamt;}
-						
-						$matching_tran_id=$matching_tran_id+1;		
-						$amount=$taxamt;
-
-						$cr_ledger_account=$tax_ledger_id; 	
-						$dr_ledger_account=$tbl_party_id;
-													
 						if($amount>0)
-						{
-						$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-						$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+		}
+
+		if($TRAN_TYPE=='purchase_invoice')//PURCHASE INVOICE
+		{	
+			
+				$TRAN_TYPE='PURCHASE_INVOICE';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+				
+				$save_hdr['tran_table_name']='invoice_summary';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->invoice_grand_total;
+
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
+						
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$cr_ledger_account=$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_supplier','id='.$field->req_supplier);  
+						$dr_ledger_account=$setup_records[0]->p2p_invoice_dr; 
+
+						if($amount>0)
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+		}
+
+		if($TRAN_TYPE=='payment_rcv')
+		{
+
+				$TRAN_TYPE='SUPPLIER_PAYMENT';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+				
+				$save_hdr['tran_table_name']='invoice_payment_receive';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_payment_receive where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->cleared_amount;
+
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
+						
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$cr_ledger_account=$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_bank','id='.$field->bank_id); 
+						$dr_ledger_account=$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_supplier','id='.$field->req_supplier);  
+
+						if($amount>0)
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+
+
+		}	
+
+
+		//SALES SECTION
+		
+		if($TRAN_TYPE=='DESPATCH_GOODS')//RECEIPT OF GOODS
+		{	
+			
+				$TRAN_TYPE='ORDER_DESPATCH';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+				
+				$save_hdr['tran_table_name']='invoice_summary';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->invoice_grand_total;
+
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
+						
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$cr_ledger_account=$setup_records[0]->o2c_despatch_cr; 
+						$dr_ledger_account=$setup_records[0]->o2c_despatch_dr; 
+
+						if($amount>0)
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+		}
+
+
+		if($TRAN_TYPE=='sale_invoice')//PURCHASE INVOICE
+		{	
+			
+				$TRAN_TYPE='SALES_INVOICE';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+				
+				$save_hdr['tran_table_name']='invoice_summary';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->invoice_grand_total;
+
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
+						
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$cr_ledger_account=$setup_records[0]->o2c_invoice_cr;
+						$dr_ledger_account=	$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_customer','id='.$field->req_supplier);  ; 
+
+						if($amount>0)
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+		}
+
+
+			/*
+
+					if($TRAN_TYPE=='SALE')//sell invoice section
+					{	
+						$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+						
+						$save_hdr['tran_table_name']='invoice_summary';
+						$save_hdr['tran_table_id']=$tran_table_id;
+						
+						$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+						$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+						foreach ($fields as $field)
+						{	
+							$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+							$save_hdr['tran_date']=$field->invoice_date;
+							$save_hdr['tran_code']=$field->invoice_no;
+							$save_hdr['TRAN_TYPE']='SALE';
+							$AMOUNT=$field->grandtot;
+
+							$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+							$id_header=$this->db->insert_id();
+							
+							//DETAILS OF TRANSACTIONS
+							$matching_tran_id=1;
+							$amount=$field->total_amt-$field->tot_discount-$field->tot_cash_discount;
+							$cr_ledger_account=323; //sales a/c
+							$dr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
+							if($amount>0)
+							{
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+
+							$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
+							$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
+							}
+							
+							$matching_tran_id=$matching_tran_id+1;			
+							$amount=$field->interest_charge;
+							$cr_ledger_account=95; //Interest Receive
+							$dr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
+							if($amount>0)
+							{
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+							}
+							
+							$matching_tran_id=$matching_tran_id+1;					
+							$amount=$field->freight_charge;
+							$dr_ledger_account=94; //Freight Charge
+							$cr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
+							if($amount>0)
+							{
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+							}
+							
+							//TAX SECTION
+							$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
+							from invoice_details where invoice_summary_id=".$tran_table_id."  ";
+							$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
+							foreach ($rowsql_vatper as $rows_vatper)
+							{ 
+								$tax_ledger_id=$rows_vatper->tax_ledger_id;	
+								
+								$taxamt=0;	
+								$sql_vatamt="select sum(taxamt) taxamt
+								from invoice_details where invoice_summary_id=".$tran_table_id." 
+								and  tax_ledger_id=".$tax_ledger_id;
+								$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
+								foreach ($rowsql_vatamt as $rows_vatamt)
+								{$taxamt=$rows_vatamt->taxamt;}
+								
+								$matching_tran_id=$matching_tran_id+1;		
+								$amount=$taxamt;
+								$dr_ledger_account=$tbl_party_id;
+								$cr_ledger_account=$tax_ledger_id; 								
+								if($amount>0)
+								{
+								$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+								$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+								}
+							}
+						
+						
 						}
 					}
-			
-		}
-		
-	}
-	//PURCHASE RETURN SECTION END
+					//sell invoice section end
+					
+					//PURCHASE SECTION	
+					if($TRAN_TYPE=='PURCHASE')//sell invoice section
+					{	
+						$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+						
+						$save_hdr['tran_table_name']='invoice_summary';
+						$save_hdr['tran_table_id']=$tran_table_id;
+						
+						$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
+						$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+						foreach ($fields as $field)
+						{				
+							$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+							$save_hdr['tran_date']=$field->invoice_date;
+							$save_hdr['tran_code']=$field->invoice_no;
+							$save_hdr['TRAN_TYPE']='PURCHASE';
+							$AMOUNT=$field->grandtot;
 
-	//SALE RTN SECTION	
-	if($TRAN_TYPE=='SALE_RTN')
-	{	
-		$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
-		
-		$save_hdr['tran_table_name']='invoice_summary';
-		$save_hdr['tran_table_id']=$tran_table_id;
-		
-		$sqlfld="SELECT * FROM  invoice_summary where id=".$tran_table_id; 
-		$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
-		foreach ($fields as $field)
-		{	
-			$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
-			$save_hdr['tran_date']=$field->invoice_date;
-			$save_hdr['tran_code']=$field->invoice_no;
-			$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
-			$AMOUNT=$field->grandtot;
+							$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+							$id_header=$this->db->insert_id();
+										
+							//DETAILS OF TRANSACTIONS
+							$matching_tran_id=0;
+							$matching_tran_id=$matching_tran_id+1;		
+							$amount=$field->total_amt-$field->tot_cash_discount-$field->tot_discount;
+							$dr_ledger_account=322; //purchase ledger
+							$cr_ledger_account=$tbl_party_id; // a/c sundry creditor
+							if($amount>0)
+							{
+							
+							$acc_tran_details_id=$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);			
+							$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
+							$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
 
-			$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
-			$id_header=$this->db->insert_id();
+							$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+							}
+							
+							//TAX SECTION
+							$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
+							from invoice_details where invoice_summary_id=".$tran_table_id."  ";
+							$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
+							foreach ($rowsql_vatper as $rows_vatper)
+							{ 
+								$tax_ledger_id=$rows_vatper->tax_ledger_id;	
+								
+								$taxamt=0;	
+								$sql_vatamt="select sum(taxamt) taxamt
+								from invoice_details where invoice_summary_id=".$tran_table_id." 
+								and  tax_ledger_id=".$tax_ledger_id;
+								$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
+								foreach ($rowsql_vatamt as $rows_vatamt)
+								{$taxamt=$rows_vatamt->taxamt;}
+								
+								$matching_tran_id=$matching_tran_id+1;		
+								$amount=$taxamt;
+								$cr_ledger_account=$tbl_party_id;
+								$dr_ledger_account=$tax_ledger_id; 								
+								if($amount>0)
+								{
+								$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+								$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+								}
+							}
+							
+						}
+						
+					}
+					//PURCHASE SECTION END
 			
-			//DETAILS OF TRANSACTIONS
-			$matching_tran_id=1;
-			$amount=$field->total_amt-$field->tot_discount-$field->tot_cash_discount;
 
-			$cr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			$dr_ledger_account=323; //sales a/c
-			
-			if($amount>0)
-			{
+			*/
 
-			$acc_tran_details_id=$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			$this->acc_tran_details_details($acc_tran_details_id,$save_hdr['tran_table_name'],$save_hdr['tran_table_id'],$save_hdr['tran_code'],
-			$AMOUNT,$save_hdr['TRAN_TYPE'],'PLUS');
 
-			$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);		
-			}
-			
-			// $matching_tran_id=$matching_tran_id+1;			
-			// $amount=$field->interest_charge;
-			// $cr_ledger_account=95; //Interest Receive
-			// $dr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			// if($amount>0)
-			// {
-			// $this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			// $this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-			// }
-			
-			// $matching_tran_id=$matching_tran_id+1;					
-			// $amount=$field->freight_charge;
-			// $dr_ledger_account=94; //Freight Charge
-			// $cr_ledger_account=$tbl_party_id; //stockist a/c sundry debtors
-			// if($amount>0)
-			// {
-			// $this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-			// $this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-			// }
-			
-			//TAX SECTION
-			$sql_vatper="select distinct(tax_ledger_id) tax_ledger_id
-			from invoice_details where invoice_summary_id=".$tran_table_id."  ";
-			$rowsql_vatper = $this->projectmodel->get_records_from_sql($sql_vatper);	
-			foreach ($rowsql_vatper as $rows_vatper)
-			{ 
-				$tax_ledger_id=$rows_vatper->tax_ledger_id;	
-				
-				$taxamt=0;	
-				$sql_vatamt="select sum(taxamt) taxamt 	from invoice_details where invoice_summary_id=".$tran_table_id." 
-				and  tax_ledger_id=".$tax_ledger_id;
-				$rowsql_vatamt = $this->projectmodel->get_records_from_sql($sql_vatamt);	
-				foreach ($rowsql_vatamt as $rows_vatamt)
-				{$taxamt=$rows_vatamt->taxamt;}
-				
-				$matching_tran_id=$matching_tran_id+1;		
-				$amount=$taxamt;
-				$cr_ledger_account=$tbl_party_id;
-				$dr_ledger_account=$tax_ledger_id; 								
-				if($amount>0)
-				{
-				$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
-				$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
-				}
-			}
-		
-		
-		}
-	}
-	//SALE RETURN END
+
 
 	
 }

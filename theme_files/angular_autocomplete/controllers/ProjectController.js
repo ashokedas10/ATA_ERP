@@ -3390,14 +3390,14 @@ function($scope,$rootScope,$http,$window,Sale_test)
 						if($rootScope.searchelement=='req_supplier' && $rootScope.current_form_report=='requisition')	
 						{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}		
 						
-						if($rootScope.searchelement=='req_supplier' && $rootScope.current_form_report=='payment_rcv')	
-						{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}		
+						// if($rootScope.searchelement=='req_supplier' && $rootScope.current_form_report=='payment_rcv')	
+						// {$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}		
 						
-						if($rootScope.searchelement=='req_supplier' && $rootScope.current_form_report=='receive_amt')	
-						{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
+						// if($rootScope.searchelement=='req_supplier' && $rootScope.current_form_report=='receive_amt')	
+						// {$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
 						
-						if($rootScope.searchelement=='parent_id')	
-						{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}
+						// if($rootScope.searchelement=='parent_id')	
+						// {$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}
 											
 				}		
 				if(event.keyCode === 39)
@@ -3441,6 +3441,13 @@ function($scope,$rootScope,$http,$window,Sale_test)
 							$("#"+inputid).datepicker({changeMonth: true,dateFormat: 'yy-mm-dd',changeYear: true});					 
 							$("#"+inputid).change(function() {var  trandate = $("#"+inputid).val();$("#"+inputid).val(trandate);});
 							console.log(inputid);
+						}
+
+
+
+						if($rootScope.form_id==40 || $rootScope.form_id==33 || $rootScope.form_id==35 || $rootScope.form_id==38)	
+						{
+							$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);						
 						}
 
 					if($rootScope.searchelement=='item_id' )	

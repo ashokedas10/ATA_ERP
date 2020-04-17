@@ -9,6 +9,7 @@ function __construct()
 		$this->load->database();
 		$this->load->library('session');
 		$this->load->model('thumb_model', 'thumb');
+		$this->load->model('accounts_model');
     }
 	
     /*LOGIN LOGOUT*/
@@ -119,7 +120,8 @@ function __construct()
 		}
 	}
 
-	function user_wise_setting(){
+	function user_wise_setting()
+	{
 
 		$setting=array();		
 		$a_id = $this->session->userdata('login_emp_id');
@@ -128,10 +130,11 @@ function __construct()
 		$username=$this->GetSingleVal('name','tbl_employee_mstr',$whr); 
 		$setting['login_emp_name']= $username;
 
-		 $setting['account_setup_id']=$this->session->userdata('account_setup_id');
+		$setting['account_setup_id']=$this->session->userdata('account_setup_id');
 		$whr=" id=".$this->session->userdata('account_setup_id');	
 		$setting['legal_entity_id']=$this->GetSingleVal('legal_entity_id','account_setup',$whr); 
 		$chart_of_account_id=$setting['chart_of_account_id']=$this->GetSingleVal('chart_of_account_id','account_setup',$whr); 
+
 		$setting['calendar_id']=$this->GetSingleVal('calendar_id','account_setup',$whr); 
 		$setting['currency_id']=$this->GetSingleVal('currency_id','account_setup',$whr); 
 		$whr=" id=".$setting['currency_id'];	
@@ -143,6 +146,55 @@ function __construct()
 		$location_id=$this->GetSingleVal('location_id','company_details',$whr);
 		$whr=" id=".$location_id;
 		$setting['req_location']=$this->GetSingleVal('name','tbl_location',$whr);
+		$setting['segments']='';
+		
+		
+		//SEGMENT AND VALUE SET
+		$segment_name=$segments='';
+		$cnt=0;
+		$records="select * FROM tbl_chart_of_accounts where  parent_id=".$chart_of_account_id." 
+		and trantype='CHART_OF_ACCOUNT_SEGMENT' and status='ACTIVE' ";						
+		$records = $this->projectmodel->get_records_from_sql($records);	
+		foreach ($records as $key=>$record)
+		{								
+			
+			$sql="select  count(*) count  from tbl_chart_of_accounts where  parent_id=".$record->id." 
+			and trantype='CHART_OF_ACCOUNT_VALUESET' AND acc_type=158 and status='ACTIVE'";
+			$datafields_array =$this->projectmodel->get_records_from_sql($sql);
+			if($datafields_array[0]->count>0)
+			{
+				$whr=" id=".$record->field_qualifier;
+				$segment_name=$this->GetSingleVal('FieldID','frmrptgeneralmaster',$whr);
+				 $segments=$segments.','.$segment_name;
+
+				$whr=" id=".$record->field_qualifier;
+				$setting['segment'][$cnt]['field_qualifier_name']=$this->GetSingleVal('FieldID','frmrptgeneralmaster',$whr);
+				
+				$setting['segment'][$cnt]['segment_name']=$record->title;	
+				$sql="select  id FieldID,title FieldVal  from 
+				tbl_chart_of_accounts where  parent_id=".$record->id." and
+				 trantype='CHART_OF_ACCOUNT_VALUESET' AND acc_type=158 and status='ACTIVE'";
+				$datafields_array =$this->projectmodel->get_records_from_sql($sql);	
+				$setting['segment'][$cnt]['value_set']=json_decode(json_encode($datafields_array), true);
+				$cnt=$cnt+1;
+			}
+
+		}
+		 $setting['segments']=$segments;
+		//substr($segments,-1);
+
+		
+		return $setting;
+
+		
+	}
+
+
+	function get_ac_segments($chart_of_account_id)
+	{
+
+		$setting=array();		
+		
 		$setting['segments']='';
 		//SEGMENT AND VALUE SET
 		$segment_name=$segments='';
@@ -183,6 +235,8 @@ function __construct()
 		
 	}
 
+
+
 	function other_setting($form_structure=array(),$form_name='requisition')
 	{
 		$setting=$this->user_wise_setting(); 
@@ -190,6 +244,32 @@ function __construct()
 
 		if($form_name=='requisition')
 		{
+			
+			
+			//aanatuaral account ...link to credit account
+
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				}
+			}
+			
+			
 			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Purchase Requisition';
 			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=92;
 			$form_structure["header"][0]['fields'][0]['req_status']['Inputvalue_id']=91;
@@ -289,6 +369,30 @@ function __construct()
 
 		if($form_name=='po_entry')
 		{
+			
+			
+			$field_qualifier_name='';
+			$cnts=sizeof($setting['segment']);
+			for($cnt=0;$cnt<$cnts;$cnt++)
+			{
+				$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+			}
+
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{
+				$field_qualifier_name='';
+				$cnts2=sizeof($setting['segment']);
+				for($cnt=0;$cnt<$cnts2;$cnt++)
+				{
+					$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+					$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+				}
+			}
+						
+			
 			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue']='Standard Purchase Order';
 			$form_structure["header"][0]['fields'][0]['req_type']['Inputvalue_id']=93;
 			$form_structure["header"][0]['fields'][0]['req_status']['Inputvalue_id']=91;
@@ -507,7 +611,7 @@ function __construct()
 			//	$form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
 			//	$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
 
-			$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
+			//$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
 
 			$indx=3;
 			$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
@@ -743,48 +847,60 @@ function __construct()
 					}	
 
 				}
+
 				
 				$return_data['id_header']=$header_id;
 
-				if( $form_name=='purchase_invoice')
-				{
-					$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-					$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
+				// if( $form_name=='purchase_invoice')
+				// {
+				// 	$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
+				// 	$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
 
-					$savedata=array();	
-					$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-					$headers = $this->projectmodel->get_records_from_sql($headers);			
-					if($headers[0]->cnt==0)
-					{
-						$savedata['invoice_summary_id']=0;
-						$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-					}
-					//calculate item wise sum
-					$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-					$headers = $this->projectmodel->get_records_from_sql($headers);									
-					$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
+				// 	$savedata=array();	
+				// 	$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
+				// 	$headers = $this->projectmodel->get_records_from_sql($headers);			
+				// 	if($headers[0]->cnt==0)
+				// 	{
+				// 		$savedata['invoice_summary_id']=0;
+				// 		$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
+				// 	}
+				// 	//calculate item wise sum
+				// 	$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
+				// 	$headers = $this->projectmodel->get_records_from_sql($headers);									
+				// 	$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
+				// }
+
+				// if($form_name=='sale_invoice')
+				// {
+				// 	$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
+				// 	$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
+
+				// 	$savedata=array();	
+				// 	$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
+				// 	$headers = $this->projectmodel->get_records_from_sql($headers);			
+				// 	if($headers[0]->cnt==0)
+				// 	{
+				// 		$savedata['invoice_summary_id']=0;
+				// 		$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
+				// 	}
+
+				// 	//calculate item wise sum
+				// 	$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
+				// 	$headers = $this->projectmodel->get_records_from_sql($headers);									
+				// 	$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
+
+				// }
+
+
+				$this->update_transactions($header_id,$form_name);
+			
+				if($form_name=='receipt_of_goods' || $form_name=='purchase_invoice' 
+				|| $form_name=='DESPATCH_GOODS' || $form_name=='sale_invoice')
+				{
+					$this->accounts_model->ledger_transactions($header_id,$form_name);
 				}
 
-				if($form_name=='sale_invoice')
-				{
-					$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-					$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
-
-					$savedata=array();	
-					$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-					$headers = $this->projectmodel->get_records_from_sql($headers);			
-					if($headers[0]->cnt==0)
-					{
-						$savedata['invoice_summary_id']=0;
-						$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-					}
-
-					//calculate item wise sum
-					$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-					$headers = $this->projectmodel->get_records_from_sql($headers);									
-					$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
-
-				}
+				
 
 				// if($form_name=='DESPATCH_GOODS')
 				// {$this->segment_update($header_id);	}
@@ -798,6 +914,135 @@ function __construct()
 
 	}
 
+
+	public function update_transactions($tran_table_id='',$TRAN_TYPE='')
+	{
+		if($TRAN_TYPE=='receipt_of_goods' || $TRAN_TYPE=='INSPECTION')
+		{	
+			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
+			$this->db->query($sql);
+		}
+
+		if($TRAN_TYPE=='purchase_invoice' )
+		{	
+			
+			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
+			$this->db->query($sql);
+
+			$save_header['tax_amount']=$save_header['invoice_tot_items']=0;
+
+			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				$save_detail['total_amount']=$record->qnty*$record->price;
+				$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
+
+				$this->save_records_model($detail_id,'invoice_details',$save_detail);
+
+				//HEADER SECTION
+				$save_header['invoice_tot_items']=$save_header['invoice_tot_items']+$save_detail['total_amount'];
+				$save_header['tax_amount']=$save_header['tax_amount']+$save_detail['tax_amount'];
+				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
+			}
+
+			$records="select * from  invoice_summary where id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				
+				$save_header['invoice_subtotal']=$record->invoice_tot_items-
+				$record->invoice_retainage-$record->invoice_prepayment_amount-$record->invoice_withholding;
+
+				$save_header['invoice_grand_total']=
+				$save_header['invoice_subtotal']+$record->tax_amount+$record->freight_amount+$record->Misc_amount;
+
+				$this->save_records_model($detail_id,'invoice_summary',$save_header);
+			}
+
+
+		
+		}
+
+
+
+		//SALES ORDER SECTION
+
+		if($TRAN_TYPE=='DESPATCH_GOODS' )
+		{	
+			$save_header['invoice_tot_items']=0;
+			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
+			$this->db->query($sql);
+
+			//$save_header['tax_amount']=$save_header['invoice_tot_items']=0;
+
+			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				$save_detail['total_amount']=$record->qnty*$record->price;
+				//$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
+
+				$this->save_records_model($detail_id,'invoice_details',$save_detail);
+
+				//HEADER SECTION
+				$save_header['invoice_tot_items']=$save_header['invoice_tot_items']+$save_detail['total_amount'];
+				$save_header['invoice_grand_total']=$save_header['invoice_tot_items'];
+
+				//$save_header['tax_amount']=$save_header['tax_amount']+$save_detail['tax_amount'];
+				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
+			}
+		}
+
+
+		if($TRAN_TYPE=='sale_invoice' )
+		{	
+			
+			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
+			$this->db->query($sql);
+
+			$save_header['tax_amount']=$save_header['invoice_tot_items']=0;
+
+			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				$save_detail['total_amount']=$record->qnty*$record->price;
+				$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
+
+				$this->save_records_model($detail_id,'invoice_details',$save_detail);
+
+				//HEADER SECTION
+				$save_header['invoice_tot_items']=$save_header['invoice_tot_items']+$save_detail['total_amount'];
+				$save_header['tax_amount']=$save_header['tax_amount']+$save_detail['tax_amount'];
+				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
+			}
+
+			$records="select * from  invoice_summary where id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				
+				$save_header['invoice_subtotal']=$record->invoice_tot_items-
+				$record->invoice_retainage-$record->invoice_prepayment_amount-$record->invoice_withholding;
+
+				$save_header['invoice_grand_total']=
+				$save_header['invoice_subtotal']+$record->tax_amount+$record->freight_amount+$record->Misc_amount;
+
+				$this->save_records_model($detail_id,'invoice_summary',$save_header);
+			}
+		
+		}
+
+
+
+
+	}
 	
 	public function priviledge_value($menu_details_id='')
 	{

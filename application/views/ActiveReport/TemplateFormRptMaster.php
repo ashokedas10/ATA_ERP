@@ -38,14 +38,13 @@ onsubmit="return validateForm()">
            </tr>
 		   
 		   <tr>
-             <td width="7%" class="srscell-head-lft">Name</td>
-             <td width="19%" class="srscell-body"> 
+             <td width="10%" class="srscell-head-lft">Name</td>
+             <td width="11%" class="srscell-body"> 
 			 <input type="text" id="FormRptName" class="srs-txt"
 			  value="<?php echo $FormRptName; ?>" 
-			  name="FormRptName"  autocomplete="off" />
-		     </td>
-             <td  width="16%" class="srscell-head-lft">Type</td>
-             <td  width="58%" class="srscell-body">
+			  name="FormRptName"  autocomplete="off" />		     </td>
+             <td  width="13%" class="srscell-head-lft">Type</td>
+             <td  width="66%" class="srscell-body">
 			  
 			   <select id="Type" name="Type" class="srs-dropdwn">
 			   <option value="FORM" <?php if($Type=='FORM') 
@@ -56,113 +55,128 @@ onsubmit="return validateForm()">
 			   
 			  <option value="REPORT" <?php if($Type=='REPORT') 
 			  { echo 'selected="selected"'; } ?>>REPORT</option>
-				
-               </select>
-		     </td>
+               </select>		     </td>
            </tr>
 		   
 		   <tr>
-             <td width="7%" class="srscell-head-lft">Order By</td>
-             <td width="19%" class="srscell-body"> 
+             <td width="10%" class="srscell-head-lft">Order By</td>
+             <td width="11%" class="srscell-body"> 
 			 <input type="text" id="OrderBy" class="srs-txt"
-			  value="<?php echo $OrderBy; ?>"  name="OrderBy"   />
-		     </td>
-			  <td width="16%" class="srscell-head-lft">Table Name</td>
-             <td width="58%" class="srscell-body"> 
+			  value="<?php echo $OrderBy; ?>"  name="OrderBy"   />		     </td>
+			  <td width="13%" class="srscell-head-lft">Table Name</td>
+             <td width="66%" class="srscell-body"> 
 			 <input type="text" id="TableName" class="srs-txt"
-			  value="<?php echo $TableName; ?>"  name="TableName" autocomplete="off"  />
-		     </td>
-			 
-            
+			  value="<?php echo $TableName; ?>"  name="TableName" autocomplete="off"  />		     </td>
            </tr>
-		   
-		   <tr>
-		    <td  width="7%" class="srscell-head-lft">Data Fields 1</td>
-             <td class="srscell-body" colspan="3">
-			   <input type="text" id="DataFields" 
-			  value="<?php echo $DataFields; ?>"  name="DataFields"  style="width:1200px;" autocomplete="off"  />
-			 
-		     </td>
-		   </tr>
-		   
-		   <tr>
-		    <td  width="7%" class="srscell-head-lft">Data Fields 2</td>
-             <td class="srscell-body" colspan="3">
-			   <input type="text" id="DataFields2" 
-			  value="<?php echo $DataFields2; ?>"  name="DataFields2"  style="width:1200px;" autocomplete="off"  />
-			 
-		     </td>
-		   </tr>
-		   
-		   <tr>
-		    <td  width="7%" class="srscell-head-lft">Data Fields 3</td>
-             <td class="srscell-body" colspan="3">
-			   <input type="text" id="DataFields3" 
-			  value="<?php echo $DataFields3; ?>"  name="DataFields3"  style="width:1200px;" autocomplete="off"  />
-			 
-		     </td>
-		   </tr>
-		   
-		   <tr>
-		    <td  width="7%" class="srscell-head-lft">Data Fields 4</td>
-             <td class="srscell-body" colspan="3">
-			   <input type="text" id="DataFields4" 
-			  value="<?php echo $DataFields4; ?>"  name="DataFields4"  style="width:1200px;" autocomplete="off"  />
-			 
-		     </td>
-		   </tr>
 		   
 		    <tr>
-			 <td  width="7%" class="srscell-head-lft">Grid header</td>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 1- Name</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields_name" 
+			  value="<?php echo $DataFields_name; ?>"  name="DataFields_name"  style="width:1200px;" autocomplete="off"  />		     </td>
+		   </tr>
+		   <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 1</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields" 
+			  value="<?php echo $DataFields; ?>"  name="DataFields"  style="width:1200px;" autocomplete="off"  />		     </td>
+		   </tr>
+		   
+		   
+		    <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 2-Name</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields2_name" 
+			  value="<?php echo $DataFields2_name; ?>"  name="DataFields2_name"  style="width:1200px;" autocomplete="off"  />		     </td>
+		   </tr>
+		   
+		   <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 2</td>
+             <td class="srscell-body" colspan="3">
+			    <input type="text" id="DataFields2" 
+			  value="<?php echo $DataFields2; ?>"  name="DataFields2"  style="width:1200px;" autocomplete="off"  />	    		 			</td>
+		   </tr>
+		   
+		   
+		    <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 3-Name</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields3_name" 
+			  value="<?php echo $DataFields3_name; ?>"  name="DataFields3_name"  style="width:1200px;" autocomplete="off"  />		     </td>
+		   </tr>
+		   
+		   <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 3</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields3" 
+			  value="<?php echo $DataFields3; ?>"  name="DataFields3"  style="width:1200px;" autocomplete="off"  />		    		 </td>
+		   </tr>
+		   
+		   
+		    <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 4-Name</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields4_name" 
+			  value="<?php echo $DataFields4_name; ?>"  name="DataFields4_name"  style="width:1200px;" 
+			  autocomplete="off"  />		     </td>
+		   </tr>
+		   
+		   
+		   <tr>
+		    <td  width="10%" class="srscell-head-lft">Data Fields 4</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="DataFields4" 
+			  value="<?php echo $DataFields4; ?>"  name="DataFields4"  style="width:1200px;" autocomplete="off"  />		     </td>
+		   </tr>
+		   
+		   
+		    <tr>
+			 <td  width="10%" class="srscell-head-lft">Grid header-Name</td>
+             <td class="srscell-body" colspan="3">
+			   <input type="text" id="GridHeader_name" 
+			  value="<?php echo $GridHeader_name; ?>"  name="GridHeader_name"  style="width:1200px;"  autocomplete="off" />		     </td>
+		    <tr>
+			
+			 <td  width="10%" class="srscell-head-lft">Grid header</td>
              <td class="srscell-body" colspan="3">
 			   <input type="text" id="GridHeader" 
-			  value="<?php echo $GridHeader; ?>"  name="GridHeader"  style="width:1200px;"  autocomplete="off" />
-			 
-		     </td>
-            
+			  value="<?php echo $GridHeader; ?>"  name="GridHeader"  style="width:1200px;"  autocomplete="off" />		     </td>
            </tr>
 		   <tr>
              
-			  <td  width="16%" class="srscell-head-lft">Where Condition</td>
-             <td  width="58%" class="srscell-body" colspan="3">
+			  <td  width="10%" class="srscell-head-lft">Where Condition</td>
+             <td class="srscell-body" colspan="3">
 			   <input type="text" id="WhereCondition" 
-			  value="<?php echo $WhereCondition; ?>"  name="WhereCondition" style="width:1200px;"  />
-			 
-		     </td>
+			  value="<?php echo $WhereCondition; ?>"  name="WhereCondition" style="width:1200px;"  />		     </td>
            </tr>
 		   
 		   
 		    
 		    <tr>
-             <td width="7%" class="srscell-head-lft">Controller Function Link</td>
-             <td width="19%" class="srscell-body"> 
+             <td width="10%" class="srscell-head-lft">Controller Function Link</td>
+             <td width="11%" class="srscell-body"> 
 			 <input type="text" id="ControllerFunctionLink" class="srs-txt"
 			  value="<?php echo $ControllerFunctionLink; ?>"  
-			  name="ControllerFunctionLink"  autocomplete="off" />
-		     </td>
-             <td  width="16%" class="srscell-head-lft">View Path</td>
-             <td  width="58%" class="srscell-body">
+			  name="ControllerFunctionLink"  autocomplete="off" />		     </td>
+             <td  width="13%" class="srscell-head-lft">View Path</td>
+             <td  width="66%" class="srscell-body">
 			   <input type="text" id="ViewPath" class="srs-txt"
-			  value="<?php echo $ViewPath; ?>"  name="ViewPath" autocomplete="off"  />
-			 
-		     </td>
+			  value="<?php echo $ViewPath; ?>"  name="ViewPath" autocomplete="off"  />		     </td>
            </tr>
 		   
 		   
 		   <tr>
-             <td width="7%" class="srscell-head-lft">Display Grid</td>
-             <td width="19%" class="srscell-body"> 
+             <td width="10%" class="srscell-head-lft">Display Grid</td>
+             <td width="11%" class="srscell-body"> 
 			  <select id="DisplayGrid" name="DisplayGrid" class="srs-dropdwn">
 			   <option value="YES" <?php if($DisplayGrid=='YES') 
 			   { echo 'selected="selected"'; } ?>>YES</option>
 			   
 			  <option value="NO" <?php if($DisplayGrid=='NO') 
 			  { echo 'selected="selected"'; } ?>>NO</option>
-				
-               </select>
-		     </td>
-             <td  width="16%" class="srscell-head-lft">NEWE NTRY BUTTON</td>
-             <td  width="58%" class="srscell-body">
+               </select>		     </td>
+             <td  width="13%" class="srscell-head-lft">NEWE NTRY BUTTON</td>
+             <td  width="66%" class="srscell-body">
 			  
 			 <select id="NEWENTRYBUTTON" name="NEWENTRYBUTTON" class="srs-dropdwn">
 			   <option value="YES" <?php if($NEWENTRYBUTTON=='YES') 
@@ -170,15 +184,13 @@ onsubmit="return validateForm()">
 			   
 			  <option value="NO" <?php if($NEWENTRYBUTTON=='NO') 
 			  { echo 'selected="selected"'; } ?>>NO</option>
-				
-               </select>
-		     </td>
+               </select>		     </td>
            </tr>
 		   
 		   
 		   <tr>
-             <td width="7%" class="srscell-head-lft">Parent Form Name</td>
-             <td width="19%" class="srscell-body"> 
+             <td width="10%" class="srscell-head-lft">Parent Form Name</td>
+             <td width="11%" class="srscell-body"> 
 			 <select id="parent_id"  class="form-control select2" name="parent_id">
 			 <option value="0">No parent</option>
 					   
@@ -192,12 +204,10 @@ onsubmit="return validateForm()">
 				<option value="<?php echo $record->id; ?>"
 				<?php if($parent_id==$record->id) 
 				 { echo 'selected="selected"'; } ?>>
-				<?php echo $record->FormRptName; ?>
-				</option>
+				<?php echo $record->FormRptName; ?>				</option>
 		  
 			 <?php } ?>
-			   </select>
-		     </td>
+			   </select>		     </td>
              <td class="srscell-body" colspan="2">
 			 Parent table Field:
 			   <input type="text" id="parent_table_field_name" class="srs-txt"	
@@ -208,13 +218,8 @@ onsubmit="return validateForm()">
 			 
 			 &nbsp;
 			 Child Section's Ids (12,23..):<input type="text" id="child_ids" class="srs-txt"	
-			 value="<?php echo $child_ids; ?>"  name="child_ids"   />
-				
-		     </td>
+			 value="<?php echo $child_ids; ?>"  name="child_ids"   />		     </td>
            </tr>
-		   
-		   
-		   
 	</table>
 	<p></p>
 		   
@@ -624,7 +629,7 @@ onsubmit="return validateForm()">
 				</option>
 		  
 			 <?php } ?>
-				</select></td>
+			  </select></td>
 			
 			 
 			

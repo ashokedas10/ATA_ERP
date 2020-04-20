@@ -68,7 +68,7 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 				
 			}
 
-			if($TRAN_TYPE=='SUPPLIER_PAYMENT')
+			if($TRAN_TYPE=='SUPPLIER_PAYMENT' ||$TRAN_TYPE=='CUSTOMER_RECEIVE' )
 			{
 				
 				   $acc_tran_details_id=$acc_tran_header_id=0;
@@ -99,9 +99,6 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 				
 			}
 
-
-			
-			
 			
  }
 
@@ -212,7 +209,7 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 				}
 		}
 
-		if($TRAN_TYPE=='payment_rcv')
+		if($TRAN_TYPE=='payment_rcv')//PAYMENT TO VENDOR
 		{
 
 				$TRAN_TYPE='SUPPLIER_PAYMENT';
@@ -343,6 +340,51 @@ function acc_tran_details($acc_tran_header_id='',$cr_ledger_account='',$dr_ledge
 				
 				}
 		}
+
+		
+		if($TRAN_TYPE=='receive_amt')//PAYMENT TO VENDOR
+		{
+
+				$TRAN_TYPE='CUSTOMER_RECEIVE';
+				$this->ledger_transactions_delete($tran_table_id,$TRAN_TYPE);
+				
+				$save_hdr['tran_table_name']='invoice_payment_receive';
+				$save_hdr['tran_table_id']=$tran_table_id;
+			
+				$sqlfld="SELECT * FROM  invoice_payment_receive where id=".$tran_table_id; 
+				$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
+				foreach ($fields as $field)
+				{	
+								
+						//$tbl_party_id=$save_hdr['ledger_account_header']=$field->tbl_party_id;
+						$save_hdr['tran_date']=$field->req_accounting_date;
+						$save_hdr['tran_code']=$field->req_number;
+						$save_hdr['TRAN_TYPE']=$TRAN_TYPE;
+						$AMOUNT=$field->cleared_amount;
+
+						$this->projectmodel->save_records_model('','acc_tran_header',$save_hdr);
+						$id_header=$this->db->insert_id();
+						
+						$account_setup_id=$this->session->userdata('account_setup_id');
+						$setup_records="select * from account_setup where id=".$account_setup_id;				
+						$setup_records = $this->projectmodel->get_records_from_sql($setup_records);	
+					
+						//DETAILS OF TRANSACTIONS
+						$matching_tran_id=1;
+						$amount=$AMOUNT;
+						$dr_ledger_account=$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_bank','id='.$field->bank_id); 
+						$cr_ledger_account=$this->projectmodel->GetSingleVal('chart_of_account_ledger_id','mstr_customer','id='.$field->req_supplier);  
+
+						if($amount>0)
+						{				
+							$this->acc_tran_details($id_header,$cr_ledger_account,0,$amount,$matching_tran_id);
+							$acc_tran_details_id=$this->acc_tran_details($id_header,0,$dr_ledger_account,$amount,$matching_tran_id);
+						}
+				
+				}
+
+
+		}	
 
 
 			/*

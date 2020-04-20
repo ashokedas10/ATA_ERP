@@ -2894,7 +2894,7 @@ function($scope,$rootScope,$http,$window,Sale_test)
 
 									angular.forEach($rootScope.ResourceArray[0]['header'][indx1]['fields'][$rootScope.index2][$rootScope.searchelement], function (values, key) 
 									{ 
-										//console.log('resource '+key);
+										console.log('resource '+key);
 										if(key=='Inputvalue')
 										{	$rootScope.searchTextSmallLetters = angular.uppercase(values);}
 									
@@ -3442,7 +3442,6 @@ function($scope,$rootScope,$http,$window,Sale_test)
 							$("#"+inputid).change(function() {var  trandate = $("#"+inputid).val();$("#"+inputid).val(trandate);});
 							console.log(inputid);
 						}
-
 
 
 						if($rootScope.form_id==40 || $rootScope.form_id==33 || $rootScope.form_id==35 || $rootScope.form_id==38)	

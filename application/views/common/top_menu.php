@@ -293,27 +293,24 @@ if($login_status=='SUPER') {?>
               </a>
  		 <ul class="treeview-menu">
 		 
-				
-		  <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/master_form/master_form/65/">
-		 <i class="fa fa-circle-o"></i>1.Inventory Items </a> </li>
 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/master_form/master_form/66/">
-		 <i class="fa fa-circle-o"></i>2.Resource </a> </li>
+		 <i class="fa fa-circle-o"></i>1.Resource </a> </li>
 		
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_operation_summary/acc_tran/67/">
-		 <i class="fa fa-circle-o"></i>3.Operation </a> </li>
+		 <i class="fa fa-circle-o"></i>2.Operation </a> </li>
 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_routing/acc_tran/67/">
-		 <i class="fa fa-circle-o"></i>4.Routing </a> </li>
+		 <i class="fa fa-circle-o"></i>3.Routing </a> </li>
 		 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_formula/acc_tran/67/">
-		 <i class="fa fa-circle-o"></i>5.Formula </a> </li>
+		 <i class="fa fa-circle-o"></i>4.Formula </a> </li>
 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/opm_receipe/acc_tran/67/">
-		 <i class="fa fa-circle-o"></i>6.Receipe </a> </li>
+		 <i class="fa fa-circle-o"></i>5.Receipe </a> </li>
 		
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/master_form/master_form/91/">
-		 <i class="fa fa-circle-o"></i>7.Batch Create </a> </li>
+		 <i class="fa fa-circle-o"></i>6.Batch Create </a> </li>
 		 
 		 
 		 <li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/batch_create_final/acc_tran/47/">

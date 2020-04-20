@@ -764,7 +764,32 @@ function __construct()
 
 		}	
 
+		if($form_name=='batch_create_final')
+		{
+			$batch_status=$form_structure["header"][0]['fields'][0]['batch_status']['Inputvalue_id'];
+
+			
+			if($batch_status==160)//canceled
+			{$sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where id=160";}
+			else if($batch_status==161)//WIP
+			{$sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where id in (159,161)";}
+			else if($batch_status==162)//Completed
+			{$sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where id in (162,161) ";}
+			else if($batch_status==163)//CLOSED
+			{$sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where id=163";}
+			else
+			{$sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where Status='BATCH_STATUS'";}
+
+
+			$datafields_array =$this->projectmodel->get_records_from_sql($sql);
+			$form_structure["header"][0]['fields'][0]['batch_status']['datafields']=
+			json_decode(json_encode($datafields_array), true);	
+
 		
+		}
+		
+		
+
 
 		return $form_structure;
 
@@ -915,15 +940,65 @@ function __construct()
 	}
 
 
+	public function get_available_qnty($product_type=0,$product_id=0,$TRAN_TYPE='')
+	{
+		$available_qnty=0;
+		if($TRAN_TYPE=='BATCH_CREATE')
+		{
+			// $records="select * from  invoice_summary a,invoice_details b  where a.id=b.invoice_summary_id      id=".$tran_table_id." ";
+			// $records = $this->get_records_from_sql($records);	
+			// foreach ($records as $record)
+			// {		
+
+
+			// }
+
+
+		}
+
+		return $available_qnty;
+
+	}
+
+
 	public function update_transactions($tran_table_id='',$TRAN_TYPE='')
 	{
+		
+		
+		if($TRAN_TYPE=='requisition' )
+		{	
+			
+			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
+			$this->db->query($sql);
+
+			$save_header['req_total']=0;
+
+			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+				$save_detail['total_amount']=$record->qnty*$record->price;
+				//$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
+
+				$this->save_records_model($detail_id,'invoice_details',$save_detail);
+
+				//HEADER SECTION
+				$save_header['req_total']=$save_header['req_total']+$save_detail['total_amount'];
+				//$save_header['tax_amount']=$save_header['tax_amount']+$save_detail['tax_amount'];
+				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
+			}
+		
+		}
+
+
 		if($TRAN_TYPE=='receipt_of_goods' || $TRAN_TYPE=='INSPECTION')
 		{	
 			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
 			$this->db->query($sql);
 		}
 
-		if($TRAN_TYPE=='purchase_invoice' )
+		if($TRAN_TYPE=='purchase_invoice' || $TRAN_TYPE=='sale_invoice'  )
 		{	
 			
 			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
@@ -956,7 +1031,7 @@ function __construct()
 				$save_header['invoice_subtotal']=$record->invoice_tot_items-
 				$record->invoice_retainage-$record->invoice_prepayment_amount-$record->invoice_withholding;
 
-				$save_header['invoice_grand_total']=
+				$save_header['invoice_due_total']=$save_header['invoice_grand_total']=
 				$save_header['invoice_subtotal']+$record->tax_amount+$record->freight_amount+$record->Misc_amount;
 
 				$this->save_records_model($detail_id,'invoice_summary',$save_header);
@@ -965,8 +1040,6 @@ function __construct()
 
 		
 		}
-
-
 
 		//SALES ORDER SECTION
 
@@ -997,50 +1070,116 @@ function __construct()
 			}
 		}
 
+		if($TRAN_TYPE=='receive_amt' || $TRAN_TYPE=='payment_rcv' )
+		{
+			$save_header['req_total']=$save_header['cleared_amount']=0;
 
-		if($TRAN_TYPE=='sale_invoice' )
-		{	
-			
-			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
-			$this->db->query($sql);
-
-			$save_header['tax_amount']=$save_header['invoice_tot_items']=0;
-
-			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
-			$records = $this->get_records_from_sql($records);	
-			foreach ($records as $record)
-			{		
-				$detail_id=$record->id;
-				$save_detail['total_amount']=$record->qnty*$record->price;
-				$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
-
-				$this->save_records_model($detail_id,'invoice_details',$save_detail);
-
-				//HEADER SECTION
-				$save_header['invoice_tot_items']=$save_header['invoice_tot_items']+$save_detail['total_amount'];
-				$save_header['tax_amount']=$save_header['tax_amount']+$save_detail['tax_amount'];
-				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
-			}
-
-			$records="select * from  invoice_summary where id=".$tran_table_id." ";
+			$records="select * from  invoice_summary where 	invoice_payment_id=".$tran_table_id." ";
 			$records = $this->get_records_from_sql($records);	
 			foreach ($records as $record)
 			{		
 				$detail_id=$record->id;
 				
-				$save_header['invoice_subtotal']=$record->invoice_tot_items-
-				$record->invoice_retainage-$record->invoice_prepayment_amount-$record->invoice_withholding;
+				//payment details
+				$payment_detail_id='';
+				$rs="select * from  invoice_payment_receive_details where invoice_summary_id=".$detail_id." 
+				and invoice_payment_receive_id=".$tran_table_id." ";
+				$rs = $this->get_records_from_sql($rs);	
+				foreach ($rs as $rs_dtl)
+				{$payment_detail_id=$rs_dtl->id;}
 
-				$save_header['invoice_grand_total']=
-				$save_header['invoice_subtotal']+$record->tax_amount+$record->freight_amount+$record->Misc_amount;
+				$rcv_payment['invoice_payment_receive_id']=$tran_table_id;
+				$rcv_payment['invoice_summary_id']=$detail_id;
+				$rcv_payment['amount']=$record->invoice_due_total;
+				$this->save_records_model($payment_detail_id,'invoice_payment_receive_details',$rcv_payment);
+				//payment details
 
-				$this->save_records_model($detail_id,'invoice_summary',$save_header);
+				//total paid 
+				$paid_total=0;
+				$rs="select sum(amount) paid_total from  invoice_payment_receive_details 
+				where invoice_summary_id=".$detail_id;
+				$rs = $this->get_records_from_sql($rs);	
+				foreach ($rs as $rs_dtl)
+				{$paid_total=$rs_dtl->paid_total;}
+
+				
+				$summary['invoice_paid_total']=$paid_total;
+				$summary['invoice_due_total']=$record->invoice_grand_total-$paid_total;
+				$this->save_records_model($detail_id,'invoice_summary',$summary);
+
+				
+				$save_header['req_total']=$save_header['req_total']+$record->invoice_grand_total;
+				$save_header['cleared_amount']=$save_header['cleared_amount']+$record->invoice_due_total;
+
+				//invoice_due_total
+				//invoice_payment_receive_details
+				$this->save_records_model($tran_table_id,'invoice_payment_receive',$save_header);
 			}
-		
+
 		}
 
 
+		if($TRAN_TYPE=='BATCH_CREATE')
+		{
+			//opm_batch_summary
 
+			$records="select * from  opm_batch_summary where id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				
+				$batch_id=$record->id;
+				$save_header['batch_status']=159;//PENDING STATUS
+
+				$receipe_id=$record->receipe_id;
+				$product_id=$record->product_id;
+				$product_qnty=$record->product_qnty;
+				$product_uom=$record->product_uom;
+				$this->save_records_model($batch_id,'opm_batch_summary',$save_header);
+
+				//get formula
+				$formula_id=$this->projectmodel->GetSingleVal('formula_id','opm_define_recipe_summery','id='.$receipe_id); 
+				$routing_id=$this->projectmodel->GetSingleVal('routing_id','opm_define_recipe_summery','id='.$receipe_id); 
+				$line_no=1;
+				$formula_details="select * from  opm_define_formula_details where opm_define_formula_summery_id=".$formula_id." ";
+				$formula_details = $this->get_records_from_sql($formula_details);	
+				foreach ($formula_details as $formula_detail)
+				{
+										
+					$batch_details['opm_batch_summary_id']=$batch_id;
+					$batch_details['line_no']=$line_no;
+					$batch_details['product_id']=$formula_detail->product;
+					$batch_details['transact_qnty']=$batch_details['target_qnty']=$formula_detail->qnty*$product_qnty;
+					$batch_details['product_type']=$formula_detail->product_type;
+					$batch_details['uom']=$formula_detail->uom;
+
+
+					$batch_details['available_qnty']=
+					$this->get_available_qnty($formula_detail->product_type,$formula_detail->product,$TRAN_TYPE);
+
+
+					$batch_details['batch_enable_status']=
+					$this->GetSingleVal('batch_enable_status','mstr_product','id='.$formula_detail->product); 
+					
+					
+
+					$opm_batch_details_id='';
+					$formula_details="select * from  opm_batch_details 
+					where product_id=".$formula_detail->product." and opm_batch_summary_id=".$batch_id;
+					$formula_details = $this->get_records_from_sql($formula_details);	
+					foreach ($formula_details as $formula_detail)
+					{$opm_batch_details_id=$formula_detail->id;}	
+					
+					$this->save_records_model($opm_batch_details_id,'opm_batch_details',$batch_details);
+					
+					$line_no=$line_no+1;
+				}	
+
+				
+			}
+
+
+		}
 
 	}
 	

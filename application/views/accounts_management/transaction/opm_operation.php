@@ -255,18 +255,20 @@ ng-init="view_list(0)" id="myBody" onkeypress = "shortcut()">
 														 placeholder="{{steps.LabelName}}"  
 														ng-keydown=														 	"checkKeyDown($event,header_index,field_index,Index2,$index,steps.input_id_index)" 
 														ng-keyup="checkKeyUp($event)" ng-model="steps.Inputvalue"
-														ng-change="search(steps.InputName,header_index,field_index,Index2,$index)" 
-														ng-focus="search(steps.InputName,header_index,field_index,Index2,$index)" 
+														ng-change="search(steps.InputName,header_index,field_index,Index2,$index,'resource')" 
+														ng-focus="search(steps.InputName,header_index,field_index,Index2,$index,'resource')" 
 														class="form-control input_field_height"	
 														ng-keypress="mainOperation($event,header_index,field_index,Index2,$index,steps.input_id_index)"
 														  style="width:{{50*steps.DIVClass}}px;"  autocomplete="off"/>
 													 </div> 
+													 
 													 <div ng-if="steps['InputType'] == 'LABEL'">
+													  
 													   <input id="Input" autofocus type="text" name="Input"   placeholder="{{steps.LabelName}}"  
 														ng-keydown="checkKeyDown($event,header_index,field_index,Index2,$index,steps.input_id_index)" 
 														ng-keyup="checkKeyUp($event)" ng-model="steps.Inputvalue"
-														ng-change="search(steps.InputName,header_index,field_index,Index2,$index)" 
-														ng-focus="search(steps.InputName,header_index,field_index,Index2,$index)" 
+														ng-change="search(steps.InputName,header_index,field_index,Index2,$index,'resource')" 
+														ng-focus="search(steps.InputName,header_index,field_index,Index2,$index,'resource')" 
 														class="form-control input_field_height"	
 														ng-keypress="mainOperation($event,header_index,field_index,Index2,$index,steps.input_id_index)"
 														autocomplete="off"  style="width:{{50*steps.DIVClass}}px;"   readonly=""/>
@@ -384,7 +386,7 @@ ng-init="view_list(0)" id="myBody" onkeypress = "shortcut()">
 					
 	</div>
 	
-	<!--Return Object: {{ResourceArray[0]['header']}}	-->
+	Return Object: {{ResourceArray[0]['header']}}	
 	
 						
 	<!--Return Object: {{FormInputArray[0]['header']}}	-->						

@@ -292,6 +292,37 @@ public function re_arrange_input_index_type2($someArray=array())
         }                
        return $someArray;
 }
+
+
+public function re_arrange_input_index3($someArray=array())
+{
+    $input_id_index=9001;
+    foreach ($someArray['header'] as $header_index=>$header)
+        {
+            foreach ($someArray['header'][$header_index]['fields'] as $field_indx=>$field)
+            {
+                foreach ($someArray['header'][$header_index]['fields'][$field_indx] as $field_indx2=>$field2)
+                {	
+                    //$someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['LabelName'];
+                    //echo '<br>';
+                    if($someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['InputType']<>'hidden')
+                    {
+                        //echo $someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['InputType'];
+                        $someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['input_id_index']=$input_id_index;
+                        $input_id_index=$input_id_index+1;
+                    }
+                    else
+                    {
+                        //echo $someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['InputType'];
+                        $someArray['header'][$header_index]['fields'][$field_indx][$field_indx2]['input_id_index']=9000;
+                    }		
+                }
+        
+            }
+
+        }                
+       return $someArray;
+}
   
     public function validation_data($someArray=array())
     {

@@ -251,6 +251,9 @@ if($login_status=='SUPER') {?>
 		
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/payment_rcv/acc_tran/47/"><i class="fa fa-circle-o"></i>
 		Payment</a> </li>
+		
+		
+		
 						 
         </ul>
 	  </li>
@@ -281,6 +284,8 @@ if($login_status=='SUPER') {?>
 		
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/receive_amt/acc_tran/47/"><i class="fa fa-circle-o"></i>
 		Receipt</a> </li>
+		
+		
 						 
         </ul>
 	  </li>
@@ -323,6 +328,31 @@ if($login_status=='SUPER') {?>
         </ul>
 	  </li>
 	
+	
+	
+	<li class="treeview">
+              <a href="#">
+                <i class="fa fa-table"></i> <span>Reports</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+ 		 <ul class="treeview-menu">
+		 
+		 
+		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/PTOP_REPORT/report/47/">
+		<i class="fa fa-circle-o"></i>PTOP TRANSACTIONS</a></li>
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/PTOP_ACCOUNTS/">
+		<i class="fa fa-circle-o"></i>PTOP ACCOUNTS</a></li>
+		 
+		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/OTOC_REPORT/report/47/">
+		<i class="fa fa-circle-o"></i>OTOC REPORT</a></li>
+		
+				
+		 <li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/OTOC_REPORT/">
+		<i class="fa fa-circle-o"></i>OTOC ACCOUNTS</a></li>
+						 
+        </ul>
+	  </li>
 	
    			
 	<?php /*?>

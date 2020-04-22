@@ -191,82 +191,218 @@ class Project_controller  extends CI_Controller {
 				//	$resval=$this->FrmRptModel->create_report($rs,$id); 
 
 
-				$setting=$this->projectmodel->user_wise_setting(); 
-				$someArray=array();
-
-				// $field_qualifier_name='';
-				// $cnts=sizeof($setting['segment']);
-				// for($cnt=0;$cnt<$cnts;$cnt++)
-				// {
-				// 	$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-				// 	if($field_qualifier_name=='account_id')
-				// 	{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
-				// }
-
-
-				// $rs="select * from  invoice_payment_receive_details where invoice_summary_id=".$detail_id." 
-				// and invoice_payment_receive_id=".$tran_table_id." ";
-				// $rs = $this->get_records_from_sql($rs);	
-				// foreach ($rs as $rs_dtl)
-				// {$payment_detail_id=$rs_dtl->id;}
-
-					$id=1;
-					$indx=0;
-					$form_id=91;
-					$whr=" id=".$form_id;	
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-					$rs[$indx]['section_type']=$section_type;	
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-					$indx=1;
-					$form_id=92;
-					$opm_batch_summary_id=$id;
-					$whr=" id=".$form_id;	
-
-					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
-					$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);
-					$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);
-					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-					$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-
-					$rs[$indx]['section_type']='GRID_ENTRY';		
-					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					$rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					$rs[$indx]['fields']=$DataFields;
-					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']."
-					 where product_type=152 and opm_batch_summary_id=".$opm_batch_summary_id;
-
-
-					 $indx=2;					 
-					 $rs[$indx]['section_type']='GRID_ENTRY';		
-					 $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-					 $rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-					 $rs[$indx]['fields']=$DataFields2;
-					 $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']."
-						where product_type=154 and opm_batch_summary_id=".$opm_batch_summary_id;
-
-						$indx=3;
-						$rs[$indx]['section_type']='GRID_ENTRY';		
-						$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-						$rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-						$rs[$indx]['fields']=$DataFields3;
-						$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']."
-						 where product_type=153 and opm_batch_summary_id=".$opm_batch_summary_id;
-				
-
-					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-					$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 
 			
-				echo '<pre>';
-				print_r($form_structure);
-				echo '</pre>';
+									$rs=$resval=$form_structure=$output=$save_details=array();
+									$setting=$this->projectmodel->user_wise_setting(); 
+								
+									//SALES ORDER
+									$id=17;
+									$indx=0;
+									$form_id=57;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+									$rs[$indx]['DataFields_name']=$DataFields_name;
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+
+									//BODY OR GRID ENTRY SECTION	
+									$indx=1;			
+									$form_id=58;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);			
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['DataFields_name']='';
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
+									$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+
+
+									$indx=2;
+									$form_id=57;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['DataFields_name']='';			
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields2;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+					
+									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+									array_push($output,$form_structure);
+					
+
+									//SALES DESPATCH
+									$form_structure=array();
+
+									$whr=" parent_id=".$id." and status='ORDER_DESPATCH' ";
+							  	$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+
+									$indx=3;
+									$form_id=59;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+									$rs[$indx]['DataFields_name']=$DataFields_name;
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				
+				
+									//BODY OR GRID ENTRY SECTION	
+				
+									$indx=4;				
+									$form_id=60;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);							
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['DataFields_name']='';		
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
+									$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+						
+									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+									array_push($output,$form_structure);
+											
+
+									//SALES INVOICE
+									$whr=" parent_id=".$id." and status='SALES_INVOICE' ";
+									$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+
+									$indx=5;
+									$form_id=89;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+									$rs[$indx]['DataFields_name']=$DataFields_name;
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+
+									//BODY OR GRID ENTRY SECTION	
+
+									$indx=6;			
+									$rs[$indx]['DataFields_name']='';			
+									$rs[$indx]['section_type']='GRID_ENTRY';		
+									$rs[$indx]['frmrpttemplatehdr_id']=93;
+									$rs[$indx]['TableName']='invoice_details';								
+									$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
+
+															
+									$indx=7;
+									$rs[$indx]['DataFields_name']='';		
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields2;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+									$indx=8;		
+									$rs[$indx]['DataFields_name']='';		
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields3;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+									array_push($output,$form_structure);
+											
+
+									//RECEIVE AMOUNT
+									$whr=" id=".$id;
+									$id=$this->projectmodel->GetSingleVal('invoice_payment_id','invoice_summary',$whr);	
+
+									$indx=9;
+									$form_id=63;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);
+									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+									$rs[$indx]['DataFields_name']=$DataFields_name;
+									
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+								
+															
+									//SUPPLIER SECTION
+									$indx=10;
+									$rs[$indx]['DataFields_name']='';
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields2;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+					
+								
+									$indx=11;
+									$rs[$indx]['DataFields_name']='';
+									$rs[$indx]['section_type']=$section_type;	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields3;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+								
+					
+									$indx=12;
+									$form_id=56;
+									$whr=" id=".$form_id;	
+									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$rs[$indx]['DataFields_name']='';
+									$rs[$indx]['section_type']='GRID_ENTRY';	
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$DataFields;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_payment_id=".$id;
+												
+
+									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+									array_push($output,$form_structure);
+
+								echo '<pre>';
+								print_r($output);
+								echo '</pre>';
 
 
 
@@ -1023,7 +1159,7 @@ class Project_controller  extends CI_Controller {
 
 										
 										$whr=" id=".$parent_id;	
-											$req_number=$this->projectmodel->GetSingleVal('req_number','invoice_summary',$whr); //requisition id
+										$req_number=$this->projectmodel->GetSingleVal('req_number','invoice_summary',$whr); //requisition id
 										$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue']=$req_number;
 										$form_structure["header"][$header_index]['fields'][$field_index]['parent_id']['Inputvalue_id']=$parent_id;
 
@@ -1563,8 +1699,87 @@ class Project_controller  extends CI_Controller {
 									$searchelement=mysql_real_escape_string($form_data1->searchelement);
 									$someArray = json_decode($form_data1->raw_data, true);
 									
-								
-							
+									if($searchelement=='item_id')
+									{
+																			
+										$product_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['item_id']['Inputvalue_id'];
+										if($product_id>0)
+										{
+
+												$key=0;
+												$records="select  a.id,a.batch_numbering  from opm_batch_summary a,opm_batch_details b  where 
+												a.id=b.opm_batch_summary_id and b.product_id=".$product_id;
+												$records = $this->projectmodel->get_records_from_sql($records);	
+												foreach ($records as $record)
+												{							
+													$available_qnty=$sales_qnty=$batch_product_qnty=0;
+													//BATCH WISE TOTAL AVAILABLE QNTY
+													$records_sum="select  sum(transact_qnty) batch_product_qnty from 
+													opm_batch_details where opm_batch_summary_id=".$record->id." and product_id=".$product_id;
+													$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+													$batch_product_qnty=$records_sum[0]->batch_product_qnty;
+
+													//SALES QNTY
+													$records_sum="select  sum(received_qnty) despatch_qnty from 
+													invoice_summary a,invoice_details b  where 
+													a.id=b.invoice_summary_id and a.status='ORDER_DESPATCH' and b.opm_batch_details_id=".$record->id." and b.item_id=".$product_id;
+													$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+													$sales_qnty=$records_sum[0]->despatch_qnty;
+
+
+													$available_qnty=$batch_product_qnty-$sales_qnty;
+													
+													if($available_qnty>0)
+													{
+														$datafields_array[$key]['FieldID']=$record->id;
+														$datafields_array[$key]['FieldVal']=$record->batch_numbering;
+														$key=$key+1;
+													}
+												}
+										
+												$someArray[0]["header"][$header_index]['fields'][$field_index]['opm_batch_details_id']['datafields']=
+												json_decode(json_encode($datafields_array), true);						
+
+										}
+													
+									}
+
+
+
+									if($searchelement=='opm_batch_details_id')
+									{
+										
+										$product_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['item_id']['Inputvalue_id'];
+
+										$opm_batch_details_id=
+										$someArray[0]["header"][$header_index]['fields'][$field_index]['opm_batch_details_id']['Inputvalue_id'];
+										
+											//BATCH WISE TOTAL AVAILABLE QNTY
+											$records_sum="select  sum(transact_qnty) batch_product_qnty from 
+											opm_batch_details where opm_batch_summary_id=".$opm_batch_details_id." and product_id=".$product_id;
+											$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+											$batch_product_qnty=$records_sum[0]->batch_product_qnty;
+
+											//SALES QNTY
+											$records_sum="select  sum(received_qnty) despatch_qnty from 
+											invoice_summary a,invoice_details b  where 
+											a.id=b.invoice_summary_id and a.status='ORDER_DESPATCH' and b.opm_batch_details_id=".$opm_batch_details_id." 
+											and b.item_id=".$product_id;
+											$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+											$sales_qnty=$records_sum[0]->despatch_qnty;
+											$available_qnty=$batch_product_qnty-$sales_qnty;
+
+											$someArray[0]["header"][$header_index]['fields'][$field_index]['batch_wise_avlbl_qnty']['Inputvalue']=$available_qnty;
+																								
+									}
+
+
+
+
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($someArray);			
+
 
 								}
 
@@ -1800,7 +2015,7 @@ class Project_controller  extends CI_Controller {
 									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
 									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total';
 									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." 
-									where status='SALES_ORDER' and id not in (".$po_ids.")	and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";		
+									where status='ORDER_DESPATCH' and id not in (".$po_ids.")	and req_operating_unit=".$req_operating_unit." and req_supplier=".$req_supplier_id." ";		
 									$resval=$this->FrmRptModel->create_report($rs,$id); 
 
 								}
@@ -1840,7 +2055,7 @@ class Project_controller  extends CI_Controller {
 									$rs[$indx]['section_type']='GRID_ENTRY';		
 									$rs[$indx]['frmrpttemplatehdr_id']=93;
 									$rs[$indx]['TableName']='invoice_details';								
-									$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+									$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
 									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
 									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
 					
@@ -2775,182 +2990,182 @@ class Project_controller  extends CI_Controller {
 					}
 
 
-						//opm_formula			
-						if($form_name=='opm_formula')
-						{
-								
-									if($subtype=='view_list')
-									{
-	
-												$indx=0;
-												$form_id=73;
-												$id=$form_data1->id;	
-												$whr=" id=".$form_id;	
-												$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-												$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-												$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-												$rs[$indx]['section_type']=$section_type;	
-												$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-												$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-												$rs[$indx]['fields']=$DataFields;
-												$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-	
-	
-	
-												$indx=1;
-												$form_id=74;
-												$opm_define_formula_summery_id=$form_data1->id;				    
-												$whr=" id=".$form_id;	
-												$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-												$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-												$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-												$rs[$indx]['section_type']='GRID_ENTRY';		
-												$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-												$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-												$rs[$indx]['fields']=$DataFields;
-												$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_formula_summery_id=".$opm_define_formula_summery_id;
-	
-	
-	
-												$form_structure=$this->FrmRptModel->create_form($rs,$id);
-													$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-												array_push($output,$form_structure);
-												header('Access-Control-Allow-Origin: *');
-												header("Content-Type: application/json");
-												echo json_encode($output);	
-	
-									}
-	
-									if($subtype=='SAVE_DATA')
-									{
-											
-										//VALIDATION PORTION
-																	
-													$data_for_validation = json_decode($form_data1->raw_data, true);								
-													//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
-													$VALID_STATUS='VALID';
-													//VALIDATION PORTION
-												
-													if($VALID_STATUS=='VALID')
-													{
-				
-																	$form_data=json_decode($form_data1->raw_data);
-																	//$save_details2['test_data']=$form_data1->raw_data;
-																	//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-																	//	true );
-																	//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-				
-																	$headers=json_decode(json_encode($form_data[0]->header), true );
-																	$header_scount=sizeof($headers);
-																	$id_header=0;	
-																	$count=sizeof($form_data[0]->header);		
-																	$headers=json_decode(json_encode($form_data[0]->header), true );
-																	//	$save_details=$this->create_save_array($headers);
-																	$save_details=$this->FrmRptModel->create_save_array($headers);
-																
-				
-																	// echo '<pre>';
-																	// print_r($save_details);
-																	// echo '</pre>';
-				
-																		$header_id=$id='';
-																		foreach($save_details as $key1=>$tables)
-																		{
-																			
-																					foreach($tables as $key2=>$fields)
-																					{
-																						$table_name=$key2;		
-																						$savedata=array();	
-																						$save_statue=true;
-																									
-																						foreach($fields as $key3=>$value)
-																						{
-																							//HERE REQUIRE CUSTOMIZATION
-																							if($key3=='id' && $table_name=='opm_define_formula_summery')
-																							{
-																								if($value>0)
-																								{$header_id=$value;}
-																								else 
-																								{$header_id='';}  											
-																							}
-																							else if ($key3<>'id' && $table_name=='opm_define_formula_summery')
-																							{$savedata[$key3]=$value;}
+					//opm_formula			
+					if($form_name=='opm_formula')
+					{
+							
+								if($subtype=='view_list')
+								{
 
-																							else if ($key3=='id' && $table_name=='opm_define_formula_details')
-																							{if($value>0){$id=$value;}else {$id='';}   }
-																							
-																							else if ($key3=='opm_define_formula_summery_id' 
-																								&& $table_name=='opm_define_formula_details')
-																								{$savedata[$key3]=$header_id; }
+											$indx=0;
+											$form_id=73;
+											$id=$form_data1->id;	
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-																							else 
-																							{$savedata[$key3]=$value; }
 
-																						}
 
-																								//echo $table_name.' - '.$header_id.' - '.$id;
-																								// echo '<br>';
-																								// echo '<pre>';
-																								// print_r($savedata);
-																								// echo '</pre>';
+											$indx=1;
+											$form_id=74;
+											$opm_define_formula_summery_id=$form_data1->id;				    
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['section_type']='GRID_ENTRY';		
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where opm_define_formula_summery_id=".$opm_define_formula_summery_id;
 
-																								//HEADER SECTION
-																								if($table_name=='opm_define_formula_summery')
-																								{
-																									$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-																									if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
-																								}
 
-																								if($save_statue && $table_name=='opm_define_formula_details')
-																								{
-																									$this->projectmodel->save_records_model($id,$table_name,$savedata);
-																								}
-																					}	
-				
-																		}
 
-																		// $sql="update  opm_define_formula_details set activity=''
-																		// where  activity='0'";
-																		// $this->db->query($sql);
-																	
-																		$sql="delete from opm_define_formula_details 
-																		where opm_define_formula_summery_id=".$header_id." and product=0";
-																		$this->db->query($sql);
-								
-																		
-																		$return_data['id_header']=$header_id;
+											$form_structure=$this->FrmRptModel->create_form($rs,$id);
+												$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+											array_push($output,$form_structure);
+											header('Access-Control-Allow-Origin: *');
+											header("Content-Type: application/json");
+											echo json_encode($output);	
 
-													
-																		header('Access-Control-Allow-Origin: *');
-																		header("Content-Type: application/json");
-																		echo json_encode($return_data);
-				
-														}
-	
-									}	
-											
-									
-								if($subtype=='MAIN_GRID')
-								{						
-								
-									$id=33;
-									$indx=0;
-									$form_id=73;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);									
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
-																		
-									$rs[$indx]['section_type']='GRID_ENTRY';	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where ".$WhereCondition;		
-									$resval=$this->FrmRptModel->create_report($rs,$id); 
 								}
-						
-						}
+
+								if($subtype=='SAVE_DATA')
+								{
+										
+									//VALIDATION PORTION
+																
+												$data_for_validation = json_decode($form_data1->raw_data, true);								
+												//$VALID_STATUS=$this->FrmRptModel->validation_data($data_for_validation);
+												$VALID_STATUS='VALID';
+												//VALIDATION PORTION
+											
+												if($VALID_STATUS=='VALID')
+												{
+			
+																$form_data=json_decode($form_data1->raw_data);
+																//$save_details2['test_data']=$form_data1->raw_data;
+																//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
+																//	true );
+																//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
+			
+																$headers=json_decode(json_encode($form_data[0]->header), true );
+																$header_scount=sizeof($headers);
+																$id_header=0;	
+																$count=sizeof($form_data[0]->header);		
+																$headers=json_decode(json_encode($form_data[0]->header), true );
+																//	$save_details=$this->create_save_array($headers);
+																$save_details=$this->FrmRptModel->create_save_array($headers);
+															
+			
+																// echo '<pre>';
+																// print_r($save_details);
+																// echo '</pre>';
+			
+																	$header_id=$id='';
+																	foreach($save_details as $key1=>$tables)
+																	{
+																		
+																				foreach($tables as $key2=>$fields)
+																				{
+																					$table_name=$key2;		
+																					$savedata=array();	
+																					$save_statue=true;
+																								
+																					foreach($fields as $key3=>$value)
+																					{
+																						//HERE REQUIRE CUSTOMIZATION
+																						if($key3=='id' && $table_name=='opm_define_formula_summery')
+																						{
+																							if($value>0)
+																							{$header_id=$value;}
+																							else 
+																							{$header_id='';}  											
+																						}
+																						else if ($key3<>'id' && $table_name=='opm_define_formula_summery')
+																						{$savedata[$key3]=$value;}
+
+																						else if ($key3=='id' && $table_name=='opm_define_formula_details')
+																						{if($value>0){$id=$value;}else {$id='';}   }
+																						
+																						else if ($key3=='opm_define_formula_summery_id' 
+																							&& $table_name=='opm_define_formula_details')
+																							{$savedata[$key3]=$header_id; }
+
+																						else 
+																						{$savedata[$key3]=$value; }
+
+																					}
+
+																							//echo $table_name.' - '.$header_id.' - '.$id;
+																							// echo '<br>';
+																							// echo '<pre>';
+																							// print_r($savedata);
+																							// echo '</pre>';
+
+																							//HEADER SECTION
+																							if($table_name=='opm_define_formula_summery')
+																							{
+																								$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
+																								if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}												
+																							}
+
+																							if($save_statue && $table_name=='opm_define_formula_details')
+																							{
+																								$this->projectmodel->save_records_model($id,$table_name,$savedata);
+																							}
+																				}	
+			
+																	}
+
+																	// $sql="update  opm_define_formula_details set activity=''
+																	// where  activity='0'";
+																	// $this->db->query($sql);
+																
+																	$sql="delete from opm_define_formula_details 
+																	where opm_define_formula_summery_id=".$header_id." and product=0";
+																	$this->db->query($sql);
+							
+																	
+																	$return_data['id_header']=$header_id;
+
+												
+																	header('Access-Control-Allow-Origin: *');
+																	header("Content-Type: application/json");
+																	echo json_encode($return_data);
+			
+													}
+
+								}	
+										
+								
+							if($subtype=='MAIN_GRID')
+							{						
+							
+								$id=33;
+								$indx=0;
+								$form_id=73;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);									
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
+																	
+								$rs[$indx]['section_type']='GRID_ENTRY';	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where ".$WhereCondition;		
+								$resval=$this->FrmRptModel->create_report($rs,$id); 
+							}
+					
+					}
 
 					//opm_receipe
 					if($form_name=='opm_receipe')
@@ -3236,7 +3451,571 @@ class Project_controller  extends CI_Controller {
 					}
 			 
 			 		//OPM SECTION
+					
 
+
+					 //REQUISITION REPORT
+					
+					 if($form_name=='PTOP_REPORT')
+					 {
+										 
+							 if($subtype=='view_list')
+							 {			
+								 $DataFields_name='';
+								 $req_id=$id=mysql_real_escape_string($form_data1->id);						
+								
+								 $output=array();
+
+								 $setting=$this->projectmodel->user_wise_setting(); 
+								 //$id=1;
+								 $indx=0;
+								 $form_id=79;
+								 $whr=" id=".$form_id;	
+								
+								 $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								 $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								 $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								 $DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								 $rs[$indx]['DataFields_name']=$DataFields_name;
+								 $rs[$indx]['section_type']=$section_type;	
+								 $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								 $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								 $rs[$indx]['fields']=$DataFields;
+								 $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				 
+				 
+								 $indx=1;
+								 $form_id=80;
+								 $invoice_summary_id=$id;
+								 $whr=" id=".$form_id;	
+								 $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
+								 $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								 $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								 $DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								 $rs[$indx]['DataFields_name']=$DataFields_name;
+
+								 $rs[$indx]['section_type']='GRID_ENTRY';		
+								 $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								 $rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								 $rs[$indx]['fields']=$DataFields.$setting['segments'];
+								 $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where invoice_summary_id=".$invoice_summary_id;
+				 
+				 
+								 $form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								 array_push($output,$form_structure);
+				 
+								 //$indx=2;
+								//  $form_id=79;
+								//  $whr=" id=".$form_id;	
+								//  $DataFields=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+								//  $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								//  $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								//  $rs[$indx]['section_type']=$section_type;	
+								//  $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								//  $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								//  $rs[$indx]['fields']=$DataFields;
+								//  $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				 
+				 
+								//PO_ENTRY SECTION
+				 
+								 $form_structure=array();	
+				 
+								$whr=" parent_id=".$id." and status='PO_ENTRY' ";
+								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+								//$id=2;
+								$indx=2;
+								$form_id=82;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				 
+				 
+								$indx=3;
+								$form_id=48;
+								$invoice_summary_id=$id;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;
+								$rs[$indx]['section_type']='GRID_ENTRY';		
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address'
+								.$setting['segments'];
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where invoice_summary_id=".$invoice_summary_id;
+								
+							
+								 $form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								 array_push($output,$form_structure);
+				 
+				 
+								//GRN SECTION
+								$form_structure=array();	
+				 
+								$whr=" parent_id=".$id." and status='GRN_ENTRY' ";
+								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+				 
+								//$id=3;
+								$indx=4;
+								$form_id=84;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				 
+				 
+								$indx=5;
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']='GRID_ENTRY';		
+								$rs[$indx]['frmrpttemplatehdr_id']=48;
+								$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
+								$rs[$indx]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom';	
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
+								where  invoice_summary_id=".$id;
+								
+							
+								 $form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								 array_push($output,$form_structure);
+
+
+
+								 //INSPECTION SECTION
+								$form_structure=array();	
+				 
+								$whr=" parent_id=".$id." and status='INSPECTION' ";
+								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+				 
+								$indx=6;
+								$form_id=86;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+					
+					
+								$indx=7;
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']='GRID_ENTRY';		
+								$rs[$indx]['frmrpttemplatehdr_id']=48;
+								$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
+								$rs[$indx]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom,grn_status';	
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;		
+					
+							
+								 $form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								 array_push($output,$form_structure);
+
+
+
+								//PURCHASE BILL SECTION
+								$form_structure=array();	
+				 
+								$whr=" parent_id=".$req_id." and status='PURCHASE_INVOICE' ";
+								$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+								$payid=$this->projectmodel->GetSingleVal('invoice_payment_id','invoice_summary',$whr);	
+								//$id= $req_id;
+								$indx=8;
+								$form_id=87;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+								$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+								$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;	
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				
+				
+								//BODY OR GRID ENTRY SECTION	
+								$indx=9;				
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']='GRID_ENTRY';		
+								$rs[$indx]['frmrpttemplatehdr_id']=93;
+								$rs[$indx]['TableName']='invoice_details';								
+								$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+								$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
+							
+								$indx=10;
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields2;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				
+								$indx=11;		
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields3;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+								 $form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								 array_push($output,$form_structure);
+
+
+								//PAYMENT TO VENDOR
+
+								//HEADER SECTION
+								$id=	$payid;
+								$indx=12;
+								$form_id=55;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);
+								$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
+								$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+							
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']=$DataFields_name;	
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+							
+														
+								//SUPPLIER SECTION
+								$indx=13;
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields2;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+
+							
+								$indx=14;
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']=$section_type;	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields3;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+
+
+								$indx=15;
+								$form_id=56;
+								$whr=" id=".$form_id;	
+								$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+								$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+								$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+								$rs[$indx]['DataFields_name']='';
+								$rs[$indx]['section_type']='GRID_ENTRY';	
+								$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+								$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+								$rs[$indx]['fields']=$DataFields;
+								$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_payment_id=".$id;
+
+
+								$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+								array_push($output,$form_structure);
+
+
+								 header('Access-Control-Allow-Origin: *');
+								 header("Content-Type: application/json");
+								 echo json_encode($output);
+							 }
+
+							
+
+							 if($subtype=='MAIN_GRID')
+							 {
+							 
+								 $id=33;	
+								 $rs[0]['section_type']='GRID_ENTRY';	
+								 $rs[0]['frmrpttemplatehdr_id']=41;
+								 $rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+								 $rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+								 $rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='REQUISITION'";		
+								 $resval=$this->FrmRptModel->create_report($rs,$id); 
+
+							 }
+
+					 }
+
+					 //REQUISITION REPORT
+
+
+					  //order to cash REPORT
+					
+						if($form_name=='OTOC_REPORT')
+						{
+											
+								if($subtype=='view_list')
+								{			
+									$DataFields_name='';
+									$req_id=$id=mysql_real_escape_string($form_data1->id);	
+									$output=array();
+									$setting=$this->projectmodel->user_wise_setting(); 
+								
+											//SALES ORDER
+											//$id=17;
+											$indx=0;
+											$form_id=57;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+											$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+											$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+		
+		
+											//BODY OR GRID ENTRY SECTION	
+											$indx=1;			
+											$form_id=58;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);			
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['DataFields_name']='';
+											$rs[$indx]['section_type']='GRID_ENTRY';		
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
+											$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+		
+		
+											$indx=2;
+											$form_id=57;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+											$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+											$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['DataFields_name']='';			
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields2;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+							
+											$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+											array_push($output,$form_structure);
+							
+		
+											//SALES DESPATCH
+											$form_structure=array();
+		
+											$whr=" parent_id=".$id." and status='ORDER_DESPATCH' ";
+											$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+		
+											$indx=3;
+											$form_id=59;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+						
+						
+											//BODY OR GRID ENTRY SECTION	
+						
+											$indx=4;				
+											$form_id=60;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);							
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['DataFields_name']='';		
+											$rs[$indx]['section_type']='GRID_ENTRY';		
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
+											$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+								
+											$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+											array_push($output,$form_structure);
+													
+		
+											//SALES INVOICE
+											$whr=" parent_id=".$req_id." and status='SALES_INVOICE' ";
+											$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
+		
+											$indx=5;
+											$form_id=89;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+											$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+											$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+		
+		
+											//BODY OR GRID ENTRY SECTION	
+		
+											$indx=6;			
+											$rs[$indx]['DataFields_name']='';			
+											$rs[$indx]['section_type']='GRID_ENTRY';		
+											$rs[$indx]['frmrpttemplatehdr_id']=93;
+											$rs[$indx]['TableName']='invoice_details';								
+											$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+											$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
+		
+																	
+											$indx=7;
+											$rs[$indx]['DataFields_name']='';		
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields2;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+		
+											$indx=8;		
+											$rs[$indx]['DataFields_name']='';		
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields3;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+		
+											$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+											array_push($output,$form_structure);
+													
+		
+											//RECEIVE AMOUNT
+											$whr=" id=".$id;
+											$id=$this->projectmodel->GetSingleVal('invoice_payment_id','invoice_summary',$whr);	
+		
+											$indx=9;
+											$form_id=63;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);
+											$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
+											$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+										
+																	
+											//SUPPLIER SECTION
+											$indx=10;
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields2_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields2;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+							
+										
+											$indx=11;
+											$DataFields_name=$this->projectmodel->GetSingleVal('DataFields3_name','frmrpttemplatehdr',$whr);
+											$rs[$indx]['DataFields_name']=$DataFields_name;
+											$rs[$indx]['section_type']=$section_type;	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields3;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+										
+							
+											$indx=12;
+											$form_id=56;
+											$whr=" id=".$form_id;	
+											$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+											$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+											$rs[$indx]['DataFields_name']='';
+											$rs[$indx]['section_type']='GRID_ENTRY';	
+											$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+											$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+											$rs[$indx]['fields']=$DataFields;
+											$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_payment_id=".$id;
+														
+		
+											$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
+											array_push($output,$form_structure);
+		
+								
+ 
+									header('Access-Control-Allow-Origin: *');
+									header("Content-Type: application/json");
+									echo json_encode($output);
+								}
+ 
+							 
+ 
+								if($subtype=='MAIN_GRID')
+								{
+								
+									$id=33;	
+									$rs[0]['section_type']='GRID_ENTRY';	
+									$rs[0]['frmrpttemplatehdr_id']=41;
+									$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+									$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+ 
+								}
+ 
+						}
+				
+						//order to cash REPORT
 
 
 	}
@@ -3252,7 +4031,7 @@ class Project_controller  extends CI_Controller {
 		{
 							
 				$indx=0;
-			  	$form_id=79;
+			  $form_id=79;
 				$whr=" id=".$form_id;	
 				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
 				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -3265,8 +4044,8 @@ class Project_controller  extends CI_Controller {
 
 
 				$indx=1;
-			  	$form_id=80;
-			    $invoice_summary_id=$id;
+			  $form_id=80;
+			  $invoice_summary_id=$id;
 				$whr=" id=".$form_id;	
 				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
 				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -3279,7 +4058,7 @@ class Project_controller  extends CI_Controller {
 
 
 				$indx=2;
-			  	$form_id=79;
+			  $form_id=79;
 				$whr=" id=".$form_id;	
 				$DataFields=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
 				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -3372,7 +4151,7 @@ class Project_controller  extends CI_Controller {
 				$rs[$indx]['section_type']='GRID_ENTRY';		
 				$rs[$indx]['frmrpttemplatehdr_id']=48;
 				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
-				$rs[$indx]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom,batch_no';	
+				$rs[$indx]['fields']='id,invoice_summary_id,parent_id,item_id,qnty,received_qnty,uom,batch_no,price';	
 				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;		
 
 				$form_structure=$this->FrmRptModel->create_form($rs,$id);
@@ -3387,7 +4166,7 @@ class Project_controller  extends CI_Controller {
 		{
 
 			$indx=0;
-		  	$form_id=86;
+		  $form_id=86;
 			$whr=" id=".$form_id;	
 			$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
 			$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -3581,15 +4360,28 @@ class Project_controller  extends CI_Controller {
 
 
 			//BODY OR GRID ENTRY SECTION	
-			$indx=1;				
+			$indx=1;			
+			$form_id=58;
+			$whr=" id=".$form_id;	
+			$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);			
+			$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+
 			$rs[$indx]['section_type']='GRID_ENTRY';		
-			$rs[$indx]['frmrpttemplatehdr_id']=58;
-			$rs[$indx]['id']=0;	$rs[1]['parent_id']=$id;$rs[$indx]['TableName']='invoice_details';		
-			$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,billing_address,shipping_address'.$setting['segments'];								
-			$rs[$indx]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;	
+			$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+			$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
+			$rs[$indx]['fields']=$DataFields.$setting['segments'];								
+			$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
 
 
 			$indx=2;
+			$form_id=57;
+			$whr=" id=".$form_id;	
+			$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+			$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+			$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
+			$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
+			$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+			$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);				
 			$rs[$indx]['section_type']=$section_type;	
 			$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
 			$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
@@ -3673,7 +4465,7 @@ class Project_controller  extends CI_Controller {
 				$rs[$indx]['section_type']='GRID_ENTRY';		
 				$rs[$indx]['frmrpttemplatehdr_id']=93;
 				$rs[$indx]['TableName']='invoice_details';								
-				$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
+				$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
 				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
 				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
 

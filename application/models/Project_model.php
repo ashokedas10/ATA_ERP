@@ -508,6 +508,9 @@ function __construct()
 			$form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=
 			date('Y-m-d H:i:s');
 
+			$cnts=sizeof($form_structure["header"][1]['fields']);
+			for($i=0;$i<$cnts;$i++)
+			{$form_structure["header"][1]['fields'][$i]['price']['InputType']='hidden';}
 
 			//USER
 			if($form_structure["header"][0]['fields'][0]['req_preparer']['Inputvalue_id']=='')
@@ -874,50 +877,9 @@ function __construct()
 				}
 
 				
-				$return_data['id_header']=$header_id;
+				
 
-				// if( $form_name=='purchase_invoice')
-				// {
-				// 	$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-				// 	$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
-
-				// 	$savedata=array();	
-				// 	$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-				// 	$headers = $this->projectmodel->get_records_from_sql($headers);			
-				// 	if($headers[0]->cnt==0)
-				// 	{
-				// 		$savedata['invoice_summary_id']=0;
-				// 		$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-				// 	}
-				// 	//calculate item wise sum
-				// 	$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-				// 	$headers = $this->projectmodel->get_records_from_sql($headers);									
-				// 	$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
-				// }
-
-				// if($form_name=='sale_invoice')
-				// {
-				// 	$this->db->query("delete from  invoice_details where total_amount=0 and invoice_summary_id=".$header_id);
-				// 	$this->db->query("delete from  invoice_tax_details where tax_amount=0 and invoice_summary_id>0 AND  invoice_summary_id=".$header_id);
-
-				// 	$savedata=array();	
-				// 	$headers="select count(*) cnt from  invoice_tax_details where invoice_summary_id=0";
-				// 	$headers = $this->projectmodel->get_records_from_sql($headers);			
-				// 	if($headers[0]->cnt==0)
-				// 	{
-				// 		$savedata['invoice_summary_id']=0;
-				// 		$this->projectmodel->save_records_model('','invoice_tax_details',$savedata);
-				// 	}
-
-				// 	//calculate item wise sum
-				// 	$headers="select sum(total_amount) total_amount from  invoice_details where invoice_summary_id=".$header_id;
-				// 	$headers = $this->projectmodel->get_records_from_sql($headers);									
-				// 	$this->db->query("update invoice_summary set invoice_tot_items=".$headers[0]->total_amount." where id=".$header_id);
-
-				// }
-
-
-				$this->update_transactions($header_id,$form_name);
+				 $this->update_transactions($header_id,$form_name);
 			
 				if($form_name=='receipt_of_goods' || $form_name=='purchase_invoice' 
 				|| $form_name=='DESPATCH_GOODS' || $form_name=='sale_invoice')
@@ -925,7 +887,7 @@ function __construct()
 					$this->accounts_model->ledger_transactions($header_id,$form_name);
 				}
 
-				
+				$return_data['id_header']=$header_id;
 
 				// if($form_name=='DESPATCH_GOODS')
 				// {$this->segment_update($header_id);	}
@@ -943,20 +905,62 @@ function __construct()
 	public function get_available_qnty($product_type=0,$product_id=0,$TRAN_TYPE='')
 	{
 		$available_qnty=0;
-		if($TRAN_TYPE=='BATCH_CREATE')
+		
+		
+		//$product_type==154 ==INGREDIENTS
+		
+		if($TRAN_TYPE=='BATCH_CREATE' && $product_type==154)
 		{
-			// $records="select * from  invoice_summary a,invoice_details b  where a.id=b.invoice_summary_id      id=".$tran_table_id." ";
-			// $records = $this->get_records_from_sql($records);	
-			// foreach ($records as $record)
-			// {		
+			$issue_qnty=$received_qnty=0;
+			
+			$records="select sum(received_qnty) received_qnty 
+			from  invoice_summary a,invoice_details b  where a.id=b.invoice_summary_id
+			 and b.item_id=".$product_id." and a.status='GRN_ENTRY' ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{$received_qnty=$record->received_qnty;}
 
+			//BATCH WISE ISSUE
 
-			// }
+			$records="select sum(transact_qnty) issue_qnty 
+			from  opm_batch_summary a,opm_batch_details b  where a.id=b.opm_batch_summary_id  
+			and b.product_id=".$product_id." and a.batch_status=163 ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{$issue_qnty=$record->issue_qnty;}
 
+			$available_qnty=$received_qnty-$issue_qnty;
 
+			return $available_qnty;
 		}
 
-		return $available_qnty;
+
+		if($TRAN_TYPE=='FINAL_PRODUCT' && $product_type==152)
+		{
+			$batch_qnty=$received_qnty=0;
+			
+			$records="select sum(received_qnty) despatch_qnty 
+			from  invoice_summary a,invoice_details b  where a.id=b.invoice_summary_id
+			 and b.item_id=".$product_id." and a.status='ORDER_DESPATCH' ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{$sale_qnty=$record->despatch_qnty;}
+
+			//BATCH WISE ISSUE
+
+			$records="select sum(transact_qnty) batch_qnty 
+			from  opm_batch_summary a,opm_batch_details b  where a.id=b.opm_batch_summary_id  
+			and b.product_id=".$product_id." and a.batch_status=163 ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{$batch_qnty=$record->batch_qnty;}
+
+			$available_qnty=$batch_qnty-$sale_qnty;
+			return $available_qnty;
+		}
+
+
+		
 
 	}
 
@@ -996,6 +1000,27 @@ function __construct()
 		{	
 			$sql="delete from invoice_details where invoice_summary_id=".$tran_table_id." and item_id=0";
 			$this->db->query($sql);
+
+
+		
+			$save_header['invoice_grand_total']=$save_header['tax_amount']=$save_header['invoice_tot_items']=0;
+
+			$records="select * from  invoice_details where invoice_summary_id=".$tran_table_id." ";
+			$records = $this->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{		
+				$detail_id=$record->id;
+
+				$save_detail['total_amount']=$record->received_qnty*$record->price;			
+				$this->save_records_model($detail_id,'invoice_details',$save_detail);
+
+				//HEADER SECTION
+				$save_header['invoice_grand_total']=$save_header['invoice_grand_total']+$save_detail['total_amount'];
+			
+				$this->save_records_model($tran_table_id,'invoice_summary',$save_header);
+			}
+
+
 		}
 
 		if($TRAN_TYPE=='purchase_invoice' || $TRAN_TYPE=='sale_invoice'  )
@@ -1056,7 +1081,7 @@ function __construct()
 			foreach ($records as $record)
 			{		
 				$detail_id=$record->id;
-				$save_detail['total_amount']=$record->qnty*$record->price;
+				$save_detail['total_amount']=$record->received_qnty*$record->price;
 				//$save_detail['tax_amount']=$save_detail['total_amount']*$record->tax_rate/100;
 
 				$this->save_records_model($detail_id,'invoice_details',$save_detail);

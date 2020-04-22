@@ -156,6 +156,92 @@ public function create_form($rs=array(),$id=0)
 }
 
 
+
+public function create_form_with_header($rs=array(),$id=0)
+{
+    $resval=$form_structure=$output=array();    
+
+    if($id>0)
+    {
+        $input_id_index=0;			
+        foreach ($rs as $key=>$sections)
+        {			
+        
+            $headers=$sections['sql_query'];					
+            $headers = $this->projectmodel->get_records_from_sql($headers);	
+            //print_r($headers);
+            $headers = json_decode(json_encode($headers), true);
+            foreach ($headers as $key1=>$header)
+            {	
+                
+                foreach ($header as $key2=>$field_val)
+                {
+                    if($sections['section_type']=='GRID_ENTRY')
+                    {
+                        $form_structure['header'][$key]['DataFields_name']=$sections['DataFields_name'];
+                        $form_structure['header'][$key]['section_type']=$sections['section_type'];
+                        $form_structure['header'][$key]['id']=$sections['id'];
+                        $form_structure['header'][$key]['parent_id']=$sections['parent_id'];
+                        $form_structure['header'][$key]['TableName']=$sections['TableName'];
+                        $form_structure['header'][$key]['fields'][0][$key2]=$this->create_fields_parameter($sections['frmrpttemplatehdr_id'],$key2,0,$input_id_index);
+                        $input_id_index=$input_id_index+1;
+    
+                        $form_structure['header'][$key]['section_type']=$sections['section_type'];
+                        $form_structure['header'][$key]['id']=$sections['id'];
+                        $form_structure['header'][$key]['parent_id']=$sections['parent_id'];
+                        $form_structure['header'][$key]['TableName']=$sections['TableName'];
+                        //here
+                        $form_structure['header'][$key]['fields'][$key1+1][$key2]=$this->create_fields_parameter($sections['frmrpttemplatehdr_id'],$key2,$field_val,$input_id_index);
+                        $input_id_index=$input_id_index+1;
+    
+                    }
+                    else
+                    {
+                        $form_structure['header'][$key]['DataFields_name']=$sections['DataFields_name'];
+                        $form_structure['header'][$key]['section_type']=$sections['section_type'];
+                        $form_structure['header'][$key]['id']=$sections['id'];
+                        $form_structure['header'][$key]['parent_id']=$sections['parent_id'];
+                        $form_structure['header'][$key]['TableName']=$sections['TableName'];
+                        //here
+                        $form_structure['header'][$key]['fields'][$key1][$key2]=
+                        $this->create_fields_parameter($sections['frmrpttemplatehdr_id'],$key2,$field_val,$input_id_index);
+                        $input_id_index=$input_id_index+1;
+    
+                    }
+                
+                }
+            }
+    
+        }
+
+    }
+    else //NEW ENTRY FORM
+    {
+            $input_id_index=0;			
+            foreach ($rs as $key=>$sections)
+            {	
+                    $field_array = explode(',', $sections['fields']);
+                    foreach ($field_array as $key1=>$field)
+                    {	
+                        $form_structure['header'][$key]['section_type']=$sections['section_type'];
+                        $form_structure['header'][$key]['id']=$sections['id'];
+                        $form_structure['header'][$key]['parent_id']=$sections['parent_id'];
+                        $form_structure['header'][$key]['TableName']=$sections['TableName'];
+                        $form_structure['header'][$key]['fields'][0][$field]=
+                        $this->create_fields_parameter($sections['frmrpttemplatehdr_id'],$field,'',$input_id_index);
+                        
+                        $input_id_index=$input_id_index+1;
+                    }					
+            }
+
+    }
+
+   
+    
+	return $form_structure;
+	
+}
+
 public function create_fields_parameter($frmrpttemplatedetails_id='',$InputName='',$Inputvalue='',$input_id_index=0)
 {
 	$output=array();

@@ -2140,124 +2140,49 @@ $id_header='',$id_detail='',$fromdate='',$todate='')
 			$data['report_data'] ='';
 			$data['fromdate']=date('Y-m-d');
 			$data['todate']=date('Y-m-d');
-
 			$data['with_paran']='NO';
-			/************ MIS REPORT SECTIONS *************/
-			if($REPORT_NAME=='PRODUCT_TRANSACTIONS' )
-			{ 
-				
-				$sqlinv="select * from brands where  brandtype='BRAND' order by  	brand_name";			
-				$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
-			}
 
-			if($REPORT_NAME=='BILL_WISE_SALE' )
+			$data['REPORT_TYPE']='REPORT_TYPE-1';
+					
+			if($REPORT_NAME=='PTOP_ACCOUNTS')
 			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');
-					$sqlinv="select * from acc_group_ledgers where parent_id=28 and 	acc_type='LEDGER' and  status='ACTIVE' order by acc_name ";			
+					//$data['fromdate']=date('Y-m-d');
+					//$data['todate']=date('Y-m-d');
+					$sqlinv="select * from invoice_summary where status='REQUISITION'  order by req_number ";			
 			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
 			}
 
-			if($REPORT_NAME=='BILL_WISE_PURCHASE' )
+			if($REPORT_NAME=='OTOC_REPORT')
 			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');
-					$sqlinv="select * from acc_group_ledgers where parent_id=27 and 	acc_type='LEDGER' and  status='ACTIVE' order by acc_name ";			
+					//$data['fromdate']=date('Y-m-d');
+					//$data['todate']=date('Y-m-d');
+					$sqlinv="select * from invoice_summary where status='SALES_ORDER'  order by req_number ";			
 			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
 			}
-		
-			if($REPORT_NAME=='HSN_WISE_SALE'  || $REPORT_NAME=='HSN_WISE_SUMMARY' ||
-		  $REPORT_NAME=='DOCTOR_COMMISSION_SUMMARY' || 
-			$REPORT_NAME=='DOCTOR_COMMISSION_DETAILS')
-			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');
-					$sqlinv="select * from acc_group_ledgers where parent_id=312 and 	acc_type='LEDGER' and  status='ACTIVE' order by acc_name ";			
-			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
-			}
+			
 
-			if($REPORT_NAME=='PRODUCT_WISE_PURCHASE' || $REPORT_NAME=='PRODUCT_WISE_SALE' || $REPORT_NAME=='GST_REPORT' )
-			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');				
-			}
-
-			if($REPORT_NAME=='EXPIRY_REGISTER')
-			{	$data['todate']=date('Y-m-d');}
-
-
-			if($REPORT_NAME=='DEBTORS_SUMMARY' )
-			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');
-					$sqlinv="select * from acc_group_ledgers where parent_id in (28,19) and 	acc_type='LEDGER' and  status='ACTIVE' order by acc_name ";			
-			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
-			}
-			if($REPORT_NAME=='CREDITORS_SUMMARY' )
-			{
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');
-					$sqlinv="select * from acc_group_ledgers where parent_id in (27,19) and 	acc_type='LEDGER' and  status='ACTIVE' order by acc_name ";			
-			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
-			}
-
-			/************ MIS REPORT SECTIONS END *************/
-
-			/************ ACCOUNT REPORT SECTIONS  *************/
-			if($REPORT_NAME=='TRIAL_BALANCE' || $REPORT_NAME=='PROFIT_LOSS_ACCOUNT' || $REPORT_NAME=='BALANCE_SHEET')
-			{
-				//	$sql="update acc_group_ledgers set temp_debit_balance=0,temp_credit_balance=0   ";
-				//	$this->db->query($sql);
-					$data['fromdate']=date('Y-m-d');
-					$data['todate']=date('Y-m-d');				
-			}
-
-			if($REPORT_NAME=='GENERAL_LEDGER')
-			{ 
-			 $data['ledger_ac'] =$param1;$data['fromdate'] =$param2;$data['todate'] =$param3;
-			 $sqlinv="select * from  acc_group_ledgers 	where acc_type='LEDGER'	 order by  acc_name ";		
-			 $data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
-			}
-				/************ ACCOUNT REPORT SECTIONS  END *************/
 				
 			if(isset($_POST['Save']))
 			{						 
 				$data['with_paran']='YES';
-				if($REPORT_NAME=='PRODUCT_GROUP')
-				{$data['todate']=$this->input->post('todate');}
+
+				// if($REPORT_NAME=='PRODUCT_GROUP')
+				// {$data['todate']=$this->input->post('todate');}
 				
-				if($REPORT_NAME=='PRODUCT_TRANSACTIONS')
+			
+				if($REPORT_NAME=='PTOP_ACCOUNTS')
 				{
-				$data['param1']=$this->input->post('param1');
-				$data['param2']=$this->input->post('param2');
-				}
-
-				if( $REPORT_NAME=='HSN_WISE_SALE' || $REPORT_NAME=='HSN_WISE_SUMMARY' || $REPORT_NAME=='GST_REPORT' || 
-				$REPORT_NAME=='PRODUCT_WISE_PURCHASE' || $REPORT_NAME=='PRODUCT_WISE_SALE')
-				{
-					$data['fromdate']=$this->input->post('fromdate');
-					$data['todate']=$this->input->post('todate');					
-				}
-
-				if($REPORT_NAME=='BILL_WISE_SALE' || $REPORT_NAME=='BILL_WISE_PURCHASE' || 
-				$REPORT_NAME=='DEBTORS_SUMMARY' || $REPORT_NAME=='CREDITORS_SUMMARY' ||$REPORT_NAME=='GENERAL_LEDGER')
-				{
-					$data['fromdate']=$this->input->post('fromdate');
-					$data['todate']=$this->input->post('todate');
 					$data['ledger_ac']=$this->input->post('param1');
 				}
-				if($REPORT_NAME=='EXPIRY_REGISTER')
-				{	$data['todate']=$this->input->post('todate');}
-
-
-				if($REPORT_NAME=='TRIAL_BALANCE' || $REPORT_NAME=='PROFIT_LOSS_ACCOUNT' || $REPORT_NAME=='BALANCE_SHEET')
+				if($REPORT_NAME=='OTOC_REPORT')
 				{
-					$data['fromdate']=$this->input->post('fromdate');
-					$data['todate']=$this->input->post('todate');
-				}
+					$data['ledger_ac']=$this->input->post('param1');
+				}	
 
-			
+
 			}
+
+
 			
 			if(	$data['with_paran']=='YES')
 			{$data['report_data'] =$this->accounts_model->all_mis_report($REPORT_NAME,$data);}

@@ -2774,6 +2774,12 @@ function($scope,$rootScope,$http,$window,Sale_test)
 								
 								if($rootScope.searchelement=='parent_id')	
 								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}
+
+								if($rootScope.searchelement=='item_id' && $rootScope.current_form_report=='SALES_ORDER')	
+								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
+
+								if($rootScope.searchelement=='opm_batch_details_id' && $rootScope.current_form_report=='SALES_ORDER')	
+								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
 													
 						}		
 						if(event.keyCode === 39)
@@ -2875,6 +2881,10 @@ function($scope,$rootScope,$http,$window,Sale_test)
 									if($rootScope.searchelement=='activity' && $rootScope.current_form_report=='opm_operation_summary')	
 									{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}		
 									
+									if($rootScope.searchelement=='item_id' && $rootScope.current_form_report=='SALES_ORDER')	
+									{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
+									
+
 
 									
 								}	

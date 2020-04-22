@@ -314,10 +314,10 @@ font-weight:600;
 						  <a data-toggle="modal" data-target="#search_match_po"><button type="submit" class="btn btn-success" ng-click="match_po(1)">
 						  Match</button></a>
 						  
-						   <a data-toggle="modal" data-target="#tax_model"><button type="submit" class="btn btn-success" 
+						 <!--  <a data-toggle="modal" data-target="#tax_model"><button type="submit" class="btn btn-success" 
 						   ng-click="tax_details(FormInputArray[0]['header'][0]['id'])">
 						  Tax Details</button></a>
-						  
+						  -->
 						  
 						  
 						 <button type="button" class="btn btn-danger" ng-click="test()">test</button>

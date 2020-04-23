@@ -68,6 +68,18 @@ font-weight:600;
 			
 		<div class="form-row col-md-9 nopadding" > 	
 			<div class="panel panel-default form-group form-group-sm">		
+			
+				
+				<div class="panel panel-success">		
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-sm-12" align="center">
+								<h4 class="panel-title" id="contactLabel">
+								<span class="glyphicon glyphicon-info-sign"></span>{{server_msg}}</h4>
+							</div>
+						</div>
+					</div>
+				</div>			
 											
 				<div  ng-repeat="header_index in [0,FormInputArray[0]['header'].length] | toRange"   id="maindiv" >	
 				
@@ -238,6 +250,7 @@ font-weight:600;
 														   ng-if="steps.InputType != 'hidden'">	
 														{{steps.LabelName}}
 													  </td>
+													  <td>Save</td>
 													</tr>
 										
 													<tr ng-repeat="field_index in [0,FormInputArray[0]['header'][header_index]['fields'].length] | toRange">
@@ -277,6 +290,11 @@ font-weight:600;
 														 </div>
 														
 														</td>
+														
+									<td ng-if="FormInputArray[0]['header'][header_index]['fields'].length!= $index">
+									<button type="button" class="btn btn-success" id="Save" name="Save" 
+									ng-click="savedata()">Save</button>
+									</td>
 													</tr>
 										</table>
 										
@@ -306,7 +324,8 @@ font-weight:600;
 						 <button type="submit" class="btn btn-success">Catalog</button> 
 						  <button type="submit" class="btn btn-success">Distributins</button>  -->
 						  <button type="button" class="btn btn-success" id="Save" name="Save" ng-click="view_list(0)">New Entry</button>
-						  <button type="button" class="btn btn-success" id="Save" name="Save" ng-click="savedata()">Save</button>
+						  <button type="button" class="btn btn-success" id="Save" name="Save" ng-click="savedata()" 
+						  onclick="return confirm('Do you want to Save ?');">Save</button>
 						  
 						  <a data-toggle="modal" data-target="#search_modal"><button type="submit" class="btn btn-success" ng-click="main_grid(1)">
 						  Search Invoice</button></a>

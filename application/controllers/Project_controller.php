@@ -191,218 +191,69 @@ class Project_controller  extends CI_Controller {
 				//	$resval=$this->FrmRptModel->create_report($rs,$id); 
 
 
-
+				$tran_table_id=7;
+				$TRAN_TYPE='BATCH_CREATE';
 			
-									$rs=$resval=$form_structure=$output=$save_details=array();
-									$setting=$this->projectmodel->user_wise_setting(); 
-								
-									//SALES ORDER
-									$id=17;
-									$indx=0;
-									$form_id=57;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
-									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
-									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
-									$rs[$indx]['DataFields_name']=$DataFields_name;
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-									//BODY OR GRID ENTRY SECTION	
-									$indx=1;			
-									$form_id=58;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);			
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$rs[$indx]['DataFields_name']='';
-									$rs[$indx]['section_type']='GRID_ENTRY';		
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
-									$rs[$indx]['fields']=$DataFields.$setting['segments'];								
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
-
-
-									$indx=2;
-									$form_id=57;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
-									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
-									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$rs[$indx]['DataFields_name']='';			
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields2;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				$records="select * from  opm_batch_summary where id=".$tran_table_id." ";
+				$records = $this->projectmodel->get_records_from_sql($records);	
+				foreach ($records as $record)
+				{		
 					
-									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
-									array_push($output,$form_structure);
+					$batch_id=$record->id;
+					$save_header['batch_status']=159;//PENDING STATUS
+	
+					$receipe_id=$record->receipe_id;
+					$product_id=$record->product_id;
+					$product_qnty=$record->product_qnty;
+					$product_uom=$record->product_uom;
+					$this->projectmodel->save_records_model($batch_id,'opm_batch_summary',$save_header);
+	
+					//get formula
+					$formula_id=$this->projectmodel->GetSingleVal('formula_id','opm_define_recipe_summery','id='.$receipe_id); 
+					$routing_id=$this->projectmodel->GetSingleVal('routing_id','opm_define_recipe_summery','id='.$receipe_id); 
+					$line_no=1;
+					$formula_details="select * from  opm_define_formula_details where opm_define_formula_summery_id=".$formula_id." ";
+					$formula_details = $this->projectmodel->get_records_from_sql($formula_details);	
+					foreach ($formula_details as $formula_detail)
+					{
+											
+						$batch_details['opm_batch_summary_id']=$batch_id;
+						$batch_details['line_no']=$line_no;
+						$batch_details['product_id']=$formula_detail->product;
+						$batch_details['transact_qnty']=$batch_details['target_qnty']=$formula_detail->qnty*$product_qnty;
+						$batch_details['product_type']=$formula_detail->product_type;
+						$batch_details['uom']=$formula_detail->uom;
+	
+						if($formula_detail->product_type==154)//INGREDIENTS
+						{
+							$batch_details['available_qnty']=
+							$this->projectmodel->get_available_qnty($formula_detail->product_type,$formula_detail->product,$TRAN_TYPE);
+						}
 					
-
-									//SALES DESPATCH
-									$form_structure=array();
-
-									$whr=" parent_id=".$id." and status='ORDER_DESPATCH' ";
-							  	$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
-
-									$indx=3;
-									$form_id=59;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
-									$rs[$indx]['DataFields_name']=$DataFields_name;
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-				
-				
-									//BODY OR GRID ENTRY SECTION	
-				
-									$indx=4;				
-									$form_id=60;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);							
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$rs[$indx]['DataFields_name']='';		
-									$rs[$indx]['section_type']='GRID_ENTRY';		
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['TableName']=$TableName;		
-									$rs[$indx]['fields']=$DataFields.$setting['segments'];								
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+	
+						$batch_details['batch_enable_status']=
+						$this->projectmodel->GetSingleVal('batch_enable_status','mstr_product','id='.$formula_detail->product); 
 						
-									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
-									array_push($output,$form_structure);
-											
-
-									//SALES INVOICE
-									$whr=" parent_id=".$id." and status='SALES_INVOICE' ";
-									$id=$this->projectmodel->GetSingleVal('id','invoice_summary',$whr);	
-
-									$indx=5;
-									$form_id=89;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
-									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);	
-									$DataFields4=$this->projectmodel->GetSingleVal('DataFields4','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
-									$rs[$indx]['DataFields_name']=$DataFields_name;
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-									//BODY OR GRID ENTRY SECTION	
-
-									$indx=6;			
-									$rs[$indx]['DataFields_name']='';			
-									$rs[$indx]['section_type']='GRID_ENTRY';		
-									$rs[$indx]['frmrpttemplatehdr_id']=93;
-									$rs[$indx]['TableName']='invoice_details';								
-									$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
-
-															
-									$indx=7;
-									$rs[$indx]['DataFields_name']='';		
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields2;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-									$indx=8;		
-									$rs[$indx]['DataFields_name']='';		
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields3;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
-									array_push($output,$form_structure);
-											
-
-									//RECEIVE AMOUNT
-									$whr=" id=".$id;
-									$id=$this->projectmodel->GetSingleVal('invoice_payment_id','invoice_summary',$whr);	
-
-									$indx=9;
-									$form_id=63;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$DataFields2=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);
-									$DataFields3=$this->projectmodel->GetSingleVal('DataFields3','frmrpttemplatehdr',$whr);
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$DataFields_name=$this->projectmodel->GetSingleVal('DataFields_name','frmrpttemplatehdr',$whr);
-									$rs[$indx]['DataFields_name']=$DataFields_name;
-									
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
-								
-															
-									//SUPPLIER SECTION
-									$indx=10;
-									$rs[$indx]['DataFields_name']='';
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields2;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
+						
+	
+						$opm_batch_details_id='';
+						$formula_details="select * from  opm_batch_details 
+						where product_id=".$formula_detail->product." and opm_batch_summary_id=".$batch_id;
+						$formula_details = $this->projectmodel->get_records_from_sql($formula_details);	
+						foreach ($formula_details as $formula_detail)
+						{$opm_batch_details_id=$formula_detail->id;}	
+						
+						$this->projectmodel->save_records_model($opm_batch_details_id,'opm_batch_details',$batch_details);
+						
+						$line_no=$line_no+1;
+					}	
+	
 					
-								
-									$indx=11;
-									$rs[$indx]['DataFields_name']='';
-									$rs[$indx]['section_type']=$section_type;	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields3;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  id=".$id;
-								
-					
-									$indx=12;
-									$form_id=56;
-									$whr=" id=".$form_id;	
-									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$rs[$indx]['DataFields_name']='';
-									$rs[$indx]['section_type']='GRID_ENTRY';	
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$DataFields;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_payment_id=".$id;
-												
+				}
 
-									$form_structure=$this->FrmRptModel->create_form_with_header($rs,$id);
-									array_push($output,$form_structure);
-
-								echo '<pre>';
-								print_r($output);
-								echo '</pre>';
+								// echo '<pre>';
+								// print_r($output);
+								// echo '</pre>';
 
 
 
@@ -1707,8 +1558,11 @@ class Project_controller  extends CI_Controller {
 										{
 
 												$key=0;
+												$datafields_array[$key]['FieldID']=0;
+												$datafields_array[$key]['FieldVal']='No batch Availabe';
+
 												$records="select  a.id,a.batch_numbering  from opm_batch_summary a,opm_batch_details b  where 
-												a.id=b.opm_batch_summary_id and b.product_id=".$product_id;
+												a.id=b.opm_batch_summary_id and a.batch_status=163 and b.product_id=".$product_id;
 												$records = $this->projectmodel->get_records_from_sql($records);	
 												foreach ($records as $record)
 												{							
@@ -1756,7 +1610,8 @@ class Project_controller  extends CI_Controller {
 										
 											//BATCH WISE TOTAL AVAILABLE QNTY
 											$records_sum="select  sum(transact_qnty) batch_product_qnty from 
-											opm_batch_details where opm_batch_summary_id=".$opm_batch_details_id." and product_id=".$product_id;
+											opm_batch_details where opm_batch_summary_id=".$opm_batch_details_id." and a.batch_status=163 
+											and product_id=".$product_id;
 											$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
 											$batch_product_qnty=$records_sum[0]->batch_product_qnty;
 
@@ -1953,7 +1808,88 @@ class Project_controller  extends CI_Controller {
 
 									}
 
-							
+									
+									if($searchelement=='item_id')
+									{
+																			
+										$product_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['item_id']['Inputvalue_id'];
+										if($product_id>0)
+										{
+
+												$key=0;
+												$datafields_array[$key]['FieldID']=0;
+												$datafields_array[$key]['FieldVal']='No batch Availabe';
+
+												$records="select  a.id,a.batch_numbering  from opm_batch_summary a,opm_batch_details b  where 
+												a.id=b.opm_batch_summary_id and a.batch_status=163 and b.product_id=".$product_id;
+												$records = $this->projectmodel->get_records_from_sql($records);	
+												foreach ($records as $record)
+												{							
+													$available_qnty=$sales_qnty=$batch_product_qnty=0;
+													//BATCH WISE TOTAL AVAILABLE QNTY
+													$records_sum="select  sum(transact_qnty) batch_product_qnty from 
+													opm_batch_details where opm_batch_summary_id=".$record->id." and product_id=".$product_id;
+													$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+													$batch_product_qnty=$records_sum[0]->batch_product_qnty;
+
+													//SALES QNTY
+													$records_sum="select  sum(received_qnty) despatch_qnty from 
+													invoice_summary a,invoice_details b  where 
+													a.id=b.invoice_summary_id and a.status='ORDER_DESPATCH' and b.opm_batch_details_id=".$record->id." and b.item_id=".$product_id;
+													$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+													$sales_qnty=$records_sum[0]->despatch_qnty;
+
+
+													$available_qnty=$batch_product_qnty-$sales_qnty;
+													
+													if($available_qnty>0)
+													{
+														$datafields_array[$key]['FieldID']=$record->id;
+														$datafields_array[$key]['FieldVal']=$record->batch_numbering;
+														$key=$key+1;
+													}
+												}
+										
+												$someArray[0]["header"][$header_index]['fields'][$field_index]['opm_batch_details_id']['datafields']=
+												json_decode(json_encode($datafields_array), true);						
+
+										}
+													
+									}
+
+
+
+									if($searchelement=='opm_batch_details_id')
+									{
+										
+										$product_id=$someArray[0]["header"][$header_index]['fields'][$field_index]['item_id']['Inputvalue_id'];
+
+										$opm_batch_details_id=
+										$someArray[0]["header"][$header_index]['fields'][$field_index]['opm_batch_details_id']['Inputvalue_id'];
+										
+											//BATCH WISE TOTAL AVAILABLE QNTY
+											$records_sum="select  sum(transact_qnty) batch_product_qnty from 
+											opm_batch_details where opm_batch_summary_id=".$opm_batch_details_id." and a.batch_status=163 
+											and product_id=".$product_id;
+											$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+											$batch_product_qnty=$records_sum[0]->batch_product_qnty;
+
+											//SALES QNTY
+											$records_sum="select  sum(received_qnty) despatch_qnty from 
+											invoice_summary a,invoice_details b  where 
+											a.id=b.invoice_summary_id and a.status='ORDER_DESPATCH' and b.opm_batch_details_id=".$opm_batch_details_id." 
+											and b.item_id=".$product_id;
+											$records_sum = $this->projectmodel->get_records_from_sql($records_sum);	
+											$sales_qnty=$records_sum[0]->despatch_qnty;
+											$available_qnty=$batch_product_qnty-$sales_qnty;
+
+											$someArray[0]["header"][$header_index]['fields'][$field_index]['batch_wise_avlbl_qnty']['Inputvalue']=$available_qnty;
+																								
+									}
+
+
+
+
 
 								}
 
@@ -2038,136 +1974,99 @@ class Project_controller  extends CI_Controller {
 											$entry_type='NEW';
 										}						
 										
-									///
+										$form_structure=$this->form_view($form_name,$id);
 
-									$indx=0;
-									$rs[$indx]['section_type']='FORM';	
-									$rs[$indx]['frmrpttemplatehdr_id']=57;
-									$rs[$indx]['TableName']='invoice_summary';
-									$rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
+									// $indx=0;
+									// $rs[$indx]['section_type']='FORM';	
+									// $rs[$indx]['frmrpttemplatehdr_id']=57;
+									// $rs[$indx]['TableName']='invoice_summary';
+									// $rs[$indx]['fields']='id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id';
+									// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;	
 						
 						
-									//BODY OR GRID ENTRY SECTION	
+									// //BODY OR GRID ENTRY SECTION	
 											
 
-									$indx=1;				
-									$rs[$indx]['section_type']='GRID_ENTRY';		
-									$rs[$indx]['frmrpttemplatehdr_id']=93;
-									$rs[$indx]['TableName']='invoice_details';								
-									$rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-									$rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
-					
-
+									// $indx=1;				
 									// $rs[$indx]['section_type']='GRID_ENTRY';		
-									// $rs[$indx]['frmrpttemplatehdr_id']=48;
+									// $rs[$indx]['frmrpttemplatehdr_id']=93;
 									// $rs[$indx]['TableName']='invoice_details';								
-									// $rs[$indx]['fields']='id,invoice_summary_id,item_id,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
-									// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;								
-						
-									//,tax_ledger_id,tax_rate,tax_amount
-						
-									//TAX SECTION
-									// $indx=2;
-									// $rs[$indx]['section_type']='GRID_ENTRY';		
-									// $rs[$indx]['frmrpttemplatehdr_id']=53;
-									// $rs[$indx]['TableName']='invoice_tax_details';								
-									// $rs[$indx]['fields']='id,invoice_summary_id,tax_ledger_id,tax_rate,tax_amount,status,tax_type';
+									// $rs[$indx]['fields']='id,invoice_summary_id,item_id,qnty,received_qnty,uom,price,total_amount,Gl_date'.$setting['segments'].',asset_book,tax_ledger_id,tax_rate,tax_amount';
 									// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']=$id;
-									// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;	
+									// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where  invoice_summary_id=".$id;
+					
+													
+									// $indx=2;
+									// $rs[$indx]['section_type']='FORM';	
+									// $rs[$indx]['frmrpttemplatehdr_id']=57;
+									// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
+									// $rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
+									// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
 									
-									$indx=2;
-									$rs[$indx]['section_type']='FORM';	
-									$rs[$indx]['frmrpttemplatehdr_id']=57;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-									$rs[$indx]['fields']='invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total';
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;		
-									
-									$indx=3;							
-									$rs[$indx]['section_type']='FORM';	
-									$rs[$indx]['frmrpttemplatehdr_id']=57;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
-									$rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
+									// $indx=3;							
+									// $rs[$indx]['section_type']='FORM';	
+									// $rs[$indx]['frmrpttemplatehdr_id']=57;
+									// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';$rs[$indx]['TableName']='invoice_summary';
+									// $rs[$indx]['fields']='invoice_status,invoice_accounted,req_status,parent_id,req_type,status';
+									// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;						
 														
-									$form_structure=$this->FrmRptModel->create_form($rs,$id);
-									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									// $form_structure=$this->FrmRptModel->create_form($rs,$id);
+									// $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 						
 						
-									//aanatuaral account ...link to credit account
-									$field_qualifier_name='';
-									$cnts=sizeof($setting['segment']);
-									for($cnt=0;$cnt<$cnts;$cnt++)
-									{
-										$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-										if($field_qualifier_name=='account_id')
-										{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
-									}
+									// //aanatuaral account ...link to credit account
+									// $field_qualifier_name='';
+									// $cnts=sizeof($setting['segment']);
+									// for($cnt=0;$cnt<$cnts;$cnt++)
+									// {
+									// 	$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+									// 	if($field_qualifier_name=='account_id')
+									// 	{$form_structure["header"][0]['fields'][0]['ledger_id']['datafields']=$setting['segment'][$cnt]['value_set'];}											
+									// }
 						
-									$field_qualifier_name='';
-									$cnts=sizeof($setting['segment']);
-									for($cnt=0;$cnt<$cnts;$cnt++)
-									{
-										$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-										$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-										$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
-									}
+									// $field_qualifier_name='';
+									// $cnts=sizeof($setting['segment']);
+									// for($cnt=0;$cnt<$cnts;$cnt++)
+									// {
+									// 	$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+									// 	$form_structure["header"][1]['fields'][0][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+									// 	$form_structure["header"][1]['fields'][0][$field_qualifier_name]['LabelName']=$setting['segment'][$cnt]['segment_name'];
+									// }
 						
-									$cnts=sizeof($form_structure["header"][1]['fields']);
-									for($i=0;$i<$cnts;$i++)
-									{
-										$field_qualifier_name='';
-										$cnts2=sizeof($setting['segment']);
-										for($cnt=0;$cnt<$cnts2;$cnt++)
-										{
-											$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
-											$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
-										}
-									}
+									// $cnts=sizeof($form_structure["header"][1]['fields']);
+									// for($i=0;$i<$cnts;$i++)
+									// {
+									// 	$field_qualifier_name='';
+									// 	$cnts2=sizeof($setting['segment']);
+									// 	for($cnt=0;$cnt<$cnts2;$cnt++)
+									// 	{
+									// 		$field_qualifier_name=$setting['segment'][$cnt]['field_qualifier_name'];
+									// 		$form_structure["header"][1]['fields'][$i][$field_qualifier_name]['datafields']=$setting['segment'][$cnt]['value_set'];
+									// 	}
+									// }
 						
-									//created_by,create_date_time,req_preparer
-									//FORM WISE SETTING
+									// //created_by,create_date_time,req_preparer
+									// //FORM WISE SETTING
 						
-									//for new entry
+									// //for new entry
 									
-									$form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-									$form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';		
-									$form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-									$form_structure["header"][0]['fields'][0]['parent_id']['InputType']='hidden';
-									// $form_structure["header"][0]['fields'][0]['req_supplier']['LabelName']='Customer';
+									// $form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
+									// $form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';		
+									// $form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
+									// $form_structure["header"][0]['fields'][0]['parent_id']['InputType']='hidden';
+									// // $form_structure["header"][0]['fields'][0]['req_supplier']['LabelName']='Customer';
 											
 									
-									$indx=3;
-									$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
-									$form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=144;
-									$form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='SALES_INVOICE';
-									$form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
-									$form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
-									$form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
-									$form_structure["header"][$indx]['fields'][0]['req_status']['InputType']='hidden';
-
-									///
-
-
-									// $form_structure["header"][0]['fields'][0]['req_number']['LabelName']='Invoice No';
-									// $form_structure["header"][0]['fields'][0]['req_accounting_date']['LabelName']='Invoice Date';
-									// $form_structure["header"][0]['fields'][0]['req_total']['LabelName']='Invoice Amount';
-									// $form_structure["header"][0]['fields'][0]['req_currency_id']['LabelName']='Pay Currency';
-									// $form_structure["header"][0]['fields'][0]['last_updated_by']['Inputvalue_id']=$setting['login_emp_id'];
-									// $form_structure["header"][0]['fields'][0]['last_updated_date_time']['Inputvalue_id']=date('Y-m-d H:i:s');
-								
-									// $form_structure["header"][0]['fields'][0]['parent_id']['InputType']='LABEL';
-
-
 									// $indx=3;
-									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Receive Invoice';
-									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=95;
-									// $form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='PURCHASE_INVOICE';
-
+									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue']='Sales Invoice';
+									// $form_structure["header"][$indx]['fields'][0]['req_type']['Inputvalue_id']=144;
+									// $form_structure["header"][$indx]['fields'][0]['status']['Inputvalue']='SALES_INVOICE';
 									// $form_structure["header"][$indx]['fields'][0]['parent_id']['InputType']='hidden';
 									// $form_structure["header"][$indx]['fields'][0]['req_type']['InputType']='hidden';
 									// $form_structure["header"][$indx]['fields'][0]['status']['InputType']='hidden';
+									// $form_structure["header"][$indx]['fields'][0]['req_status']['InputType']='hidden';
+
+								
 
 
 									if($entry_type=='NEW')
@@ -4735,7 +4634,8 @@ class Project_controller  extends CI_Controller {
 		
 													//HEADER SECTION
 													$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-													if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();$server_msg="Record has been inserted Successfully!";}	
+													if($key1==0 && $header_id=='')
+													{$header_id=$this->db->insert_id();$server_msg="Record has been inserted Successfully!";}	
 													else if($key1==0 && $header_id>0){$server_msg="Record has been Updated Successfully!";}										
 												
 											}	
@@ -4865,8 +4765,6 @@ class Project_controller  extends CI_Controller {
 			
 
 			}
-
-
 
 
 

@@ -866,7 +866,11 @@ function __construct()
 						if($table_name=='invoice_summary')
 						{
 							$this->projectmodel->save_records_model($header_id,$table_name,$savedata);
-							if($key1==0 && $header_id==''){$header_id=$this->db->insert_id();}	
+							if($key1==0 && $header_id=='')
+							{$header_id=$this->db->insert_id();$server_msg="Record has been inserted Successfully!";}	
+							else if($key1==0 && $header_id>0){$server_msg="Record has been Updated Successfully!";}										
+							
+
 						}
 
 						if($save_statue && $table_name=='invoice_details')
@@ -888,6 +892,7 @@ function __construct()
 				}
 
 				$return_data['id_header']=$header_id;
+				$return_data['server_msg']=$server_msg;
 
 				// if($form_name=='DESPATCH_GOODS')
 				// {$this->segment_update($header_id);	}
@@ -913,7 +918,7 @@ function __construct()
 		{
 			$issue_qnty=$received_qnty=0;
 			
-			$records="select sum(received_qnty) received_qnty 
+			 $records="select sum(received_qnty) received_qnty 
 			from  invoice_summary a,invoice_details b  where a.id=b.invoice_summary_id
 			 and b.item_id=".$product_id." and a.status='GRN_ENTRY' ";
 			$records = $this->get_records_from_sql($records);	
@@ -922,7 +927,7 @@ function __construct()
 
 			//BATCH WISE ISSUE
 
-			$records="select sum(transact_qnty) issue_qnty 
+			 $records="select sum(transact_qnty) issue_qnty 
 			from  opm_batch_summary a,opm_batch_details b  where a.id=b.opm_batch_summary_id  
 			and b.product_id=".$product_id." and a.batch_status=163 ";
 			$records = $this->get_records_from_sql($records);	
@@ -1178,11 +1183,12 @@ function __construct()
 					$batch_details['product_type']=$formula_detail->product_type;
 					$batch_details['uom']=$formula_detail->uom;
 
-
-					$batch_details['available_qnty']=
-					$this->get_available_qnty($formula_detail->product_type,$formula_detail->product,$TRAN_TYPE);
-
-
+					if($formula_detail->product_type==154)//INGREDIENTS
+					{
+						$batch_details['available_qnty']=
+						$this->get_available_qnty($formula_detail->product_type,$formula_detail->product,$TRAN_TYPE);
+					}
+					
 					$batch_details['batch_enable_status']=
 					$this->GetSingleVal('batch_enable_status','mstr_product','id='.$formula_detail->product); 
 					

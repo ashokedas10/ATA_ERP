@@ -2780,6 +2780,13 @@ function($scope,$rootScope,$http,$window,Sale_test)
 
 								if($rootScope.searchelement=='opm_batch_details_id' && $rootScope.current_form_report=='SALES_ORDER')	
 								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
+
+
+								if($rootScope.searchelement=='item_id' && $rootScope.current_form_report=='DESPATCH_GOODS')	
+								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}	
+
+								if($rootScope.searchelement=='opm_batch_details_id' && $rootScope.current_form_report=='DESPATCH_GOODS')	
+								{$scope.other_search(1,'other_search',$rootScope.indx1,$rootScope.index2,$rootScope.searchelement);}
 													
 						}		
 						if(event.keyCode === 39)
@@ -3125,6 +3132,7 @@ function($scope,$rootScope,$http,$window,Sale_test)
 					$http.post(data_link,data_save,config)
 					.then (function success(response){
 
+						$scope.server_msg=response.data.server_msg;
 						$scope.view_list(response.data.id_header);
 						console.log('id_header : '+response.data.id_header);	
 						//$scope.view_list($scope.form_id,response.data.id_header,0,-1,'NA');

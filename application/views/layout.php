@@ -240,8 +240,6 @@ $(document).ready(function() {
 	<link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css">
 	
    
- 
-	
 			 <!-- ===========Angular Code   THIS CODE ALSO FACILATE DATAGRID============= -->
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

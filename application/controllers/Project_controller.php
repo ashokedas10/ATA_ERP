@@ -126,130 +126,59 @@ class Project_controller  extends CI_Controller {
 					// print_r($url);
 					// echo '</pre>';
 
-			/*
+				$form_name='requisition';
 				$id=0;
 				$setting=$this->projectmodel->user_wise_setting(); 
 
-				$rs[0]['section_type']='FORM';	
-				$rs[0]['frmrpttemplatehdr_id']=41;
-				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-				$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_currency_id,req_total,status,created_by,last_updated_by,create_date_time,last_updated_date_time';
-				$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;		
+				$indx=0;
+			  $form_id=79;
+				$whr=" id=".$form_id;	
+				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
-				//BODY OR GRID ENTRY SECTION					
-				$rs[1]['section_type']='GRID_ENTRY';		
-				$rs[1]['frmrpttemplatehdr_id']=48;
-				$rs[1]['id']=0;	$rs[1]['parent_id']=$id;$rs[1]['TableName']='invoice_details';		
-				//	$rs[1]['fields']='id,invoice_summary_id,item_id,qnty,uom,price,company_id,account_id,cost_center_id,segment4,segment5,segment6,segment7,segment8,segment9';
-				$rs[1]['fields']='id,invoice_summary_id,item_id,qnty,uom,price'.$setting['segments'];
-				$rs[1]['sql_query']="select ".$rs[1]['fields']." from ".$rs[1]['TableName']." where  invoice_summary_id=".$id;		
 
-				//FOOTER SECTION
-				$rs[2]['section_type']='FORM';	
-				$rs[2]['frmrpttemplatehdr_id']=41;
-				$rs[2]['id']=$id;	$rs[2]['parent_id']='';$rs[2]['TableName']='invoice_summary';
-				$rs[2]['fields']='req_destination_type,req_source,req_requiester,req_supplier,req_organization,req_site,req_location,req_contact,req_subinventory,req_phone,req_status';
-				$rs[2]['sql_query']="select ".$rs[2]['fields']." from ".$rs[2]['TableName']." where id=".$id;	
-							
+				$indx=1;
+			  $form_id=80;
+			  $invoice_summary_id=$id;
+				$whr=" id=".$form_id;	
+				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				$rs[$indx]['section_type']='GRID_ENTRY';		
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields.$setting['segments'];
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where invoice_summary_id=".$invoice_summary_id;
+
+
+				$indx=2;
+			  $form_id=79;
+				$whr=" id=".$form_id;	
+				$DataFields=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				$rs[$indx]['section_type']=$section_type;	
+				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				$rs[$indx]['fields']=$DataFields;
+				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
 				$form_structure=$this->FrmRptModel->create_form($rs,$id);
 				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+				$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
+				
 
 				 echo '<pre>';
 				 print_r($form_structure);
 				 echo '</pre>';
-			*/
-				 		// $form_name='requisition_approve';
-						// $id= $indx=0;
-					  // 	$form_id=81;
-						// $whr=" id=".$form_id;	
-						// $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-						// $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-						// $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-						// $rs[$indx]['section_type']=$section_type;	
-						// $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-						// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-						// $rs[$indx]['fields']=$DataFields;
-						// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-																
-						// $form_structure=$this->FrmRptModel->create_form($rs,$id);
-						// $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-						// $form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
-
-					//	$form_name='SALES_ORDER';
-					// 	$id=0;
-					// //	$form_structure=$this->form_view($form_name,$id);
-
-
-					// $id=33;	
-					// 				$rs[0]['section_type']='GRID_ENTRY';	
-					// 				$rs[0]['frmrpttemplatehdr_id']=41;
-					// 				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-					// 				$rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
-					// 				$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
-					// 				$resval=$this->FrmRptModel->create_report($rs,$id); 
-				//	$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-
-				$tran_table_id=7;
-				$TRAN_TYPE='BATCH_CREATE';
-			
-				$records="select * from  opm_batch_summary where id=".$tran_table_id." ";
-				$records = $this->projectmodel->get_records_from_sql($records);	
-				foreach ($records as $record)
-				{		
-					
-					$batch_id=$record->id;
-					$save_header['batch_status']=159;//PENDING STATUS
-	
-					$receipe_id=$record->receipe_id;
-					$product_id=$record->product_id;
-					$product_qnty=$record->product_qnty;
-					$product_uom=$record->product_uom;
-					$this->projectmodel->save_records_model($batch_id,'opm_batch_summary',$save_header);
-	
-					//get formula
-					$formula_id=$this->projectmodel->GetSingleVal('formula_id','opm_define_recipe_summery','id='.$receipe_id); 
-					$routing_id=$this->projectmodel->GetSingleVal('routing_id','opm_define_recipe_summery','id='.$receipe_id); 
-					$line_no=1;
-					$formula_details="select * from  opm_define_formula_details where opm_define_formula_summery_id=".$formula_id." ";
-					$formula_details = $this->projectmodel->get_records_from_sql($formula_details);	
-					foreach ($formula_details as $formula_detail)
-					{
-											
-						$batch_details['opm_batch_summary_id']=$batch_id;
-						$batch_details['line_no']=$line_no;
-						$batch_details['product_id']=$formula_detail->product;
-						$batch_details['transact_qnty']=$batch_details['target_qnty']=$formula_detail->qnty*$product_qnty;
-						$batch_details['product_type']=$formula_detail->product_type;
-						$batch_details['uom']=$formula_detail->uom;
-	
-						if($formula_detail->product_type==154)//INGREDIENTS
-						{
-							$batch_details['available_qnty']=
-							$this->projectmodel->get_available_qnty($formula_detail->product_type,$formula_detail->product,$TRAN_TYPE);
-						}
-					
-	
-						$batch_details['batch_enable_status']=
-						$this->projectmodel->GetSingleVal('batch_enable_status','mstr_product','id='.$formula_detail->product); 
-						
-						
-	
-						$opm_batch_details_id='';
-						$formula_details="select * from  opm_batch_details 
-						where product_id=".$formula_detail->product." and opm_batch_summary_id=".$batch_id;
-						$formula_details = $this->projectmodel->get_records_from_sql($formula_details);	
-						foreach ($formula_details as $formula_detail)
-						{$opm_batch_details_id=$formula_detail->id;}	
-						
-						$this->projectmodel->save_records_model($opm_batch_details_id,'opm_batch_details',$batch_details);
-						
-						$line_no=$line_no+1;
-					}	
-	
-					
-				}
+		
+				 	
 
 								// echo '<pre>';
 								// print_r($output);
@@ -629,7 +558,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 								
-									$id=mysql_real_escape_string($form_data1->id);						
+									$id=$form_data1->id;						
 									$form_structure=$this->form_view($form_name,$id);
 
 									array_push($output,$form_structure);
@@ -689,9 +618,9 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-									$id=mysql_real_escape_string($form_data1->id);
+									$id=$form_data1->id;
 									$indx=0;
-										$form_id=81;
+									$form_id=81;
 									$whr=" id=".$form_id;	
 									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
 									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -755,7 +684,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 										array_push($output,$form_structure);
 										header('Access-Control-Allow-Origin: *');
@@ -788,9 +717,9 @@ class Project_controller  extends CI_Controller {
 															
 									$output= $someArray=array();
 
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
 									$someArray = json_decode($form_data1->raw_data, true);
 									
 									if($searchelement=='parent_id')
@@ -855,7 +784,7 @@ class Project_controller  extends CI_Controller {
 								{			
 									
 										
-									$id=mysql_real_escape_string($form_data1->id);
+									$id=$form_data1->id;
 									$indx=0;
 										$form_id=83;
 									$whr=" id=".$form_id;	
@@ -940,7 +869,7 @@ class Project_controller  extends CI_Controller {
 									$header_index=$form_data1->header_index;
 									$field_index=$form_data1->field_index;
 									$searchelement=$form_data1->searchelement;
-										$someArray = json_decode($form_data1->raw_data, true);
+									$someArray = json_decode($form_data1->raw_data, true);
 
 								}
 
@@ -952,7 +881,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 										array_push($output,$form_structure);
 										header('Access-Control-Allow-Origin: *');
@@ -981,9 +910,9 @@ class Project_controller  extends CI_Controller {
 								{			
 									
 									$output= $someArray=array();
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
 										$someArray = json_decode($form_data1->raw_data, true);
 
 								
@@ -1056,7 +985,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-									$id=mysql_real_escape_string($form_data1->id);
+									$id=$form_data1->id;
 									$form_structure=$this->form_view($form_name,$id);
 									array_push($output,$form_structure);
 									header('Access-Control-Allow-Origin: *');
@@ -1086,10 +1015,10 @@ class Project_controller  extends CI_Controller {
 								{			
 															
 									$output= $someArray=array();
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
-										$someArray = json_decode($form_data1->raw_data, true);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
+									$someArray = json_decode($form_data1->raw_data, true);
 
 								
 									if($searchelement=='parent_id')
@@ -1164,7 +1093,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);						
+										$id=$form_data1->id;						
 										$form_structure=$this->form_view($form_name,$id);
 
 										array_push($output,$form_structure);
@@ -1279,8 +1208,8 @@ class Project_controller  extends CI_Controller {
 															
 									$output= $someArray=array();
 
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
 									$searchelement=mysql_real_escape_string($form_data1->searchelement);
 									$someArray = json_decode($form_data1->raw_data, true);
 
@@ -1300,7 +1229,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 
 										//FORM WISE SETTING
@@ -1511,7 +1440,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 										array_push($output,$form_structure);
 										header('Access-Control-Allow-Origin: *');
@@ -1545,9 +1474,9 @@ class Project_controller  extends CI_Controller {
 															
 									$output= $someArray=array();
 
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
 									$someArray = json_decode($form_data1->raw_data, true);
 									
 									if($searchelement=='item_id')
@@ -1646,7 +1575,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$indx=0;
 										$form_id=88;
 										$whr=" id=".$form_id;	
@@ -1718,7 +1647,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 										array_push($output,$form_structure);
 										header('Access-Control-Allow-Origin: *');
@@ -1749,9 +1678,9 @@ class Project_controller  extends CI_Controller {
 								{			
 															
 									$output= $someArray=array();
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
 									$someArray = json_decode($form_data1->raw_data, true);
 
 									if($searchelement=='parent_id')
@@ -1887,10 +1816,6 @@ class Project_controller  extends CI_Controller {
 																								
 									}
 
-
-
-
-
 								}
 
 						}
@@ -1902,7 +1827,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);						
+										$id=$form_data1->id;						
 										$form_structure=$this->form_view($form_name,$id);
 
 										array_push($output,$form_structure);
@@ -2111,9 +2036,9 @@ class Project_controller  extends CI_Controller {
 															
 									$output= $someArray=array();
 
-									$header_index=mysql_real_escape_string($form_data1->header_index);
-									$field_index=mysql_real_escape_string($form_data1->field_index);
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$header_index=$form_data1->header_index;
+									$field_index=$form_data1->field_index;
+									$searchelement=$form_data1->searchelement;
 									$someArray = json_decode($form_data1->raw_data, true);
 
 									if($searchelement=='parent_id')
@@ -2132,7 +2057,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									
-										$id=mysql_real_escape_string($form_data1->id);
+										$id=$form_data1->id;
 										$form_structure=$this->form_view($form_name,$id);
 
 										//FORM WISE SETTING
@@ -2399,7 +2324,7 @@ class Project_controller  extends CI_Controller {
 									
 
 									$form_structure=$this->FrmRptModel->create_form($rs,$id);
-											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 									array_push($output,$form_structure);
 									header('Access-Control-Allow-Origin: *');
 									header("Content-Type: application/json");
@@ -2757,7 +2682,7 @@ class Project_controller  extends CI_Controller {
 								
 
 								$form_structure=$this->FrmRptModel->create_form($rs,$id);
-										$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+								$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 								array_push($output,$form_structure);
 								header('Access-Control-Allow-Origin: *');
 								header("Content-Type: application/json");
@@ -3074,9 +2999,9 @@ class Project_controller  extends CI_Controller {
 							{
 
 									$indx=0;
-										$form_id=72;
-										$id=$form_data1->id;	
-										$whr=" id=".$form_id;	
+									$form_id=72;
+									$id=$form_data1->id;	
+									$whr=" id=".$form_id;	
 									$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
 									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
 									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
@@ -3088,7 +3013,7 @@ class Project_controller  extends CI_Controller {
 
 
 									$form_structure=$this->FrmRptModel->create_form($rs,$id);
-											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 									array_push($output,$form_structure);
 									header('Access-Control-Allow-Origin: *');
 									header("Content-Type: application/json");
@@ -3213,7 +3138,7 @@ class Project_controller  extends CI_Controller {
 							if($subtype=='view_list')
 							{			
 								
-									$id=mysql_real_escape_string($form_data1->id);
+									$id=$form_data1->id;
 									$form_structure=$this->form_view($form_name,$id);
 									array_push($output,$form_structure);
 									header('Access-Control-Allow-Origin: *');
@@ -3339,9 +3264,9 @@ class Project_controller  extends CI_Controller {
 														
 								$output= $someArray=array();
 		
-								 $header_index=mysql_real_escape_string($form_data1->header_index);
-								 $field_index=mysql_real_escape_string($form_data1->field_index);
-								 $searchelement=mysql_real_escape_string($form_data1->searchelement);
+								 $header_index=$form_data1->header_index;
+								 $field_index=$form_data1->field_index;
+								 $searchelement=$form_data1->searchelement;
 								 $someArray = json_decode($form_data1->raw_data, true);
 								 
 		
@@ -3361,7 +3286,7 @@ class Project_controller  extends CI_Controller {
 							 if($subtype=='view_list')
 							 {			
 								 $DataFields_name='';
-								 $req_id=$id=mysql_real_escape_string($form_data1->id);						
+								 $req_id=$id=$form_data1->id;						
 								
 								 $output=array();
 
@@ -3680,7 +3605,7 @@ class Project_controller  extends CI_Controller {
 								if($subtype=='view_list')
 								{			
 									$DataFields_name='';
-									$req_id=$id=mysql_real_escape_string($form_data1->id);	
+									$req_id=$id=$form_data1->id;	
 									$output=array();
 									$setting=$this->projectmodel->user_wise_setting(); 
 								

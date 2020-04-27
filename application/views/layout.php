@@ -1,8 +1,10 @@
 <?php 
-   $sql="select * from company_details where id=1 ";
+  /* $sql="select * from company_details where id=1 ";
 	$rowrecord = $this->projectmodel->get_records_from_sql($sql);	
 	foreach ($rowrecord as $fld)
-	{$NAME =$fld->NAME ;}
+	{$NAME =$fld->NAME ;}*/
+	
+	$NAME='ATA ERP';
 ?>
 
 

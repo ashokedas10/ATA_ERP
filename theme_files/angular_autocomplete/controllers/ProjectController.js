@@ -11,9 +11,9 @@
 
 //var domain_name="http://astraford.co.in/erp_test/";
 
-var domain_name="http://ataproject.co.in/ataerp/";
+//var domain_name="http://ataproject.co.in/ataerp/";
 
-//var domain_name="http://localhost/pharma_management/astaford_erp/";
+var domain_name="http://localhost/pharma_management/astaford_erp/";
 
 var query_result_link=domain_name+"Accounts_controller/query_result/";
 //************************ACCOUNT RECEIVE START*****************************************//

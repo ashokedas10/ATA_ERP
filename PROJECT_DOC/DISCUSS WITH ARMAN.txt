@@ -1,0 +1,315 @@
+awaz aa rhi hai?
+no
+ok dikhao
+
+next screen po approve
+
+
+SELECT PO ---AND APPROVE OR redirect to other user
+
+
+Ok ??
+ok
+
+next grn entry
+
+select the po no ..will populate all the values
+
+can user enter chart of account combination here ??
+
+ideally it should come from receiving option setup
+
+receiving option setup ??? which is that
+
+
+In this setup you can define few options for goods receving and it varies from organization to organization I can share screenshot with you
+
+on the basis of this setting user can recv the item ??
+
+Yes
+
+
+ok send the file ..
+
+
+as of now may i enter recv qnty manually ??
+Yes that user can enter manually
+
+
+
+is there any need of batch no ??
+
+Yes but what if supplier has sent same item in 2 batches?
+
+then what to do ??
+
+i ha screen to enter batch details for each line
+
+even expiry date also you have to enter
+
+
+
+ok...then if i allow to enter new line with diff batch no ...will it solve ?
+
+Yes
+
+with expiry date ....but optional
+
+Yes bith batch no and expiry date will be optional
+
+ok
+
+
+
+is there any changes at grn ??
+
+add subinventory
+
+
+i have given this fld at requisition level...
+may i take it from there ??
+hat if po is created without requisition?
+
+
+ok ...got it.
+
+
+anything else ??
+
+other things are looking ok
+
+going to next screen 
+
+INSPECTION FORM 
+
+
+this is looking ok
+
+nxt screen invoice create
+
+
+operating unit and supplier 
+
+select...match button give u the mathing po
+
+ok but if there are multiple grn's agains 1 supplier or 1 po then?
+
+GNR no should be at line level not at header level
+
+
+
+multiple grn with single po ???
+
+s that can happen
+
+Suppose 50% material they have sent and they will sent 50% later
+
+ok then ....i will aggregate all the grn and display at qnty ??
+
+
+item wise sum 
+
+
+Then how you will track that you have paid against which GRN?
+
+
+ok...
+
+i am creating grn against po....
+
+...ok..
+
+
+if i give option to select multiple grn at invoice level...then ??
+
+Yes thats what I am asking for
+
+
+what u suggest ?
+
+Shift GRN no field at line level and also u can give match option for GRN
+
+ok....then 
+
+
+otherwise is it ok ??
+
+Yes looking fine
+
+
+i have attached tax section at line level 
+
+how it work ??
+with accounts ??
+
+
+may i create a tax master and attach tax slab ..with individual
+product..?? so that whenever the product u will choose tax come with rate ?
+
+Regarding tax u can ask Arup da he can tell you better on this
+
+ok..now i m saving the invoice
+
+ok
+
+Item total at footer
+
+ok
+
+now payment
+
+
+after selecting the operating unit and supplier ...the unpaid invoice will show at footer
+ok
+
+
+u can pay in full or part
+
+
+total due amount 
+
+from which account payment will be made?
+
+???
+
+ok fro all invoices?
+
+
+i have not set any criteria
+...is there any setting require ??
+
+ No if they want to make payment from different bank accounts then what?
+
+ok...they can choose bank from lov
+
+Bank can change according to line?
+
+invoice wise ???
+
+yes
+
+but if i pay multiple invoice in single payment 
+..in that case i will pay it from a single cheque
+
+then what is the need 
+
+ok that is ok
+
+
+
+
+account no is not comming with bank ...i will solve it...
+
+
+now paying
+
+
+NOW PAYMENT ENTRY HAS DONE...DUE IS 6000
+SHOWING
+
+
+NEXT TIME WHEN I PAY DUE 6000...
+
+it will be the 2nd pay for the invoice..
+
+ok...
+
+is the any thing to do in this portin ?
+
+Payment method?
+
+
+mean ?? neft/cheque/cash ??
+
+Yes
+
+forgot to enter the field
+ok
+
+other ??
+Everything looks fine
+
+from where we can see the accounting entry?
+
+COMPLETED THE P2P PROCESS ..HERE...
+
+Ok for whole P2Pngle report ok
+
+is it ok ??
+
+
+yes
+
+may i go for testing with real data ...??
+i have to give it to sayan for testing with real data..
+
+may i ??
+Yes you can...
+
+ok..
+
+
+tommorow...i will give u the demo for opm and order 2 cash
+
+??
+ok ??
+ok I will tell you the timing....ok ..
+
+some feedback regard this portion ..if any ??
+
+What if invoice and payment is not made?
+will it show accounting only for GRN?
+
+yes
+
+it will show
+
+whenever the grn done it will hit the account
+
+is it ok ??
+what if user madechanges in accounts at grn level?
+
+it will show changes here?
+yes
+
+
+you have not developed GL module yet right?
+
+no
+
+ok till now it is ok
+
+what is gl module ???
+
+iwl
+
+General Ledger
+
+next time i will listen...
+ok
+
+see u tommorow ??
+
+ok
+
+bi then gn
+g
+
+
+MAY I SHOW U THE ACCOUNTS ....FOR THESE TRANSACTION ??
+
+
+Kal dekhte hai?
+
+ya dikha do accounts
+
+ok
+
+i have just created 2 report 
+
+
+
+
+
+
+

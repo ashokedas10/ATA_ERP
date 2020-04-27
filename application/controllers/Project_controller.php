@@ -126,56 +126,68 @@ class Project_controller  extends CI_Controller {
 					// print_r($url);
 					// echo '</pre>';
 
-				$form_name='requisition';
-				$id=0;
-				$setting=$this->projectmodel->user_wise_setting(); 
+				// $form_name='requisition';
+				// $id=0;
+				// $setting=$this->projectmodel->user_wise_setting(); 
 
-				$indx=0;
-			  $form_id=79;
-				$whr=" id=".$form_id;	
-				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
-				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-				$rs[$indx]['section_type']=$section_type;	
-				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-				$rs[$indx]['fields']=$DataFields;
-				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
-
-
-				$indx=1;
-			  $form_id=80;
-			  $invoice_summary_id=$id;
-				$whr=" id=".$form_id;	
-				$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
-				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-				$rs[$indx]['section_type']='GRID_ENTRY';		
-				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-				$rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-				$rs[$indx]['fields']=$DataFields.$setting['segments'];
-				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where invoice_summary_id=".$invoice_summary_id;
+				// $indx=0;
+			  // $form_id=79;
+				// $whr=" id=".$form_id;	
+				// $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+				// $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				// $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				// $rs[$indx]['section_type']=$section_type;	
+				// $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				// $rs[$indx]['fields']=$DataFields;
+				// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
 
 
-				$indx=2;
-			  $form_id=79;
-				$whr=" id=".$form_id;	
-				$DataFields=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
-				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-				$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-				$rs[$indx]['section_type']=$section_type;	
-				$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-				$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-				$rs[$indx]['fields']=$DataFields;
-				$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+				// $indx=1;
+			  // $form_id=80;
+			  // $invoice_summary_id=$id;
+				// $whr=" id=".$form_id;	
+				// $DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);
+				// $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				// $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				// $rs[$indx]['section_type']='GRID_ENTRY';		
+				// $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				// $rs[$indx]['id']=0;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				// $rs[$indx]['fields']=$DataFields.$setting['segments'];
+				// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where invoice_summary_id=".$invoice_summary_id;
 
-				$form_structure=$this->FrmRptModel->create_form($rs,$id);
-				$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
-				$form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
+
+				// $indx=2;
+			  // $form_id=79;
+				// $whr=" id=".$form_id;	
+				// $DataFields=$this->projectmodel->GetSingleVal('DataFields2','frmrpttemplatehdr',$whr);	
+				// $TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				// $section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+				// $rs[$indx]['section_type']=$section_type;	
+				// $rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				// $rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				// $rs[$indx]['fields']=$DataFields;
+				// $rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where id=".$id;
+
+				// $form_structure=$this->FrmRptModel->create_form($rs,$id);
+				// $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+				// $form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 				
+				$form_id=8;
+				$whr=" id=".$form_id;	
+				$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
+				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+				$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
+				$id=11;	
+				$rs[0]['section_type']='GRID_ENTRY';	
+				$rs[0]['frmrpttemplatehdr_id']=$form_id;
+				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']=$TableName;
+				$rs[0]['fields']=$GridHeader;
+				$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where ".$WhereCondition;					
+				$resval=$this->FrmRptModel->create_report($rs,$id); 
 
 				 echo '<pre>';
-				 print_r($form_structure);
+				 print_r($resval);
 				 echo '</pre>';
 		
 				 	
@@ -201,7 +213,7 @@ class Project_controller  extends CI_Controller {
 			$form_name=$form_data1->form_name;	//PARAMETERS		
 			$subtype=$form_data1->subtype;
 
-			$setting=$this->projectmodel->user_wise_setting(); 
+			 
 			
 
 						 //CHART OF ACCOUNT NEW
@@ -335,6 +347,10 @@ class Project_controller  extends CI_Controller {
 											}
 
 											$return_data['id_header']=$main_id;
+
+											//parent_id=".$header_id." and
+											$sql="delete from tbl_chart_of_accounts where  code=0 and title=0 and trantype='CHART_OF_ACCOUNT_SEGMENT' ";
+											$this->db->query($sql);
 						
 											header('Access-Control-Allow-Origin: *');
 											header("Content-Type: application/json");
@@ -425,18 +441,6 @@ class Project_controller  extends CI_Controller {
 
 											$form_data=json_decode($form_data1->raw_data);
 											$segment_id=$form_data1->activity_id;
-
-											// $whr=" id=".$opm_define_operations_activity_details_id;	
-											// $opm_define_operations_summary_id=
-											// $this->projectmodel->GetSingleVal('opm_define_operations_summary_id','opm_define_operations_activity_details',$whr);	
-
-
-
-											//$save_details2['test_data']=$form_data1->raw_data;
-											//$save_details2['test_data']=json_decode(json_encode($form_data1->raw_data), 
-											//	true );
-											//$this->projectmodel->save_records_model(1,'test_table',$save_details2);
-
 											$headers=json_decode(json_encode($form_data[0]->header), true );
 											$header_scount=sizeof($headers);
 											$id_header=0;	
@@ -501,6 +505,10 @@ class Project_controller  extends CI_Controller {
 
 
 											$return_data['id_header']=$header_id;
+
+											//parent_id=".$header_id." and 
+											$sql="delete from tbl_chart_of_accounts where code=0 and title=0 and trantype='CHART_OF_ACCOUNT_VALUESET' ";
+											$this->db->query($sql);
 						
 											header('Access-Control-Allow-Origin: *');
 											header("Content-Type: application/json");
@@ -513,12 +521,9 @@ class Project_controller  extends CI_Controller {
 
 								if($subtype=='MAIN_GRID')
 								{
-								
-
-
 									$indx=0;
 									$form_id=75;
-									$id=0;	
+									$id=11;	
 									$whr=" id=".$form_id;	
 									$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
 									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
@@ -529,7 +534,8 @@ class Project_controller  extends CI_Controller {
 									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
 									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
 									$rs[$indx]['fields']=$GridHeader;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." ";
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
+									 where ".$WhereCondition;
 									$resval=$this->FrmRptModel->create_report($rs,$id); 
 
 									// $id=33;	
@@ -554,7 +560,8 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='requisition')
 						{
-											
+							
+							 $setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 								
@@ -614,7 +621,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='requisition_approve')
 						{
-											
+						  	$setting=$this->projectmodel->user_wise_setting();				
 								if($subtype=='view_list')
 								{			
 									
@@ -680,7 +687,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='po_entry')
 						{
-											
+								$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -779,7 +786,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='po_approve')
 						{
-											
+							  $setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -877,7 +884,7 @@ class Project_controller  extends CI_Controller {
 					
 						if($form_name=='receipt_of_goods')
 						{
-											
+							$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -981,7 +988,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='INSPECTION')
 						{
-											
+							$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -1089,7 +1096,7 @@ class Project_controller  extends CI_Controller {
 						
 						if($form_name=='purchase_invoice')
 						{
-
+							 $setting=$this->projectmodel->user_wise_setting();
 								if($subtype=='view_list')
 								{			
 									
@@ -1210,7 +1217,7 @@ class Project_controller  extends CI_Controller {
 
 									$header_index=$form_data1->header_index;
 									$field_index=$form_data1->field_index;
-									$searchelement=mysql_real_escape_string($form_data1->searchelement);
+									$searchelement=$form_data1->searchelement;
 									$someArray = json_decode($form_data1->raw_data, true);
 
 									if($searchelement=='parent_id')
@@ -1225,7 +1232,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='payment_rcv')
 						{
-											
+						  	$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -1436,7 +1443,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='SALES_ORDER')
 						{
-											
+								$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -1571,7 +1578,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='SALES_ORDER_APPROVE')
 						{
-											
+							  $setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -1643,7 +1650,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='DESPATCH_GOODS')
 						{
-											
+							  $setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -1823,7 +1830,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='sale_invoice')
 						{
-
+							  $setting=$this->projectmodel->user_wise_setting();
 								if($subtype=='view_list')
 								{			
 									
@@ -2053,7 +2060,7 @@ class Project_controller  extends CI_Controller {
 
 						if($form_name=='receive_amt')
 						{
-											
+								$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									
@@ -2287,7 +2294,7 @@ class Project_controller  extends CI_Controller {
 					//opm_operation_summary
 					if($form_name=='opm_operation_summary')
 					{
-							
+						$setting=$this->projectmodel->user_wise_setting();	
 						if($subtype=='view_list')
 						{
 
@@ -2647,7 +2654,7 @@ class Project_controller  extends CI_Controller {
 					//opm_routing
 					if($form_name=='opm_routing')
 					{
-							
+					  	$setting=$this->projectmodel->user_wise_setting();
 							if($subtype=='view_list')
 							{
 
@@ -2817,7 +2824,7 @@ class Project_controller  extends CI_Controller {
 					//opm_formula			
 					if($form_name=='opm_formula')
 					{
-							
+								$setting=$this->projectmodel->user_wise_setting();
 								if($subtype=='view_list')
 								{
 
@@ -2994,7 +3001,7 @@ class Project_controller  extends CI_Controller {
 					//opm_receipe
 					if($form_name=='opm_receipe')
 					{
-							
+							$setting=$this->projectmodel->user_wise_setting();
 							if($subtype=='view_list')
 							{
 
@@ -3134,7 +3141,7 @@ class Project_controller  extends CI_Controller {
 
 					if($form_name=='batch_create_final')
 					{
-										
+							$setting=$this->projectmodel->user_wise_setting();			
 							if($subtype=='view_list')
 							{			
 								
@@ -3282,7 +3289,7 @@ class Project_controller  extends CI_Controller {
 					
 					 if($form_name=='PTOP_REPORT')
 					 {
-										 
+								$setting=$this->projectmodel->user_wise_setting();			 
 							 if($subtype=='view_list')
 							 {			
 								 $DataFields_name='';
@@ -3601,7 +3608,7 @@ class Project_controller  extends CI_Controller {
 					
 						if($form_name=='OTOC_REPORT')
 						{
-											
+								$setting=$this->projectmodel->user_wise_setting();			
 								if($subtype=='view_list')
 								{			
 									$DataFields_name='';
@@ -4455,13 +4462,15 @@ class Project_controller  extends CI_Controller {
 			$form_id=$form_data1->form_id;
 			$subtype=$form_data1->subtype;
 
-			$setting=$this->projectmodel->user_wise_setting(); 
+			if($form_id<>8 && $form_id<>27 && $form_id<>75 && $form_id<>14 && $form_id<>31
+			 && $form_id<>32 && $form_id<>40  && $form_id<>10)
+			{$setting=$this->projectmodel->user_wise_setting(); }
+			
 			
 			if($subtype=='view_list')
 			{			
 					
-					$setting=$this->projectmodel->user_wise_setting(); 
-					
+									
 					$id=$form_data1->id;	
 					$whr=" id=".$form_id;	
 					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
@@ -4472,9 +4481,8 @@ class Project_controller  extends CI_Controller {
 					$rs[0]['fields']=$DataFields;
 					$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where id=".$id;
 
-
 					$form_structure=$this->FrmRptModel->create_form($rs,$id);
-			  		$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+			  	$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 
 
 			  		//Setting 
@@ -4589,7 +4597,7 @@ class Project_controller  extends CI_Controller {
 				$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
 				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
 				$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
-				$id=33;	
+				$id=11;	
 				$rs[0]['section_type']='GRID_ENTRY';	
 				$rs[0]['frmrpttemplatehdr_id']=$form_id;
 				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']=$TableName;

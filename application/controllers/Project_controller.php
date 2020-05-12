@@ -173,22 +173,41 @@ class Project_controller  extends CI_Controller {
 				// $form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 				// $form_structure=$this->projectmodel->other_setting($form_structure,$form_name);
 				
-				$form_id=8;
-				$whr=" id=".$form_id;	
-				$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
-				$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-				$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
-				$id=11;	
-				$rs[0]['section_type']='GRID_ENTRY';	
-				$rs[0]['frmrpttemplatehdr_id']=$form_id;
-				$rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']=$TableName;
-				$rs[0]['fields']=$GridHeader;
-				$rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where ".$WhereCondition;					
-				$resval=$this->FrmRptModel->create_report($rs,$id); 
+									
+				// 					$segment_id=14;
+				// 					$indx=0;
+				// 					$form_id=78;
+				// 					//$segment_id=$form_data1->id;	
 
-				 echo '<pre>';
-				 print_r($resval);
-				 echo '</pre>';
+				// 					$whr=" id=".$segment_id." and trantype='CHART_OF_ACCOUNT_SEGMENT'";	
+				// 					$main_id=$this->projectmodel->GetSingleVal('parent_id','tbl_chart_of_accounts',$whr);
+
+
+				// 					$count=0;
+				// 					$records="select count(*) cnt from tbl_chart_of_accounts where  parent_id=".$segment_id;
+				// 					$records = $this->projectmodel->get_records_from_sql($records);	
+				// 					foreach ($records as $record)
+				// 					{$count=$record->cnt;}	
+											
+				// 						$id=$count;
+
+
+				// 					$whr=" id=".$form_id;	
+				// 					$DataFields=$this->projectmodel->GetSingleVal('DataFields','frmrpttemplatehdr',$whr);	
+				// 					$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+										
+				// 					$rs[$indx]['section_type']='GRID_ENTRY';
+				// 					$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+				// 					$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+				// 					$rs[$indx]['fields']=$DataFields;
+				// 					$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$segment_id;
+									
+				// 					$form_structure=$this->FrmRptModel->create_form($rs,$id);
+				// 					$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+
+				//  echo '<pre>';
+				//  print_r($form_structure);
+				//  echo '</pre>';
 		
 				 	
 
@@ -196,12 +215,95 @@ class Project_controller  extends CI_Controller {
 								// print_r($output);
 								// echo '</pre>';
 
+							//	$this->set_field_qualifier(14);
+							$cond=14;
+						 	$arraindx=0;
+						// $acc_tran_details['list_of_values'][$arraindx]['id']='';			
+						// $acc_tran_details['list_of_values'][$arraindx]['code']='';
+						// $acc_tran_details['list_of_values'][$arraindx]['title']='';	
+						// $acc_tran_details['list_of_values'][$arraindx]['description']='';
+						// $acc_tran_details['list_of_values'][$arraindx]['acc_type']=0;		
+						// $acc_tran_details['list_of_values'][$arraindx]['parent_data_id']='';								
+						// $acc_tran_details['list_of_values'][$arraindx]['field_qualifier']='';
+						// $acc_tran_details['list_of_values'][$arraindx]['status']='';		
 
+					// 	$rsval=	$this->view_valueset_tree($cond,$arraindx);
+
+					// 	$JSON = json_encode(array_values($rsval));
+					// 	$jsonIterator = new RecursiveIteratorIterator(
+					// 	new RecursiveArrayIterator(json_decode($JSON, TRUE)),
+					// 	RecursiveIteratorIterator::SELF_FIRST);
+					// 	$mainindx=0;
+					// 	foreach ($jsonIterator as $key => $val) 
+					// 	{
+								
+					// 			if(!is_array($val)) 
+					// 			{
+					// 					if($key == "id") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}		
+					// 					if($key == "code") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+					// 					if($key == "title") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+					// 					if($key == "description") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+					// 					if($key == "field_qualifier") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}		
+					// 					if($key == "status") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}									
+					// 					if($key == "acc_type") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+					// 					if($key == "parent_data_id") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;$mainindx=$mainindx+1;}			
+					// 			}			
+					// }
+
+
+					// 			echo '<pre>';
+					// 			print_r($rsval);
+					// 			echo '</pre>';
+
+					  // $codes='5101000';
+						// $parent_data_id=2191;
+						// $sql="update tbl_chart_of_accounts set parent_data_id=".$parent_data_id." where code in (".$codes.")";
+						// $this->db->query($sql);
+
+
+						// $codes='5101001,5101002,5101994,5101995,5101996,5101997,5101998,5101999';
+						// $parent_data_id=2192;
+						// $sql="update tbl_chart_of_accounts set parent_data_id=".$parent_data_id." where code in (".$codes.")";
+						// $this->db->query($sql);
+
+
+
+					
+						
 
 
 	}	
 
-	
+	public function view_valueset_tree($id_segment=0,$arraindx)
+	{
+
+		$output=array();
+			
+		$records="select * FROM tbl_chart_of_accounts where   parent_data_id=".$id_segment."
+	  and trantype='CHART_OF_ACCOUNT_VALUESET' ";						
+		$records = $this->projectmodel->get_records_from_sql($records);	
+		foreach ($records as $record)
+		{	
+		//	echo $arraindx.'<br>';
+			$sub_array=array();
+
+			$sub_array['id']=$record->id;
+			$sub_array['parent_id']=$record->parent_id;			
+			$sub_array['code']=$record->code;		
+			$sub_array['title']=$record->title;						
+			$sub_array['description']=$record->description;
+			$sub_array['acc_type']=$record->acc_type;
+			$sub_array['parent_data_id']=$record->parent_data_id;
+			$sub_array['field_qualifier']=$record->field_qualifier;
+			$sub_array['status']=$record->status;
+
+			$sub_array['nodes']=array_values($this->view_valueset_tree($record->id,$arraindx+1));
+			$output[]=$sub_array;
+		}
+		return $output;
+
+	}
+
 
 
 	public function experimental_form($datatype='')
@@ -351,6 +453,40 @@ class Project_controller  extends CI_Controller {
 											//parent_id=".$header_id." and
 											$sql="delete from tbl_chart_of_accounts where  code=0 and title=0 and trantype='CHART_OF_ACCOUNT_SEGMENT' ";
 											$this->db->query($sql);
+
+											//CREATE ROOT ELEMENT AGAINST SEGMENT AT VALUESET
+											
+											$records="select * FROM tbl_chart_of_accounts where  parent_id=".$main_id."
+											and trantype='CHART_OF_ACCOUNT_SEGMENT' ";						
+											 $records = $this->projectmodel->get_records_from_sql($records);	
+											 foreach ($records as $record)
+											 {								
+												
+												 $sub_array=array();
+												 $sub_array['parent_id']=$record->id;
+												 $sub_array['parent_data_id']=$record->id;
+
+												 $sub_array['code']=$record->code;
+												 $sub_array['title']=$record->title.' (Root)';
+												 $sub_array['description']=$record->description;
+												 $sub_array['acc_type']=157;												 
+												 $sub_array['trantype']='CHART_OF_ACCOUNT_VALUESET';
+												 $sub_array['status']='ACTIVE';
+												 
+												 	$id='';
+												  $rss="select * FROM tbl_chart_of_accounts where  parent_id=".$record->id."
+												  and parent_data_id=".$record->id." and trantype='CHART_OF_ACCOUNT_VALUESET' ";						
+													$rss = $this->projectmodel->get_records_from_sql($rss);	
+													foreach ($rss as $rs)
+													{	
+														$id=$rs->id;
+													}	
+
+													$this->projectmodel->save_records_model($id,'tbl_chart_of_accounts',$sub_array);
+
+											 }
+
+
 						
 											header('Access-Control-Allow-Origin: *');
 											header("Content-Type: application/json");
@@ -360,18 +496,49 @@ class Project_controller  extends CI_Controller {
 
 								}	
 
+								if($subtype=='MAIN_GRID')
+								{
+									$indx=0;
+									$form_id=75;
+									$id=11;	
+									$whr=" id=".$form_id;	
+									$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
+									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
+									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
+									$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
+
+									$rs[$indx]['section_type']='GRID_ENTRY';
+									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
+									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
+									$rs[$indx]['fields']=$GridHeader;
+									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
+									 where ".$WhereCondition;
+									$resval=$this->FrmRptModel->create_report($rs,$id); 
+
+									// $id=33;	
+									// $rs[0]['section_type']='GRID_ENTRY';	
+									// $rs[0]['frmrpttemplatehdr_id']=41;
+									// $rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
+									// $rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
+									// $rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
+									// $resval=$this->FrmRptModel->create_report($rs,$id); 
+
+								}
+
+
+								/*
 								if($subtype=='VALUE_SET_LIST')
 								{
 
 									$indx=0;
-										$form_id=78;
-										$segment_id=$form_data1->id;	
+									$form_id=78;
+									$segment_id=$form_data1->id;	
 
-										$whr=" id=".$segment_id." and trantype='CHART_OF_ACCOUNT_SEGMENT'";	
+									$whr=" id=".$segment_id." and trantype='CHART_OF_ACCOUNT_SEGMENT'";	
 									$main_id=$this->projectmodel->GetSingleVal('parent_id','tbl_chart_of_accounts',$whr);
 
 
-										$count=0;
+									$count=0;
 									$records="select count(*) cnt from tbl_chart_of_accounts where  parent_id=".$segment_id;
 									$records = $this->projectmodel->get_records_from_sql($records);	
 									foreach ($records as $record)
@@ -391,7 +558,7 @@ class Project_controller  extends CI_Controller {
 									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." where parent_id=".$segment_id;
 									
 									$form_structure=$this->FrmRptModel->create_form($rs,$id);
-											$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
+									$form_structure=$this->FrmRptModel->re_arrange_input_index($form_structure);
 
 
 
@@ -402,18 +569,7 @@ class Project_controller  extends CI_Controller {
 										and acc_type=157 and parent_id=".$segment_id;
 										$datafields_array =$this->projectmodel->get_records_from_sql($sql);
 										$form_structure["header"][0]['fields'][$i]['parent_data_id']['datafields']=json_decode(json_encode($datafields_array), true);	
-																			
-										// $whr=" id=".
-										// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue_id'];	
-										// $form_structure["header"][0]['fields'][$i]['parent_data_id']['Inputvalue']=$this->projectmodel->GetSingleVal('title','tbl_chart_of_accounts',$whr);																		
-										
-										// $sql="select  id FieldID,FieldVal  from frmrptgeneralmaster where  status='CHART_OF_AC_QUALIFIER'";
-										// $datafields_array =$this->projectmodel->get_records_from_sql($sql);
-										// $form_structure["header"][1]['fields'][$i]['field_qualifier']['datafields']=json_decode(json_encode($datafields_array), true);
-
-										// $whr=" id=".$form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue_id'];	
-										// $form_structure["header"][1]['fields'][$i]['field_qualifier']['Inputvalue']=$this->projectmodel->GetSingleVal('FieldVal','frmrptgeneralmaster',$whr);		
-
+												
 
 									}
 
@@ -518,37 +674,7 @@ class Project_controller  extends CI_Controller {
 
 								}	
 
-
-								if($subtype=='MAIN_GRID')
-								{
-									$indx=0;
-									$form_id=75;
-									$id=11;	
-									$whr=" id=".$form_id;	
-									$GridHeader=$this->projectmodel->GetSingleVal('GridHeader','frmrpttemplatehdr',$whr);	
-									$TableName=$this->projectmodel->GetSingleVal('TableName','frmrpttemplatehdr',$whr);	
-									$section_type=$this->projectmodel->GetSingleVal('Type','frmrpttemplatehdr',$whr);	
-									$WhereCondition=$this->projectmodel->GetSingleVal('WhereCondition','frmrpttemplatehdr',$whr);	
-
-									$rs[$indx]['section_type']='GRID_ENTRY';
-									$rs[$indx]['frmrpttemplatehdr_id']=$form_id;
-									$rs[$indx]['id']=$id;	$rs[$indx]['parent_id']='';	$rs[$indx]['TableName']=$TableName;
-									$rs[$indx]['fields']=$GridHeader;
-									$rs[$indx]['sql_query']="select ".$rs[$indx]['fields']." from ".$rs[$indx]['TableName']." 
-									 where ".$WhereCondition;
-									$resval=$this->FrmRptModel->create_report($rs,$id); 
-
-									// $id=33;	
-									// $rs[0]['section_type']='GRID_ENTRY';	
-									// $rs[0]['frmrpttemplatehdr_id']=41;
-									// $rs[0]['id']=$id;	$rs[0]['parent_id']='';	$rs[0]['TableName']='invoice_summary';
-									// $rs[0]['fields']='id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_status,req_currency_id,req_total';
-									// $rs[0]['sql_query']="select ".$rs[0]['fields']." from ".$rs[0]['TableName']." where status='SALES_ORDER'";		
-									// $resval=$this->FrmRptModel->create_report($rs,$id); 
-
-								}
-
-							
+								*/
 							
 							}
 
@@ -5204,16 +5330,22 @@ class Project_controller  extends CI_Controller {
 
 	}
 
+
+
 public function Master_upload()
 {
 	//$this->accounts_model->trn_rcv_expense_table_update('Receive',0);	
 	//$this->accounts_model->trn_rcv_expense_update('RECEIVE',13889);
 	
-	$this->login_validate();
+	//$this->login_validate();
 	$data=array();
 	//define('SITE_ROOT', dirname(__FILE__));
 	//echo $file_path = SITE_ROOT;	
 	
+	//$this->comp_struc_model->UPDATE_MASTER('ACCOUNTS');
+	$this->comp_struc_model->UPDATE_MASTER('PRODUCT');
+	$this->comp_struc_model->UPDATE_MASTER('COST_CENTER');
+	//echo 'test....';
 		
 	$data['DisplayGrid']='NO';
 	$data['msgdelete']="";
@@ -5244,15 +5376,14 @@ public function Master_upload()
 			$cells = $worksheet['cells']; // the 1st row are usually the field's name
 
 			//DOCTOR_MASTER -SECTION
-			if($frmrpttemplatehdrID=='DOCTOR_MASTER')
+			if($frmrpttemplatehdrID=='DATA_MASTER')
 			{	
 				//temporary UPLOAD
-				if($temp_original=='TEMPORARY')
+				if($temp_original=='FINAL')
 				{
-					$COLUMNS=11;//GENETICALAB
-					//$COLUMNS=12;//UNITED LAB
+					$COLUMNS=8;
 					
-					$this->db->query("delete from import_doctor_master");
+					$this->db->query("delete from data_import");
 					for ($row = 2; $row <= $highestRow; ++$row) 
 					{			
 						for ($ColNo = 1; $ColNo <= $COLUMNS;  $ColNo++)
@@ -5271,194 +5402,30 @@ public function Master_upload()
 						}
 						
 						//INSERT SECTION
-						 $this->projectmodel->save_records_model('',
-						 'import_doctor_master',$save_hdr);
+						// $this->projectmodel->save_records_model('','data_import',$save_hdr);
 					}
 
-					$this->db->query("delete from import_doctor_master 
-					where SVLNO=0 and DOCNAME='0'");
+					// $this->db->query("delete from import_doctor_master 
+					// where SVLNO=0 and DOCNAME='0'");
 				
 				}
 
 				//FINAL UPLOAD
-				if($temp_original=='FINAL')
-				{
-					//$this->comp_struc_model->delete_invalid_location();
-					$this->comp_struc_model->update_HQID_FIELDID('DOCTOR');
-					$this->comp_struc_model->UPDATE_MASTER('DOCTOR');
-					$this->comp_struc_model->update_teritory();		
+				// if($temp_original=='FINAL')
+				// {
+				// 	//$this->comp_struc_model->delete_invalid_location();
+				// //	$this->comp_struc_model->update_HQID_FIELDID('DOCTOR');
+				// //	$this->comp_struc_model->UPDATE_MASTER('DOCTOR');
+				// //	$this->comp_struc_model->update_teritory();		
 					
-					//FOR UNITED LAB (LINK CHEMIST
-					//$this->comp_struc_model->UPDATE_MASTER('RETAILER');
-				}
+				// 	//FOR UNITED LAB (LINK CHEMIST
+				// 	//$this->comp_struc_model->UPDATE_MASTER('RETAILER');
+				// }
 			
 			}//DOCTOR_MASTER -SECTION
 
 
-			//RETAILER_MASTER -SECTION
-			if($frmrpttemplatehdrID=='RETAILER_MASTER')
-			{
-									
-					//temporary UPLOAD
-					if($temp_original=='TEMPORARY')
-					{
-						$COLUMNS=6;//GENETICALAB
-						//$COLUMNS=12;//UNITED LAB
-						$this->db->query("delete from import_retailer_master");
-						for ($row = 2; $row <= $highestRow; ++$row) 
-						{	
-							for ($ColNo = 1; $ColNo <=$COLUMNS;  $ColNo++) 
-							{	
-								if( isset($cells[$row][$ColNo]) )
-								{
-									$header_name =$cells[1][$ColNo];								
-									$save_hdr[$header_name]=$cells[$row][$ColNo];
-								}
-								else
-								{								
-									$header_name =$cells[1][$ColNo];								
-									$save_hdr[$header_name]='0';							
-								}
-							}
-							//INSERT SECTION
-							$this->projectmodel->save_records_model('',
-							'import_retailer_master',$save_hdr);
-						}
-
-						$this->db->query("delete from import_retailer_master 
-						where CODE='0' and NAME='0'");
-
-					}
-
-					//FINAL UPLOAD
-					if($temp_original=='FINAL')
-					{
-						//$this->comp_struc_model->delete_invalid_location();
-						$this->comp_struc_model->update_HQID_FIELDID('RETAILER');
-						$this->comp_struc_model->UPDATE_MASTER('RETAILER');
-						$this->comp_struc_model->update_teritory();		
-						//$this->comp_struc_model->delete_invalid_location();
-					}
-					
-			
-			}//RETAILER_MASTER -SECTION
-			
-			
-			//STCKIST -SECTION
-			if($frmrpttemplatehdrID=='STOCKIST_MASTER')
-			{
-				
-				$COLUMNS=5;//GENETICALAB
-				//$COLUMNS=12;//UNITED LAB
-				$this->db->query("delete from import_retailer_master");
-				for ($row = 2; $row <= $highestRow; ++$row) 
-				{	
-					for ($ColNo = 1; $ColNo <=$COLUMNS;  $ColNo++) 
-					{	
-						if( isset($cells[$row][$ColNo]) )
-						{
-							$header_name =$cells[1][$ColNo];								
-							$save_hdr[$header_name]=$cells[$row][$ColNo];
-						}
-						else
-						{								
-							$header_name =$cells[1][$ColNo];								
-							$save_hdr[$header_name]='0';							
-						}
-					}
-					//INSERT SECTION
-					//print_r($save_hdr);
-					//echo '<br>';
-					$this->projectmodel->save_records_model('',
-					'stockist',$save_hdr);
-				}
-
-				$this->db->query("delete from stockist 
-				where retail_code='0' and retail_name='0'");
-
-					
-			
-			}//STOCKIST_MASTER -SECTION
-						
-			
-			//FARE CHART -SECTION
-			if($frmrpttemplatehdrID=='FARECHART')
-			{
-									
-					//temporary UPLOAD
-					if($temp_original=='TEMPORARY')
-					{
-						$COLUMNS=6;//GENETICALAB
-						//$COLUMNS=12;//UNITED LAB
-						$this->db->query("delete from tbl_expense_map");
-						for ($row = 2; $row <= $highestRow; ++$row) 
-						{	
-							for ($ColNo = 1; $ColNo <=$COLUMNS;  $ColNo++) 
-							{	
-								if( isset($cells[$row][$ColNo]) )
-								{
-									$header_name =$cells[1][$ColNo];								
-									$save_hdr[$header_name]=$cells[$row][$ColNo];
-								}
-								else
-								{								
-									$header_name =$cells[1][$ColNo];								
-									$save_hdr[$header_name]='0';							
-								}
-							}
-							//INSERT SECTION
-							$this->projectmodel->save_records_model('','tbl_expense_map',$save_hdr);
-						}
-					}
-			}//FARE CHART -SECTION
-
-			//GST_TEST
-				if($frmrpttemplatehdrID=='GST_TEST')
-				{	
-
-					//echo 'tttttt';
-					// $excel2 = PHPExcel_IOFactory::createReader('Excel2007');
-					// $excel2 = $excel2->load('./uploads/GSTR1.xlsx');
-					// $excel2->setLoadAllSheets();
-					// $excel2->setActiveSheetIndex(0);
-					// $excel2->getActiveSheet()->setCellValue('C6', '4')
-					// ->setCellValue('C7', '5')->setCellValue('C8', '6')->setCellValue('C9', '7');
-					
-					// $excel2->setActiveSheetIndex(1);
-					// $excel2->getActiveSheet()->setCellValue('A7', '4')
-					// ->setCellValue('C7', '5');
-
-					// $objWriter = PHPExcel_IOFactory::createWriter($excel2, 'Excel2007');
-					// $objWriter->save('GSTR1.xlsx');
-
-
-					$excel2 = PHPExcel_IOFactory::createReader('Excel5');
-					$excel2 = $excel2->load('./uploads/upload.xls'); // Empty Sheet
-					$excel2->setActiveSheetIndex(0);
-					$excel2->getActiveSheet(0)->setCellValue('C6', '4')
-						->setCellValue('C7', '5')
-						->setCellValue('C8', '6')       
-						->setCellValue('C9', '7');
-
-
-
-
-					$filename='GST.xls'; //save our workbook as this file name
-					header('Content-Type: application/vnd.ms-excel'); //mime type
-					header('Content-Disposition: attachment;filename="'.$filename.'"'); 
-					//tell browser what's the file name
-					header('Cache-Control: max-age=0'); //no cache
-								
-					//save it to Excel5 format (excel 2003 .XLS file), 
-					//change this to 'Excel2007' (and adjust the filename 
-					//extension, also the header mime type)
-					//if you want to save it as .XLSX Excel 2007 format
-					$objWriter = PHPExcel_IOFactory::createWriter($excel2, 'Excel5');  
-					//force user to download the Excel file without writing it to server's HD
-					$objWriter->save('php://output');
-					
-				
-				}//GST_TEST
+		
 
 		}
 
@@ -6363,6 +6330,192 @@ public function Employee_priviledge_set($tbl_employee_mstr_id=0,$operation_type=
 
 	}
 
+	public function set_field_qualifier($id_segment=0,$level_no=0)
+	{
+
+		$output=array();
+		//$level_no=0;
+		$records="select * FROM tbl_chart_of_accounts where   parent_data_id=".$id_segment."
+	  and trantype='CHART_OF_ACCOUNT_VALUESET' ";						
+		$records = $this->projectmodel->get_records_from_sql($records);	
+		foreach ($records as $record)
+		{								
+			//$sub_array=array();
+			//$sub_array['index']=$index;
+			$sub_array['id']=$record->id;
+			// $sub_array['parent_id']=$record->parent_id;
+			// $sub_array['parent_data_id']=$record->parent_data_id;
+			// $sub_array['field_qualifier']=$record->field_qualifier;	
+
+		  echo	$sql="update tbl_chart_of_accounts set level_no=".$level_no." where id=".$record->id;
+			echo '<br>';
+			$this->db->query($sql);
+			$level_no=$level_no+1;
+
+			if($record->acc_type==158)
+			{$level_no=1;}
+
+
+			$this->set_field_qualifier($record->id,$level_no);
+
+			//$sub_array['nodes']=array_values($this->accounts_group_ledger_hierarchy($record->id,$index+1,$fromdate, $todate));
+			//	$output[]=$sub_array;
+		}
+		//return $output;
+
+	}
+
+	public function chartofac_values($datatype='',$cond=0)
+	{
+	
+
+		$output=array();
+
+			if($datatype=='SAVE')
+			{
+				$id_header=$id_detail='';
+				$data=$return_data=$save_details=$save_hdr=array();				
+				$RAW_DATA=file_get_contents("php://input");
+				$form_data=json_decode(file_get_contents("php://input"));
+				$json_array_count=sizeof($form_data);
+
+							
+				$id_header=$form_data[0]->id_header;		
+				$id_segment=$form_data[0]->id_segment;	
+
+				$count=sizeof($form_data[0]->list_of_values);		
+				for($cnt=0;$cnt<=$count-1;$cnt++)
+				{			
+						$id_detail=$form_data[0]->list_of_values[$cnt]->id;
+						$save_details['parent_id']=$id_segment;
+						$save_details['code']=$form_data[0]->list_of_values[$cnt]->code;
+						$save_details['title']=$form_data[0]->list_of_values[$cnt]->title;	
+						$save_details['description']=$form_data[0]->list_of_values[$cnt]->description;	
+						$save_details['acc_type']=$form_data[0]->list_of_values[$cnt]->acc_type;	
+						$save_details['parent_data_id']=$form_data[0]->list_of_values[$cnt]->parent_data_id;	
+						$save_details['field_qualifier']=$form_data[0]->list_of_values[$cnt]->field_qualifier;	
+						$save_details['status']=$form_data[0]->list_of_values[$cnt]->status;	
+						$save_details['trantype']='CHART_OF_ACCOUNT_VALUESET';
+						
+						
+						$this->projectmodel->save_records_model($id_detail,'tbl_chart_of_accounts',$save_details);						
+						$server_msg='Records Saved';		
+				}
+
+			
+				$return_data['server_msg']=$server_msg;
+				
+				header('Access-Control-Allow-Origin: *');
+				header("Content-Type: application/json");
+				echo json_encode($return_data);
+
+			}
+
+
+
+
+			if($datatype=='VIEWALLVALUE')
+			{
+							
+					$acc_tran_details['id_segment']=$cond;
+
+					$whr='id='.$cond;
+					$acc_tran_details['id_header']=$this->projectmodel->GetSingleVal('parent_id','tbl_chart_of_accounts',$whr);
+
+
+					
+
+					//	$acc_tran_details=	$this->view_valueset_tree($cond,$acc_tran_details,$arraindx);
+					  $arraindx=0;
+						$rsval=	$this->view_valueset_tree($cond,$arraindx);
+
+						$JSON = json_encode(array_values($rsval));
+						$jsonIterator = new RecursiveIteratorIterator(
+						new RecursiveArrayIterator(json_decode($JSON, TRUE)),
+						RecursiveIteratorIterator::SELF_FIRST);
+						$mainindx=0;
+						foreach ($jsonIterator as $key => $val) 
+						{
+								
+								if(!is_array($val)) 
+								{
+										if($key == "id") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}		
+										if($key == "parent_id") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}		
+										if($key == "code") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+										if($key == "title") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+										if($key == "description") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+										if($key == "field_qualifier") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}		
+										if($key == "status") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}									
+										if($key == "acc_type") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;}
+										if($key == "parent_data_id") {$acc_tran_details['list_of_values'][$mainindx][$key]=$val;$mainindx=$mainindx+1;}			
+								}			
+					}
+
+					//delete array elements				
+					// for($bil=0;$bil<=300-1;$bil++)
+					// {unset($acc_tran_details['list_of_values'][$bil]);}
+					
+					// $arraindx=0;
+					// $acc_tran_details['list_of_values'][$arraindx]['id']='';			
+					// $acc_tran_details['list_of_values'][$arraindx]['code']='';
+					// $acc_tran_details['list_of_values'][$arraindx]['title']='';	
+					// $acc_tran_details['list_of_values'][$arraindx]['description']='';
+					// $acc_tran_details['list_of_values'][$arraindx]['acc_type']=0;		
+					// $acc_tran_details['list_of_values'][$arraindx]['parent_data_id']='';								
+					// $acc_tran_details['list_of_values'][$arraindx]['field_qualifier']='';
+					// $acc_tran_details['list_of_values'][$arraindx]['status']='';		
+					
+						// if($cond>0)
+						// {
+						// 	$sql_bills="select id,parent_id,trantype,code,title,
+						// 	description,acc_type,parent_data_id,field_qualifier,status
+						// 	 from  tbl_chart_of_accounts where 	parent_id=".$cond." ORDER BY id,field_qualifier";					
+						// 	$sql_bills = $this->projectmodel->get_records_from_sql($sql_bills);	
+						// 	foreach ($sql_bills as $sql_bill)
+						// 	{				
+								
+						// 		$acc_tran_details['list_of_values'][$arraindx]['id']=$sql_bill->id;
+						// 		$acc_tran_details['list_of_values'][$arraindx]['code']=$sql_bill->code;		
+						// 		$acc_tran_details['list_of_values'][$arraindx]['title']=$sql_bill->title;						
+						// 		$acc_tran_details['list_of_values'][$arraindx]['description']=$sql_bill->description;
+						// 		$acc_tran_details['list_of_values'][$arraindx]['acc_type']=$sql_bill->acc_type;
+						// 		$acc_tran_details['list_of_values'][$arraindx]['parent_data_id']=$sql_bill->parent_data_id;
+						// 		$acc_tran_details['list_of_values'][$arraindx]['field_qualifier']=$sql_bill->field_qualifier;
+						// 		$acc_tran_details['list_of_values'][$arraindx]['status']=$sql_bill->status;
+	
+						// 		$arraindx=$arraindx+1;
+						// 	}
+						// }
+				
+						array_push($output,$acc_tran_details);
+						header('Access-Control-Allow-Origin: *');
+						header("Content-Type: application/json");
+						echo json_encode($output);
+			}
+
+
+
+			if($datatype=='SEGMENTS')
+			{
+				$sql_bills="select * from  tbl_chart_of_accounts where parent_id=".$cond;
+				//return $this->projectmodel->get_records_from_sql($sql_bills);
+				return	$this->projectmodel->send_json_output($this->projectmodel->get_records_from_sql($sql_bills));
+			}
+
+			if($datatype=='PARENT_ID')
+			{
+				$sql_bills="select * from  tbl_chart_of_accounts where 	acc_type=157 and parent_id=".$cond." order by title";;
+				//return $this->projectmodel->get_records_from_sql($sql_bills);
+				return	$this->projectmodel->send_json_output($this->projectmodel->get_records_from_sql($sql_bills));
+			}
+			
+
+			
+
+		
+
+	}
+
 
 	public function calendar($datatype='',$cond=0)
 	{
@@ -6555,7 +6708,7 @@ public function Employee_priviledge_set($tbl_employee_mstr_id=0,$operation_type=
 	}
 
 	
-
+	/*
 	public function code_structure($datatype='',$cond=0)
 	{
 	
@@ -6849,6 +7002,7 @@ public function Employee_priviledge_set($tbl_employee_mstr_id=0,$operation_type=
 
 	}
 
+	*/
 
 
 

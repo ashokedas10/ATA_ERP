@@ -1,12 +1,14 @@
 <?php 
    
-     	  $data['DataFields']='*';
+     	 /* $data['DataFields']='*';
           $data['TableName']='company_details'; 
           $data['WhereCondition']="id=1 ";
 		  $data['OrderBy']="";
           $rowrecord=$this->projectmodel->Activequery($data,'LIST'); 
 			foreach ($rowrecord as $fld)
-			{$NAME =$fld->NAME ;}
+			{$NAME =$fld->NAME ;}*/
+			
+			$NAME='ATA ERP';
 			
 ?>
 <!DOCTYPE html>

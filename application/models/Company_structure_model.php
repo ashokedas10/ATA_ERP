@@ -71,141 +71,54 @@ function update_teritory()
 
 function UPDATE_MASTER($TRANTYPE)
 {
-	if($TRANTYPE=='DOCTOR')
-	{		
-		$recordsHDR="select * from import_doctor_master ";
-		$recordsHDR = $this->projectmodel->get_records_from_sql($recordsHDR);	
-		foreach ($recordsHDR as $recordHDR)
+		
+		//delete from tbl_chart_of_accounts where id>19
+	
+		//parent section	
+		$records="select * from data_import where segment='$TRANTYPE' and acc_type=157 order by id";
+		$records = $this->projectmodel->get_records_from_sql($records);	
+		foreach ($records as $record)
 		{			
 			
-			$save_updte['code']=$recordHDR->SVLNO;
-			$save_updte['name']=$recordHDR->DOCNAME;
-			$save_updte['headq']=$recordHDR->field_id;
-			$save_updte['hq_id']=$recordHDR->hq_id;
-			$save_updte['doc_type']=$recordHDR->doc_type;
-			$save_updte['dob']=$recordHDR->DOB;
-			$save_updte['dom']=$recordHDR->DOA;
-			$save_updte['address']='';
-			$save_updte['contactno']=$recordHDR->CONTACTNO;
-			$save_updte['email']=$recordHDR->EMAIL;
-			$save_updte['qualification']=$recordHDR->QUALIFICATION;
+			$save_updte['code']=$record->code;
+			$save_updte['title']=$record->description;
+			$save_updte['acc_type']=$record->acc_type;
+			$save_updte['field_qualifier']=$record->field_qualifier;
+			$save_updte['parent_id']=$record->segment_id;			
 			
-			$brand_data['brand_name']=strtoupper($recordHDR->SPECIALITY);
-			$brand_data['brandtype']='SPECIALITY';
-			
-			$speciality_id='';
-			$sql2="select * from brands where 
-			UCASE(brand_name)='".strtoupper($recordHDR->SPECIALITY)."' 
-			and brandtype='SPECIALITY' ";				
-			$rowrecord2 = $this->projectmodel->get_records_from_sql($sql2);	
-			foreach ($rowrecord2 as $row2)
-			{$speciality_id=$row2->id;}				
-			
-			if($speciality_id=='')
-			{
-				$this->projectmodel->save_records_model($speciality_id,
-				'brands',$brand_data);
-				$speciality_id=$this->db->insert_id();		
-			}		
-			
-			$save_updte['speciality']=$speciality_id;
-			
-			$save_updte['status']='DOCTOR';
-			$save_updte['ACTIVITY_STATUS']='ACTIVE';
-			//CHECKING NOT DONE
-			$id='';			
-			$this->projectmodel->save_records_model($id,'mr_manager_doctor',$save_updte);
-		}	
-	}
-	//529,2205,2206,2207 AREA SALES MANAGER(ASM)
-	if($TRANTYPE=='RETAILER')
-	{	
-	
-		//FOR GENETICA LAB	
-		$recordsHDR="select * from import_retailer_master ";
-		$recordsHDR = $this->projectmodel->get_records_from_sql($recordsHDR);	
-		foreach ($recordsHDR as $recordHDR)
-		{
-			$save_updte['retail_code']=$recordHDR->CODE;
-			$save_updte['retail_name']=$recordHDR->NAME;
-			$save_updte['retail_address']=$recordHDR->ADDRESS;
-			$save_updte['retail_field']=$recordHDR->field_id;
-			$save_updte['hq_id']=$recordHDR->hq_id;			
+
 			$save_updte['status']='ACTIVE';
-		
-			//CHECKING NOT DONE
-			$id='';			
-			$this->projectmodel->save_records_model($id,'retailer',$save_updte);
-		}	
-		
-		//FOR UNITED LAB
-		/*	$cnt=1;
-			$sqlfld="SELECT * FROM  import_doctor_master "; 
-			$fields = $this->projectmodel->get_records_from_sql($sqlfld);	
-			foreach ($fields as $field)
-			{	
-				
-				$cnt_retailer1=0;	
-				echo $sqlfld1="SELECT COUNT(*) cnt FROM  
-				retailer where 	
-				UCASE(retail_name)='".strtoupper($field->link_chemist1)."' 
-				and retail_field=".$field->field_id; 
-				$fields1 = $this->projectmodel->get_records_from_sql($sqlfld1);	
-				foreach ($fields1 as $field1)
-				{$cnt_retailer1=$field1->cnt;}
-			     echo '<br>';
+			$save_updte['trantype']='CHART_OF_ACCOUNT_VALUESET';
+
+			$whr="code='".$record->mstr_parent_val."'";
+			$save_updte['parent_data_id']=$this->projectmodel->GetSingleVal('id','tbl_chart_of_accounts',$whr); 
 			
-				if($cnt_retailer1==0 && strtoupper($field->link_chemist1)<>'')
-				{
-				$save_emp['retail_code']=$cnt;
-				$save_emp['retail_name']=strtoupper($field->link_chemist1);	
-				$save_emp['retail_field']=$field->field_id;	
-				$save_emp['hq_id']=$field->hq_id;	
-				$this->projectmodel->save_records_model('','retailer',$save_emp);
-				$cnt=$cnt+1;
-				}
-				
-				$cnt_retailer2=0;	
-				$sqlfld1="SELECT COUNT(*) cnt FROM  
-				retailer where 	
-				UCASE(retail_name)='".strtoupper($field->link_chemist2)."' 
-				and retail_field=".$field->field_id; 
-				$fields1 = $this->projectmodel->get_records_from_sql($sqlfld1);	
-				foreach ($fields1 as $field1)
-				{$cnt_retailer2=$field1->cnt;}
-				
-				if($cnt_retailer2==0 && strtoupper($field->link_chemist2)<>'')
-				{
-				$save_emp['retail_code']=$cnt;
-				$save_emp['retail_name']=strtoupper($field->link_chemist2);	
-				$save_emp['retail_field']=$field->field_id;	
-				$save_emp['hq_id']=$field->hq_id;	
-				$this->projectmodel->save_records_model('','retailer',$save_emp);
-				$cnt=$cnt+1;
-				}
-				
-				$cnt=$cnt+1;
-			}*/
-	}
-	
-	if($TRANTYPE=='STOCKIST')
-	{		
-		$recordsHDR="select * from import_stockist_master ";
-		$recordsHDR = $this->projectmodel->get_records_from_sql($recordsHDR);	
-		foreach ($recordsHDR as $recordHDR)
-		{
-			$id=$recordHDR->id;
-			$hqid=$this->get_HQ_ID($recordHDR->HQ);
-			$field_id=$this->create_or_get_field($hqid,$recordHDR->FIELD);		
-			$save_updte['hq_id']=$hqid;
-			$save_updte['field_id']=$field_id;
-			$this->projectmodel->save_records_model($id,'import_stockist_master',
-			$save_updte);
+			
+			$id='';			
+			$this->projectmodel->save_records_model($id,'tbl_chart_of_accounts',$save_updte);
 		}	
-	}
-	
-	
-	
+
+		//child section
+		$records="select * from data_import where segment='$TRANTYPE' and acc_type=0 ";
+		$records = $this->projectmodel->get_records_from_sql($records);	
+		foreach ($records as $record)
+		{			
+			
+			$save_updte['code']=$record->code;
+			$save_updte['title']=$record->description;
+			$save_updte['acc_type']=158;
+			$save_updte['field_qualifier']=$record->field_qualifier;
+			$save_updte['parent_id']=$record->segment_id;			
+			
+			$whr="code='".$record->mstr_parent_val."'";
+			$save_updte['parent_data_id']=$this->projectmodel->GetSingleVal('id','tbl_chart_of_accounts',$whr); 
+
+			$save_updte['status']='ACTIVE';
+			$save_updte['trantype']='CHART_OF_ACCOUNT_VALUESET';
+			
+			$id='';			
+			$this->projectmodel->save_records_model($id,'tbl_chart_of_accounts',$save_updte);
+		}	
 
 }
 

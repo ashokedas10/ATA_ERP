@@ -75,6 +75,7 @@ localStorage.setItem('form_id', '<?php echo $_SESSION['form_id'];?>');
 <!--
 .style2 {
 	color: #990000;
+	
 	font-weight: bold;
 	font-size:18px;
 }
@@ -155,10 +156,8 @@ window.open('data:application/vnd.ms-excel,' + encodeURIComponent( $('div[id$=pr
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="<?php echo BASE_PATH_ADMIN;?>theme_files/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
- <!-- DataTables -->
-<link rel="stylesheet" href="<?php echo BASE_PATH_ADMIN;?>theme_files/plugins/datatables/dataTables.bootstrap.css">
 
-<link rel="stylesheet" href="<?php echo BASE_PATH_ADMIN;?>theme_files/plugins/select2/select2.css">
+
  
 <!--CURRENT TEMPLATE PARTS-->
 
@@ -166,6 +165,11 @@ window.open('data:application/vnd.ms-excel,' + encodeURIComponent( $('div[id$=pr
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://rawgit.com/RobinHerbots/Inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
 
+
+ <!-- DataTables -->
+<link rel="stylesheet" href="<?php echo BASE_PATH_ADMIN;?>theme_files/plugins/datatables/dataTables.bootstrap.css">
+
+<link rel="stylesheet" href="<?php echo BASE_PATH_ADMIN;?>theme_files/plugins/select2/select2.min.css">
 
 <?php /*?><script type="text/javascript">
 $(document).ready(function() {

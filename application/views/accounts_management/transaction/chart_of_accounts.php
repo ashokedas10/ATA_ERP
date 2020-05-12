@@ -225,17 +225,13 @@ ng-init="view_list(0)" id="myBody" onkeypress = "shortcut()">
 			
 				
 				<!-- Resource section  -->
-				<div  ng-repeat="header_index in [0,ResourceArray[0]['header'].length] | toRange"   id="maindiv" >	
-				
-					<!--GRID ENTRY -->				
+				<!--<div  ng-repeat="header_index in [0,ResourceArray[0]['header'].length] | toRange"   id="maindiv" >	
+						
 					<div  ng-if="ResourceArray[0]['header'][header_index]['section_type']== 'GRID_ENTRY'">	
-					
-								<!--GRID BODY SECTION-->								
-								
+									
 									<div class="clearfix"></div>
-									<!--<div >	-->
-									<!--<div  class="container testimonial-group" ng-repeat="(key,value) in steps" >-->
-									<div class="table-responsive">
+									
+									<div class="table-responsive" style=" height:300px;overflow:scroll">
 									<table  class="table table-condensed nopadding"  style="overflow:auto">
 												
 									<tr  class="bg-primary">
@@ -286,12 +282,12 @@ ng-init="view_list(0)" id="myBody" onkeypress = "shortcut()">
 												</tr>
 												
 									</table>
-									</div>			
+									</div>		
 									
 					 </div>		
-					<!--GRID ENTRY -->		
+					
 				
-				</div>
+				</div>-->
 			
 			
 			

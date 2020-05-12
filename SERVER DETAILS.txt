@@ -1,0 +1,13 @@
+Cpanel URL : https://sg2plcpnl0150.prod.sin2.secureserver.net:2083/
+
+Cpanel Login ID : rcrbc6vubfhv
+Cpanel : Common@1104$
+
+
+Ftp psw : Common@1104$
+
+
+domain : http://ataerp.ataproject.co.in/
+
+
+

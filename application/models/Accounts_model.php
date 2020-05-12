@@ -304,6 +304,7 @@ class Accounts_model extends CI_Model {
 							$rsval['header'][$mainindx]['Cr Account']='NA';
 							$rsval['header'][$mainindx]['Cr Amount']='';
 
+
 							$ledger_tran = "select count(*) cnt from acc_tran_header a,acc_tran_details b   
 							where a.id=b.acc_tran_header_id and a.tran_table_name='invoice_summary' and a.tran_table_id=".$records[0]->id ;
 							$ledger_tran = $this->projectmodel->get_records_from_sql($ledger_tran);
@@ -379,11 +380,262 @@ class Accounts_model extends CI_Model {
 
 
 			}
+			
+
+
+			if($REPORT_NAME=='TRIAL_BALANCE')
+			{
+						//dynamic TREE HIERARCHY ARRAY CREATE VIDEO
+						//https://www.youtube.com/watch?v=lewf32viAwA
+						
+						//ARRAY SEARCH
+						//	$array_index = array_search($output[$trading_cnt]['parent_id'], array_column($output, 'id')); 
+
+						$mainindx=0;
+						$output=array();	
+						$fromdate=$param_array['fromdate'];
+						$todate=$param_array['todate'];
+
+					//	$this->stock_transactions($fromdate,$todate);
+
+						$parent_id=14;		
+						$rsval=$this->accounts_group_ledger_hierarchy($parent_id,0,$fromdate, $todate);
+					//	$rsval=$this->accounts_group_ledger_hierarchy(1,0,$fromdate, $todate);
+
+						$JSON = json_encode(array_values($rsval));
+						$jsonIterator = new RecursiveIteratorIterator(
+						new RecursiveArrayIterator(json_decode($JSON, TRUE)),
+						RecursiveIteratorIterator::SELF_FIRST);
+						$mainindx=0;
+						foreach ($jsonIterator as $key => $val) 
+						{
+								
+								if(!is_array($val)) 
+								{
+										if($key == "id") {$output[$mainindx][$key]=$val;}
+										if($key == "parent_id") {$output[$mainindx][$key]=$val;}
+										if($key == "parent_data_id") {$output[$mainindx][$key]=$val;}
+										if($key == "index") {$output[$mainindx][$key]=$val;}
+										if($key == "code") {$output[$mainindx][$key]=$val;}
+										if($key == "title") {$output[$mainindx][$key]=$val;}
+										if($key == "field_qualifier") {$output[$mainindx][$key]=$val;}										
+										if($key == "acc_type") {$output[$mainindx][$key]=$val;$mainindx=$mainindx+1;}
+								}			
+					}
+
+
+					// $trading_cnt_total=sizeof($output); 						
+					// if($trading_cnt_total>0){  
+					// for($trading_cnt=0;$trading_cnt<$trading_cnt_total;$trading_cnt++)
+					// {	
+						
+					// 	if($output[$trading_cnt]['parent_id']<>$output[$trading_cnt]['parent_data_id'])
+					// 	{
+
+					// 		if($output[$trading_cnt]['acc_type']==158)  //CHILD
+					// 		{
+					// 			$id=$output[$trading_cnt]['id'];
+					// 			$parent_data_id=$output[$trading_cnt]['parent_data_id'];								
+					// 			$field_qualifier=$this->projectmodel->GetSingleVal('field_qualifier','tbl_chart_of_accounts',' id='.$parent_data_id);
+	
+					// 			$sql="update tbl_chart_of_accounts set field_qualifier=".$field_qualifier." where id=".$id;
+					// 			$this->db->query($sql);
+
+					// 		}
+
+					// 		// $key = array_search($output[$trading_cnt]['id'], array_column($output, 'parent_data_id'));
+							
+					// 		// echo 'Id '.$output[$trading_cnt]['id'].' Parent :'.$output[$key]['id'] ;
+					// 		// echo '<br>';
+
+					// 	}
+
+					// }}
+
+
+			
+					//UPDATE LEDGER BALANCE
+					// $trading_cnt_total=sizeof($output); 						
+					// if($trading_cnt_total>0){  
+					// for($trading_cnt=0;$trading_cnt<$trading_cnt_total;$trading_cnt++)
+					// {	
+							
+					// 	$records="select * FROM acc_group_ledgers where  id=".$output[$trading_cnt]['id'];						
+					// 	$records = $this->projectmodel->get_records_from_sql($records);	
+					// 	foreach ($records as $record)
+					// 	{			
+					// 		$output[$trading_cnt]['debit_amt']=$record->temp_debit_balance;
+					// 		$output[$trading_cnt]['credit_amt']=$record->temp_credit_balance;
+					// 	}
+					// }}
+
+				 //echo '<pre>';print_r($output);echo '<pre>';
+
+					return $output;
+			
+			}
+		
+			if($REPORT_NAME=='PROFIT_LOSS_ACCOUNT')
+			{
+
+				$trial_balance_output=$this->all_mis_report('TRIAL_BALANCE',$param_array);
+				//echo '<pre>';print_r($trial_balance_output);echo '<pre>';
+
+					//UPDATE TRADING ACCOUNT
+
+					$trading_left_index=1;
+					$trading_right_index=0;
+
+					$trading_cnt_total=sizeof($trial_balance_output); 						
+					if($trading_cnt_total>0)
+					{  
+
+						for($trading_cnt=0;$trading_cnt<$trading_cnt_total;$trading_cnt++)
+						{	
+								
+
+								//opening stock
+								if($trial_balance_output[$trading_cnt]['id']==1818)
+								{
+									$trading_ac_output[0]['left_ac_name']=$trial_balance_output[$trading_cnt]['name'];
+									$trading_ac_output[0]['left_ac_debit_amt']=$trial_balance_output[$trading_cnt]['debit_amt'];
+									$trading_ac_output[0]['left_ac_credit_amt']=$trial_balance_output[$trading_cnt]['credit_amt'];
+									$trading_ac_output[0]['left_ac_index']=$trial_balance_output[$trading_cnt]['index'];
+									$trading_ac_output[0]['left_ac_acc_type']=$trial_balance_output[$trading_cnt]['acc_type'];
+								}
+
+								if($trial_balance_output[$trading_cnt]['FINAL_AC_TYPE']=='TRADING_LEFT')
+								{
+									$trading_ac_output[$trading_left_index]['left_ac_name']=$trial_balance_output[$trading_cnt]['name'];
+									$trading_ac_output[$trading_left_index]['left_ac_debit_amt']=$trial_balance_output[$trading_cnt]['debit_amt'];
+									$trading_ac_output[$trading_left_index]['left_ac_credit_amt']=$trial_balance_output[$trading_cnt]['credit_amt'];
+									$trading_ac_output[$trading_left_index]['left_ac_index']=$trial_balance_output[$trading_cnt]['index'];
+									$trading_ac_output[$trading_left_index]['left_ac_acc_type']=$trial_balance_output[$trading_cnt]['acc_type'];
+									$trading_left_index=$trading_left_index+1;
+								}
+								
+								if($trial_balance_output[$trading_cnt]['FINAL_AC_TYPE']=='TRADING_RIGHT')
+								{
+									$trading_ac_output[$trading_right_index]['right_ac_name']=$trial_balance_output[$trading_cnt]['name'];
+									$trading_ac_output[$trading_right_index]['right_ac_debit_amt']=$trial_balance_output[$trading_cnt]['debit_amt'];
+									$trading_ac_output[$trading_right_index]['right_ac_credit_amt']=$trial_balance_output[$trading_cnt]['credit_amt'];
+									$trading_ac_output[$trading_right_index]['right_ac_index']=$trial_balance_output[$trading_cnt]['index'];
+									$trading_ac_output[$trading_right_index]['right_ac_acc_type']=$trial_balance_output[$trading_cnt]['acc_type'];
+									$trading_right_index=$trading_right_index+1;
+								}
+
+								if($trial_balance_output[$trading_cnt]['id']==1819)
+								{
+									$right_ac_name_closing=$trial_balance_output[$trading_cnt]['name'];
+									$right_ac_closing_debit_amt=$trial_balance_output[$trading_cnt]['debit_amt'];
+									$right_ac_closing_credit_amt=$trial_balance_output[$trading_cnt]['credit_amt'];
+									$right_ac_closing_index=$trial_balance_output[$trading_cnt]['index'];
+									$right_ac_closing_type=$trial_balance_output[$trading_cnt]['acc_type'];
+								}
+
+						}
+
+							$trading_ac_output[$trading_right_index]['right_ac_name']=$right_ac_name_closing;
+							$trading_ac_output[$trading_right_index]['right_ac_debit_amt']=$right_ac_closing_debit_amt;
+							$trading_ac_output[$trading_right_index]['right_ac_credit_amt']=	$right_ac_closing_credit_amt;
+							$trading_ac_output[$trading_right_index]['right_ac_index']=$right_ac_closing_index;
+							$trading_ac_output[$trading_right_index]['right_ac_acc_type']=$right_ac_closing_type;
+
+					}
+
+					return $trading_ac_output;
+
+			}
+
+			if($REPORT_NAME=='BALANCE_SHEET')
+			{}
+		
 
 	
 	
 	}
 		
+
+	function accounts_group_ledger_hierarchy($parent_data_id='',$index=0,$fromdate, $todate)
+	{
+			$output=array();
+			$records="select * FROM tbl_chart_of_accounts where  parent_id=14 and parent_data_id=".$parent_data_id."
+		 and trantype='CHART_OF_ACCOUNT_VALUESET' ";						
+			$records = $this->projectmodel->get_records_from_sql($records);	
+			foreach ($records as $record)
+			{								
+				$sub_array=array();
+				$sub_array['index']=$index;
+				$sub_array['id']=$record->id;
+				$sub_array['parent_id']=$record->parent_id;
+				$sub_array['parent_data_id']=$record->parent_data_id;
+				$sub_array['code']=$record->code;
+				$sub_array['title']=$record->title;
+				$sub_array['field_qualifier']=$record->field_qualifier;
+				$sub_array['acc_type']=$record->acc_type;
+			
+
+				// $whr='id='.$record->parent_id;
+				// $FINAL_AC_TYPE=$this->projectmodel->GetSingleVal('FINAL_AC_TYPE','acc_group_ledgers',$whr);
+				// if($FINAL_AC_TYPE<>'NA')
+				// {$this->db->query("update acc_group_ledgers set FINAL_AC_TYPE='".$FINAL_AC_TYPE."' where parent_id=".$record->parent_id);}
+
+				//get ledger balance--
+				if($record->acc_type==158)
+				{
+
+					// if($record->id ==1818 || $record->id ==1819) //STOCK OPEING,CLOSING LEDGER
+					// {
+					// 	$dr_balance_total=$cr_balance_total=0;
+					// 	 $totals="select sum(temp_debit_balance) temp_debit_balance,sum(temp_credit_balance) temp_credit_balance
+					// 	FROM acc_group_ledgers where  id=".$record->id;						
+					// 	$totals = $this->projectmodel->get_records_from_sql($totals);	
+					// 	foreach ($totals as $total)
+					// 	{$dr_balance_total=$total->temp_debit_balance; $cr_balance_total=$total->temp_credit_balance;	}	
+					// 	if(is_null($dr_balance_total)){$dr_balance_total=0;}
+					// 	if(is_null($cr_balance_total)){$cr_balance_total=0;}
+						
+					// 		$sql="update acc_group_ledgers 
+					// 	set temp_debit_balance=temp_debit_balance+".$dr_balance_total.",temp_credit_balance=temp_credit_balance+".$cr_balance_total." where id=".$parent_id;
+					// 	//	echo '<br>';
+					// 	$this->db->query($sql);	
+	
+					// }
+					// else //OTHER LEDGERS
+					// {
+					// 	$rs=$this->ledger_wise_transactions($record->id,$fromdate, $todate);
+					// 	$this->db->query("update acc_group_ledgers 
+					// 	set temp_debit_balance=".$rs[0]['dr_balance'].",temp_credit_balance=".$rs[0]['cr_balance']." where id=".$record->id);	
+						
+					// 	$this->db->query("update acc_group_ledgers 
+					// 	set temp_debit_balance=temp_debit_balance+".$rs[0]['dr_balance'].",temp_credit_balance=temp_credit_balance+".$rs[0]['cr_balance']." where id=".$parent_id);	
+	
+					// }
+				
+				}
+				//UPDATE GROUP WISE BALANCE
+				if($record->acc_type==157)
+				{
+					// $dr_balance_total=$cr_balance_total=0;
+					// $totals="select sum(temp_debit_balance) temp_debit_balance,sum(temp_credit_balance) temp_credit_balance
+					// FROM acc_group_ledgers where acc_type='GROUP' and parent_id=".$record->id;						
+					// $totals = $this->projectmodel->get_records_from_sql($totals);	
+					// foreach ($totals as $total)
+					// {$dr_balance_total=$total->temp_debit_balance; $cr_balance_total=$total->temp_credit_balance;	}	
+					// 	if(is_null($dr_balance_total)){$dr_balance_total=0;}
+					// 	if(is_null($cr_balance_total)){$cr_balance_total=0;}
+
+					// $this->db->query("update acc_group_ledgers 	set temp_debit_balance=".$dr_balance_total.",
+					// temp_credit_balance=".$cr_balance_total." where id=".$record->id);
+				}
+				
+				$sub_array['nodes']=array_values($this->accounts_group_ledger_hierarchy($record->id,$index+1,$fromdate, $todate));
+				// if($record->acc_type=='GROUP')
+				// {$sub_array['nodes']=array_values($this->accounts_group_ledger_hierarchy($record->id,$index+1));}
+				$output[]=$sub_array;
+			}
+			return $output;
+	}
 
 
 
@@ -1076,84 +1328,6 @@ function batch_wise_product_available($batchno=0,$product_id=0)
 		{	$product_ids=$product_ids.','.$record->id;}
 
 		return $product_ids;		
-	}
-	
-	function accounts_group_ledger_hierarchy($parent_id='',$index=0,$fromdate, $todate)
-	{
-			$output=array();
-			$records="select * FROM acc_group_ledgers where  parent_id=".$parent_id;						
-			$records = $this->projectmodel->get_records_from_sql($records);	
-			foreach ($records as $record)
-			{								
-				$sub_array=array();
-				$sub_array['index']=$index;
-				$sub_array['id']=$record->id;
-				$sub_array['parent_id']=$record->parent_id;
-				$sub_array['name']=$record->acc_name;
-				$sub_array['SHOW_IN_TRIAL_BALANCE']=$record->SHOW_IN_TRIAL_BALANCE;
-				$sub_array['FINAL_AC_TYPE']=$record->FINAL_AC_TYPE;
-				$sub_array['acc_type']=$record->acc_type;
-
-				$whr='id='.$record->parent_id;
-				$FINAL_AC_TYPE=$this->projectmodel->GetSingleVal('FINAL_AC_TYPE','acc_group_ledgers',$whr);
-				if($FINAL_AC_TYPE<>'NA')
-				{$this->db->query("update acc_group_ledgers set FINAL_AC_TYPE='".$FINAL_AC_TYPE."' where parent_id=".$record->parent_id);}
-
-				//get ledger balance--
-				if($record->acc_type=='LEDGER')
-				{
-
-					if($record->id ==1818 || $record->id ==1819) //STOCK OPEING,CLOSING LEDGER
-					{
-						$dr_balance_total=$cr_balance_total=0;
-						 $totals="select sum(temp_debit_balance) temp_debit_balance,sum(temp_credit_balance) temp_credit_balance
-						FROM acc_group_ledgers where  id=".$record->id;						
-						$totals = $this->projectmodel->get_records_from_sql($totals);	
-						foreach ($totals as $total)
-						{$dr_balance_total=$total->temp_debit_balance; $cr_balance_total=$total->temp_credit_balance;	}	
-						if(is_null($dr_balance_total)){$dr_balance_total=0;}
-						if(is_null($cr_balance_total)){$cr_balance_total=0;}
-						
-							$sql="update acc_group_ledgers 
-						set temp_debit_balance=temp_debit_balance+".$dr_balance_total.",temp_credit_balance=temp_credit_balance+".$cr_balance_total." where id=".$parent_id;
-						//	echo '<br>';
-						$this->db->query($sql);	
-	
-					}
-					else //OTHER LEDGERS
-					{
-						$rs=$this->ledger_wise_transactions($record->id,$fromdate, $todate);
-						$this->db->query("update acc_group_ledgers 
-						set temp_debit_balance=".$rs[0]['dr_balance'].",temp_credit_balance=".$rs[0]['cr_balance']." where id=".$record->id);	
-						
-						$this->db->query("update acc_group_ledgers 
-						set temp_debit_balance=temp_debit_balance+".$rs[0]['dr_balance'].",temp_credit_balance=temp_credit_balance+".$rs[0]['cr_balance']." where id=".$parent_id);	
-	
-					}
-				
-				}
-				//UPDATE GROUP WISE BALANCE
-				if($record->acc_type=='GROUP')
-				{
-					$dr_balance_total=$cr_balance_total=0;
-					$totals="select sum(temp_debit_balance) temp_debit_balance,sum(temp_credit_balance) temp_credit_balance
-					FROM acc_group_ledgers where acc_type='GROUP' and parent_id=".$record->id;						
-					$totals = $this->projectmodel->get_records_from_sql($totals);	
-					foreach ($totals as $total)
-					{$dr_balance_total=$total->temp_debit_balance; $cr_balance_total=$total->temp_credit_balance;	}	
-						if(is_null($dr_balance_total)){$dr_balance_total=0;}
-						if(is_null($cr_balance_total)){$cr_balance_total=0;}
-
-					$this->db->query("update acc_group_ledgers 	set temp_debit_balance=".$dr_balance_total.",
-					temp_credit_balance=".$cr_balance_total." where id=".$record->id);
-				}
-				
-				$sub_array['nodes']=array_values($this->accounts_group_ledger_hierarchy($record->id,$index+1,$fromdate, $todate));
-				// if($record->acc_type=='GROUP')
-				// {$sub_array['nodes']=array_values($this->accounts_group_ledger_hierarchy($record->id,$index+1));}
-				$output[]=$sub_array;
-			}
-			return $output;
 	}
 
 	// PROFIT AND LOSS - BALANCESHEET RELATED FUNCTIONS

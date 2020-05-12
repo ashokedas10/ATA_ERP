@@ -606,7 +606,7 @@ function($scope,$rootScope,$http){
 			var data_link=query_result_link+"42/";
 			$http.get(data_link).then(function(response) {$scope.currency_master_list=response.data;});
 			
-			//console.log(currency_list);
+			console.log(currency_list);
 									
 			$scope.entry_index=0;
 			$scope.transetting='ENTRY';	
@@ -2557,7 +2557,7 @@ function($scope,$rootScope,$http,$window,Sale_test)
 
 
 
-		app.controller('experimental_form',['$scope','$rootScope','$http','$window','Sale_test',
+app.controller('experimental_form',['$scope','$rootScope','$http','$window','Sale_test',
 		function($scope,$rootScope,$http,$window,Sale_test)
 		{
 			"use strict";
@@ -3230,8 +3230,7 @@ function($scope,$rootScope,$http,$window,Sale_test)
 					var data_link=BaseUrl;
 					var success={};		
 					var data = JSON.stringify($rootScope.ResourceArray);
-					var data_save = {'form_name':$rootScope.current_form_report,
-					'subtype':'VALUE_SET_LIST','id':id,'raw_data':data};		
+					var data_save = {'form_name':$rootScope.current_form_report,'subtype':'VALUE_SET_LIST','id':id,'raw_data':data};		
 					
 					console.log('form_name'+$rootScope.current_form_report+'subtype'+'PO_DATA'+'id'+id);			
 
@@ -3650,6 +3649,169 @@ function($scope,$rootScope,$http,$window,Sale_test)
 		//SAVE SECTION...
 
 }]);
+
+
+
+
+app.controller('chartofac_values',['$scope','$rootScope','$http',
+function($scope,$rootScope,$http){
+	"use strict";
+	
+			$scope.products={};
+			$scope.ledgers={};
+			$rootScope.FormInputArray=[];	
+
+			var BaseUrl=domain_name+"Project_controller/chartofac_values/";
+			var AcTranType;
+			// $scope.initarray=function(trantype){		
+			// 	BaseUrl=BaseUrl+trantype+'/';	
+			// 	AcTranType=trantype;
+			// }
+
+			var CurrentDate=new Date();
+			var year = CurrentDate.getFullYear();
+			var month = CurrentDate.getMonth()+1;
+			var dt = CurrentDate.getDate();
+			if (dt < 10) {	dt = '0' + dt;}
+			if (month < 10) {month = '0' + month;}
+			$scope.tran_date=year+'-' + month + '-'+dt;
+			
+			
+			var data_link=query_result_link+"45/";$http.get(data_link).then(function(response) {$scope.master_lovs=response.data;});
+			
+		//	console.log(data_link);
+		
+			var data_link=query_result_link+"33/";
+			$http.get(data_link).then(function(response) {$scope.active_inactive_list=response.data;});
+
+			var data_link=query_result_link+"43/";
+			$http.get(data_link).then(function(response) {$scope.field_qualifier_list=response.data;});
+
+			var data_link=query_result_link+"46/";
+			$http.get(data_link).then(function(response) {$scope.acc_type_list=response.data;});
+			
+			console.log(data_link);
+
+			$scope.getsegment=function(chartac_id)
+			{
+
+			var data_link=BaseUrl+"SEGMENTS/"+chartac_id;
+			$http.get(data_link).then(function(response) 
+			{$scope.segment_lovs=response.data;});
+
+			}
+
+			$scope.test=function()
+			{
+				//console.log('searchelement '+$rootScope.searchelement+' header index '+$rootScope.indx1+' Field Index '+$rootScope.index2);
+				var data_save = domain_name+'Project_controller/experimental_form_grid/'+$rootScope.searchelement+'/'+$rootScope.indx1+'/'+$rootScope.index2;
+				console.log(data_save);
+			}
+	
+						
+			$scope.entry_index=0;
+			$scope.transetting='ENTRY';	
+			$scope.id_header=0;
+
+			$rootScope.FormInputArray[0] =
+			{	
+					id_header:0,	
+					id_segment:0,
+					list_of_values:[{id:'',code:'',title:'',description:'',acc_type:'',parent_data_id:'',field_qualifier:'',status:''}]				
+			};
+
+			$scope.new_entry=function()
+			{
+				$rootScope.FormInputArray[0] =
+				{	
+						id_header:0,	
+						id_segment:0,
+						list_of_values:[{id:'',code:'',title:'',description:'',acc_type:'',parent_data_id:'',field_qualifier:'',status:''}]				
+				};
+			}
+
+			$scope.add_entry=function(detail_type)
+			{
+				console.log(detail_type);
+				if(detail_type=='lov_list')
+				{
+					var length=$rootScope.FormInputArray[0].list_of_values.length;					
+					$scope.FormInputArray[0].list_of_values[length]=
+					{id:'',code:'',title:'',description:'',acc_type:'',parent_data_id:'',field_qualifier:'',status:''};	
+				}			
+			}
+			
+			$scope.view_list=function(segment_id)
+			{
+			
+			
+				$scope.savemsg="Insert values for this Segment";
+
+				var data_link=BaseUrl+"VIEWALLVALUE/"+segment_id+'/';
+				console.log(data_link);
+				$http.get(data_link).then(function(response) 
+				{
+				
+					angular.forEach(response.data,function(value,key)
+					{
+
+						$rootScope.FormInputArray[0] =
+							{	
+								id_header:value.id_header,			
+								id_segment:value.id_segment,								
+								list_of_values:value.list_of_values							
+							};		
+					});	
+					
+				});	
+
+				var data_link=BaseUrl+"PARENT_ID/"+segment_id;
+				$http.get(data_link).then(function(response) 
+				{$scope.parent_data_id_list=response.data;});
+
+				
+
+				// $scope.id_header=id_header;
+				// $rootScope.transetting='ENTRY';	
+				// $scope.form_control();
+
+			}		
+		
+							
+			$scope.savedata=function()
+			{
+				var data_link=BaseUrl+"SAVE/";
+				console.log(data_link);
+				var success={};		
+			
+				var data_save = JSON.stringify($rootScope.FormInputArray);	
+			  	console.log(data_save);
+
+				var config = {headers : 
+					{'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'	}
+				}		
+				$http.post(data_link,data_save,config)
+				.then (function success(response){	
+					$scope.savemsg=response.data.server_msg;
+				
+					$scope.new_entry();
+
+				},
+				function error(response){
+					$scope.errorMessage = 'Error - Receord Not Saved!';
+					$scope.message = '';
+				});
+
+			}
+	
+}]);
+
+
+
+
+
+
+
 
 
 /*

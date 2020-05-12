@@ -2160,6 +2160,15 @@ $id_header='',$id_detail='',$fromdate='',$todate='')
 			  	$data['ledger_accounts'] =$this->projectmodel->get_records_from_sql($sqlinv);
 			}
 			
+			if($REPORT_NAME=='TRIAL_BALANCE' || $REPORT_NAME=='PROFIT_LOSS_ACCOUNT' || $REPORT_NAME=='BALANCE_SHEET')
+			{
+				//	$sql="update acc_group_ledgers set temp_debit_balance=0,temp_credit_balance=0   ";
+				//	$this->db->query($sql);
+					$data['fromdate']=date('Y-m-d');
+					$data['todate']=date('Y-m-d');			
+					$data['REPORT_TYPE']='REPORT_TYPE-2';	
+			}
+			
 
 				
 			if(isset($_POST['Save']))
@@ -2178,6 +2187,12 @@ $id_header='',$id_detail='',$fromdate='',$todate='')
 				{
 					$data['ledger_ac']=$this->input->post('param1');
 				}	
+				
+				if($REPORT_NAME=='TRIAL_BALANCE' || $REPORT_NAME=='PROFIT_LOSS_ACCOUNT' || $REPORT_NAME=='BALANCE_SHEET')
+				{
+					$data['fromdate']=$this->input->post('fromdate');
+					$data['todate']=$this->input->post('todate');
+				}
 
 
 			}

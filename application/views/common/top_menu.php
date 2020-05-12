@@ -118,6 +118,9 @@ if($login_status=='SUPER') {?>
 		<ul class="treeview-menu">
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/TempleteFormReport/list/"><i class="fa fa-circle-o"></i>TEMPLATE FORM SET</a></li> 	
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/TempleteForm/7/list/"><i class="fa fa-circle-o"></i>General Master</a></li> 
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/TempleteForm/25/list/"><i class="fa fa-circle-o"></i>Query Builder</a> </li>	
+		
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/TempleteForm/29/list/"><i class="fa fa-circle-o"></i>Menu Management</a></li>	
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/TempleteForm/30/list/"><i class="fa fa-circle-o"></i>Create Role</a></li>
 		<li><a href="<?php echo ADMIN_BASE_URL?>Project_controller/load_form_report/role_mapping/"><i class="fa fa-circle-o"></i>Role maping </a></li>	
@@ -350,6 +353,17 @@ if($login_status=='SUPER') {?>
 				
 		 <li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/OTOC_REPORT/">
 		<i class="fa fa-circle-o"></i>OTOC ACCOUNTS</a></li>
+				
+		<li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/TRIAL_BALANCE/">
+		<i class="fa fa-circle-o"></i>Trial Balance</a></li>
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/PROFIT_LOSS_ACCOUNT/">
+		<i class="fa fa-circle-o"></i>P/L Report</a></li>
+		
+		<li><a href="<?php echo ADMIN_BASE_URL?>accounts_controller/all_mis_reports/BALANCE_SHEET/">
+		<i class="fa fa-circle-o"></i>Balance Sheet</a></li>
+		
+		
 						 
         </ul>
 	  </li>

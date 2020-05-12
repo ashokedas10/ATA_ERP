@@ -92,7 +92,16 @@ a {
 	
 	
 	
+	<?php if($REPORT_NAME=='TRIAL_BALANCE'){
 	
+	echo '<pre>';print_r($report_data);echo '<pre>';
+	
+	 ?>
+	 
+	 
+	
+	
+	<?php } ?>	
 	
 	
 	

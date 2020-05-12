@@ -1,22 +1,25 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.4
--- http://www.phpmyadmin.net
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 24, 2020 at 12:47 PM
--- Server version: 5.1.41
--- PHP Version: 5.3.1
+-- Host: localhost:3306
+-- Generation Time: May 12, 2020 at 01:37 AM
+-- Server version: 5.6.47-cll-lve
+-- PHP Version: 7.2.7
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `astaford_erp_test`
+-- Database: `ataerp`
 --
 
 -- --------------------------------------------------------
@@ -25,8 +28,8 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `account_setup`
 --
 
-CREATE TABLE IF NOT EXISTS `account_setup` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `account_setup` (
+  `id` int(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `legal_entity_id` int(10) NOT NULL,
   `chart_of_account_id` int(10) NOT NULL,
@@ -50,16 +53,15 @@ CREATE TABLE IF NOT EXISTS `account_setup` (
   `o2c_invoice_dr` int(10) NOT NULL,
   `o2c_invoice_cr` int(10) NOT NULL,
   `o2c_receive_dr` int(10) NOT NULL,
-  `o2c_receive_cr` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `o2c_receive_cr` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `account_setup`
 --
 
 INSERT INTO `account_setup` (`id`, `name`, `legal_entity_id`, `chart_of_account_id`, `calendar_id`, `currency_id`, `start_date`, `description`, `status`, `p2p_grn_dr`, `p2p_grn_cr`, `p2p_service_dr`, `p2p_service_cr`, `p2p_invoice_dr`, `p2p_invoice_cr`, `p2p_payment_dr`, `p2p_payment_cr`, `o2c_despatch_dr`, `o2c_despatch_cr`, `o2c_service_dr`, `o2c_service_cr`, `o2c_invoice_dr`, `o2c_invoice_cr`, `o2c_receive_dr`, `o2c_receive_cr`) VALUES
-(2, 'Test Setup', 1, 269, 9, 3, '2019-01-01', '', '123', 275, 275, 0, 0, 275, 0, 0, 0, 275, 275, 275, 275, 0, 275, 0, 0);
+(3, 'PCL SETUP', 1, 1, 25, 5, '0000-00-00', '', '', 2329, 2546, 0, 0, 2546, 0, 0, 0, 2334, 2323, 2334, 2323, 0, 2652, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -67,8 +69,8 @@ INSERT INTO `account_setup` (`id`, `name`, `legal_entity_id`, `chart_of_account_
 -- Table structure for table `acc_group_ledgers`
 --
 
-CREATE TABLE IF NOT EXISTS `acc_group_ledgers` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `acc_group_ledgers` (
+  `id` int(10) NOT NULL,
   `acc_code` varchar(30) NOT NULL,
   `acc_name` varchar(150) NOT NULL,
   `parent_id` int(10) NOT NULL,
@@ -87,145 +89,8 @@ CREATE TABLE IF NOT EXISTS `acc_group_ledgers` (
   `COST_CENTER` varchar(60) NOT NULL DEFAULT 'NA',
   `FINAL_AC_TYPE` varchar(25) NOT NULL DEFAULT 'NA',
   `temp_debit_balance` double(10,2) NOT NULL,
-  `temp_credit_balance` double(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1850 ;
-
---
--- Dumping data for table `acc_group_ledgers`
---
-
-INSERT INTO `acc_group_ledgers` (`id`, `acc_code`, `acc_name`, `parent_id`, `acc_type`, `EDIT_STATUS`, `VOUCHER_TYPE`, `acc_nature`, `ref_table_name`, `ref_table_id`, `TRAN_TYPE`, `OB_AMT`, `OB_DATE`, `default_value`, `status`, `SHOW_IN_TRIAL_BALANCE`, `COST_CENTER`, `FINAL_AC_TYPE`, `temp_debit_balance`, `temp_credit_balance`) VALUES
-(1, '', 'Accounts of Medichem', 0, 'GROUP', 'NO', '', '', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(2, '', 'Branch / Divisions', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(3, '', 'Capital Account', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(4, '', 'Current Assets', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 1842131.78, 709625.20),
-(5, '', 'Current Liabilities', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 70117.31, 843435.22),
-(6, '', 'Direct Expenses', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'TRADING_LEFT', 0.00, 0.00),
-(7, '', 'Direct Incomes', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'TRADING_RIGHT', 0.00, 0.00),
-(8, '', 'Fixed Assets', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(9, '', 'Indirect Expenses', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(10, 'IN123', 'Indirect Incomes', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'PL_ACCOUNT_RIGHT', 0.00, 0.00),
-(11, '', 'Investments', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(12, '', 'Loans (Liability)', 5, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(13, '', 'Misc. Expenses (ASSET)', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(14, '', 'Purchase Accounts', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'TRADING_LEFT', 707761.90, 0.00),
-(15, '', 'Sales Accounts', 31, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'TRADING_RIGHT', 0.00, 613311.72),
-(16, '', 'Suspense A/c', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(17, '', 'Bank Accounts', 4, 'GROUP', 'YES', 'BANK_ACCOUNT', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 47483.62, 0.00),
-(18, '', 'Bank OD A/c', 12, 'GROUP', 'YES', 'BANK_ACCOUNT', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(19, '', 'Cash-in-hand', 4, 'GROUP', 'YES', 'CASH_ACCOUNT', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 73159.59, 0.00),
-(20, '', 'Deposits (Asset)', 4, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(21, '', 'Duties & Taxes', 5, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 70117.31, 64260.01),
-(22, '', 'Loans & Advances (Asset)', 4, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(23, '', 'Provisions', 5, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(24, '', 'Reserves and Surplus', 30, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(25, '', 'Secured Loans', 12, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(26, '', 'Stock-in-hand', 4, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 604657.70, 709625.20),
-(27, '', 'Sundry Creditors', 5, 'GROUP', 'YES', 'SUNDRY_CREDITORS', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'GROUP', '', 'BALANCE_SHEET_LIABILITY', 0.00, 779175.21),
-(28, '', 'Sundry Debtors', 4, 'GROUP', 'YES', 'SUNDRY_DEBTORS', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'GROUP', '', 'BALANCE_SHEET_ASSET', 679793.43, 0.00),
-(29, '', 'Unsecured Loans', 12, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(30, '', 'Capital in Nature', 1, 'GROUP', 'YES', '', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 1882595.19, 1538659.42),
-(31, '', 'Revenue in Nature', 1, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 707761.90, 613311.72),
-(126, '', 'FREIGHT CHARGES', 119, 'GROUP', 'YES', '', 'Revenue', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'NA', 0.00, 0.00),
-(1809, '', 'OUTPUT GST', 264, 'GROUP', '', '', '', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 67481.71),
-(1810, '', 'INPUT GST 5%', 1808, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 5.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 14274.00, 0.00),
-(316, '', 'BANK OF BARODA CA', 17, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(317, '', 'Cash A/c', 19, 'LEDGER', '', '', '', '', 0, 'DR', 73159.59, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_ASSET', 73159.59, 0.00),
-(1808, '', 'INPUT GST', 264, 'GROUP', '', '', '', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 71413.31, 0.00),
-(264, '', 'GST', 21, 'GROUP', 'YES', 'VATGROUP', 'Capital', '', 0, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', '', 'BALANCE_SHEET_LIABILITY', 71413.31, 67481.71),
-(319, '', 'OUTPUT GST 5%', 1809, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 5.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 6911.89),
-(320, '', 'OUTPUT GST 12%', 1809, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 12.00, '0', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 49497.96),
-(321, '', 'OUTPUT GST 18%', 1809, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 18.00, '0', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 11071.86),
-(322, '', 'PURCHASE A/C', 14, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'TRADING_LEFT', 707761.90, 0.00),
-(323, '', 'SALES A/C', 15, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'TRADING_RIGHT', 0.00, 613311.72),
-(1812, '', 'INPUT GST 18%', 1808, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 18.00, '0', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 19396.44, 0.00),
-(1811, '', 'INPUT GST 12%', 1808, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 12.00, '0', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 37742.87, 0.00),
-(1807, '', 'PROMILA DRUG HOUSE', 27, 'LEDGER', 'NO', 'SUNDRY_CREDITORS', 'Capital', 'tbl_party', 990, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 21168.00),
-(1806, '', 'Garia Medical Agency, Garia', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 1, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 80.00, 0.00),
-(1270, '', ' Salary & Bonus', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1271, '', 'Shop Rent', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1272, '', 'Electric Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1273, '', 'Telephone Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1274, '', ' Trade Licence Fees', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1275, '', 'Profession Tax', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1276, '', ' W B VAT', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1277, '', 'Drug Licence', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1278, '', 'W B Entry Tax', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1279, '', 'Advertisement', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1280, '', 'Subscription & Donation', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1281, '', 'Business Promotion', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1282, '', 'Accountancy Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1283, '', 'Audit Fees for 17 - 18', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1284, '', 'Legal Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1285, '', 'Repairing of shop', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1286, '', ' Bank Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1287, '', 'Bank Interest', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1288, '', 'E - Filing', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1289, '', 'Intt on borrowed capital', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1290, '', 'Printing & Stationery', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1291, '', 'Software Maintenance', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1292, '', 'Weighing Machine Licence', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1293, '', 'Depreciation', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1294, '', 'General Charges', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1295, '', 'Commission', 10, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_RIGHT', 0.00, 0.00),
-(1296, '', 'Drawings', 3, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(1297, '', 'Advance Income Tax', 3, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(1298, '', 'Overdraft Bank Balance with Bank of Baroda Baranagar Br, ( C/C a/c )', 5, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 0.00),
-(1299, '', 'Audit Fee for 2017 - 2018', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1300, '', 'Furniture', 4, 'LEDGER', '', '', '', '', 0, 'DR', 48051.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 48051.00, 0.00),
-(1301, '', 'A C Machine', 4, 'LEDGER', '', '', '', '', 0, 'DR', 132500.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 132500.00, 0.00),
-(1302, '', 'C C TV', 4, 'LEDGER', '', '', '', '', 0, 'DR', 35000.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 35000.00, 0.00),
-(1303, '', 'Electric Installation', 4, 'LEDGER', '', '', '', '', 0, 'DR', 45805.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 45805.00, 0.00),
-(1304, '', 'Computer with Printer', 4, 'LEDGER', '', '', '', '', 0, 'DR', 51213.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 51213.00, 0.00),
-(1305, '', 'Glow Sign Board', 4, 'LEDGER', '', '', '', '', 0, 'DR', 38591.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 38591.00, 0.00),
-(1306, '', 'Domestic Appliances', 4, 'LEDGER', '', '', '', '', 0, 'DR', 8271.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 8271.00, 0.00),
-(1307, '', 'Two Wheeler (Battery)', 4, 'LEDGER', '', '', '', '', 0, 'DR', 35052.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 35052.00, 0.00),
-(1308, '', 'Security Deposit CESC Ltd', 4, 'LEDGER', '', '', '', '', 0, 'DR', 11520.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 11520.00, 0.00),
-(1309, '', 'Security Deposit C. Ringer and Co', 4, 'LEDGER', '', '', '', '', 0, 'DR', 5000.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 5000.00, 0.00),
-(1310, '', 'Security Deposit W B Sales Tax', 4, 'LEDGER', '', '', '', '', 0, 'DR', 500.00, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 500.00, 0.00),
-(1311, '', 'Security Deposit Excess Input Tax', 4, 'LEDGER', '', '', '', '', 0, 'DR', 25534.44, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 25534.44, 0.00),
-(1312, '', 'Bank of Baroda Baranagar Br ( C/A )', 17, 'LEDGER', '', '', '', '', 0, 'DR', 4797.25, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 5797.25, 0.00),
-(1313, '', 'State Bank of India B T Road Br (C/A)', 17, 'LEDGER', '', '', '', '', 0, 'DR', 41686.37, '2019-04-01', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 41686.37, 0.00),
-(1314, '', 'Carriage Inward', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1315, '', 'Packing Materials', 9, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'PL_ACCOUNT_LEFT', 0.00, 0.00),
-(1819, '', 'Closing Stock', 26, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 709625.20),
-(1818, '', 'Opening Stock', 26, 'LEDGER', '', '', '', '', 0, '0', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 604657.70, 0.00),
-(1817, '', 'NSSCO PHARMA', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 61, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1816, '', 'PROGRESSIVE ENTERPRISE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 60, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1815, '', 'GAUTAM & GAUTAM', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 59, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1814, '', 'SUDAMA DRUG HOUSE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 58, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1813, '', 'KORAKS TRADES', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 57, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 191132.62, 0.00),
-(1820, '', 'M/S KORAKS TRADES', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 2, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 191695.42, 0.00),
-(1821, '', 'MEHEBUB MEDICINE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 3, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 22197.66, 0.00),
-(1822, '', 'ADITYA PHARMACEUTICALS', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 4, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 22305.62, 0.00),
-(1823, '', 'DAS PHARMA', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 5, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 20545.84, 0.00),
-(1824, '', 'SARALA PHARMA PVT LTD', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 6, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 25221.66, 0.00),
-(1825, '', 'NATIONAL ENTERPRISE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 7, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 15896.98, 0.00),
-(1826, '', 'M M DISTRIBUTORS', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 8, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 18567.66, 0.00),
-(1827, '', 'BORAL ENTERPRISES', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 9, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1828, '', 'MAA SASTHI DISTRIBUTORS', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 10, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1829, '', 'KARMAKAR ENTERPRISES', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 11, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1830, '', 'SUDHAMA DRUG AGENCY', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 12, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 17157.12, 0.00),
-(1831, '', 'GOUTAM & GOUTAM', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 13, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 17157.12, 0.00),
-(1832, '', 'PROGRESSIVE ENTERPRISE ', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 14, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1833, '', 'NSSCO PHARMA', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 15, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1834, '', '------', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 16, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1835, '', 'KALYANI MEDICAL AGENCY', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 17, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 9208.62, 0.00),
-(1836, '', 'M/S. SEVAYAN', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 18, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1837, '', 'M/S SEVAYAN', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 19, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 10936.61, 0.00),
-(1838, '', 'FIVE''Z PHARMACEUTICAL', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 20, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 25896.32, 0.00),
-(1839, '', 'BORAL ENTERPRISE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 21, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 23274.71, 0.00),
-(1840, '', 'MAA SASTHI DISTRIBUTORS', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 22, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 11346.19, 0.00),
-(1841, '', 'Gautam & Gautam', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 23, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1842, '', 'SUDHAMA DRUG AGENCY', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 24, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 0.00, 0.00),
-(1843, '', 'SUBHAYU ENTERPRISE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 25, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 12989.03, 0.00),
-(1844, '', 'SALUD CARE (INDIA) PVT. LTD.', 27, 'LEDGER', 'NO', 'SUNDRY_CREDITORS', 'Capital', 'tbl_party', 991, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 507531.81),
-(1845, '', 'PUNEET LABORATORIES PVT. LTD.', 27, 'LEDGER', 'NO', 'SUNDRY_CREDITORS', 'Capital', 'tbl_party', 992, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_LIABILITY', 0.00, 250475.40),
-(1846, '', 'MAYA DRUG', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 26, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 8775.85, 0.00),
-(1847, '', 'MUKHERJEE ENTERPRISE', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 27, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 9208.62, 0.00),
-(1848, '', 'AGARWALA MEDICAL AGENCY', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 28, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 17841.38, 0.00),
-(1849, '', 'UB PHARMACEUTICALS', 28, 'LEDGER', 'NO', 'SUNDRY_DEBTORS', 'Capital', 'stockist', 29, '', 0.00, '0000-00-00', 0.00, 'ACTIVE', 'LEDGER', 'NA', 'BALANCE_SHEET_ASSET', 8358.40, 0.00);
+  `temp_credit_balance` double(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -233,40 +98,45 @@ INSERT INTO `acc_group_ledgers` (`id`, `acc_code`, `acc_name`, `parent_id`, `acc
 -- Table structure for table `acc_tran_details`
 --
 
-CREATE TABLE IF NOT EXISTS `acc_tran_details` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `acc_tran_details` (
+  `id` int(11) NOT NULL,
   `acc_tran_header_id` int(11) NOT NULL,
   `cr_ledger_account` int(10) NOT NULL,
   `dr_ledger_account` int(10) NOT NULL,
   `amount` double(10,2) NOT NULL,
   `detailtype` varchar(20) NOT NULL DEFAULT 'NA',
-  `matching_tran_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=55 ;
+  `matching_tran_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `acc_tran_details`
 --
 
 INSERT INTO `acc_tran_details` (`id`, `acc_tran_header_id`, `cr_ledger_account`, `dr_ledger_account`, `amount`, `detailtype`, `matching_tran_id`) VALUES
-(38, 26, 0, 275, 90.00, 'NA', 1),
-(37, 26, 275, 0, 90.00, 'NA', 1),
-(14, 13, 0, 275, 1040.00, 'NA', 1),
-(13, 13, 275, 0, 1040.00, 'NA', 1),
-(26, 20, 0, 275, 600.00, 'NA', 1),
-(25, 20, 275, 0, 600.00, 'NA', 1),
-(28, 21, 0, 275, 400.00, 'NA', 1),
-(27, 21, 275, 0, 400.00, 'NA', 1),
-(23, 19, 275, 0, 1000.00, 'NA', 1),
-(24, 19, 0, 275, 1000.00, 'NA', 1),
-(40, 27, 0, 275, 400.00, 'NA', 1),
-(39, 27, 275, 0, 400.00, 'NA', 1),
-(34, 24, 0, 275, 416.00, 'NA', 1),
-(33, 24, 275, 0, 416.00, 'NA', 1),
-(35, 25, 275, 0, 416.00, 'NA', 1),
-(36, 25, 0, 275, 416.00, 'NA', 1),
-(54, 34, 0, 275, 400.00, 'NA', 1),
-(53, 34, 275, 0, 400.00, 'NA', 1);
+(4, 2, 0, 2329, 22800.00, 'NA', 1),
+(3, 2, 2546, 0, 22800.00, 'NA', 1),
+(5, 3, 2543, 0, 31518.00, 'NA', 1),
+(6, 3, 0, 2546, 31518.00, 'NA', 1),
+(10, 6, 0, 2543, 31518.00, 'NA', 1),
+(9, 6, 2460, 0, 31518.00, 'NA', 1),
+(18, 12, 0, 2334, 4800.00, 'NA', 1),
+(17, 12, 2323, 0, 4800.00, 'NA', 1),
+(13, 10, 2652, 0, 6400.00, 'NA', 1),
+(14, 10, 0, 2352, 6400.00, 'NA', 1),
+(15, 11, 2352, 0, 6400.00, 'NA', 1),
+(16, 11, 0, 2436, 6400.00, 'NA', 1),
+(22, 14, 0, 2334, 1000.00, 'NA', 1),
+(21, 14, 2323, 0, 1000.00, 'NA', 1),
+(26, 16, 0, 2352, 1000.00, 'NA', 1),
+(25, 16, 2652, 0, 1000.00, 'NA', 1),
+(27, 17, 2352, 0, 1000.00, 'NA', 1),
+(28, 17, 0, 2460, 1000.00, 'NA', 1),
+(29, 18, 2323, 0, 1280.00, 'NA', 1),
+(30, 18, 0, 2334, 1280.00, 'NA', 1),
+(34, 20, 0, 2352, 1600.00, 'NA', 1),
+(33, 20, 2652, 0, 1600.00, 'NA', 1),
+(35, 21, 2352, 0, 1600.00, 'NA', 1),
+(36, 21, 0, 2460, 1600.00, 'NA', 1);
 
 -- --------------------------------------------------------
 
@@ -274,8 +144,8 @@ INSERT INTO `acc_tran_details` (`id`, `acc_tran_header_id`, `cr_ledger_account`,
 -- Table structure for table `acc_tran_details_details`
 --
 
-CREATE TABLE IF NOT EXISTS `acc_tran_details_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `acc_tran_details_details` (
+  `id` int(10) NOT NULL,
   `acc_tran_details_id` int(10) NOT NULL,
   `TABLE_NAME` varchar(100) NOT NULL,
   `TABLE_ID` int(10) NOT NULL,
@@ -289,14 +159,8 @@ CREATE TABLE IF NOT EXISTS `acc_tran_details_details` (
   `BANKNAME` varchar(100) NOT NULL,
   `BRANCH` varchar(100) NOT NULL,
   `STATUS` varchar(30) NOT NULL,
-  `OPERATION_TYPE` varchar(20) NOT NULL DEFAULT 'PLUS',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `acc_tran_details_details`
---
-
+  `OPERATION_TYPE` varchar(20) NOT NULL DEFAULT 'PLUS'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -304,8 +168,8 @@ CREATE TABLE IF NOT EXISTS `acc_tran_details_details` (
 -- Table structure for table `acc_tran_header`
 --
 
-CREATE TABLE IF NOT EXISTS `acc_tran_header` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `acc_tran_header` (
+  `id` int(11) NOT NULL,
   `SRL` int(10) NOT NULL,
   `finyr` varchar(5) NOT NULL,
   `tran_table_name` varchar(100) NOT NULL,
@@ -314,26 +178,27 @@ CREATE TABLE IF NOT EXISTS `acc_tran_header` (
   `tran_code` varchar(50) NOT NULL,
   `TRAN_TYPE` varchar(20) NOT NULL DEFAULT 'SELL',
   `ledger_account_header` int(10) NOT NULL,
-  `comment` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+  `comment` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `acc_tran_header`
 --
 
 INSERT INTO `acc_tran_header` (`id`, `SRL`, `finyr`, `tran_table_name`, `tran_table_id`, `tran_date`, `tran_code`, `TRAN_TYPE`, `ledger_account_header`, `comment`) VALUES
-(2, 0, '', 'invoice_summary', 22, '2020-04-22', 'GRN-FINAL-1', 'GRN_ENTRY', 0, ''),
-(26, 0, '', 'invoice_summary', 3, '2020-04-23', 'GRN-FINAL1', 'GRN_ENTRY', 0, ''),
-(9, 0, '', 'invoice_summary', 5, '2020-04-22', 'PO-FINAL1', 'PURCHASE_INVOICE', 0, ''),
-(13, 0, '', 'invoice_summary', 6, '2020-04-22', 'PO-FINAL1', 'PURCHASE_INVOICE', 0, ''),
-(20, 0, '', 'invoice_payment_receive', 1, '0000-00-00', '', 'SUPPLIER_PAYMENT', 0, ''),
-(21, 0, '', 'invoice_payment_receive', 2, '0000-00-00', '', 'SUPPLIER_PAYMENT', 0, ''),
-(19, 0, '', 'invoice_summary', 7, '2020-04-22', 'PO-FINAL1', 'PURCHASE_INVOICE', 0, ''),
-(27, 0, '', 'invoice_summary', 9, '2020-04-23', 'ORD-FINAL1', 'ORDER_DESPATCH', 0, ''),
-(24, 0, '', 'invoice_summary', 10, '2020-04-22', 'ORD-FINAL1', 'SALES_INVOICE', 0, ''),
-(25, 0, '', 'invoice_payment_receive', 3, '0000-00-00', '', 'CUSTOMER_RECEIVE', 0, ''),
-(34, 0, '', 'invoice_summary', 11, '2020-04-23', 'ORD-FINAL1', 'ORDER_DESPATCH', 0, '');
+(2, 0, '', 'invoice_summary', 3, '2020-05-06', 'GRN1', 'GRN_ENTRY', 0, ''),
+(3, 0, '', 'invoice_summary', 5, '2020-05-06', 'INV1', 'PURCHASE_INVOICE', 0, ''),
+(6, 0, '', 'invoice_payment_receive', 1, '2020-05-06', 'PAY1', 'SUPPLIER_PAYMENT', 0, ''),
+(7, 0, '', 'invoice_summary', 7, '2020-05-06', 'Order1', 'ORDER_DESPATCH', 0, ''),
+(12, 0, '', 'invoice_summary', 8, '2020-05-06', 'Despatch1', 'ORDER_DESPATCH', 0, ''),
+(10, 0, '', 'invoice_summary', 9, '2020-05-06', 'invoice-1', 'SALES_INVOICE', 0, ''),
+(11, 0, '', 'invoice_payment_receive', 2, '2020-05-06', 'REC1', 'CUSTOMER_RECEIVE', 0, ''),
+(14, 0, '', 'invoice_summary', 11, '2020-05-06', 'DESPATCH-2', 'ORDER_DESPATCH', 0, ''),
+(16, 0, '', 'invoice_summary', 12, '2020-05-06', 'INVOICE-2', 'SALES_INVOICE', 0, ''),
+(17, 0, '', 'invoice_payment_receive', 3, '2020-05-06', 'RECEIVE-2', 'CUSTOMER_RECEIVE', 0, ''),
+(18, 0, '', 'invoice_summary', 14, '2020-05-06', 'DESPATCH-5', 'ORDER_DESPATCH', 0, ''),
+(20, 0, '', 'invoice_summary', 15, '2020-05-06', 'INVOICE-5', 'SALES_INVOICE', 0, ''),
+(21, 0, '', 'invoice_payment_receive', 4, '2020-05-06', 'RECEIVE-5', 'CUSTOMER_RECEIVE', 0, '');
 
 -- --------------------------------------------------------
 
@@ -341,8 +206,8 @@ INSERT INTO `acc_tran_header` (`id`, `SRL`, `finyr`, `tran_table_name`, `tran_ta
 -- Table structure for table `brands`
 --
 
-CREATE TABLE IF NOT EXISTS `brands` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `brands` (
+  `id` int(11) NOT NULL,
   `brand_name` varchar(255) NOT NULL,
   `orderno` int(6) NOT NULL,
   `brandtype` varchar(30) NOT NULL,
@@ -354,9 +219,8 @@ CREATE TABLE IF NOT EXISTS `brands` (
   `output_gst_ledger_id` int(10) NOT NULL,
   `DIVISION` int(10) NOT NULL,
   `pkg1_srate` double(10,2) NOT NULL,
-  `pkg1` double(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=93 ;
+  `pkg1` double(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `brands`
@@ -375,9 +239,9 @@ INSERT INTO `brands` (`id`, `brand_name`, `orderno`, `brandtype`, `product_type`
 (10, 'SURGEON', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (11, 'PHY', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (12, 'DENTIST', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
-(13, 'PANSTAF-DSR CAPSULE 10 X 10''S', 0, 'BRAND', 'SALE', 114.44, 114.44, '3004', 1811, 320, 0, 0.00, 0.00),
-(14, 'PANSTAF- 40 TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 88.72, 88.72, '3004', 1811, 320, 0, 0.00, 0.00),
-(15, 'STAFOCET- M TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 50.08, 50.08, '3004', 1811, 320, 0, 0.00, 0.00),
+(13, 'PANSTAF-DSR CAPSULE 10 X 10\'S', 0, 'BRAND', 'SALE', 114.44, 114.44, '3004', 1811, 320, 0, 0.00, 0.00),
+(14, 'PANSTAF- 40 TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 88.72, 88.72, '3004', 1811, 320, 0, 0.00, 0.00),
+(15, 'STAFOCET- M TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 50.08, 50.08, '3004', 1811, 320, 0, 0.00, 0.00),
 (71, 'ORTHOPEDIC', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (72, 'RMP', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (70, 'GYNECOLOGIST', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
@@ -423,11 +287,11 @@ INSERT INTO `brands` (`id`, `brand_name`, `orderno`, `brandtype`, `product_type`
 (58, 'MBBS', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (59, 'MRCOG', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (60, 'GEN.PHY', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
-(61, 'FENAST-R TABLET  10 X 10''S', 0, 'BRAND', 'SALE', 189.65, 189.65, '3004', 1811, 320, 0, 0.00, 0.00),
-(62, 'MIVIT- A TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 73.93, 73.93, '3004', 1811, 320, 0, 0.00, 0.00),
-(63, 'URSOAID- 300 TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 164.57, 164.57, '3004', 1810, 319, 0, 0.00, 0.00),
-(64, 'CALCINATE D TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 52.65, 52.65, '30049079', 1811, 320, 0, 0.00, 0.00),
-(65, 'CARNOCID TABLET 10 X 10''S', 0, 'BRAND', 'SALE', 54.92, 54.92, '30049039', 1812, 321, 0, 0.00, 0.00),
+(61, 'FENAST-R TABLET  10 X 10\'S', 0, 'BRAND', 'SALE', 189.65, 189.65, '3004', 1811, 320, 0, 0.00, 0.00),
+(62, 'MIVIT- A TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 73.93, 73.93, '3004', 1811, 320, 0, 0.00, 0.00),
+(63, 'URSOAID- 300 TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 164.57, 164.57, '3004', 1810, 319, 0, 0.00, 0.00),
+(64, 'CALCINATE D TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 52.65, 52.65, '30049079', 1811, 320, 0, 0.00, 0.00),
+(65, 'CARNOCID TABLET 10 X 10\'S', 0, 'BRAND', 'SALE', 54.92, 54.92, '30049039', 1812, 321, 0, 0.00, 0.00),
 (73, 'SRGN', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (74, 'GNE', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
 (75, 'SUGEON', 0, 'SPECIALITY', 'SALE', 0.00, 0.00, '', 0, 0, 0, 0.00, 0.00),
@@ -455,8 +319,8 @@ INSERT INTO `brands` (`id`, `brand_name`, `orderno`, `brandtype`, `product_type`
 -- Table structure for table `category_wise_sale`
 --
 
-CREATE TABLE IF NOT EXISTS `category_wise_sale` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `category_wise_sale` (
+  `id` int(10) NOT NULL,
   `period` varchar(100) NOT NULL,
   `category` varchar(100) NOT NULL,
   `sub_category` varchar(100) NOT NULL,
@@ -465,9 +329,8 @@ CREATE TABLE IF NOT EXISTS `category_wise_sale` (
   `current_period_value` varchar(100) NOT NULL,
   `previous_peroid_quantity` varchar(100) NOT NULL,
   `previous_peroid_quantity_value` varchar(100) NOT NULL,
-  `percentige_change` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10240 ;
+  `percentige_change` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_wise_sale`
@@ -549,8 +412,8 @@ INSERT INTO `category_wise_sale` (`id`, `period`, `category`, `sub_category`, `p
 -- Table structure for table `company_details`
 --
 
-CREATE TABLE IF NOT EXISTS `company_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `company_details` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL DEFAULT '0',
   `NAME` varchar(150) NOT NULL,
   `ADDRESS` varchar(200) NOT NULL,
@@ -564,19 +427,17 @@ CREATE TABLE IF NOT EXISTS `company_details` (
   `GSTNo` varchar(50) NOT NULL,
   `BankDetails` varchar(200) NOT NULL,
   `company_type` int(10) NOT NULL,
-  `location_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `location_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `company_details`
 --
 
 INSERT INTO `company_details` (`id`, `parent_id`, `NAME`, `ADDRESS`, `MOB_NOS`, `EMAIL_IDS`, `SMS_KEY`, `COMP_ID`, `billing_emp_id`, `billing_emp_desig`, `DLNO1`, `GSTNo`, `BankDetails`, `company_type`, `location_id`) VALUES
-(1, 0, 'ATA ERP-1', '145, GOURI NATH SHASTRI SARANI, SHYAMNAGAR<br> ROAD, P.S. - DUM DUM, KOLKATA - 700055', '9831148647 / 6289228192 1', 'info@astaford.in', '77477AbwBFRMdBFd5533c1f5', 'Sanjeevani', 270, 2, 'WB/KOL/BIO/W/211109,WB/KOL/NBO/W/211109', '19ABBCS1813L1Z8', 'Bank Detail', 62, 2),
-(2, 1, 'Branch', '', '', '', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 64, 0),
-(3, 1, 'Adequate Solutions', '', '', '', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 64, 0),
-(4, 0, 'PSG', '123 Shanta Western Tower Tejgoan road', '', 'xyz@psgbd.co', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '983464', '', '1299008867542', 60, 6);
+(1, 0, 'PCL', 'Uday Tower, Level-7, 57-57A, Gulshan-1, Dhaka-1212, Bangladesh', '+880 121335 5464', 'info@partexcables.com', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 62, 10),
+(2, 0, 'Star Particles Board Mills Limited (SPBML)', 'Shanta Western Tower, Level – 13 Bir Uttam Mir Shawkat Road, 186 Tejgaon I/A Dhaka – 1208, Bangladesh', '+88 02 8878800', 'info@partexfurnitureltd.com', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 62, 11),
+(3, 0, '', '', '', '', '77477AbwBFRMdBFd5533c1f5', '', 0, 0, '', '', '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -584,17 +445,16 @@ INSERT INTO `company_details` (`id`, `parent_id`, `NAME`, `ADDRESS`, `MOB_NOS`, 
 -- Table structure for table `frmrptgeneralmaster`
 --
 
-CREATE TABLE IF NOT EXISTS `frmrptgeneralmaster` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `frmrptgeneralmaster` (
+  `id` int(10) NOT NULL,
   `FieldID` varchar(50) NOT NULL,
   `FieldVal` varchar(50) NOT NULL,
   `Status` varchar(50) NOT NULL,
   `parent_id` int(10) NOT NULL DEFAULT '0',
   `display_order` int(10) NOT NULL,
   `comment` varchar(200) NOT NULL,
-  `active_inactive` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=164 ;
+  `active_inactive` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `frmrptgeneralmaster`
@@ -639,7 +499,7 @@ INSERT INTO `frmrptgeneralmaster` (`id`, `FieldID`, `FieldVal`, `Status`, `paren
 (54, 'SALES OFFICE ', 'SALES OFFICE', 'OPERATION_UNIT_TYPE_CANCEL', 0, 0, '', 'ACTIVE'),
 (55, 'INVENTORY_STORE', 'INVENTORY STORE', 'OPERATION_UNIT_TYPE_CANCEL', 0, 0, '', 'ACTIVE'),
 (56, 'PLANT', 'PLANT', 'OPERATION_UNIT_TYPE_CANCEL', 0, 0, '', 'ACTIVE'),
-(57, 'WARE HOUSE', 'WARE HOUSE', 'LIST', 53, 1, '--', 'ACTIVE'),
+(57, 'OPERATING UNIT', 'OPERATING UNIT', 'LIST', 53, 1, '--', 'ACTIVE'),
 (58, 'SALE POINT', 'SALE POINT', 'LIST', 53, 2, '--', 'INACTIVE'),
 (60, 'BUSINESS GROUP', 'BUSINESS GROUP', 'LIST', 42, 1, '', 'ACTIVE'),
 (61, 'PUBLIC LIMITED', 'PUBLIC LIMITED', 'LIST', 42, 2, '', 'ACTIVE'),
@@ -743,7 +603,11 @@ INSERT INTO `frmrptgeneralmaster` (`id`, `FieldID`, `FieldVal`, `Status`, `paren
 (160, 'Cancelled', 'Cancelled', 'BATCH_STATUS', 0, 0, '', ''),
 (161, 'WIP', 'WIP', 'BATCH_STATUS', 0, 0, '', ''),
 (162, 'Completed', 'Completed', 'BATCH_STATUS', 0, 0, '', ''),
-(163, 'Closed', 'Closed', 'BATCH_STATUS', 0, 0, '', '');
+(163, 'Closed', 'Closed', 'BATCH_STATUS', 0, 0, '', ''),
+(164, 'Revenue', 'Revenue', 'CHART_OF_AC_QUALIFIER', 0, 0, '', ''),
+(165, 'Pcs', 'Pcs', 'LIST', 120, 0, 'Pcs', 'ACTIVE'),
+(166, 'Gauge', 'Gauge', 'LIST', 120, 0, 'Gauge', 'ACTIVE'),
+(167, '', '', 'LIST', 120, 0, '', 'INACTIVE');
 
 -- --------------------------------------------------------
 
@@ -751,8 +615,8 @@ INSERT INTO `frmrptgeneralmaster` (`id`, `FieldID`, `FieldVal`, `Status`, `paren
 -- Table structure for table `frmrpttemplatedetails`
 --
 
-CREATE TABLE IF NOT EXISTS `frmrpttemplatedetails` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `frmrpttemplatedetails` (
+  `id` int(10) NOT NULL,
   `frmrpttemplatehdrID` int(10) NOT NULL,
   `InputName` varchar(50) NOT NULL,
   `tran_table_name` varchar(100) NOT NULL,
@@ -771,9 +635,8 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatedetails` (
   `SectionType` varchar(20) NOT NULL,
   `MainTable` varchar(40) NOT NULL,
   `LinkField` varchar(40) NOT NULL,
-  `validation_type` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1721 ;
+  `validation_type` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `frmrpttemplatedetails`
@@ -788,7 +651,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (20, 8, 'MOB_NOS', 'company_details', 'text', '', '', '', 'Contact No', '3', 0, 3, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
 (21, 8, 'EMAIL_IDS', 'company_details', 'text', '', '', '', 'Email', '3', 0, 4, '', '', '', '', 'HEADER', 'company_details', 'id', 145),
 (183, 8, 'location_id', 'company_details', 'text', '', '', '', 'Location', '3', 0, 10, 'select id FieldID,name FieldVal  from tbl_location order by   NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(182, 27, 'location_type', 'tbl_location', 'text', '', '', '', 'Location Type', '3', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=48 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(182, 27, 'location_type', 'tbl_location', 'text', '', '', '', 'Location Type', '3', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=48 and active_inactive=\'ACTIVE\'  order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (163, 25, 'where_cond', 'frmrpt_simple_query_builder', 'text', '', '', '', 'where_cond', '6', 1, 5, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (162, 25, 'field_name', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Field Name', '3', 1, 4, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (161, 25, 'table_name', 'frmrpt_simple_query_builder', 'text', '', '', '', 'Table Name/Sql Query', '3', 1, 3, '', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
@@ -802,39 +665,39 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (187, 14, 'company_details_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Under Legal Entity', '2', 0, 4, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
 (38, 10, 'userid', 'tbl_employee_mstr', 'text', '', '', '', 'User Id', '3', 0, 7, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
 (39, 10, 'password', 'tbl_employee_mstr', 'text', '', '', '', 'Password', '3', 0, 8, '', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
-(40, 10, 'login_status', 'tbl_employee_mstr', 'text', '', '', '', 'Login Type', '3', 0, 9, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''LOGINTYPE''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
-(41, 10, 'status', 'tbl_employee_mstr', 'text', '', '', '', 'Status', '3', 0, 10, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(40, 10, 'login_status', 'tbl_employee_mstr', 'text', '', '', '', 'Login Type', '3', 0, 9, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'LOGINTYPE\'  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
+(41, 10, 'status', 'tbl_employee_mstr', 'text', '', '', '', 'Status', '3', 0, 10, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'tbl_employee_mstr', 'id', 145),
 (184, 10, 'USER_TYPE', 'tbl_employee_mstr', 'hidden', 'USER', '', '', 'USER_TYPE', '1', 0, 12, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
 (69, 14, 'hierarchy_name', 'tbl_hierarchy_org', 'text', '', '', '', 'Unit Name', '4', 0, 2, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 145),
-(185, 14, 'unit_type_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=53 and active_inactive=''ACTIVE''  order by   display_order', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
+(185, 14, 'unit_type_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=53 and active_inactive=\'ACTIVE\'  order by   display_order', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
 (186, 14, 'under_tbl_hierarchy_org', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Parent Operation Unit', '2', 0, 3, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where id>1  order by   hierarchy_name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
-(72, 15, 'tran_type', 'employee_daily_trn', 'SingleSelect', '', 'fa-edit', '', 'Tran Type', '3', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''EmployeeOtherActivity''  order by   FieldVal', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
+(72, 15, 'tran_type', 'employee_daily_trn', 'SingleSelect', '', 'fa-edit', '', 'Tran Type', '3', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'EmployeeOtherActivity\'  order by   FieldVal', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
 (73, 15, 'tran_date', 'employee_daily_trn', 'datefield', '', 'fa-edit', '', 'Date', '3', 1, 1, '', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
 (74, 15, 'tran_desc', 'employee_daily_trn', 'text', '', 'fa-edit', '', 'Description', '6', 1, 3, '', '', '', '', 'HEADER', 'employee_daily_trn', 'id', 0),
 (107, 20, 'hierarchy_name', 'tbl_hierarchy_org', 'text', '', '', '', '', '1', 1, 1, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'hierarchy_name', 0),
 (194, 29, 'name', 'software_architecture_details', 'text', '', '', '', 'Name', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(193, 28, 'data_type', 'software_architecture_details', 'SingleSelect', '', '', '', 'Type', '2', 1, 4, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=69 and\r\nid!=73 and active_inactive=''ACTIVE'' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(192, 28, 'status', 'software_architecture_details', 'SingleSelect', '', '', '', 'Status', '2', 1, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(193, 28, 'data_type', 'software_architecture_details', 'SingleSelect', '', '', '', 'Type', '2', 1, 4, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=69 and\r\nid!=73 and active_inactive=\'ACTIVE\' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(192, 28, 'status', 'software_architecture_details', 'SingleSelect', '', '', '', 'Status', '2', 1, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (191, 28, 'parent_id', 'software_architecture_details', 'SingleSelect', '', '', '', 'Parent(If Any)', '2', 1, 2, 'select  id FieldID,name FieldVal  from software_architecture_details where id>0  order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (190, 28, 'name', 'software_architecture_details', 'text', '', '', '', 'Name', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (108, 20, 'under_tbl_hierarchy_org', 'tbl_hierarchy_org', 'text', '', '', '', '', '1', 1, 2, '', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'under_tbl_hierarchy_org', 0),
 (180, 27, 'name', 'tbl_location', 'text', '', '', '', 'Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(203, 10, 'software_archi_role_manage_id', 'tbl_employee_mstr', 'text', '', '', '', 'Select Roll', '3', 0, 11, 'select  id FieldID,roll_name FieldVal  from software_archi_role_manage where data_type=''HEADER''  and status=''ACTIVE'' order by   roll_name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
+(203, 10, 'software_archi_role_manage_id', 'tbl_employee_mstr', 'text', '', '', '', 'Select Roll', '3', 0, 11, 'select  id FieldID,roll_name FieldVal  from software_archi_role_manage where data_type=\'HEADER\'  and status=\'ACTIVE\' order by   roll_name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
 (202, 30, 'data_type', 'software_archi_role_manage', 'hidden', 'HEADER', '', '', '', '1', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(201, 30, 'status', 'software_archi_role_manage', 'SingleSelect', '', '', '', 'Status', '4', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(201, 30, 'status', 'software_archi_role_manage', 'SingleSelect', '', '', '', 'Status', '4', 1, 2, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (199, 29, 'data_type', 'software_architecture_details', 'hidden', '73', '', '', '', '1', 1, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (200, 30, 'roll_name', 'software_archi_role_manage', 'text', '', '', '', 'Roll Name', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(198, 29, 'status', 'software_architecture_details', 'SingleSelect', '', '', '', 'Status', '4', 1, 5, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(198, 29, 'status', 'software_architecture_details', 'SingleSelect', '', '', '', 'Status', '4', 1, 5, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (188, 14, 'city_id', 'tbl_hierarchy_org', 'SingleSelect', '', '', '', 'Location', '2', 0, 5, 'select  id FieldID,name FieldVal  from tbl_location   order by   name', '', '', '', 'HEADER', 'tbl_hierarchy_org', '', 145),
 (197, 29, 'orderby', 'software_architecture_details', 'text', '', '', '', 'Order By', '4', 1, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (196, 29, 'controller_path', 'software_architecture_details', 'text', '', '', '', 'Path(URL)', '6', 1, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (195, 29, 'parent_id', 'software_architecture_details', 'SingleSelect', '', '', '', 'Menu header ', '3', 1, 2, 'select  id FieldID,name FieldVal  from software_architecture_details where data_type=72  order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(164, 25, 'type', 'frmrpt_simple_query_builder', 'SingleSelect', '', '', '', 'TYPE', '3', 1, 6, 'select FieldID,FieldVal from  frmrptgeneralmaster where Status=''QUERY_TYPE''', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
+(164, 25, 'type', 'frmrpt_simple_query_builder', 'SingleSelect', '', '', '', 'TYPE', '3', 1, 6, 'select FieldID,FieldVal from  frmrptgeneralmaster where Status=\'QUERY_TYPE\'', '', '', '', 'HEADER', 'a_import_doctor_master', '', 0),
 (166, 8, 'BankDetails', 'company_details', 'text', '', '', '', 'Bank Details', '6', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (172, 8, 'GSTNo', 'company_details', 'text', '', '', '', 'GSTNo', '2', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (173, 8, 'DLNO1', 'company_details', 'text', '', '', '', 'DLNO', '2', 0, 7, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (179, 8, 'parent_id', 'company_details', 'text', '', '', '', 'Parent Company', '3', 0, 9, 'select id FieldID,NAME FieldVal  from company_details  order by   NAME', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(178, 8, 'company_type', 'company_details', 'text', '', '', '', 'Type of Company', '3', 0, 8, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=42 and active_inactive=''ACTIVE'' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(178, 8, 'company_type', 'company_details', 'text', '', '', '', 'Type of Company', '3', 0, 8, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=42 and active_inactive=\'ACTIVE\' order by   display_order', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (204, 27, 'code', 'tbl_location', 'text', '', '', '', 'Code', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (205, 27, 'address', 'tbl_location', 'text', '', '', '', 'Address', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (206, 27, 'contactno', 'tbl_location', 'text', '', '', '', 'Contact No', '3', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -865,7 +728,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (232, 33, 'city', 'mstr_bank', 'text', '', '', '', 'City', '3', 0, 16, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (233, 33, 'state', 'mstr_bank', 'text', '', '', '', 'state', '3', 0, 17, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (234, 33, 'postal_code', 'mstr_bank', 'text', '', '', '', 'Postal Code', '3', 0, 18, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(235, 33, 'status', 'mstr_bank', 'text', '', '', '', 'Status', '3', 0, 21, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(235, 33, 'status', 'mstr_bank', 'text', '', '', '', 'Status', '3', 0, 21, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (269, 33, 'account_no', 'mstr_bank', 'text', '', '', '', 'Account No', '2', 0, 19, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (268, 33, 'ifc_code', 'mstr_bank', 'text', '', '', '', 'Ifc Code', '2', 0, 20, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (238, 35, 'customer_name', 'mstr_customer', 'text', '', '', '', 'Customer Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -875,7 +738,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (242, 35, 'credit_limit', 'mstr_customer', 'text', '', '', '', 'Credit Limit', '3', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (243, 35, 'credit_days', 'mstr_customer', 'text', '', '', '', 'Credit Days', '3', 0, 6, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (244, 35, 'currency_id', 'mstr_customer', 'text', '', '', '', 'Currency Id', '3', 0, 7, 'select  id FieldID,name FieldVal  from tbl_currency_master order by   name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(245, 35, 'status', 'mstr_customer', 'text', '', '', '', 'Status', '2', 0, 8, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(245, 35, 'status', 'mstr_customer', 'text', '', '', '', 'Status', '2', 0, 8, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (246, 36, 'first_name', 'mstr_employee', 'text', '', '', '', 'First Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (247, 36, 'last_name', 'mstr_employee', 'text', '', '', '', 'Last Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (248, 36, 'gender', 'mstr_employee', 'text', '', '', '', 'Gender', '2', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -888,20 +751,20 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (255, 36, 'effective_date_to', 'mstr_employee', 'datefield', '', '', '', 'Effective Date To', '3', 0, 10, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (256, 36, 'latest_start_date', 'mstr_employee', 'datefield', '', '', '', 'Latest Start Date', '3', 0, 11, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (257, 36, 'employee_picture', 'mstr_employee', 'hidden', '', '', '', 'Employee Picture', '3', 0, 12, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(258, 36, 'status', 'mstr_employee', 'text', '', '', '', 'Status', '2', 0, 13, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(258, 36, 'status', 'mstr_employee', 'text', '', '', '', 'Status', '2', 0, 13, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (259, 37, 'name', 'mstr_product', 'text', '', '', '', 'Name', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (260, 37, 'description', 'mstr_product', 'text', '', '', '', 'Description', '2', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(261, 37, 'status', 'mstr_product', 'SingleSelect', '', '', '', 'Status', '2', 0, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(261, 37, 'status', 'mstr_product', 'SingleSelect', '', '', '', 'Status', '2', 0, 3, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (262, 38, 'name', 'mstr_supplier', 'text', '', '', '', 'Name', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (263, 38, 'address', 'mstr_supplier', 'text', '', '', '', 'Address', '6', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (264, 38, 'phone_no', 'mstr_supplier', 'text', '', '', '', 'Phone No', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (265, 38, 'contact_person', 'mstr_supplier', 'text', '', '', '', 'Contact Person', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (266, 38, 'country', 'mstr_supplier', 'SingleSelect', '', '', '', 'Location', '4', 0, 5, 'select id FieldID,name FieldVal  from tbl_location order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(267, 38, 'status', 'mstr_supplier', 'SingleSelect', '', '', '', 'Status', '4', 0, 6, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''StaffActivityType''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(267, 38, 'status', 'mstr_supplier', 'SingleSelect', '', '', '', 'Status', '4', 0, 6, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'StaffActivityType\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (278, 40, 'name', 'account_setup', 'text', '', '', '', 'Setup Name', '3', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (279, 40, 'description', 'account_setup', 'text', '', '', '', 'Description', '4', 0, 3, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (280, 40, 'start_date', 'account_setup', 'datefield', '', '', '', 'Start Date', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(281, 40, 'chart_of_account_id', 'account_setup', 'text', '', '', '', 'Chart Of Account', '3', 0, 4, 'select id FieldID,title FieldVal from tbl_chart_of_accounts where trantype=''CHART_OF_ACCOUNT'' and status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(281, 40, 'chart_of_account_id', 'account_setup', 'text', '', '', '', 'Chart Of Account', '3', 0, 4, 'select id FieldID,title FieldVal from tbl_chart_of_accounts where trantype=\'CHART_OF_ACCOUNT\' and status=\'ACTIVE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (282, 40, 'currency_id', 'account_setup', 'text', '', '', '', 'Currency', '3', 0, 5, 'select id FieldID,name FieldVal from tbl_currency_master order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (283, 40, 'calendar_id', 'account_setup', 'text', '', '', '', 'Calendar', '3', 0, 6, 'select id FieldID,period_type FieldVal from tbl_calender where parent_id=0 order by Description', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (284, 41, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
@@ -910,21 +773,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (288, 41, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 4, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (499, 10, 'account_setup_id', 'tbl_employee_mstr', 'text', '', '', '', 'Account Setup', '3', 0, 13, 'select  id FieldID,name FieldVal  from account_setup order by  name', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 145),
 (442, 41, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(464, 42, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '6', 3, 3, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=78 and active_inactive=''ACTIVE'' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
-(463, 42, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '6', 2, 2, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=79 and active_inactive=''ACTIVE'' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
-(462, 42, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '6', 1, 1, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=77 and active_inactive=''ACTIVE'' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
+(464, 42, 'cost_center_id', 'invoice_details', 'text', '', '', '', 'Cost Center', '6', 3, 3, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=78 and active_inactive=\'ACTIVE\' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
+(463, 42, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '6', 2, 2, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=79 and active_inactive=\'ACTIVE\' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
+(462, 42, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '6', 1, 1, 'select  id FieldID,value FieldVal  \r\nFROM tbl_chart_of_accounts where parent_id in (select id from tbl_chart_of_accounts where  code_main_id=77 and active_inactive=\'ACTIVE\' ) order by  value', '', '', '', 'HEADER2', 'tbl_chart_of_accounts', 'value', 0),
 (461, 41, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (460, 41, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 4, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', 'id', 146),
 (459, 41, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting date', '3', 0, 3, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (458, 41, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (457, 41, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (456, 41, 'status', 'invoice_summary', 'hidden', 'REQUISITION', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(455, 41, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(455, 41, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (454, 41, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (453, 41, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (452, 41, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(451, 41, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(450, 41, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(451, 41, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(450, 41, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (323, 42, 'req_srl_number', 'invoice_details', 'text', '', '', '', 'Number', '1', 1, 1, '', '', '', '', 'HEADER1', 'acc_group_ledgers', '', 0),
 (324, 42, 'description', 'invoice_details', 'text', '', '', '', 'Description', '3', 1, 5, '', '', '', '', 'HEADER1', 'acc_group_ledgers', '', 0),
 (328, 42, 'type', 'invoice_details', 'text', '', '', '', 'Type', '2', 1, 2, '', '', '', '', 'HEADER1', 'acc_group_ledgers', '', 0),
@@ -935,12 +798,12 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (346, 42, 'price', 'invoice_details', 'text', '', '', '', 'Price', '3', 1, 6, '', '', '', '', 'HEADER1', 'acc_group_ledgers', '', 0),
 (449, 41, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (448, 41, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(445, 41, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(445, 41, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (444, 41, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '3', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (443, 41, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
 (495, 47, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER1', 'invoice_summary', 'id', 0),
 (496, 41, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
-(494, 47, 'parent_id', 'invoice_summary', 'SingleSelect', '', '', '', 'Requisition No', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where req_status=86 and status=''REQUISITION'' order by   req_number', '', '', '', 'HEADER1', 'invoice_summary', 'id', 0),
+(494, 47, 'parent_id', 'invoice_summary', 'SingleSelect', '', '', '', 'Requisition No', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where req_status=86 and status=\'REQUISITION\' order by   req_number', '', '', '', 'HEADER1', 'invoice_summary', 'id', 0),
 (493, 48, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (520, 48, 'segment7', 'invoice_details', 'text', '', '', '', 'segment7', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (492, 48, 'account_id', 'invoice_details', 'text', '', '', '', 'Account', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
@@ -986,12 +849,12 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (508, 49, 'title', 'tbl_chart_of_accounts', 'text', '', '', '', 'Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (509, 49, 'description', 'tbl_chart_of_accounts', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (510, 49, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(511, 49, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(512, 49, 'data_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Data Type', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_main_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
-(513, 49, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_type_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(511, 49, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(512, 49, 'data_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Data Type', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'code_main_id\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(513, 49, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'code_type_id\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (514, 49, 'chart_of_account_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'chart_of_account_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (515, 49, 'segment_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'segment_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(516, 49, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=''CHART_OF_ACCOUNT_VALUESET''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(516, 49, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=\'CHART_OF_ACCOUNT_VALUESET\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (521, 48, 'segment8', 'invoice_details', 'text', '', '', '', 'segment8', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (522, 48, 'segment9', 'invoice_details', 'text', '', '', '', 'segment9', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (526, 48, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
@@ -1022,7 +885,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (550, 52, 'inv_value', 'sales_trend', 'text', '', '', '', 'inv_value', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (551, 52, 'previous_inv_value', 'sales_trend', 'text', '', '', '', 'previous_inv_value', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (552, 48, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Received Qnty', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(553, 48, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(553, 48, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (554, 48, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (555, 41, 'ledger_id', 'invoice_summary', 'text', '', '', '', 'Credit A/c', '6', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 146),
 (556, 41, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
@@ -1032,7 +895,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (560, 41, 'Pay_group', 'invoice_summary', 'text', '', '', '', 'Pay Group', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=125', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
 (561, 48, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (562, 48, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
-(563, 48, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(563, 48, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (564, 41, 'invoice_tot_items', 'invoice_summary', 'text', '', '', '', 'Items', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (565, 41, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (566, 41, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
@@ -1041,14 +904,14 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (569, 41, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (570, 41, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (571, 41, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(572, 41, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(573, 41, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(572, 41, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(573, 41, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (574, 53, 'id', 'invoice_tax_details', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(575, 53, 'status', 'invoice_tax_details', 'text', '', '', '', 'Tax Status', '3', 1, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxStatus''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(576, 53, 'tax_ledger_id', 'invoice_tax_details', 'text', '', '', '', 'Tax Name', '3', 1, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(575, 53, 'status', 'invoice_tax_details', 'text', '', '', '', 'Tax Status', '3', 1, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxStatus\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(576, 53, 'tax_ledger_id', 'invoice_tax_details', 'text', '', '', '', 'Tax Name', '3', 1, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxName\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (577, 53, 'tax_rate', 'invoice_tax_details', 'text', '', '', '', 'Rate', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (578, 53, 'tax_amount', 'invoice_tax_details', 'text', '', '', '', 'Tax Amount', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(579, 53, 'tax_type', 'invoice_tax_details', 'text', '', '', '', 'Tax Type', '3', 1, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxType''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(579, 53, 'tax_type', 'invoice_tax_details', 'text', '', '', '', 'Tax Type', '3', 1, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxType\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (581, 41, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (583, 55, 'req_operating_unit', 'invoice_payment_receive', 'text', '', '', '', 'Operating Unit', '3', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 145),
 (584, 55, 'req_type', 'invoice_payment_receive', 'LABEL', '', '', '', 'Type', '4', 0, 3, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
@@ -1061,18 +924,18 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (591, 55, 'req_unreserve_date', 'invoice_payment_receive', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (592, 55, 'req_submit_approval', 'invoice_payment_receive', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (593, 55, 'status', 'invoice_payment_receive', 'hidden', 'PAYMENT', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
-(594, 55, 'req_status', 'invoice_payment_receive', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(594, 55, 'req_status', 'invoice_payment_receive', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (595, 55, 'req_phone', 'invoice_payment_receive', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (596, 55, 'req_contact', 'invoice_payment_receive', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (597, 55, 'req_site', 'invoice_payment_receive', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
-(598, 55, 'req_supplier', 'invoice_payment_receive', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
-(599, 55, 'req_source', 'invoice_payment_receive', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(598, 55, 'req_supplier', 'invoice_payment_receive', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(599, 55, 'req_source', 'invoice_payment_receive', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (600, 55, 'req_requiester', 'invoice_payment_receive', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (601, 55, 'req_organization', 'invoice_payment_receive', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (602, 55, 'req_subinventory', 'invoice_payment_receive', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 145),
 (603, 55, 'req_location', 'invoice_payment_receive', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145);
 INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
-(604, 55, 'req_destination_type', 'invoice_payment_receive', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(604, 55, 'req_destination_type', 'invoice_payment_receive', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (605, 55, 'req_total', 'invoice_payment_receive', 'text', '', '', '', 'Total', '3', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (606, 55, 'req_currency_id', 'invoice_payment_receive', 'text', '', '', '', 'Currency', '3', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 145),
 (607, 55, 'parent_id', 'invoice_payment_receive', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 145),
@@ -1103,8 +966,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (632, 55, 'cleared_amount', 'invoice_payment_receive', 'text', '', '', '', 'Paid Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (633, 55, 'clear_date', 'invoice_payment_receive', 'datefield', '', '', '', 'Clear Date', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (636, 55, 'acknowledged_status', 'invoice_payment_receive', 'text', '', '', '', 'Acknowledged', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(646, 56, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approve?', '2', 0, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''YESNO''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(637, 55, 'bank_id', 'invoice_payment_receive', 'text', '', '', '', 'Bank Name', '7', 0, 1, 'select  id FieldID,bank_name FieldVal  from mstr_bank where status=''ACTIVE''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(646, 56, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approve?', '2', 0, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'YESNO\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(637, 55, 'bank_id', 'invoice_payment_receive', 'text', '', '', '', 'Bank Name', '7', 0, 1, 'select  id FieldID,bank_name FieldVal  from mstr_bank where status=\'ACTIVE\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (639, 55, 'bank_account_no', 'invoice_payment_receive', 'text', '', '', '', 'Account No', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (640, 55, 'bank_payment_doc', 'invoice_payment_receive', 'text', '', '', '', 'Payment Doc', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (641, 56, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -1118,8 +981,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (651, 53, 'parent_id', 'invoice_tax_details', 'hidden', '', '', '', 'parent_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (652, 53, 'invoice_summary_id', 'invoice_tax_details', 'hidden', '', '', '', 'invoice_summary_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (653, 57, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(654, 57, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(655, 57, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(654, 57, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(655, 57, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (656, 57, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 4, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (657, 57, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (658, 57, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 6, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
@@ -1142,21 +1005,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (675, 57, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 20, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (676, 57, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (677, 57, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 21, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
-(678, 57, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(678, 57, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (679, 57, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 23, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (680, 57, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 24, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(681, 57, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(681, 57, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (682, 57, 'req_number', 'invoice_summary', 'text', '', '', '', 'Order No', '4', 0, 26, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (683, 57, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Date', '4', 0, 27, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (684, 57, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (685, 57, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '4', 0, 28, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (686, 57, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 29, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', '', 145),
-(687, 57, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(687, 57, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (688, 57, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 31, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (689, 57, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '4', 0, 32, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (690, 57, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 33, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (691, 57, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(692, 57, 'req_status', 'invoice_summary', 'LABEL', '91', '', '', 'Status', '4', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(692, 57, 'req_status', 'invoice_summary', 'LABEL', '91', '', '', 'Status', '4', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (693, 57, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '4', 0, 35, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (694, 57, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 36, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (695, 57, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 37, '', '', '', '', 'HEADER', 'tbl_currency_master', '', 145),
@@ -1187,11 +1050,11 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (728, 58, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (729, 58, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (730, 58, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Received Qnty', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(731, 58, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(731, 58, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (732, 58, 'parent_id', 'invoice_details', 'text', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (733, 58, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (734, 58, 'Gl_date', 'invoice_details', 'text', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(735, 58, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(735, 58, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (736, 59, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '1', 0, 5, '', '', '', '', 'FOOTER1', 'tbl_chart_of_accounts', '', 145),
 (737, 59, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '1', 0, 5, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', '', 145),
 (738, 59, 'status', 'invoice_summary', 'hidden', 'ORDER_DESPATCH', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
@@ -1200,24 +1063,24 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (741, 59, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 0, 1, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 145),
 (742, 59, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (743, 59, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '4', 0, 5, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(744, 59, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(744, 59, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (745, 59, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (746, 59, 'req_organization', 'invoice_summary', 'LABEL', '', '', '', 'Organization', '4', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (747, 59, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '4', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (748, 59, 'req_preparer', 'invoice_summary', 'LABEL', '', '', '', 'Preparer', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(749, 59, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 5, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(749, 59, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 5, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=\'ACTIVE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (750, 59, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 2, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (751, 59, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 145),
 (752, 59, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (753, 59, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Accounting', '4', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (754, 59, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 5, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(755, 59, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(755, 59, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (756, 59, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (757, 59, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 5, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(758, 59, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 5, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(758, 59, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 5, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (759, 59, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (760, 59, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
-(761, 59, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Sales Order', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''SALES_ORDER'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(761, 59, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Sales Order', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=\'SALES_ORDER\' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (762, 59, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (763, 59, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (764, 59, 'last_updated_by', 'invoice_summary', 'text', '', '', '', 'last_updated_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
@@ -1237,7 +1100,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (778, 59, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (779, 59, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 6, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (780, 59, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
-(781, 59, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'invoice_summary', '', 145),
+(781, 59, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (782, 59, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (783, 60, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (784, 60, 'price', 'invoice_details', 'text', '', '', '', 'Price', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -1261,11 +1124,11 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (802, 60, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (803, 60, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (804, 60, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Despatch Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(805, 60, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(805, 60, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (806, 60, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (807, 60, 'total_amount', 'invoice_details', 'LABEL', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (808, 60, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(809, 60, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(809, 60, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (810, 61, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 5, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (811, 61, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 5, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (812, 61, 'status', 'invoice_summary', 'text', '', '', '', 'Tran Type', '4', 3, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 0),
@@ -1274,21 +1137,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (815, 61, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 3, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (816, 61, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 4, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (817, 61, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 3, 1, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(818, 61, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 2, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS'' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(818, 61, 'req_status', 'invoice_summary', 'text', '', '', '', 'Status', '4', 2, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (819, 61, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (820, 61, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 3, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (821, 61, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 3, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (822, 61, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(823, 61, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 2, 1, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE'' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
+(823, 61, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 2, 1, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (825, 61, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 2, 1, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (826, 61, 'req_type', 'invoice_summary', 'text', '', '', '', 'Type', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (827, 61, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (828, 61, 'req_accounting_date', 'invoice_summary', 'text', '', '', '', 'Accounting date', '3', 2, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (829, 61, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(830, 61, 'req_source', 'invoice_summary', 'text', '', '', '', ' Source', '6', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE'' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
+(830, 61, 'req_source', 'invoice_summary', 'text', '', '', '', ' Source', '6', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (831, 61, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (832, 61, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 1, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0 ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(833, 61, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
+(833, 61, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 0),
 (834, 61, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 0),
 (835, 61, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (836, 61, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
@@ -1311,8 +1174,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (853, 61, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (854, 61, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (855, 61, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(856, 61, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS'' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(857, 61, ' invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO'' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(856, 61, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(857, 61, ' invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\' ', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (858, 61, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (859, 62, 'uom', 'invoice_details', 'text', '', '', '', 'UOM', '2', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (860, 62, 'price', 'invoice_details', 'text', '', '', '', 'Price', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
@@ -1336,11 +1199,11 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (878, 62, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (879, 62, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (880, 62, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Received Qnty', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(881, 62, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 0),
+(881, 62, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 1, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'acc_group_ledgers', 'id', 0),
 (882, 62, 'parent_id', 'invoice_details', 'text', '', '', '', 'parent_id', '1', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (883, 62, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (884, 62, 'Gl_date', 'invoice_details', 'text', '', '', '', 'GL Date', '4', 1, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
-(885, 62, ' asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book ', '3', 1, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
+(885, 62, ' asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book ', '3', 1, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 0),
 (886, 63, 'req_phone', 'invoice_payment_receive', 'text', '', '', '', 'Phone', '6', 0, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (887, 63, 'status', 'invoice_payment_receive', 'hidden', 'RECEIVE', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 145),
 (888, 63, 'req_subinventory', 'invoice_payment_receive', 'text', '', '', '', 'Subinventory', '6', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -1348,24 +1211,24 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (890, 63, 'req_total', 'invoice_payment_receive', 'text', '', '', '', 'Total', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (891, 63, 'req_location', 'invoice_payment_receive', 'text', '', '', '', 'Location', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (892, 63, 'req_currency_id', 'invoice_payment_receive', 'text', '', '', '', 'Currency', '3', 0, 1, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(893, 63, 'req_status', 'invoice_payment_receive', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(893, 63, 'req_status', 'invoice_payment_receive', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (894, 63, 'req_site', 'invoice_payment_receive', 'text', '', '', '', 'Site', '6', 0, 1, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (895, 63, 'req_description', 'invoice_payment_receive', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (896, 63, 'comment', 'invoice_payment_receive', 'text', '', '', '', 'Comment', '7', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (897, 63, 'req_organization', 'invoice_payment_receive', 'text', '', '', '', 'Organization', '6', 0, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (898, 63, 'req_preparer', 'invoice_payment_receive', 'text', '', '', '', 'Preparer', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (899, 63, 'forward_to', 'invoice_payment_receive', 'text', '', '', '', 'Forward to', '6', 0, 1, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(900, 63, 'req_supplier', 'invoice_payment_receive', 'text', '', '', '', 'Customer', '6', 0, 1, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(900, 63, 'req_supplier', 'invoice_payment_receive', 'text', '', '', '', 'Customer', '6', 0, 1, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (901, 63, 'req_type', 'invoice_payment_receive', 'text', '', '', '', 'Type', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (902, 63, 'req_accounting_date', 'invoice_payment_receive', 'text', '', '', '', 'Accounting date', '3', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (903, 63, 'req_requiester', 'invoice_payment_receive', 'text', '', '', '', 'Requester', '6', 0, 1, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (904, 63, 'req_number', 'invoice_payment_receive', 'text', '', '', '', 'Number', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (905, 63, 'req_unreserve_date', 'invoice_payment_receive', 'text', '', '', '', 'Unreserve date', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
-(906, 63, 'req_source', 'invoice_payment_receive', 'text', '', '', '', 'Source', '6', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145);
+(906, 63, 'req_source', 'invoice_payment_receive', 'text', '', '', '', 'Source', '6', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145);
 INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
 (907, 63, 'req_operating_unit', 'invoice_payment_receive', 'text', '', '', '', 'Operating Unit', '3', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (908, 63, 'req_submit_approval', 'invoice_payment_receive', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
-(909, 63, 'req_destination_type', 'invoice_payment_receive', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(909, 63, 'req_destination_type', 'invoice_payment_receive', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (910, 63, 'parent_id', 'invoice_payment_receive', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (911, 63, 'id', 'invoice_payment_receive', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (912, 63, 'created_by', 'invoice_payment_receive', 'text', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -1394,7 +1257,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (935, 63, 'cleared_amount', 'invoice_payment_receive', 'text', '', '', '', 'Received Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (936, 63, 'clear_date', 'invoice_payment_receive', 'text', '', '', '', 'Clear Date', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (937, 63, 'acknowledged_status', 'invoice_payment_receive', 'text', '', '', '', 'Acknowledged', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(938, 63, 'bank_id', 'invoice_payment_receive', 'text', '', '', '', 'Bank Name', '7', 0, 1, 'select  id FieldID,bank_name FieldVal  from mstr_bank where status=''ACTIVE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(938, 63, 'bank_id', 'invoice_payment_receive', 'text', '', '', '', 'Bank Name', '7', 0, 1, 'select  id FieldID,bank_name FieldVal  from mstr_bank where status=\'ACTIVE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (939, 63, 'bank_account_no', 'invoice_payment_receive', 'text', '', '', '', 'Account No', '7', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (940, 63, 'bank_payment_doc', 'invoice_payment_receive', 'text', '', '', '', 'Payment Doc', '7', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (941, 64, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1402,11 +1265,11 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (943, 64, 'req_number', 'invoice_summary', 'LABEL', '', '', '', 'Invoice No', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (944, 64, 'req_accounting_date', 'invoice_summary', 'LABEL', '', '', '', 'Invoice Date', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (945, 64, 'invoice_subtotal', 'invoice_summary', 'LABEL', '', '', '', 'Total Amount', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(946, 64, 'req_submit_approval', 'acc_group_ledgers', 'text', '', '', '', 'Approve?', '2', 0, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''YESNO''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(946, 64, 'req_submit_approval', 'acc_group_ledgers', 'text', '', '', '', 'Approve?', '2', 0, 1, 'select   FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'YESNO\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (947, 64, 'invoice_payment_id', 'invoice_summary', 'hidden', '', '', '', 'invoice_payment_id', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (948, 64, 'Gl_date', 'invoice_summary', 'datefield', '', '', '', 'GL Date', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (949, 64, 'invoice_paid_total', 'invoice_summary', 'text', '', '', '', 'Paid Total', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(953, 48, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(953, 48, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxName\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (954, 48, 'tax_rate', 'invoice_details', 'text', '', '', '', 'Rate', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (955, 48, 'tax_amount', 'invoice_details', 'text', '', '', '', 'Tax Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (956, 65, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1415,7 +1278,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (959, 65, 'description', 'acc_group_ledgers', 'text', '', '', '', 'description', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (960, 65, 'primary', 'acc_group_ledgers', 'text', '', '', '', 'primary', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (961, 65, 'secondary', 'acc_group_ledgers', 'text', '', '', '', 'secondary', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(962, 65, 'pricing', 'acc_group_ledgers', 'text', '', '', '', 'pricing', '4', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_PRICING''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(962, 65, 'pricing', 'acc_group_ledgers', 'text', '', '', '', 'pricing', '4', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'OPM_PRICING\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (963, 31, 'id', 'tbl_currency_master', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (964, 66, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (965, 66, 'resource', 'acc_group_ledgers', 'text', '', '', '', 'Resource', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1425,7 +1288,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (969, 66, 'cost_component_class', 'acc_group_ledgers', 'text', '', '', '', 'Cost Component Class', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=150', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (970, 67, 'id', 'opm_define_operations_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (971, 67, 'operation', 'opm_define_operations_summary', 'text', '', '', '', 'Operation', '6', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(972, 67, 'status', 'opm_define_operations_summary', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(972, 67, 'status', 'opm_define_operations_summary', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (973, 67, 'description', 'opm_define_operations_summary', 'text', '', '', '', 'Description', '10', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (974, 68, 'id', 'opm_define_operations_activity_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (975, 68, 'opm_define_operations_summary_id', 'opm_define_operations_activity_details', 'hidden', '', '', '', 'opm_define_operations_summary_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1443,7 +1306,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (987, 69, 'usage_uom', 'opm_define_operations_resource_details', 'text', '', '', '', 'Usage Uom', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (988, 70, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (989, 70, 'routing', 'acc_group_ledgers', 'text', '', '', '', 'Routing', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(990, 70, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(990, 70, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (991, 70, 'routing_description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (992, 70, 'qnty', 'acc_group_ledgers', 'text', '', '', '', 'Quantity', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (993, 70, 'uom', 'acc_group_ledgers', 'text', '', '', '', 'UOM', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1456,7 +1319,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1000, 71, 'opm_define_routing_summery_id', 'acc_group_ledgers', 'hidden', '', '', '', 'opm_define_routing_summery_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1001, 72, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1002, 72, 'recipe', 'acc_group_ledgers', 'text', '', '', '', 'Recipe', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1003, 72, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1003, 72, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1004, 72, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1005, 72, 'product_id', 'acc_group_ledgers', 'text', '', '', '', 'Product', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1006, 72, 'formula_id', 'acc_group_ledgers', 'text', '', '', '', 'Formula', '4', 0, 1, 'select  id FieldID,formula FieldVal  from opm_define_formula_summery  ORDER BY formula', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1464,14 +1327,14 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1008, 73, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1009, 73, 'formula', 'acc_group_ledgers', 'text', '', '', '', 'Formula', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1010, 73, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1011, 73, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1011, 73, 'status', 'acc_group_ledgers', 'text', '', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1012, 74, 'id', 'acc_group_ledgers', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1013, 74, 'opm_define_formula_summery_id', 'acc_group_ledgers', 'hidden', '', '', '', 'opm_define_formula_summery_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1014, 74, 'line', 'acc_group_ledgers', 'text', '', '', '', 'Line', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1015, 74, 'product', 'acc_group_ledgers', 'text', '', '', '', 'Product', '4', 0, 1, 'select  id FieldID,name FieldVal  from mstr_product', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1016, 74, 'description', 'acc_group_ledgers', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1017, 74, 'qnty', 'acc_group_ledgers', 'text', '', '', '', 'Quantity', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1018, 74, 'product_type', 'acc_group_ledgers', 'text', '', '', '', 'product_type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_FORMULA_PRODUCCT_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1018, 74, 'product_type', 'acc_group_ledgers', 'text', '', '', '', 'product_type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'OPM_FORMULA_PRODUCCT_TYPE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1019, 8, 'id', 'company_details', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1020, 27, 'id', 'tbl_location', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1021, 10, 'id', 'tbl_employee_mstr', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_employee_mstr', '', 146),
@@ -1485,7 +1348,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1029, 37, 'primary_uom', 'mstr_product', 'text', '', '', '', 'Primary UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1030, 37, 'secondary_uom', 'mstr_product', 'text', '', '', '', 'Secondary UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1031, 37, 'pricing_uom', 'mstr_product', 'text', '', '', '', 'Pricing UOM', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1032, 37, 'user_item_type', 'mstr_product', 'text', '', '', '', 'User Item Type', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_FORMULA_PRODUCCT_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1032, 37, 'user_item_type', 'mstr_product', 'text', '', '', '', 'User Item Type', '1', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'OPM_FORMULA_PRODUCCT_TYPE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1034, 38, 'id', 'mstr_supplier', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1035, 38, 'credit_limit', 'mstr_supplier', 'text', '', '', '', 'Credit Limit', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1036, 38, 'credit_days', 'mstr_supplier', 'text', '', '', '', 'Credit Days', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -1506,21 +1369,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1053, 77, 'title', 'tbl_chart_of_accounts', 'text', '', '', '', 'Name', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1054, 77, 'description', 'tbl_chart_of_accounts', 'text', '', '', '', 'Description', '3', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1055, 77, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT_SEGMENT', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1056, 77, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1057, 77, 'data_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Data Type', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_type_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
-(1058, 77, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''code_main_id''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1056, 77, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1057, 77, 'data_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Data Type', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'code_type_id\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1058, 77, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'code_main_id\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (1059, 77, 'chart_of_account_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'chart_of_account_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1060, 77, 'segment_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'segment_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1061, 77, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=''CHART_OF_ACCOUNT_VALUESET''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1061, 77, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=\'CHART_OF_ACCOUNT_VALUESET\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (1068, 78, 'trantype', 'tbl_chart_of_accounts', 'hidden', 'CHART_OF_ACCOUNT_VALUESET', '', '', 'trantype', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1069, 78, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1070, 78, 'acc_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent?', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''acc_type''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
-(1071, 78, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=''CHART_OF_AC_QUALIFIER''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1069, 78, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1070, 78, 'acc_type', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent?', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'acc_type\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1071, 78, 'field_qualifier', 'tbl_chart_of_accounts', 'text', '', '', '', 'Field Qualifier', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where  status=\'CHART_OF_AC_QUALIFIER\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (1072, 78, 'chart_of_account_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'chart_of_account_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1073, 78, 'segment_id', 'tbl_chart_of_accounts', 'hidden', '', '', '', 'segment_id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1074, 78, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=''CHART_OF_ACCOUNT_VALUESET''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
+(1074, 78, 'parent_data_id', 'tbl_chart_of_accounts', 'text', '', '', '', 'Parent', '3', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts where  trantype=\'CHART_OF_ACCOUNT_VALUESET\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (1076, 40, 'id', 'account_setup', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1075, 75, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=''ActiveInactive''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1075, 75, 'status', 'tbl_chart_of_accounts', 'text', '', '', '', 'Status', '3', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where  status=\'ActiveInactive\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1077, 79, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
 (1078, 79, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
 (1079, 79, 'req_number', 'invoice_summary', 'text', '', '', '', 'Number', '4', 0, 2, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
@@ -1532,17 +1395,17 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1085, 79, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1086, 79, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1087, 79, 'status', 'invoice_summary', 'hidden', 'REQUISITION', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(1088, 79, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1088, 79, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1089, 79, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1090, 79, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1091, 79, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1092, 79, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1093, 79, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1092, 79, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1093, 79, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1094, 79, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1095, 79, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1096, 79, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1097, 79, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1098, 79, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1098, 79, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1099, 79, 'req_total', 'invoice_summary', 'LABEL', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1100, 79, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
 (1101, 79, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
@@ -1566,8 +1429,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1119, 79, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1120, 79, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1121, 79, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1122, 79, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1123, 79, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1122, 79, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1123, 79, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1124, 79, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1125, 80, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (1126, 80, 'segment7', 'invoice_details', 'text', '', '', '', 'segment7', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
@@ -1591,12 +1454,12 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1144, 80, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1145, 80, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1146, 80, 'received_qnty', 'invoice_details', 'text', '', '', '', 'Received Qnty', '3', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(1147, 80, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1147, 80, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (1148, 80, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1149, 80, 'total_amount', 'invoice_details', 'LABEL', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1150, 80, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
-(1151, 80, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
-(1152, 80, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1151, 80, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1152, 80, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxName\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1153, 80, 'tax_rate', 'invoice_details', 'text', '', '', '', 'Rate', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1154, 80, 'tax_amount', 'invoice_details', 'text', '', '', '', 'Tax Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1155, 81, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
@@ -1610,17 +1473,17 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1163, 81, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1164, 81, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1165, 81, 'status', 'invoice_summary', 'text', 'REQUISITION', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(1166, 81, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1166, 81, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1167, 81, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1168, 81, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1169, 81, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1170, 81, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1171, 81, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1170, 81, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1171, 81, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1172, 81, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1173, 81, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1174, 81, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1175, 81, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1176, 81, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1176, 81, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1177, 81, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1178, 81, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
 (1179, 81, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
@@ -1644,8 +1507,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1197, 81, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1198, 81, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1199, 81, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1200, 81, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1201, 81, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1200, 81, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1201, 81, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1202, 81, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146);
 INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
 (1203, 82, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
@@ -1659,17 +1522,17 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1211, 82, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1212, 82, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1213, 82, 'status', 'invoice_summary', 'hidden', 'PO_ENTRY', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(1214, 82, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1214, 82, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1215, 82, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1216, 82, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '4', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1217, 82, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '4', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1218, 82, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1219, 82, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1218, 82, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1219, 82, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1220, 82, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1221, 82, 'req_organization', 'invoice_summary', 'LABEL', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1222, 82, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1223, 82, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1224, 82, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1224, 82, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1225, 82, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1226, 82, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
 (1227, 82, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
@@ -1693,8 +1556,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1245, 82, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1246, 82, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1247, 82, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1248, 82, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1249, 82, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1248, 82, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1249, 82, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1250, 82, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1251, 83, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 1, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
 (1252, 83, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
@@ -1707,17 +1570,17 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1259, 83, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1260, 83, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1261, 83, 'status', 'invoice_summary', 'hidden', 'PO_ENTRY', '', '', 'Tran Type', '4', 0, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(1262, 83, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1262, 83, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '4', 0, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1263, 83, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1264, 83, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1265, 83, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1266, 83, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1267, 83, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1266, 83, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '6', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1267, 83, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1268, 83, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1269, 83, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1270, 83, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1271, 83, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1272, 83, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1272, 83, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1273, 83, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1274, 83, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
 (1275, 83, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
@@ -1741,8 +1604,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1293, 83, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1294, 83, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1295, 83, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1296, 83, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1297, 83, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1296, 83, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1297, 83, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1298, 83, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1299, 84, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '4', 0, 2, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'tbl_hierarchy_org', 'id', 146),
 (1300, 84, 'req_type', 'invoice_summary', 'LABEL', '92', '', '', 'Type', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where id=92', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 146),
@@ -1755,20 +1618,20 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1307, 84, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1308, 84, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1309, 84, 'status', 'invoice_summary', 'hidden', 'GRN_ENTRY', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
-(1310, 84, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1310, 84, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1311, 84, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1312, 84, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '4', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1313, 84, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '4', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1314, 84, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1315, 84, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1314, 84, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1315, 84, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1316, 84, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1317, 84, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '4', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1318, 84, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1319, 84, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '4', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1320, 84, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1320, 84, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1321, 84, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1322, 84, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
-(1323, 84, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter   PO No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''PO_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1323, 84, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter   PO No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=\'PO_ENTRY\' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
 (1324, 84, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
 (1325, 84, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (1326, 84, 'create_date_time', 'invoice_summary', 'hidden', '', '', '', 'create_date_time', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
@@ -1789,8 +1652,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1341, 84, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1342, 84, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1343, 84, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1344, 84, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1345, 84, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1344, 84, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1345, 84, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1346, 84, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1433, 86, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1434, 86, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
@@ -1807,20 +1670,20 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1423, 86, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (1421, 86, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (1420, 86, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
-(1419, 86, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter GRN No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''GRN_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1419, 86, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Enter GRN No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=\'GRN_ENTRY\' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
 (1417, 86, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1418, 86, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
-(1416, 86, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1416, 86, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1415, 86, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '4', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1414, 86, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1413, 86, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '4', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1412, 86, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1411, 86, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1410, 86, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1411, 86, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1410, 86, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1409, 86, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '4', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1408, 86, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '4', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1407, 86, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1406, 86, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1406, 86, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1405, 86, 'status', 'invoice_summary', 'hidden', 'INSPECTION', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
 (1404, 86, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1403, 86, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
@@ -1837,8 +1700,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1437, 86, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1438, 86, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1439, 86, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1440, 86, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1441, 86, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1440, 86, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1441, 86, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1442, 86, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1443, 87, 'invoice_retainage', 'invoice_summary', 'text', '', '', '', 'Retainage', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1444, 87, 'invoice_prepayment_amount', 'invoice_summary', 'text', '', '', '', 'Prepayments', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
@@ -1859,17 +1722,17 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1678, 93, 'company_id', 'invoice_details', 'text', '', '', '', 'Company', '4', 0, 1, 'select  id FieldID,title FieldVal  from tbl_chart_of_accounts', '', '', '', 'HEADER', 'tbl_chart_of_accounts', 'id', 145),
 (1459, 87, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1460, 87, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
-(1461, 87, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1461, 87, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1462, 87, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1463, 87, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1464, 87, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 2, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1465, 87, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1466, 87, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1467, 87, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1466, 87, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1467, 87, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '4', 0, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1468, 87, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1469, 87, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1470, 87, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1471, 87, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1471, 87, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1472, 87, 'status', 'invoice_summary', 'hidden', 'INSPECTION', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
 (1473, 87, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1474, 87, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
@@ -1886,12 +1749,12 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1485, 87, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1486, 87, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1487, 87, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1488, 87, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1489, 87, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1488, 87, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1489, 87, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1490, 87, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1491, 88, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(1492, 88, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(1493, 88, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1492, 88, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
+(1493, 88, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 3, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1494, 88, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 4, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1495, 88, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1496, 88, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 6, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
@@ -1914,21 +1777,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1513, 88, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 0, 20, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', '', 145),
 (1514, 88, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1515, 88, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 21, '', '', '', '', 'HEADER', 'invoice_summary', '', 145),
-(1516, 88, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1516, 88, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 22, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1517, 88, 'req_operating_unit', 'invoice_summary', 'text', '', '', '', 'Operating Unit', '3', 0, 23, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org where under_tbl_hierarchy_org!=0 or company_details_id!=0', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1518, 88, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 24, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
-(1519, 88, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
+(1519, 88, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 25, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1520, 88, 'req_number', 'invoice_summary', 'text', '', '', '', 'Order No', '3', 0, 26, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1521, 88, 'req_accounting_date', 'invoice_summary', 'datefield', '', '', '', 'Date', '3', 0, 27, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1522, 88, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1523, 88, 'req_type', 'invoice_summary', 'LABEL', '', '', '', 'Type', '3', 0, 28, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1524, 88, 'forward_to', 'invoice_summary', 'text', '', '', '', 'Forward to', '6', 0, 29, 'select  id FieldID,name FieldVal  from tbl_employee_mstr', '', '', '', 'FOOTER2', 'tbl_employee_mstr', '', 145),
-(1525, 88, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
+(1525, 88, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '3', 0, 30, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (1526, 88, 'req_preparer', 'invoice_summary', 'text', '', '', '', 'Preparer', '4', 0, 31, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 145),
 (1527, 88, 'comment', 'invoice_summary', 'text', '', '', '', 'Comment', '6', 0, 32, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 145),
 (1528, 88, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 33, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (1529, 88, 'req_description', 'invoice_summary', 'text', '', '', '', 'Description', '4', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(1530, 88, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '6', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145);
+(1530, 88, 'req_status', 'invoice_summary', 'text', '91', '', '', 'Status', '6', 0, 34, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145);
 INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `tran_table_name`, `InputType`, `Inputvalue`, `LogoType`, `RecordSet`, `LabelName`, `DIVClass`, `Section`, `FieldOrder`, `datafields`, `table_name`, `where_condition`, `orderby`, `SectionType`, `MainTable`, `LinkField`, `validation_type`) VALUES
 (1531, 88, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '3', 0, 35, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
 (1532, 88, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 36, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 145),
@@ -1953,20 +1816,20 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1551, 89, 'last_updated_by', 'invoice_summary', 'hidden', '', '', '', 'last_updated_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (1552, 89, 'created_by', 'invoice_summary', 'hidden', '', '', '', 'created_by', '1', 0, 5, '', '', '', '', 'HEADER', 'invoice_summary', '', 146),
 (1553, 89, 'id', 'invoice_summary', 'hidden', '', '', '', 'id', '1', 0, 1, '', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
-(1554, 89, 'parent_id', 'invoice_summary', 'hidden', '', '', '', 'Enter GRN No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=''GRN_ENTRY'' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
+(1554, 89, 'parent_id', 'invoice_summary', 'hidden', '', '', '', 'Enter GRN No', '4', 0, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary where  status=\'GRN_ENTRY\' AND req_status=90', '', '', '', 'HEADER', 'invoice_summary', 'id', 146),
 (1555, 89, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '4', 0, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1556, 89, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Pay Currency', '4', 0, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id', 146),
-(1557, 89, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1557, 89, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 0, 4, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1558, 89, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 0, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1559, 89, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 0, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id', 146),
 (1560, 89, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1561, 89, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 0, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1562, 89, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1563, 89, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 4, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=''ACTIVE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1562, 89, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
+(1563, 89, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Customer', '4', 0, 4, 'select  id FieldID,customer_name FieldVal  from mstr_customer where status=\'ACTIVE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1564, 89, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 0, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1565, 89, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 0, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
 (1566, 89, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 0, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', '', 146),
-(1567, 89, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1567, 89, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1568, 89, 'status', 'invoice_summary', 'hidden', 'SALES_INVOICE', '', '', 'Tran Type', '4', 0, 1, '', '', '', '', 'HEADER3', 'acc_group_ledgers', '', 146),
 (1569, 89, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 0, 4, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
 (1570, 89, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 0, 5, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', '', 146),
@@ -1983,13 +1846,12 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1581, 89, 'tax_amount', 'invoice_summary', 'text', '', '', '', 'Tax', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1582, 89, 'freight_amount', 'invoice_summary', 'text', '', '', '', 'Freight', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1583, 89, 'Misc_amount', 'invoice_summary', 'text', '', '', '', 'Misc Amount', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1584, 89, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''INVOICE_STATUS''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1585, 89, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1584, 89, 'invoice_status', 'invoice_summary', 'text', '', '', '', 'Status', '7', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'INVOICE_STATUS\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
+(1585, 89, 'invoice_accounted', 'invoice_summary', 'text', '', '', '', 'Accounted', '7', 0, 5, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
 (1586, 89, 'invoice_grand_total', 'invoice_summary', 'text', '', '', '', 'Grand Total', '7', 0, 5, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 146),
-(1677, 33, 'chart_of_account_ledger_id', 'mstr_bank', 'text', '', '', '', 'Ledger Name', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1676, 35, 'chart_of_account_ledger_id', 'mstr_customer', 'text', '', '', '', 'Ledger Name', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1675, 38, 'chart_of_account_ledger_id', 'mstr_supplier', 'text', '', '', '', 'Ledger Name', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1674, 38, 'chart_of_account_ledger_id', 'mstr_supplier', 'text', '', '', '', 'Ledger Name', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1677, 33, 'chart_of_account_ledger_id', 'mstr_bank', 'text', '', '', '', 'Cash Account', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1676, 35, 'chart_of_account_ledger_id', 'mstr_customer', 'text', '', '', '', 'Receivable Account', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1674, 38, 'chart_of_account_ledger_id', 'mstr_supplier', 'text', '', '', '', 'Payable Account', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1673, 38, 'chart_of_account_id', 'mstr_supplier', 'text', '', '', '', 'Chart Of Account', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1672, 40, 'o2c_receive_cr', 'account_setup', 'LABEL', 'Debtors', '', '', 'O2C Receive Cr', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1671, 40, 'o2c_receive_dr', 'account_setup', 'LABEL', 'Bank-Cash', '', '', 'O2C Receive Dr', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -2009,7 +1871,7 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1657, 40, 'p2p_grn_dr', 'account_setup', 'text', '', '', '', 'GRN Debit', '1', 0, 1, 'select id FieldID,title FieldVal from tbl_chart_of_accounts', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1656, 40, 'status', 'account_setup', 'text', '', '', '', 'Status', '1', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1654, 92, 'uom', 'opm_batch_details', 'LABEL', '', '', '', 'UOM', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1655, 92, 'product_type', 'opm_batch_details', 'hidden', '', '', '', 'Product Type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''OPM_FORMULA_PRODUCCT_TYPE''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1655, 92, 'product_type', 'opm_batch_details', 'hidden', '', '', '', 'Product Type', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'OPM_FORMULA_PRODUCCT_TYPE\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1653, 92, 'exceptional_qnty', 'opm_batch_details', 'text', '', '', '', 'Exceptional Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1652, 92, 'transact_qnty', 'opm_batch_details', 'text', '', '', '', 'Transact Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1651, 92, 'target_qnty', 'opm_batch_details', 'LABEL', '', '', '', 'Target Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -2050,21 +1912,21 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 (1697, 93, 'shipping_address', 'invoice_details', 'text', '', '', '', 'Shipping Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1698, 93, 'billing_address', 'invoice_details', 'text', '', '', '', 'Billing Address', '5', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
 (1699, 93, 'received_qnty', 'invoice_details', 'LABEL', '', '', '', 'Received Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'tbl_chart_of_accounts', '', 145),
-(1700, 93, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''grn_status''', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
+(1700, 93, 'grn_status', 'invoice_details', 'text', '', '', '', 'GRN Status', '5', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'grn_status\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', 'id', 145),
 (1701, 93, 'parent_id', 'invoice_details', 'hidden', '', '', '', 'parent_id', '1', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1702, 93, 'total_amount', 'invoice_details', 'text', '', '', '', 'Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1703, 93, 'Gl_date', 'invoice_details', 'datefield', '', '', '', 'GL Date', '4', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
-(1704, 93, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
-(1705, 93, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''TaxName''', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1704, 93, 'asset_book', 'invoice_details', 'text', '', '', '', 'Asset Book', '3', 0, 1, 'select   FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
+(1705, 93, 'tax_ledger_id', 'invoice_details', 'text', '', '', '', 'Tax Name', '3', 0, 1, 'select   id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'TaxName\'', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1706, 93, 'tax_rate', 'invoice_details', 'text', '', '', '', 'Rate', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1707, 93, 'tax_amount', 'invoice_details', 'LABEL', '', '', '', 'Tax Amount', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 145),
 (1708, 56, 'invoice_grand_total', 'invoice_summary', 'LABEL', '', '', '', 'Grand Total', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1709, 56, 'invoice_due_total', 'invoice_summary', 'text', '', '', '', 'Due Amount', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1710, 48, 'batch_no', 'invoice_details', 'text', '', '', '', 'Batch No', '3', 0, 1, '', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 146),
 (1711, 60, 'opm_batch_details_id', 'invoice_details', 'text', '', '', '', 'Batch Number', '3', 0, 1, 'select   id FieldID,batch_numbering FieldVal  from opm_batch_summary', '', '', '', 'HEADER', 'frmrptgeneralmaster', '', 146),
-(1712, 37, 'batch_enable_status', 'mstr_product', 'text', '', '', '', 'Batch Enable ?', '1', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=''YESNO''  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1712, 37, 'batch_enable_status', 'mstr_product', 'text', '', '', '', 'Batch Enable ?', '1', 0, 1, 'select  FieldID,FieldVal  from frmrptgeneralmaster where Status=\'YESNO\'  order by   FieldVal', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1713, 74, 'uom', 'acc_group_ledgers', 'text', '', '', '', 'UOM', '2', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where parent_id=120', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
-(1714, 91, 'batch_status', 'opm_batch_summary', 'text', '', '', '', 'Batch Status', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''BATCH_STATUS''', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
+(1714, 91, 'batch_status', 'opm_batch_summary', 'text', '', '', '', 'Batch Status', '3', 0, 1, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'BATCH_STATUS\'', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1716, 92, 'available_qnty', 'opm_batch_details', 'text', '', '', '', 'Avlbl.Qnty', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1717, 92, 'batch_enable_status', 'opm_batch_details', 'hidden', '', '', '', 'Batch  Enable ?', '2', 0, 1, '', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
 (1718, 58, 'opm_batch_details_id', 'invoice_details', 'text', '', '', '', 'Batch No', '2', 0, 1, 'select   id FieldID,batch_numbering FieldVal  from opm_batch_summary', '', '', '', 'HEADER', 'acc_group_ledgers', '', 146),
@@ -2077,8 +1939,8 @@ INSERT INTO `frmrpttemplatedetails` (`id`, `frmrpttemplatehdrID`, `InputName`, `
 -- Table structure for table `frmrpttemplatedetails_back`
 --
 
-CREATE TABLE IF NOT EXISTS `frmrpttemplatedetails_back` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `frmrpttemplatedetails_back` (
+  `id` int(10) NOT NULL,
   `frmrpttemplatehdrID` int(10) NOT NULL,
   `InputName` varchar(50) NOT NULL,
   `tran_table_name` varchar(100) NOT NULL,
@@ -2096,9 +1958,8 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatedetails_back` (
   `orderby` varchar(100) NOT NULL,
   `SectionType` varchar(20) NOT NULL,
   `MainTable` varchar(40) NOT NULL,
-  `LinkField` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=582 ;
+  `LinkField` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `frmrpttemplatedetails_back`
@@ -2116,17 +1977,17 @@ INSERT INTO `frmrpttemplatedetails_back` (`id`, `frmrpttemplatehdrID`, `InputNam
 (458, 55, 'req_unreserve_date', 'invoice_summary', 'text', '', '', '', 'Unreserve date', '6', 1, 2, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', ''),
 (457, 55, 'req_submit_approval', 'invoice_summary', 'text', '', '', '', 'Approval(Y/N)', '6', 1, 1, '', '', '', '', 'FOOTER2', 'acc_group_ledgers', ''),
 (456, 55, 'status', 'invoice_summary', 'hidden', 'REQUISITION', '', '', 'Tran Type', '4', 3, 9, '', '', '', '', 'HEADER3', 'acc_group_ledgers', ''),
-(455, 55, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 2, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''APPROVE_STATUS'' ', '', '', '', 'HEADER', 'acc_group_ledgers', ''),
+(455, 55, 'req_status', 'invoice_summary', 'hidden', '91', '', '', 'Status', '4', 2, 6, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'APPROVE_STATUS\' ', '', '', '', 'HEADER', 'acc_group_ledgers', ''),
 (454, 55, 'req_phone', 'invoice_summary', 'text', '', '', '', 'Phone', '6', 5, 10, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (453, 55, 'req_contact', 'invoice_summary', 'text', '', '', '', 'Contact', '6', 4, 8, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (452, 55, 'req_site', 'invoice_summary', 'text', '', '', '', 'Site', '6', 3, 6, 'select  id FieldID,name FieldVal  from tbl_location  order by name', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
-(451, 55, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 2, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=''ACTIVE'' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
-(450, 55, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 1, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=''REQUISITION_SOURCE'' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
+(451, 55, 'req_supplier', 'invoice_summary', 'text', '', '', '', 'Supplier', '3', 2, 4, 'select  id FieldID,name FieldVal  from mstr_supplier where status=\'ACTIVE\' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
+(450, 55, 'req_source', 'invoice_summary', 'text', '', '', '', 'Source', '6', 1, 2, 'select  id FieldID,FieldVal  from frmrptgeneralmaster where Status=\'REQUISITION_SOURCE\' ', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (446, 55, 'req_requiester', 'invoice_summary', 'text', '', '', '', 'Requester', '6', 2, 3, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (447, 55, 'req_organization', 'invoice_summary', 'text', '', '', '', 'Organization', '6', 3, 5, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (449, 55, 'req_subinventory', 'invoice_summary', 'text', '', '', '', 'Subinventory', '6', 5, 9, 'select  id FieldID,hierarchy_name FieldVal  from tbl_hierarchy_org', '', '', '', 'FOOTER1', 'tbl_hierarchy_org', 'id'),
 (448, 55, 'req_location', 'invoice_summary', 'text', '', '', '', 'Location', '6', 4, 7, '', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
-(445, 55, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=''DEST_TYPE''', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
+(445, 55, 'req_destination_type', 'invoice_summary', 'text', '', '', '', 'Dest Type', '6', 1, 1, 'select  id FieldID,FieldVal   from frmrptgeneralmaster WHERE Status=\'DEST_TYPE\'', '', '', '', 'FOOTER1', 'acc_group_ledgers', ''),
 (444, 55, 'req_total', 'invoice_summary', 'text', '', '', '', 'Total', '3', 3, 8, '', '', '', '', 'HEADER', 'acc_group_ledgers', ''),
 (443, 55, 'req_currency_id', 'invoice_summary', 'text', '', '', '', 'Currency', '3', 3, 7, 'select  id FieldID,code FieldVal  from tbl_currency_master', '', '', '', 'HEADER', 'tbl_currency_master', 'id'),
 (496, 55, 'parent_id', 'invoice_summary', 'text', '', '', '', 'Requisition', '3', 1, 1, 'select  id FieldID,req_number FieldVal  from invoice_summary', '', '', '', 'HEADER', 'invoice_summary', 'id'),
@@ -2160,8 +2021,8 @@ INSERT INTO `frmrpttemplatedetails_back` (`id`, `frmrpttemplatehdrID`, `InputNam
 -- Table structure for table `frmrpttemplatehdr`
 --
 
-CREATE TABLE IF NOT EXISTS `frmrpttemplatehdr` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `frmrpttemplatehdr` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `section_order` int(5) NOT NULL,
   `parent_table_field_name` varchar(100) NOT NULL,
@@ -2185,9 +2046,8 @@ CREATE TABLE IF NOT EXISTS `frmrpttemplatehdr` (
   `ControllerFunctionLink` varchar(150) NOT NULL,
   `ViewPath` varchar(150) NOT NULL,
   `DisplayGrid` varchar(3) NOT NULL DEFAULT 'YES',
-  `NEWENTRYBUTTON` varchar(3) NOT NULL DEFAULT 'YES',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=94 ;
+  `NEWENTRYBUTTON` varchar(3) NOT NULL DEFAULT 'YES'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `frmrpttemplatehdr`
@@ -2197,13 +2057,13 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 (7, 0, 0, '', '', '', 'General Master', 'FORM', '', 'id,FieldID,FieldVal,Status', '', '', '', '', '', '', '', '', 'frmrptgeneralmaster', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (8, 0, 0, '', '', '', 'Company Setting', 'FORM', 'id,NAME,ADDRESS', 'id,NAME,ADDRESS,MOB_NOS,EMAIL_IDS,BankDetails,GSTNo,company_type,parent_id,location_id', '', '', '', '', '', '', '', '', 'company_details', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (25, 0, 0, '', '', '', 'Query_bulder', 'FORM', '', 'id,FormRptName,query_name', '', '', '', '', '', '', '', '', 'frmrpt_simple_query_builder', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(10, 0, 0, '', '', '', 'User Master', 'FORM', 'id,code,name,contactno', 'id,code,name,address,contactno,email,userid,password,account_setup_id,login_status', '', '', '', '', '', '', '', '', 'tbl_employee_mstr', 'id>0 and USER_TYPE=''USER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(10, 0, 0, '', '', '', 'User Master', 'FORM', 'id,code,name,contactno', 'id,code,name,address,contactno,email,userid,password,account_setup_id,login_status', '', '', '', '', '', '', '', '', 'tbl_employee_mstr', 'id>0 and USER_TYPE=\'USER\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (14, 0, 0, '', '', '', 'Operating Unit', 'FORM', 'id,unit_type_id,hierarchy_name', 'id,unit_type_id,hierarchy_name,under_tbl_hierarchy_org,company_details_id,city_id', '', '', '', '', '', '', '', '', 'tbl_hierarchy_org', 'id>1', 'hierarchy_name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (15, 0, 0, '', '', '', 'Other Activity', 'FORM', '', 'id,tbl_employee_mstr_id,tran_date,tran_type,tran_desc', '', '', '', '', '', '', '', '', 'employee_daily_trn', 'id>0', '', 'Project_controller/EmployeeOtherActivity/', 'ActiveReport/Transactions/EmployeeOtherActivity', 'YES', 'YES'),
 (28, 0, 0, '', '', '', 'Application Architecture', 'FORM', '', 'id,name,status,data_type', '', '', '', '', '', '', '', '', 'software_architecture_details', 'id>1 and data_type!=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (20, 0, 0, '', '', '', 'CREATE MARKET', 'FORM', '', 'id,tbl_designation_id,hierarchy_name,under_tbl_hierarchy_org,employee_id', '', '', '', '', '', '', '', '', 'tbl_hierarchy_org', '', '', '', '', 'YES', 'YES'),
 (29, 0, 0, '', '', '', 'Menu management ', 'FORM', '', 'id,name,parent_id,status', '', '', '', '', '', '', '', '', 'software_architecture_details', 'id>0 and data_type=73', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(30, 0, 0, '', '', '', 'Roll Management', 'FORM', '', 'id,roll_name,status', '', '', '', '', '', '', '', '', 'software_archi_role_manage', 'id>1 and data_type=''HEADER''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(30, 0, 0, '', '', '', 'Roll Management', 'FORM', '', 'id,roll_name,status', '', '', '', '', '', '', '', '', 'software_archi_role_manage', 'id>1 and data_type=\'HEADER\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (27, 0, 0, '', '', '', 'Location Master', 'FORM', 'id,code,NAME,address', 'id,code,NAME,address,contactno,contact_person,location_type', '', '', '', '', '', '', '', '', 'tbl_location', 'id>0', 'Name ASC', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (31, 0, 0, '', '', '', 'Currencies', 'FORM', 'id,code,name', 'id,code,name,description,issue_teritory,symbol,precision', '', '', '', '', '', '', '', '', 'tbl_currency_master', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (32, 0, 0, '', '', '', 'Period Type', 'FORM', 'id,period_type,period_per_year,description', 'id,period_type,period_per_year,description', '', '', '', '', '', '', '', '', 'tbl_calender', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
@@ -2213,7 +2073,7 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 (37, 0, 0, '', '', '', 'Product Setup', 'FORM', 'id,organization,name', 'id,organization,name,description,primary_uom,secondary_uom,pricing_uom,user_item_type,batch_enable_status,status', '', '', '', '', '', '', '', '', 'mstr_product', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (38, 0, 0, '', '', '', 'Supplier Setup', 'FORM', 'id,name,address,phone_no', 'id,name,address,phone_no,contact_person,country,credit_limit,credit_days,currency_id,chart_of_account_ledger_id,status', '', '', '', '', '', '', '', '', 'mstr_supplier', 'id>0 ', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (40, 0, 0, '', '', '', 'Account Setup', 'FORM', 'id,name,description', 'id,name,description,start_date,legal_entity_id,currency_id,calendar_id,chart_of_account_id,status,p2p_grn_dr,p2p_grn_cr,p2p_service_dr,p2p_service_cr,p2p_invoice_dr,p2p_invoice_cr,p2p_payment_dr,p2p_payment_cr,o2c_despatch_dr,o2c_despatch_cr,o2c_service_dr,o2c_service_cr,o2c_invoice_dr,o2c_invoice_cr,o2c_receive_dr,o2c_receive_cr', '', '', '', '', '', '', '', '', 'account_setup', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(41, 0, 0, '', '', '42', 'Requisition Entry', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', '', '', '', '', '', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(41, 0, 0, '', '', '42', 'Requisition Entry', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', '', '', '', '', '', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (42, 41, 0, 'id', 'invoice_summary_id', '', 'details_requisition', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (47, 0, 0, '', '', '48', 'Po Entry', 'FORM', '', '', '', '', '', '', '', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (48, 47, 0, 'id', 'invoice_summary_id', '', 'invoice_details TABLE', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
@@ -2222,7 +2082,7 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 (51, 0, 0, '', '', '', 'category_wise_sale', 'FORM', '', '', '', '', '', '', '', '', '', '', 'category_wise_sale', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (52, 0, 0, '', '', '', 'sales trend', 'FORM', '', '', '', '', '', '', '', '', '', '', 'sales_trend', '', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (53, 41, 0, 'id', 'invoice_summary_id', '', 'tax table', 'FORM', '', 'id', '', '', '', '', '', '', '', '', 'invoice_tax_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(55, 0, 0, '', '', '', 'P2P - payment ', 'FORM', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id', 'id,req_operating_unit,req_number,req_currency_id,req_total,req_accounting_date,cleared_amount,clear_date,acknowledged_status,comment', 'req_supplier,req_site,req_location,req_contact,req_phone', 'bank_id,bank_account_no,bank_payment_doc,status', '', '', 'Vendor Payment', '', '', '', 'invoice_payment_receive', 'id>0 and status=''PAYMENT''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(55, 0, 0, '', '', '', 'P2P - payment ', 'FORM', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id', 'id,req_operating_unit,req_number,req_currency_id,req_total,req_accounting_date,cleared_amount,clear_date,acknowledged_status,comment', 'req_supplier,req_site,req_location,req_contact,req_phone', 'bank_id,bank_account_no,bank_payment_doc,status', '', '', 'Vendor Payment', '', '', '', 'invoice_payment_receive', 'id>0 and status=\'PAYMENT\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (56, 0, 0, '', '', '', 'invoice_summary-Payment', 'FORM', '', 'id,parent_id,req_number,req_accounting_date,invoice_grand_total,invoice_paid_total,invoice_due_total,Gl_date,req_submit_approval,invoice_payment_id', '', '', '', '', '', '', '', '', 'invoice_summary', 'id', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (57, 47, 0, '', '', '', 'sales_order_summery', 'FORM', '', 'id,req_operating_unit,created_date_time,req_number,req_accounting_date,req_type,req_supplier,req_site,req_contact,comment,status', 'req_preparer,req_organization,req_location,last_updated_by,last_updated_date_time,created_by,create_date_time,req_status', '', '', '', 'Sales Order', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (58, 0, 0, '', '', '', 'sales_order details', 'FORM', '', 'id,invoice_summary_id,item_id,opm_batch_details_id,batch_wise_avlbl_qnty,qnty,uom,price,billing_address,shipping_address', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
@@ -2230,7 +2090,7 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 (60, 57, 0, 'id', 'invoice_summary_id', '', 'Despatch Details', 'FORM', '', 'id,invoice_summary_id,item_id,opm_batch_details_id,batch_wise_avlbl_qnty,qnty,received_qnty,uom,price,total_amount,billing_address,shipping_address', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (61, 0, 0, '', '', '', 'biil_summery', 'FORM', '', 'id,req_type,req_number,req_accounting_date,req_submit_approval', '', '', '', '', '', '', '', '', 'biil_summery', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (62, 61, 0, 'id', 'invoice_summary_id', '', 'bill_details', 'FORM', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', '', '', '', '', '', 'bill_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(63, 0, 0, '', '', '', 'recipt_summery', 'FORM', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id', 'id,req_operating_unit,req_number,req_currency_id,req_total,req_accounting_date,cleared_amount,clear_date,acknowledged_status,comment', 'req_supplier,req_site,req_location,req_contact,req_phone', 'bank_id,bank_account_no,bank_payment_doc,status', '', '', 'payment Receipt', 'Customer Section', 'Bank Section', '', 'invoice_payment_receive', 'id>0 and status=''RECEIVE''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(63, 0, 0, '', '', '', 'recipt_summery', 'FORM', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_total,req_currency_id,bank_id', 'id,req_operating_unit,req_number,req_currency_id,req_total,req_accounting_date,cleared_amount,clear_date,acknowledged_status,comment', 'req_supplier,req_site,req_location,req_contact,req_phone', 'bank_id,bank_account_no,bank_payment_doc,status', '', '', 'payment Receipt', 'Customer Section', 'Bank Section', '', 'invoice_payment_receive', 'id>0 and status=\'RECEIVE\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (64, 0, 0, '', '', '', 'recipt_details', 'FORM', '', 'id', '', '', '', '', '', '', '', '', 'recipt_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (65, 0, 0, '', '', '', 'INVENTORY ITEM SUMMARY', 'FORM', 'id,organization,item,description,primary,secondary,pricing', 'id,organization,item,description,primary,secondary,pricing', '', '', '', '', '', '', '', '', 'opm_inventory_item_attributes_summery', '', '', '', '', 'YES', 'YES'),
 (66, 0, 0, '', '', '', 'Resource', 'FORM', 'id,resource,description,usage_uom,resource_class,cost_component_class', 'id,resource,description,usage_uom,resource_class,cost_component_class', '', '', '', '', '', '', '', '', 'opm_define_resources_summery', 'id>0', '', '', '', 'YES', 'YES'),
@@ -2242,19 +2102,19 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 (72, 0, 0, '', '', '', 'OPM Receipe summary', 'FORM', 'id,recipe,status,description,product_id,formula_id,routing_id', 'id,recipe,status,description,product_id,formula_id,routing_id', '', '', '', '', '', '', '', '', 'opm_define_recipe_summery', 'id>0', '', '', '', 'YES', 'YES'),
 (73, 0, 0, '', '', '74', 'OPM Formula summary', 'FORM', 'id,formula,description,status', 'id,formula,description,status', '', '', '', '', '', '', '', '', 'opm_define_formula_summery', 'id>0', '', '', '', 'YES', 'YES'),
 (74, 0, 0, '', '', '', 'OPM Formula Details', 'FORM', '', 'id,opm_define_formula_summery_id,line,product,description,qnty,uom,product_type', '', '', '', '', '', '', '', '', 'opm_define_formula_details', '', '', '', '', 'YES', 'YES'),
-(75, 0, 0, '', '', '', 'Chart of Account', 'FORM', 'id,code,title,status,description,status,trantype', 'id,code,title,status,description,status,trantype', '', '', '', '', '', '', '', '', 'tbl_chart_of_accounts', 'id>0 and trantype=''CHART_OF_ACCOUNT''', '', '', '', 'YES', 'YES'),
+(75, 0, 0, '', '', '', 'Chart of Account', 'FORM', 'id,code,title,status,description,status,trantype', 'id,code,title,status,description,status,trantype', '', '', '', '', '', '', '', '', 'tbl_chart_of_accounts', 'id>0 and trantype=\'CHART_OF_ACCOUNT\'', '', '', '', 'YES', 'YES'),
 (78, 0, 0, '', '', '', 'Chart of Account-SEGMENTS-VALUES', 'FORM', '', 'id,parent_id,trantype,code,title,description,acc_type,parent_data_id,field_qualifier,status', '', '', '', '', '', '', '', '', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (77, 0, 0, '', '', '', 'Chart of Account-SEGMENTS', 'FORM', '', 'id,parent_id,trantype,code,title,description,data_type,field_qualifier,status', '', '', '', '', '', '', '', '', 'tbl_chart_of_accounts', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(79, 0, 0, '', '', '42', 'Requisition Summary', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_currency_id,req_total,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_status', 'req_destination_type,req_source,req_requiester,req_supplier,req_organization,req_site,req_location,req_contact,req_subinventory,req_phone', 'f3', 'f4', '', 'Requisition', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(79, 0, 0, '', '', '42', 'Requisition Summary', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_preparer,req_description,req_currency_id,req_total,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_status', 'req_destination_type,req_source,req_requiester,req_supplier,req_organization,req_site,req_location,req_contact,req_subinventory,req_phone', 'f3', 'f4', '', 'Requisition', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (80, 47, 0, 'id', 'invoice_summary_id', '', 'Requisition Details', 'GRID', '', 'id,invoice_summary_id,item_id,qnty,uom,price,total_amount', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(81, 0, 0, '', '', '42', 'Requisition Approve', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_status,forward_to,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_preparer,req_requiester,req_organization,req_location,req_accounting_date', '', 'f3', 'f4', '', '', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(82, 0, 0, '', '', '42', 'PO Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,created_date_time,req_number,req_type,req_supplier,req_site,req_contact,comment,status,req_status', 'req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,last_updated_by,last_updated_date_time', 'f3', 'f4', '', 'PO-ENTRY', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(83, 0, 0, '', '', '42', 'PO APPROVE', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_status,forward_to,last_updated_by,last_updated_date_time', '', 'f3', 'f4', '', '', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(84, 0, 0, '', '', '42', 'Receipt of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', '', 'GRN SECTION', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(86, 0, 0, '', '', '42', 'Inspection of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', '', 'INSPECTION', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(87, 0, 0, '', '', '42', 'Purchase Invoice Summary', 'FORM', 'id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', '', 'PURCHASE BILL', '', '', '', 'invoice_summary', 'id>0 and status=''PURCHASE_INVOICE''  and req_status=90', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(81, 0, 0, '', '', '42', 'Requisition Approve', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_type,req_status,forward_to,status,created_by,last_updated_by,create_date_time,last_updated_date_time,req_preparer,req_requiester,req_organization,req_location,req_accounting_date', '', 'f3', 'f4', '', '', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(82, 0, 0, '', '', '42', 'PO Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,created_date_time,req_number,req_type,req_supplier,req_site,req_contact,comment,status,req_status', 'req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,last_updated_by,last_updated_date_time', 'f3', 'f4', '', 'PO-ENTRY', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(83, 0, 0, '', '', '42', 'PO APPROVE', 'FORM', 'f56', 'id,req_operating_unit,req_number,req_status,forward_to,last_updated_by,last_updated_date_time', '', 'f3', 'f4', '', '', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(84, 0, 0, '', '', '42', 'Receipt of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', '', 'GRN SECTION', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(86, 0, 0, '', '', '42', 'Inspection of goods Summary', 'FORM', 'f56', 'id,parent_id,req_operating_unit,req_number,req_type,req_supplier,req_site,req_contact,comment,req_preparer,req_organization,req_location,req_accounting_date,created_by,create_date_time,req_status,status', '', 'f3', 'f4', '', 'INSPECTION', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(87, 0, 0, '', '', '42', 'Purchase Invoice Summary', 'FORM', 'id,req_operating_unit,req_number,req_type,req_preparer,ledger_id,req_status,req_total', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', '', 'PURCHASE BILL', '', '', '', 'invoice_summary', 'id>0 and status=\'PURCHASE_INVOICE\'  and req_status=90', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (88, 47, 0, '', '', '', 'SALES ORDER APPROVE', 'FORM', '', 'id,req_operating_unit,req_number,req_type,req_status,forward_to,last_updated_by,last_updated_date_time', '', '', '', '', '', '', '', '', 'invoice_summary', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
-(89, 0, 0, '', '', '42', 'Sales Invoice Summary', 'FORM', 'f56', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', '', 'Sales Invoice', '', '', '', 'invoice_summary', 'id>0 and status=''REQUISITION''', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
+(89, 0, 0, '', '', '42', 'Sales Invoice Summary', 'FORM', 'f56', 'id,req_operating_unit,req_supplier,req_number,req_accounting_date,req_currency_id,Gl_date,Terms_date,Terms,Payment_method,Pay_group,parent_id', 'invoice_tot_items,invoice_retainage,invoice_prepayment_amount,invoice_withholding,invoice_subtotal,tax_amount,freight_amount,Misc_amount,invoice_grand_total', 'invoice_status,invoice_accounted,req_status,parent_id,req_type,status', 'f4', '', 'Sales Invoice', '', '', '', 'invoice_summary', 'id>0 and status=\'REQUISITION\'', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES'),
 (91, 0, 0, '', '', '', 'Batch Summary', 'FORM', 'id,organisation_id,batch_numbering,receipe_id', 'id,organisation_id,batch_numbering,receipe_id,receipe_description,product_id,product_desc,product_qnty,product_uom,planned_start,planned_complete,required_complate,batch_status', '', '', '', '', '', '', '', '', 'opm_batch_summary', 'id>0', '', '', '', 'YES', 'YES'),
 (92, 0, 0, '', '', '', 'Batch Details', 'FORM', '', 'id,opm_batch_summary_id,line_no,product_id,target_qnty,transact_qnty,exceptional_qnty,uom,product_type,batch_enable_status', 'id,opm_batch_summary_id,line_no,product_id,target_qnty,available_qnty,transact_qnty,exceptional_qnty,uom,product_type,batch_enable_status', 'id,opm_batch_summary_id,line_no,product_id,target_qnty,transact_qnty,exceptional_qnty,uom,product_type,batch_enable_status', '', '', 'Finish Product', 'Ingredient', 'Bi-Product', '', 'opm_batch_details', '', '', '', '', 'YES', 'YES'),
 (93, 47, 0, 'id', 'invoice_summary_id', '', 'invoice_details PURCHASE INVOICE', 'GRID', '', 'id,req_srl_number,type,item_id,rev,description,price', '', '', '', '', '', '', '', '', 'invoice_details', 'id>0', '', 'Project_controller/TempleteForm/', 'ActiveReport/TemplateForm', 'YES', 'YES');
@@ -2265,35 +2125,36 @@ INSERT INTO `frmrpttemplatehdr` (`id`, `parent_id`, `section_order`, `parent_tab
 -- Table structure for table `frmrpt_simple_query_builder`
 --
 
-CREATE TABLE IF NOT EXISTS `frmrpt_simple_query_builder` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `frmrpt_simple_query_builder` (
+  `id` int(10) NOT NULL,
   `FormRptName` varchar(100) NOT NULL,
   `query_name` varchar(100) NOT NULL,
   `table_name` varchar(100) NOT NULL,
   `field_name` varchar(100) NOT NULL,
   `where_cond` varchar(100) NOT NULL,
-  `type` varchar(50) NOT NULL DEFAULT 'RESULT',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=45 ;
+  `type` varchar(50) NOT NULL DEFAULT 'RESULT'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `frmrpt_simple_query_builder`
 --
 
 INSERT INTO `frmrpt_simple_query_builder` (`id`, `FormRptName`, `query_name`, `table_name`, `field_name`, `where_cond`, `type`) VALUES
-(32, 'GENERAL-parent_id=0 and active_inactive=''ACTIVE'' and', 'Master LOV', 'frmrptgeneralmaster', 'FieldVal', ' Status=''LOV''', 'RESULT'),
-(33, 'GENERAL', 'active_inactive list', 'frmrptgeneralmaster', 'FieldVal', 'Status=''ActiveInactive''', 'RESULT'),
+(32, 'GENERAL-parent_id=0 and active_inactive=\'ACTIVE\' and', 'Master LOV', 'frmrptgeneralmaster', 'FieldVal', ' Status=\'LOV\'', 'RESULT'),
+(33, 'GENERAL', 'active_inactive list', 'frmrptgeneralmaster', 'FieldVal', 'Status=\'ActiveInactive\'', 'RESULT'),
 (34, 'GENERAL', 'MENU LIST', 'software_architecture_details', 'name', 'data_type=73', 'RESULT'),
-(35, 'GENERAL', 'SUNDRY CREDITOR LIST', 'acc_group_ledgers', 'acc_name', 'parent_id in (27,19) and acc_type=''LEDGER'' ', 'RESULT'),
-(36, 'GENERAL', 'CSR LIST', 'tbl_employee_mstr', 'name', 'id>0 and login_status=''CSR'' and status=''ACTIVE''', 'RESULT_NEW'),
-(37, 'GENERAL', 'BILL_TYPE LIST', 'frmrptgeneralmaster', 'FieldID', 'Status=''BILL_TYPE''', 'RESULT_NEW'),
-(38, 'GENERAL', 'ROLL NAME', 'software_archi_role_manage', 'roll_name', 'data_type=''HEADER''', 'RESULT'),
-(39, 'code_type_id', 'code_type_id (USED IN CODE STRUCTURE)', 'frmrptgeneralmaster', 'FieldVal', 'Status=''code_type_id''', 'RESULT'),
-(40, 'GENERAL', 'code_main_id (USED IN CODE STRUCTURE)', 'frmrptgeneralmaster', 'FieldVal', 'Status=''code_main_id''', 'RESULT'),
+(35, 'GENERAL', 'SUNDRY CREDITOR LIST', 'acc_group_ledgers', 'acc_name', 'parent_id in (27,19) and acc_type=\'LEDGER\' ', 'RESULT'),
+(36, 'GENERAL', 'CSR LIST', 'tbl_employee_mstr', 'name', 'id>0 and login_status=\'CSR\' and status=\'ACTIVE\'', 'RESULT_NEW'),
+(37, 'GENERAL', 'BILL_TYPE LIST', 'frmrptgeneralmaster', 'FieldID', 'Status=\'BILL_TYPE\'', 'RESULT_NEW'),
+(38, 'GENERAL', 'ROLL NAME', 'software_archi_role_manage', 'roll_name', 'data_type=\'HEADER\'', 'RESULT'),
+(39, 'code_type_id', 'code_type_id (USED IN CODE STRUCTURE)', 'frmrptgeneralmaster', 'FieldVal', 'Status=\'code_type_id\'', 'RESULT'),
+(40, 'GENERAL', 'code_main_id (USED IN CODE STRUCTURE)', 'frmrptgeneralmaster', 'FieldVal', 'Status=\'code_main_id\'', 'RESULT'),
 (41, 'chart_of_accounts_list', 'chart_of_accounts_list(USED IN CHART OF ACCOUNT)', 'tbl_chart_of_accounts', 'value', 'parent_id=0', 'RESULT'),
 (42, 'Currency master(Used at daily rate)', 'Currency master(Used at daily rate)', 'tbl_currency_master', 'code', 'id>0', 'RESULT'),
-(43, 'CHART_OF_AC_QUALIFIER', 'CHART_OF_AC_QUALIFIER', 'frmrptgeneralmaster', 'FieldVal', 'Status=''CHART_OF_AC_QUALIFIER''', 'RESULT'),
-(44, 'calendar type', 'calendar type', 'tbl_calender', 'period_type', 'parent_id=0', 'RESULT');
+(43, 'CHART_OF_AC_QUALIFIER', 'CHART_OF_AC_QUALIFIER', 'frmrptgeneralmaster', 'FieldVal', 'Status=\'CHART_OF_AC_QUALIFIER\'', 'RESULT'),
+(44, 'calendar type', 'calendar type', 'tbl_calender', 'period_type', 'parent_id=0', 'RESULT'),
+(45, 'LOV_CHART OF ACCOUNT', 'LOV_CHART OF ACCOUNT', 'tbl_chart_of_accounts', 'title', 'trantype=\'CHART_OF_ACCOUNT\' and status=\'ACTIVE\'', 'RESULT'),
+(46, 'chart of ac values--parent', 'acc_type_list', 'frmrptgeneralmaster', 'FieldVal', 'status=\'acc_type\'', 'RESULT');
 
 -- --------------------------------------------------------
 
@@ -2301,8 +2162,8 @@ INSERT INTO `frmrpt_simple_query_builder` (`id`, `FormRptName`, `query_name`, `t
 -- Table structure for table `invoice_details`
 --
 
-CREATE TABLE IF NOT EXISTS `invoice_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `invoice_details` (
+  `id` int(10) NOT NULL,
   `invoice_summary_id` int(10) NOT NULL,
   `opm_batch_details_id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
@@ -2347,24 +2208,34 @@ CREATE TABLE IF NOT EXISTS `invoice_details` (
   `uom` varchar(20) NOT NULL,
   `billing_address` varchar(100) NOT NULL,
   `shipping_address` varchar(100) NOT NULL,
-  `asset_book` varchar(5) NOT NULL DEFAULT 'NO',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+  `asset_book` varchar(5) NOT NULL DEFAULT 'NO'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_details`
 --
 
 INSERT INTO `invoice_details` (`id`, `invoice_summary_id`, `opm_batch_details_id`, `parent_id`, `status`, `grn_status`, `company_id`, `account_id`, `cost_center_id`, `segment4`, `segment5`, `segment6`, `segment7`, `segment8`, `segment9`, `segment10`, `segment11`, `segment12`, `segment13`, `segment14`, `segment15`, `segment16`, `segment17`, `segment18`, `segment19`, `segment20`, `type`, `req_srl_number`, `category_id`, `item_id`, `batch_no`, `batch_wise_avlbl_qnty`, `rev`, `description`, `price`, `qnty`, `total_amount`, `tax_ledger_id`, `tax_rate`, `tax_amount`, `Gl_date`, `received_qnty`, `uom`, `billing_address`, `shipping_address`, `asset_book`) VALUES
-(1, 1, 0, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 100.00, 11, 1100.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(2, 2, 0, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 100.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'BIL', 'SHIP', 'NO'),
-(4, 3, 0, 2, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '12346', 0.00, '', '', 10.00, 10, 90.00, 0, 0.00, 0.00, '0000-00-00', 9, '122', '', '', 'NO'),
-(10, 4, 0, 4, '', '119', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 0.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 9, '122', '', '', 'NO'),
-(21, 7, 0, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 100.00, 10, 1000.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', '', '', 'NO'),
-(22, 8, 1, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 10.00, '', '', 100.00, 5, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '122', 'BILLIN', 'SHIPPING', 'NO'),
-(23, 9, 1, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 100.00, 5, 400.00, 0, 0.00, 0.00, '0000-00-00', 4, '122', 'BILLIN', 'SHIPPING', 'NO'),
-(25, 10, 0, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 100.00, 4, 400.00, 137, 4.00, 16.00, '0000-00-00', 4, '122', '', '', 'NO'),
-(28, 11, 1, 0, '', '', 0, 275, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 1.00, '', '', 100.00, 4, 400.00, 0, 0.00, 0.00, '0000-00-00', 4, '122', 'bill', 'ship', 'NO');
+(1, 1, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 150.00, 200, 30000.00, 0, 0.00, 0.00, '0000-00-00', 0, '165', '', '', 'NO'),
+(2, 1, 0, 0, '', '', 3174, 2323, 3164, 3065, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 15.00, 20, 300.00, 0, 0.00, 0.00, '0000-00-00', 0, '166', '', '', 'NO'),
+(3, 2, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 150.00, 200, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '165', '', '', 'NO'),
+(4, 2, 0, 0, '', '', 3174, 2323, 3164, 3065, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 15.00, 20, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '166', '', '', 'NO'),
+(6, 3, 0, 3, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 150.00, 200, 22500.00, 0, 0.00, 0.00, '0000-00-00', 150, '165', '', '', 'NO'),
+(7, 3, 0, 4, '', '', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 15.00, 20, 300.00, 0, 0.00, 0.00, '0000-00-00', 20, '166', '', '', 'NO'),
+(10, 4, 0, 6, '', '119', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 0.00, 200, 0.00, 0, 0.00, 0.00, '0000-00-00', 150, '165', '', '', 'NO'),
+(11, 4, 0, 7, '', '119', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 0.00, 20, 0.00, 0, 0.00, 0.00, '0000-00-00', 20, '166', '', '', 'NO'),
+(13, 5, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 150.00, 200, 30000.00, 137, 4.00, 1200.00, '2020-05-06', 0, '165', '', '', 'NO'),
+(14, 5, 0, 0, '', '', 3174, 2323, 3164, 3065, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, '', 0.00, '', '', 15.00, 20, 300.00, 138, 6.00, 18.00, '2020-05-06', 0, '166', '', '', 'NO'),
+(15, 6, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 40, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '165', '', '', 'NO'),
+(16, 7, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 40, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '165', '', '', 'NO'),
+(17, 8, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 40, 4800.00, 0, 0.00, 0.00, '0000-00-00', 30, '165', '', '', 'NO'),
+(19, 9, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 40, 6400.00, 0, 0.00, 0.00, '2020-05-06', 0, '165', '', '', 'NO'),
+(20, 10, 0, 0, '', '', 0, 3052, 3164, 3066, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 100.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '166', '', '', 'NO'),
+(21, 11, 0, 0, '', '', 0, 3052, 3164, 3066, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 100.00, 10, 1000.00, 0, 0.00, 0.00, '0000-00-00', 10, '166', '', '', 'NO'),
+(23, 12, 0, 0, '', '', 0, 3052, 3164, 3066, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 100.00, 10, 1000.00, 0, 0.00, 0.00, '0000-00-00', 10, '166', '', '', 'NO'),
+(25, 13, 23456, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 10, 0.00, 0, 0.00, 0.00, '0000-00-00', 0, '165', '', '', 'NO'),
+(26, 14, 23456, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 10, 1280.00, 0, 0.00, 0.00, '0000-00-00', 8, '165', '', '', 'NO'),
+(28, 15, 0, 0, '', '', 3174, 2323, 3164, 3061, 3179, 3180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, '', 0.00, '', '', 160.00, 10, 1600.00, 0, 0.00, 0.00, '0000-00-00', 8, '165', '', '', 'NO');
 
 -- --------------------------------------------------------
 
@@ -2372,8 +2243,8 @@ INSERT INTO `invoice_details` (`id`, `invoice_summary_id`, `opm_batch_details_id
 -- Table structure for table `invoice_payment_receive`
 --
 
-CREATE TABLE IF NOT EXISTS `invoice_payment_receive` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `invoice_payment_receive` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `status` varchar(20) NOT NULL,
   `req_operating_unit` int(10) NOT NULL,
@@ -2406,18 +2277,18 @@ CREATE TABLE IF NOT EXISTS `invoice_payment_receive` (
   `bank_id` int(10) NOT NULL,
   `bank_name` varchar(100) NOT NULL,
   `bank_account_no` varchar(30) NOT NULL,
-  `bank_payment_doc` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `bank_payment_doc` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_payment_receive`
 --
 
 INSERT INTO `invoice_payment_receive` (`id`, `parent_id`, `status`, `req_operating_unit`, `req_number`, `req_total`, `req_organization`, `req_supplier`, `ledger_id`, `req_site`, `req_contact`, `req_phone`, `req_status`, `req_accounting_date`, `comment`, `req_location`, `req_currency_id`, `created_date_time`, `PO_REV_NO`, `created_by`, `last_updated_by`, `create_date_time`, `last_updated_date_time`, `Gl_date`, `voucher_no`, `cleared_amount`, `clear_date`, `void_date`, `maturity_date`, `acknowledged_status`, `bank_id`, `bank_name`, `bank_account_no`, `bank_payment_doc`) VALUES
-(1, 0, 'PAYMENT', 6693, '', 1000.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-22 21:29:23', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 600.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0),
-(2, 0, 'PAYMENT', 6693, '', 1000.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-22 21:30:42', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 400.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0),
-(3, 0, 'RECEIVE', 6693, '', 416.00, 0, 1, 0, 0, 'ASHOKE DAS', '9804152658', '', '0000-00-00', '', '', 3, '2020-04-22 21:54:16', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 416.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0);
+(1, 0, 'PAYMENT', 6698, 'PAY1', 31518.00, 0, 10, 0, 11, '', '', '', '2020-05-06', '', '', 5, '2020-05-06 14:54:06', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 31518.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '11234', 0),
+(2, 0, 'RECEIVE', 6698, 'REC1', 6400.00, 0, 5, 0, 11, '', '', '', '2020-05-06', '', '', 3, '2020-05-06 15:22:54', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 6400.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 3, '', '1124', 0),
+(3, 0, 'RECEIVE', 6698, 'RECEIVE-2', 1000.00, 0, 5, 0, 0, '', '', '', '2020-05-06', '', '', 5, '2020-05-06 15:36:28', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 1000.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '', 0),
+(4, 0, 'RECEIVE', 6698, 'RECEIVE-5', 1600.00, 0, 5, 0, 10, '', '', '', '2020-05-06', '', '', 5, '2020-05-06 15:46:42', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '', 1600.00, '0000-00-00', '0000-00-00', '0000-00-00', 0, 2, '', '123456789', 0);
 
 -- --------------------------------------------------------
 
@@ -2425,22 +2296,22 @@ INSERT INTO `invoice_payment_receive` (`id`, `parent_id`, `status`, `req_operati
 -- Table structure for table `invoice_payment_receive_details`
 --
 
-CREATE TABLE IF NOT EXISTS `invoice_payment_receive_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `invoice_payment_receive_details` (
+  `id` int(10) NOT NULL,
   `invoice_payment_receive_id` int(10) NOT NULL,
   `invoice_summary_id` int(10) NOT NULL,
-  `amount` double(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `amount` double(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_payment_receive_details`
 --
 
 INSERT INTO `invoice_payment_receive_details` (`id`, `invoice_payment_receive_id`, `invoice_summary_id`, `amount`) VALUES
-(1, 1, 7, 600.00),
-(2, 2, 7, 400.00),
-(3, 3, 10, 416.00);
+(1, 1, 5, 31518.00),
+(2, 2, 9, 6400.00),
+(3, 3, 12, 1000.00),
+(4, 4, 15, 1600.00);
 
 -- --------------------------------------------------------
 
@@ -2448,8 +2319,8 @@ INSERT INTO `invoice_payment_receive_details` (`id`, `invoice_payment_receive_id
 -- Table structure for table `invoice_summary`
 --
 
-CREATE TABLE IF NOT EXISTS `invoice_summary` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `invoice_summary` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `status` varchar(20) NOT NULL,
   `req_operating_unit` int(10) NOT NULL,
@@ -2500,24 +2371,29 @@ CREATE TABLE IF NOT EXISTS `invoice_summary` (
   `invoice_due_total` double(10,2) NOT NULL,
   `invoice_status` int(10) NOT NULL,
   `invoice_accounted` int(10) NOT NULL,
-  `invoice_payment_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+  `invoice_payment_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_summary`
 --
 
 INSERT INTO `invoice_summary` (`id`, `parent_id`, `status`, `req_operating_unit`, `req_description`, `req_type`, `req_number`, `req_preparer`, `req_currency_id`, `req_total`, `req_destination_type`, `req_requiester`, `req_organization`, `req_location`, `req_subinventory`, `req_source`, `req_supplier`, `ledger_id`, `req_site`, `req_contact`, `req_phone`, `req_status`, `req_submit_approval`, `req_unreserve_date`, `req_accounting_date`, `forward_to`, `comment`, `created_date_time`, `PO_REV_NO`, `created_by`, `last_updated_by`, `create_date_time`, `last_updated_date_time`, `Gl_date`, `Terms_date`, `Terms`, `Payment_method`, `Pay_group`, `invoice_tot_items`, `invoice_retainage`, `invoice_prepayment_amount`, `invoice_withholding`, `invoice_subtotal`, `tax_amount`, `freight_amount`, `Misc_amount`, `invoice_grand_total`, `invoice_paid_total`, `invoice_due_total`, `invoice_status`, `invoice_accounted`, `invoice_payment_id`) VALUES
-(1, 0, 'REQUISITION', 6693, '', 92, 'REQ-FINAL1', 6, 3, 1100.00, 113, 6, 1, 'West bengal', '6693', 115, 1, 0, 4, 'ASHOKE DAS', '9804152658', '91', 'NO', '0000-00-00', '2020-04-23', 296, '', '2020-04-22 19:45:13', '', 6, 6, '2020-04-23 19:26:59', '2020-04-23 19:26:59', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(2, 1, 'PO_ENTRY', 6693, '', 93, 'PO-FINAL1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 4, 'ASHOKE DAS', '', '91', 'NO', '0000-00-00', '2020-04-23', 296, '', '2020-04-22 19:45:13', '', 6, 6, '2020-04-23 19:39:18', '2020-04-23 19:39:18', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(3, 2, 'GRN_ENTRY', 6693, '', 94, 'GRN-FINAL1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 4, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-04-23', 0, '', '2020-04-22 19:46:36', '', 6, 0, '2020-04-23 20:17:25', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 90.00, 0.00, 0.00, 0, 0, 0),
-(4, 3, 'INSPECTION', 6693, '', 94, 'INSPECTION-FINAL1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 4, 'ASHOKE DAS', '', '90', 'NO', '0000-00-00', '2020-04-22', 0, '', '2020-04-22 19:59:41', '', 6, 0, '2020-04-22 20:00:06', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(7, 1, 'PURCHASE_INVOICE', 6693, '', 95, 'PO-FINAL1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-04-22', 0, '', '2020-04-22 21:28:37', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 1000, 0.00, 0.00, 0.00, 1000.00, 0.00, 0.00, 0.00, 1000.00, 1000.00, 0.00, 140, 21, 2),
-(8, 0, 'SALES_ORDER', 6693, '', 142, 'ORD-FINAL1', 6, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 6, '', '', '90', 'NO', '0000-00-00', '2020-04-23', 296, '', '2020-04-23 20:27:55', '', 6, 6, '2020-04-23 20:27:55', '2020-04-23 20:27:55', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
-(9, 8, 'ORDER_DESPATCH', 6693, '', 143, 'ORD-FINAL1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 6, '', '', '90', 'NO', '0000-00-00', '2020-04-23', 0, '', '2020-04-22 21:52:03', '', 6, 0, '2020-04-23 20:32:52', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 400, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 400.00, 0.00, 0.00, 0, 0, 0),
-(10, 8, 'SALES_INVOICE', 6693, '', 144, 'ORD-FINAL1', 0, 0, 0.00, 0, 0, 0, '', '', 0, 1, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-04-22', 0, '', '2020-04-22 21:53:07', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 400, 0.00, 0.00, 0.00, 400.00, 16.00, 0.00, 0.00, 416.00, 416.00, 0.00, 140, 21, 3),
-(11, 8, 'ORDER_DESPATCH', 6693, '', 143, 'ORD-FINAL1', 6, 0, 0.00, 0, 0, 1, 'West bengal', '', 0, 1, 0, 0, '', '', '90', 'NO', '0000-00-00', '2020-04-23', 0, '', '2020-04-23 20:44:46', '', 6, 0, '2020-04-23 21:48:36', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 400, 0.00, 0.00, 0.00, 400.00, 0.00, 0.00, 0.00, 400.00, 0.00, 400.00, 140, 21, 0);
+(1, 0, 'REQUISITION', 6698, '', 92, 'REQ1', 6, 5, 30300.00, 113, 6, 1, 'Gulshan Avenue', '', 116, 10, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 14:22:16', '', 6, 6, '2020-05-06 14:26:37', '2020-05-06 14:26:37', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(2, 1, 'PO_ENTRY', 6698, '', 93, 'PO1', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 10, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 14:22:16', '', 6, 6, '2020-05-06 14:30:22', '2020-05-06 14:30:22', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(3, 2, 'GRN_ENTRY', 6698, '', 94, 'GRN1', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 10, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 14:40:28', '', 6, 0, '2020-05-06 14:40:41', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 22800.00, 0.00, 0.00, 0, 0, 0),
+(4, 3, 'INSPECTION', 6698, '', 94, 'GRN1', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 10, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 14:42:08', '', 6, 0, '2020-05-06 14:41:29', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(5, 1, 'PURCHASE_INVOICE', 6698, '', 95, 'INV1', 0, 3, 0.00, 0, 0, 0, '', '', 0, 10, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 14:50:57', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-05-06', '2020-05-06', 127, 130, 129, 30300, 0.00, 0.00, 0.00, 30300.00, 1218.00, 0.00, 0.00, 31518.00, 31518.00, 0.00, 140, 21, 1),
+(6, 0, 'SALES_ORDER', 6698, '', 142, 'Order1', 6, 0, 0.00, 0, 0, 0, '', '', 0, 5, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 22:11:28', '', 6, 6, '2020-05-06 15:11:28', '2020-05-06 15:11:28', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(7, 6, 'ORDER_DESPATCH', 6698, '', 143, 'Order1', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 5, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:13:37', '', 6, 0, '2020-05-06 15:13:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(8, 6, 'ORDER_DESPATCH', 6698, '', 143, 'Despatch1', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 5, 0, 11, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:14:14', '', 6, 0, '2020-05-06 15:30:16', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 4800, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 4800.00, 0.00, 0.00, 0, 0, 0),
+(9, 6, 'SALES_INVOICE', 6698, '', 143, 'invoice-1', 0, 3, 0.00, 0, 0, 0, '', '', 0, 5, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:20:07', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-05-06', '2020-05-06', 127, 130, 129, 6400, 0.00, 0.00, 0.00, 6400.00, 0.00, 0.00, 0.00, 6400.00, 6400.00, 0.00, 140, 21, 2),
+(10, 0, 'SALES_ORDER', 6698, '', 142, 'ORDER-2', 6, 0, 0.00, 0, 0, 0, '', '', 0, 5, 0, 10, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 22:32:22', '', 6, 6, '2020-05-06 15:32:22', '2020-05-06 15:32:22', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(11, 10, 'ORDER_DESPATCH', 6698, '', 143, 'DESPATCH-2', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 5, 0, 10, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:33:59', '', 6, 0, '2020-05-06 15:34:00', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 1000, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 1000.00, 0.00, 0.00, 0, 0, 0),
+(12, 10, 'SALES_INVOICE', 6698, '', 143, 'INVOICE-2', 0, 3, 0.00, 0, 0, 0, '', '', 0, 5, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:35:23', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-05-06', '2020-05-06', 127, 130, 129, 1000, 0.00, 0.00, 0.00, 1000.00, 0.00, 0.00, 0.00, 1000.00, 1000.00, 0.00, 140, 21, 3),
+(13, 0, 'SALES_ORDER', 6698, '', 142, 'ORDER-5', 6, 0, 0.00, 0, 0, 0, '', '', 0, 5, 0, 10, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 22:37:26', '', 6, 6, '2020-05-06 15:37:26', '2020-05-06 15:37:26', '0000-00-00', '0000-00-00', 0, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0, 0, 0),
+(14, 13, 'ORDER_DESPATCH', 6698, '', 143, 'DESPATCH-5', 6, 0, 0.00, 0, 0, 1, 'Gulshan Avenue', '', 0, 5, 0, 10, '', '', '90', 'NO', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:40:47', '', 6, 0, '2020-05-06 15:40:26', '0000-00-00 00:00:00', '0000-00-00', '0000-00-00', 0, 0, 0, 1280, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 1280.00, 0.00, 0.00, 0, 0, 0),
+(15, 13, 'SALES_INVOICE', 6698, '', 143, 'INVOICE-5', 0, 3, 0.00, 0, 0, 0, '', '', 0, 5, 0, 0, '', '', '90', 'YES', '0000-00-00', '2020-05-06', 0, '', '2020-05-06 15:44:29', '', 0, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2020-05-06', '2020-05-06', 127, 130, 129, 1600, 0.00, 0.00, 0.00, 1600.00, 0.00, 0.00, 0.00, 1600.00, 1600.00, 0.00, 140, 21, 4);
 
 -- --------------------------------------------------------
 
@@ -2525,17 +2401,16 @@ INSERT INTO `invoice_summary` (`id`, `parent_id`, `status`, `req_operating_unit`
 -- Table structure for table `invoice_tax_details`
 --
 
-CREATE TABLE IF NOT EXISTS `invoice_tax_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `invoice_tax_details` (
+  `id` int(10) NOT NULL,
   `invoice_summary_id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `status` varchar(20) NOT NULL,
   `tax_type` int(10) NOT NULL,
   `tax_ledger_id` int(10) NOT NULL,
   `tax_rate` double(10,2) NOT NULL,
-  `tax_amount` double(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+  `tax_amount` double(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `invoice_tax_details`
@@ -2553,8 +2428,8 @@ INSERT INTO `invoice_tax_details` (`id`, `invoice_summary_id`, `parent_id`, `sta
 -- Table structure for table `item_wise_sale`
 --
 
-CREATE TABLE IF NOT EXISTS `item_wise_sale` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `item_wise_sale` (
+  `id` int(10) NOT NULL,
   `percentige_change` double(10,2) NOT NULL,
   `prev_val` double(10,2) NOT NULL,
   `prev_qty` double(10,2) NOT NULL,
@@ -2562,9 +2437,8 @@ CREATE TABLE IF NOT EXISTS `item_wise_sale` (
   `curr_qty` double(10,2) NOT NULL,
   `uom` varchar(100) NOT NULL,
   `product_name` varchar(100) NOT NULL,
-  `item_number` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10242 ;
+  `item_number` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `item_wise_sale`
@@ -2572,45 +2446,45 @@ CREATE TABLE IF NOT EXISTS `item_wise_sale` (
 
 INSERT INTO `item_wise_sale` (`id`, `percentige_change`, `prev_val`, `prev_qty`, `curr_value`, `curr_qty`, `uom`, `product_name`, `item_number`) VALUES
 (1, -24.36, 95127486.14, 122315.00, 71950411.18, 93640.00, 'PCS', 'Jutex Plain Board 8x4 Feet T-12 mm D-550', 'FG10000012'),
-(2, -2.79, 69299702.72, 33518.00, 67368461.41, 29834.00, 'PCS', 'Ply B.S.Garjon, T-18mm, S-8''X4''', 'FG10035025'),
+(2, -2.79, 69299702.72, 33518.00, 67368461.41, 29834.00, 'PCS', 'Ply B.S.Garjon, T-18mm, S-8\'X4\'', 'FG10035025'),
 (3, 12.13, 38052608.95, 54957.00, 42668858.18, 66500.00, 'PCS', 'Jutex Plain Board Polar 8x4 Feet T-12 mm', 'FG10000812'),
-(4, -24.22, 47664377.64, 15861.00, 36118396.28, 10876.00, 'PCS', 'Ply Decorative O.S Burma Teak & O.S G , T-18mm, S-8''X4''', 'FG10035185'),
+(4, -24.22, 47664377.64, 15861.00, 36118396.28, 10876.00, 'PCS', 'Ply Decorative O.S Burma Teak & O.S G , T-18mm, S-8\'X4\'', 'FG10035185'),
 (5, -28.77, 41578625.79, 15694.00, 29617616.88, 11015.00, 'PCS', 'FG10030015', 'FG10030015'),
 (6, -16.63, 32525229.32, 13338.00, 27117321.90, 11485.00, 'PCS', 'FG10030014', 'FG10030014'),
 (7, -68.68, 72513375.00, 2197375.00, 22713900.00, 688300.00, 'Kg', 'UF Resin for Plain Board', 'FG10090001'),
-(8, -8.18, 23866092.55, 15695.00, 21912879.84, 14082.00, 'PCS', 'Ply B.S.Garjon, T-12mm, S-8''X4''', 'FG10035017'),
-(9, -24.90, 18146981.87, 7258.00, 13627717.11, 4729.00, 'PCS', 'Ply Decorative O.S Burma Teak & O.S G , T-12mm, S-8''X4''', 'FG10035125'),
-(10, -21.94, 16343222.21, 13547.00, 12757604.24, 9557.00, 'PCS', 'Ply B.S.Garjon, T-6mm, S-8''X4''', 'FG10035009'),
+(8, -8.18, 23866092.55, 15695.00, 21912879.84, 14082.00, 'PCS', 'Ply B.S.Garjon, T-12mm, S-8\'X4\'', 'FG10035017'),
+(9, -24.90, 18146981.87, 7258.00, 13627717.11, 4729.00, 'PCS', 'Ply Decorative O.S Burma Teak & O.S G , T-12mm, S-8\'X4\'', 'FG10035125'),
+(10, -21.94, 16343222.21, 13547.00, 12757604.24, 9557.00, 'PCS', 'Ply B.S.Garjon, T-6mm, S-8\'X4\'', 'FG10035009'),
 (11, -37.60, 18244893.67, 17610.00, 11385268.98, 13546.00, 'PCS', 'Jutex Plain Board 8x4 Feet T-18 mm D-550', 'FG10000018'),
 (12, -21.48, 11638307.16, 6272.00, 9138872.63, 4929.00, 'PCS', 'FG10030071', 'FG10030071'),
 (13, 3661.86, 181014.36, 15.00, 6809513.72, 116.00, 'PCS', 'SWD:BURMA TEAK,THICKNESS 36MM', 'OS10045811'),
-(14, -27.56, 8896737.75, 4608.00, 6444810.58, 3315.00, 'PCS', 'VB O/S Crown Teak,T-550/12,S-8''x4''', 'FG10030118'),
+(14, -27.56, 8896737.75, 4608.00, 6444810.58, 3315.00, 'PCS', 'VB O/S Crown Teak,T-550/12,S-8\'x4\'', 'FG10030118'),
 (15, -43.40, 10909681.21, 7565.00, 6174866.88, 4177.00, 'PCS', 'FG10030098', 'FG10030098'),
 (16, -64.02, 15834004.35, 7273.00, 5697206.08, 3148.00, 'PCS', 'LP.: B. Teak, (CLP) T-400/36, S-Various', 'FG10040901'),
-(17, -25.45, 7600417.98, 3537.00, 5666416.73, 2784.00, 'PCS', 'VB O/S Crown Teak,T-550/18,S-8''x4''', 'FG10030119'),
+(17, -25.45, 7600417.98, 3537.00, 5666416.73, 2784.00, 'PCS', 'VB O/S Crown Teak,T-550/18,S-8\'x4\'', 'FG10030119'),
 (18, -18.24, 6461835.16, 3573.00, 5283347.72, 2951.00, 'PCS', 'FG10030099', 'FG10030099'),
 (19, -9.49, 5785905.10, 4284.00, 5236926.45, 4196.00, 'PCS', 'LP.: Gorjon (MLP), T-400/36, S-Various', 'FG10041711'),
 (20, -39.74, 7953731.03, 3386.00, 4793234.44, 2571.00, 'PCS', 'LP.: B. Teak, (MLP) T-400/36, S-Various', 'FG10041724'),
 (21, 0.00, 0.00, 3.00, 0.00, 13.00, 'PCS', 'Jutex Plain Board 8x4 Feet T-36 mm D-400', 'FG10000036'),
-(22, 0.00, 0.00, 0.00, 0.00, 2.00, 'PCS', 'LP.:Garjon (JLP),T-400/36,S-6-10''X2-9''', 'FG10040004'),
-(23, 0.00, 189114.88, 72.00, 0.00, 1.00, 'PCS', 'VB O/S Champ Regular,T-550/18,S-8''x4''', 'FG10030551'),
-(24, -99.97, 4340.16, 1.00, 0.00, 1.00, 'PCS', 'VB O/S Champ regular,T-425/26,S-8''x4''', 'FG10030829'),
+(22, 0.00, 0.00, 0.00, 0.00, 2.00, 'PCS', 'LP.:Garjon (JLP),T-400/36,S-6-10\'X2-9\'', 'FG10040004'),
+(23, 0.00, 189114.88, 72.00, 0.00, 1.00, 'PCS', 'VB O/S Champ Regular,T-550/18,S-8\'x4\'', 'FG10030551'),
+(24, -99.97, 4340.16, 1.00, 0.00, 1.00, 'PCS', 'VB O/S Champ regular,T-425/26,S-8\'x4\'', 'FG10030829'),
 (25, 0.00, 42265.58, 27.00, 0.00, 1.00, 'PCS', 'LP.: PD-027+Champ, (MLP) T-400/36, S-Various', 'FG10042260'),
-(26, 0.00, 0.00, 0.00, 0.00, 1.00, 'PCS', 'LP.:S.Teak (MLP),T-400/36,S-6-10''X2-9''', 'FG10042735'),
+(26, 0.00, 0.00, 0.00, 0.00, 1.00, 'PCS', 'LP.:S.Teak (MLP),T-400/36,S-6-10\'X2-9\'', 'FG10042735'),
 (27, 0.00, 0.00, 0.00, 41.00, 1.00, 'PCS', 'LP.: PD-038+Champ, Polish (CLP) T-400/36, S-Various', 'FG10041499'),
 (28, 0.00, 0.00, 0.00, 50.00, 1.00, 'PCS', 'LP.: CD-011 (OSD+Champ)Polish, (CLP) T-400/36, S-Various', 'FG10041304'),
 (29, -99.97, 2969202.15, 4557.00, 800.00, 1.00, 'PCS', 'MDF Plain Board 8x4 Feet T-12mm Density:730-750mm', 'FG10000834'),
-(30, -99.71, 273776.24, 338.00, 800.00, 1.00, 'PCS', 'Veneered Grade MDF PLAIN BOARD, 4''x8''x18mm', 'RM10089034'),
+(30, -99.71, 273776.24, 338.00, 800.00, 1.00, 'PCS', 'Veneered Grade MDF PLAIN BOARD, 4\'x8\'x18mm', 'RM10089034'),
 (31, -99.97, 4792097.62, 7173.00, 1600.00, 2.00, 'PCS', 'MDF Plain Board 8x4 Feet T-15mm Density:730-750mm', 'FG10000835'),
-(32, -87.50, 16875.52, 8.00, 2109.00, 1.00, 'PCS', 'Ply Decorative O.S GoldenTeak & O.S G , T-3mm, S-8''X4''', 'FG10035037'),
+(32, -87.50, 16875.52, 8.00, 2109.00, 1.00, 'PCS', 'Ply Decorative O.S GoldenTeak & O.S G , T-3mm, S-8\'X4\'', 'FG10035037'),
 (33, -75.00, 10000.00, 20.00, 2500.00, 5.00, 'Kg', 'Veneer edging B. Teak', 'FG10030585'),
 (34, -96.05, 64465.68, 60.00, 2545.00, 2.00, 'PCS', 'LP.: Eco Door (new) (BS), (MLP) T-400/36, S-Various', 'FG10042659'),
-(35, -75.00, 10798.08, 4.00, 2700.00, 1.00, 'PCS', 'Ply Decorative O.S Sheddy Brown & O.S G , T-6mm, S-8''X4''', 'FG10035111'),
+(35, -75.00, 10798.08, 4.00, 2700.00, 1.00, 'PCS', 'Ply Decorative O.S Sheddy Brown & O.S G , T-6mm, S-8\'X4\'', 'FG10035111'),
 (36, 0.00, 0.00, 0.00, 2757.00, 9.00, 'PCS', 'LP.: Champ cabinet Door, (MLP) T-425/25, S-Various', 'FG10044366'),
-(37, 0.00, 0.00, 0.00, 2898.00, 2.00, 'PCS', 'LP.:Champ Regular(MLP),T-400/36,S-6-10X2-0''', 'FG10090935'),
-(38, 0.00, 0.00, 0.00, 2955.00, 2.00, 'PCS', 'LP.:G.Teak (CLP),T-400/36,G-6-10''X2-0''', 'FG10042717'),
-(39, 0.00, 0.00, 0.00, 2959.00, 2.00, 'PCS', 'LP.:Champ(MLP),T-400/36,S-6-10X2-0''', 'FG10040056'),
-(40, -50.00, 6227.00, 4.00, 3114.00, 2.00, 'PCS', 'LP.:Gorjon(MLP),T-400/36,S-6-10X2-6''', 'FG10040047');
+(37, 0.00, 0.00, 0.00, 2898.00, 2.00, 'PCS', 'LP.:Champ Regular(MLP),T-400/36,S-6-10X2-0\'', 'FG10090935'),
+(38, 0.00, 0.00, 0.00, 2955.00, 2.00, 'PCS', 'LP.:G.Teak (CLP),T-400/36,G-6-10\'X2-0\'', 'FG10042717'),
+(39, 0.00, 0.00, 0.00, 2959.00, 2.00, 'PCS', 'LP.:Champ(MLP),T-400/36,S-6-10X2-0\'', 'FG10040056'),
+(40, -50.00, 6227.00, 4.00, 3114.00, 2.00, 'PCS', 'LP.:Gorjon(MLP),T-400/36,S-6-10X2-6\'', 'FG10040047');
 
 -- --------------------------------------------------------
 
@@ -2618,13 +2492,12 @@ INSERT INTO `item_wise_sale` (`id`, `percentige_change`, `prev_val`, `prev_qty`,
 -- Table structure for table `menu_user_priviledge`
 --
 
-CREATE TABLE IF NOT EXISTS `menu_user_priviledge` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `menu_user_priviledge` (
+  `id` int(10) NOT NULL,
   `menu_details_id` int(10) NOT NULL,
   `tbl_employee_mstr_id` int(10) NOT NULL,
-  `OPERATION` varchar(20) NOT NULL DEFAULT 'VIEW',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+  `OPERATION` varchar(20) NOT NULL DEFAULT 'VIEW'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `menu_user_priviledge`
@@ -2646,8 +2519,8 @@ INSERT INTO `menu_user_priviledge` (`id`, `menu_details_id`, `tbl_employee_mstr_
 -- Table structure for table `mstr_bank`
 --
 
-CREATE TABLE IF NOT EXISTS `mstr_bank` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mstr_bank` (
+  `id` int(10) UNSIGNED NOT NULL,
   `country` varchar(20) NOT NULL,
   `bank_name` varchar(30) NOT NULL,
   `alternate_bank_name` varchar(30) NOT NULL,
@@ -2669,18 +2542,19 @@ CREATE TABLE IF NOT EXISTS `mstr_bank` (
   `account_no` varchar(20) NOT NULL,
   `ifc_code` varchar(10) NOT NULL,
   `chart_of_account_id` int(10) NOT NULL,
-  `chart_of_account_ledger_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `chart_of_account_ledger_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mstr_bank`
 --
 
 INSERT INTO `mstr_bank` (`id`, `country`, `bank_name`, `alternate_bank_name`, `short_bank_name`, `bank_number`, `description`, `taxpayer_id`, `tax_registration_number`, `xml_masseges_email`, `inactive_date`, `context_value`, `line_of_bussiness_of_party`, `address_line_1`, `address_line_2`, `city`, `state`, `postal_code`, `status`, `account_no`, `ifc_code`, `chart_of_account_id`, `chart_of_account_ledger_id`) VALUES
-(2, 'Bangldesh', 'JAMUNA BANK', 'JAMUNA BANK', 'JAMUNA BAN', '', '', 0, '', '', '', '', '', '77-77 Agrabad C/a', '', 'Chittagong', 'Chittagong', '', 'ACTIVE', '2233445566', 'JAMUBDDH03', 0, 275),
-(3, 'Bangldesh', 'City Bank', 'City Bank', 'City Bank', '', '', 0, '', '', '', '', '', '10 DILKUSHA COMMERCIAL AREA', 'JIBON BIMA TOWER', 'Dhaka', 'Dhaka', '1000', 'ACTIVE', '998877665544', 'CIBLBDDH12', 0, 0),
-(4, 'India', 'SBI', 'SBI', 'SBI', '', '', 0, '', '', '', '', '', 'No 188, Sarat Bose Rd', 'Lake Market, Kalighat', ' Kolkata', ' West Beng', '700029', 'ACTIVE', '32828445566778', 'SBIN000365', 0, 0);
+(1, 'Bangldesh', 'Bangladesh Krishi Bank', '', 'BKB', 'Bangladesh Krishi Ba', '', 0, '', '', '', '', '', 'Motijheel', 'Motijheel', 'Dhaka', 'Dhaka', '', 'ACTIVE', 'CD-559', '', 0, 2482),
+(2, 'Bangldesh', 'Sonali Bank Ltd', '', 'SBL', 'Sonali Bank Ltd BBA ', '', 0, '', '', '', '', '', '1024 - Banga Bandhu Avenue Corporate', '1024 - Banga Bandhu Avenue Corporate', 'Dhaka', 'Dhaka', '', 'ACTIVE', '0102433018057', '', 0, 2460),
+(3, 'Bangldesh', 'Dhaka Bank Ltd', '', 'DBL', 'Dhaka Bank Ltd Unit-', '', 0, '', '', '', '', '', 'Local Office Adamjee Court', 'Local Office Adamjee Court', 'Motijheel', 'DHAKA', '', 'ACTIVE', '201179000000538', '', 0, 2436),
+(4, 'Bangldesh', 'Dhaka Bank Ltd', '', 'DBL', 'Dhaka Bank Ltd Unit-', '', 0, '', '', '', '', '', 'Local Office Adamjee Court Motijheel', 'LOACMB', 'Dhaka', '', '', 'ACTIVE', '201179000000538', '', 0, 2436),
+(5, 'Bangldesh', 'Prime Bank Ltd', '', 'PBL', 'Prime Bank Ltd Unit-', '', 0, '', '', '', '', '', 'Tejgaon', 'Tejgaon', 'Dhaka', '', '', 'ACTIVE', '2207118002515', '', 0, 2452);
 
 -- --------------------------------------------------------
 
@@ -2688,8 +2562,8 @@ INSERT INTO `mstr_bank` (`id`, `country`, `bank_name`, `alternate_bank_name`, `s
 -- Table structure for table `mstr_customer`
 --
 
-CREATE TABLE IF NOT EXISTS `mstr_customer` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mstr_customer` (
+  `id` int(10) UNSIGNED NOT NULL,
   `customer_name` varchar(100) NOT NULL,
   `billing_name` varchar(100) NOT NULL,
   `address` varchar(250) NOT NULL,
@@ -2699,19 +2573,19 @@ CREATE TABLE IF NOT EXISTS `mstr_customer` (
   `currency_id` int(11) NOT NULL,
   `status` varchar(10) NOT NULL,
   `chart_of_account_id` int(10) NOT NULL,
-  `chart_of_account_ledger_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `chart_of_account_ledger_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mstr_customer`
 --
 
 INSERT INTO `mstr_customer` (`id`, `customer_name`, `billing_name`, `address`, `phone_no`, `credit_limit`, `credit_days`, `currency_id`, `status`, `chart_of_account_id`, `chart_of_account_ledger_id`) VALUES
-(1, 'PCL ', 'Partex Cables limite', '57, 57A Gulshan Ave, Dhak', '+880 9612-72', 0.00, 0, 0, 'ACTIVE', 0, 275),
-(2, 'QJ consulting Pvt Lt', 'QJ consulting Pvt Lt', 'AE 60, A.E. Block sector ', '9831090200', 0.00, 0, 0, 'ACTIVE', 0, 0),
-(3, 'SPBML', 'SPBML', 'Haripur, Madanpur, Bangla', '+880 9612-73', 0.00, 0, 0, 'ACTIVE', 0, 0),
-(4, 'Ashoke Das', 'Ashoke Das', '79 d d sarani Kolkata-700', '9804152658', 100000.00, 20, 3, 'ACTIVE', 0, 0);
+(1, 'Asian Enterprise (Ctg)', 'Asian Enterprise (Ctg)', 'CTG', '', 0.00, 0, 3, 'ACTIVE', 0, 2352),
+(2, 'Chadni Glass House (Thakurgaon)', 'Chadni Glass House (Thakurgaon)', 'Dhaka', '', 0.00, 0, 5, 'ACTIVE', 0, 2352),
+(3, 'Haque Distribution', 'Haque Distribution', 'Dhaka', '', 0.00, 0, 5, 'ACTIVE', 0, 2352),
+(4, 'Hazi Store', 'Hazi Store', 'Noagoan', '', 0.00, 0, 5, 'ACTIVE', 0, 2352),
+(5, 'Janata Katch Ghar', 'Janata Katch Ghar', 'Dhaka', '', 0.00, 0, 5, 'ACTIVE', 0, 2352);
 
 -- --------------------------------------------------------
 
@@ -2719,8 +2593,8 @@ INSERT INTO `mstr_customer` (`id`, `customer_name`, `billing_name`, `address`, `
 -- Table structure for table `mstr_employee`
 --
 
-CREATE TABLE IF NOT EXISTS `mstr_employee` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mstr_employee` (
+  `id` int(10) UNSIGNED NOT NULL,
   `first_name` varchar(10) NOT NULL,
   `last_name` varchar(10) NOT NULL,
   `gender` varchar(10) NOT NULL,
@@ -2733,14 +2607,8 @@ CREATE TABLE IF NOT EXISTS `mstr_employee` (
   `effective_date_to` varchar(20) NOT NULL,
   `latest_start_date` varchar(20) NOT NULL,
   `employee_picture` varchar(20) NOT NULL,
-  `status` varchar(25) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `mstr_employee`
---
-
+  `status` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2748,8 +2616,8 @@ CREATE TABLE IF NOT EXISTS `mstr_employee` (
 -- Table structure for table `mstr_product`
 --
 
-CREATE TABLE IF NOT EXISTS `mstr_product` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mstr_product` (
+  `id` int(10) UNSIGNED NOT NULL,
   `organization` int(10) NOT NULL,
   `name` varchar(20) NOT NULL,
   `primary_uom` int(10) NOT NULL,
@@ -2758,20 +2626,16 @@ CREATE TABLE IF NOT EXISTS `mstr_product` (
   `user_item_type` int(10) NOT NULL,
   `description` varchar(255) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `batch_enable_status` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `batch_enable_status` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mstr_product`
 --
 
 INSERT INTO `mstr_product` (`id`, `organization`, `name`, `primary_uom`, `secondary_uom`, `pricing_uom`, `user_item_type`, `description`, `status`, `batch_enable_status`) VALUES
-(1, 1, 'Chocolate Mix', 121, 123, 123, 152, 'cable', 'ACTIVE', 'YES'),
-(2, 1, 'Maida', 121, 122, 122, 154, 'Plywood', 'ACTIVE', 'NO'),
-(3, 1, 'Butter', 122, 122, 122, 154, '', 'ACTIVE', 'NO'),
-(4, 1, 'Chocolate', 122, 122, 122, 154, '', 'ACTIVE', 'YES'),
-(5, 1, 'Bi-product', 121, 121, 121, 153, '', 'ACTIVE', 'NO');
+(1, 1, 'Jutex Board', 165, 165, 165, 152, '', 'ACTIVE', 'YES'),
+(2, 1, 'Cable', 166, 166, 166, 152, '', 'ACTIVE', 'YES');
 
 -- --------------------------------------------------------
 
@@ -2779,8 +2643,8 @@ INSERT INTO `mstr_product` (`id`, `organization`, `name`, `primary_uom`, `second
 -- Table structure for table `mstr_supplier`
 --
 
-CREATE TABLE IF NOT EXISTS `mstr_supplier` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `mstr_supplier` (
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(20) NOT NULL,
   `address` varchar(30) NOT NULL,
   `phone_no` varchar(12) NOT NULL,
@@ -2791,16 +2655,24 @@ CREATE TABLE IF NOT EXISTS `mstr_supplier` (
   `currency_id` int(10) NOT NULL,
   `status` varchar(25) NOT NULL,
   `chart_of_account_id` int(10) NOT NULL,
-  `chart_of_account_ledger_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `chart_of_account_ledger_id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `mstr_supplier`
 --
 
 INSERT INTO `mstr_supplier` (`id`, `name`, `address`, `phone_no`, `contact_person`, `country`, `credit_limit`, `credit_days`, `currency_id`, `status`, `chart_of_account_id`, `chart_of_account_ledger_id`) VALUES
-(1, 'Aditya Solution Indi', 'Jaiprakash Nagar -, (ITI) Road', '9804152658', 'ASHOKE DAS', '4', 0.00, 0, 0, 'ACTIVE', 0, 275);
+(1, 'Amir Hossain Enterpr', 'Dhaka', '', 'Amir Hossain', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(2, 'Bellal Hossain Enter', 'Dhaka', '', 'Bellal Hossa', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(3, 'Tofazzal Enterprise', 'Dhaka', '', 'Tofazzal', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(4, 'A .Khair Enterprise', 'Dhaka', '', 'A .Khair', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(5, 'Asia Timber & Saw Mi', 'Dhaka', '', '', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(6, 'Haque Timber', 'Dhaka', '', '', '10', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(7, 'Jayed Emon Enterpris', 'Dhaka', '', '', '11', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(8, 'Mannan & Sons', 'Dhaka', '', '', '11', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(9, 'Monir Ahmed, SC1498(', 'Dhaka', '', '', '11', 0.00, 0, 5, 'ACTIVE', 0, 2543),
+(10, 'M.R Mill & Machinery', 'Dhaka', '', '', '11', 0.00, 0, 5, 'ACTIVE', 0, 2543);
 
 -- --------------------------------------------------------
 
@@ -2808,8 +2680,8 @@ INSERT INTO `mstr_supplier` (`id`, `name`, `address`, `phone_no`, `contact_perso
 -- Table structure for table `opm_batch_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_batch_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_batch_details` (
+  `id` int(10) NOT NULL,
   `opm_batch_summary_id` int(10) NOT NULL,
   `invoice_details_id` int(10) NOT NULL,
   `line_no` int(5) NOT NULL,
@@ -2820,23 +2692,8 @@ CREATE TABLE IF NOT EXISTS `opm_batch_details` (
   `exceptional_qnty` double(10,2) NOT NULL,
   `product_type` int(10) NOT NULL,
   `batch_enable_status` varchar(10) NOT NULL,
-  `uom` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
-
---
--- Dumping data for table `opm_batch_details`
---
-
-INSERT INTO `opm_batch_details` (`id`, `opm_batch_summary_id`, `invoice_details_id`, `line_no`, `product_id`, `target_qnty`, `available_qnty`, `transact_qnty`, `exceptional_qnty`, `product_type`, `batch_enable_status`, `uom`) VALUES
-(1, 1, 0, 1, 1, 20.00, 0.00, 20.00, 0.00, 152, 'YES', 122),
-(2, 1, 0, 2, 2, 40.00, 9.00, 40.00, 0.00, 154, 'NO', 122),
-(3, 1, 0, 3, 3, 10.00, 0.00, 10.00, 0.00, 154, 'NO', 122),
-(4, 1, 0, 4, 4, 12.00, 0.00, 12.00, 0.00, 154, 'YES', 122),
-(5, 1, 0, 5, 5, 16.00, 0.00, 16.00, 0.00, 153, 'NO', 122),
-(6, 1, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0, '0', 0),
-(7, 1, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0, '0', 0),
-(8, 1, 0, 0, 0, 0.00, 0.00, 0.00, 0.00, 0, '0', 0);
+  `uom` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2844,8 +2701,8 @@ INSERT INTO `opm_batch_details` (`id`, `opm_batch_summary_id`, `invoice_details_
 -- Table structure for table `opm_batch_summary`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_batch_summary` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_batch_summary` (
+  `id` int(10) NOT NULL,
   `batch_numbering` varchar(30) NOT NULL,
   `batch_last_assigned` varchar(100) NOT NULL,
   `organisation_id` int(10) NOT NULL,
@@ -2858,16 +2715,8 @@ CREATE TABLE IF NOT EXISTS `opm_batch_summary` (
   `planned_start` date NOT NULL,
   `planned_complete` date NOT NULL,
   `required_complate` date NOT NULL,
-  `batch_status` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_batch_summary`
---
-
-INSERT INTO `opm_batch_summary` (`id`, `batch_numbering`, `batch_last_assigned`, `organisation_id`, `receipe_id`, `receipe_description`, `product_id`, `product_desc`, `product_qnty`, `product_uom`, `planned_start`, `planned_complete`, `required_complate`, `batch_status`) VALUES
-(1, 'BATCH-NO', '', 1, 1, '', 1, '', 20.00, 122, '2020-04-23', '2020-04-23', '2020-04-23', 159);
+  `batch_status` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2875,8 +2724,8 @@ INSERT INTO `opm_batch_summary` (`id`, `batch_numbering`, `batch_last_assigned`,
 -- Table structure for table `opm_define_formula_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_formula_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_formula_details` (
+  `id` int(10) NOT NULL,
   `opm_define_formula_summery_id` int(10) NOT NULL,
   `line` varchar(100) NOT NULL,
   `product` int(10) NOT NULL,
@@ -2884,20 +2733,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_formula_details` (
   `description` varchar(100) NOT NULL,
   `qnty` double(10,2) NOT NULL,
   `uom` int(10) NOT NULL,
-  `product_type` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
-
---
--- Dumping data for table `opm_define_formula_details`
---
-
-INSERT INTO `opm_define_formula_details` (`id`, `opm_define_formula_summery_id`, `line`, `product`, `revision`, `description`, `qnty`, `uom`, `product_type`) VALUES
-(1, 1, '1', 1, '', '', 1.00, 122, '152'),
-(2, 1, '2', 2, '', '', 2.00, 122, '154'),
-(3, 1, '3', 3, '', '', 0.50, 122, '154'),
-(4, 1, '4', 4, '', '0', 0.60, 122, '154'),
-(5, 1, '5', 5, '', '0', 0.80, 122, '153');
+  `product_type` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2905,20 +2742,14 @@ INSERT INTO `opm_define_formula_details` (`id`, `opm_define_formula_summery_id`,
 -- Table structure for table `opm_define_formula_ingredient_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_formula_ingredient_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_formula_ingredient_details` (
+  `id` int(10) NOT NULL,
   `line` varchar(100) NOT NULL,
   `ingredients` varchar(100) NOT NULL,
   `revision` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
-  `quentity` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `opm_define_formula_ingredient_details`
---
-
+  `quentity` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2926,8 +2757,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_formula_ingredient_details` (
 -- Table structure for table `opm_define_formula_summery`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_formula_summery` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_formula_summery` (
+  `id` int(10) NOT NULL,
   `formula` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
   `version` varchar(100) NOT NULL,
@@ -2939,16 +2770,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_formula_summery` (
   `owner_descriptin` varchar(100) NOT NULL,
   `skaling_allowd` int(10) NOT NULL,
   `packaging` int(10) NOT NULL,
-  `calculate_product_quentity` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_define_formula_summery`
---
-
-INSERT INTO `opm_define_formula_summery` (`id`, `formula`, `status`, `version`, `description`, `comments`, `class`, `class_description`, `owner`, `owner_descriptin`, `skaling_allowd`, `packaging`, `calculate_product_quentity`) VALUES
-(1, 'Chocolate Mix Formula', '90', '', '', '', '', '', '', '', 0, 0, 0);
+  `calculate_product_quentity` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2956,23 +2779,14 @@ INSERT INTO `opm_define_formula_summery` (`id`, `formula`, `status`, `version`, 
 -- Table structure for table `opm_define_operations_activity_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_operations_activity_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_operations_activity_details` (
+  `id` int(10) NOT NULL,
   `activity` varchar(100) NOT NULL,
   `opm_define_operations_summary_id` int(10) NOT NULL,
   `description` varchar(100) NOT NULL,
   `activity_factor` varchar(100) NOT NULL,
-  `sequence_defended` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Dumping data for table `opm_define_operations_activity_details`
---
-
-INSERT INTO `opm_define_operations_activity_details` (`id`, `activity`, `opm_define_operations_summary_id`, `description`, `activity_factor`, `sequence_defended`) VALUES
-(1, 'Activity-1', 1, '', '', ''),
-(2, 'Activity-2', 1, '0', '', '');
+  `sequence_defended` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2980,8 +2794,8 @@ INSERT INTO `opm_define_operations_activity_details` (`id`, `activity`, `opm_def
 -- Table structure for table `opm_define_operations_resource_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_operations_resource_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_operations_resource_details` (
+  `id` int(10) NOT NULL,
   `opm_define_operations_summary_id` int(10) NOT NULL,
   `opm_define_operations_activity_details_id` int(10) NOT NULL,
   `resource` int(10) NOT NULL,
@@ -2990,19 +2804,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_operations_resource_details` (
   `process_quantity_uom` int(10) NOT NULL,
   `percent` varchar(100) NOT NULL,
   `usage_qnty` double(10,2) NOT NULL,
-  `usage_uom` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `opm_define_operations_resource_details`
---
-
-INSERT INTO `opm_define_operations_resource_details` (`id`, `opm_define_operations_summary_id`, `opm_define_operations_activity_details_id`, `resource`, `description`, `process_quantity`, `process_quantity_uom`, `percent`, `usage_qnty`, `usage_uom`) VALUES
-(1, 1, 1, 1, '', 10.00, 155, '', 10.00, 155),
-(2, 0, 3, 1, '', 20.00, 155, '', 20.00, 155),
-(3, 0, 3, 1, '', 20.00, 155, '', 20.00, 155),
-(4, 1, 2, 2, '', 10.00, 155, '', 10.00, 155);
+  `usage_uom` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3010,8 +2813,8 @@ INSERT INTO `opm_define_operations_resource_details` (`id`, `opm_define_operatio
 -- Table structure for table `opm_define_operations_summary`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_operations_summary` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_operations_summary` (
+  `id` int(10) NOT NULL,
   `operation` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL,
   `version` varchar(100) NOT NULL,
@@ -3023,16 +2826,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_operations_summary` (
   `owner_organization` varchar(100) NOT NULL,
   `owner_description` varchar(100) NOT NULL,
   `minimum_transfer_qty` varchar(100) NOT NULL,
-  `process_qty_uom` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_define_operations_summary`
---
-
-INSERT INTO `opm_define_operations_summary` (`id`, `operation`, `status`, `version`, `description`, `class`, `class_description`, `valid_from`, `valid_to`, `owner_organization`, `owner_description`, `minimum_transfer_qty`, `process_qty_uom`) VALUES
-(1, 'Chocolate Mix Operation', '12', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '', '');
+  `process_qty_uom` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3040,21 +2835,15 @@ INSERT INTO `opm_define_operations_summary` (`id`, `operation`, `status`, `versi
 -- Table structure for table `opm_define_recipe_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_recipe_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_recipe_details` (
+  `id` int(10) NOT NULL,
   `organization` varchar(100) NOT NULL,
   `organization_name` varchar(100) NOT NULL,
   `type` int(10) NOT NULL,
   `planned_loss` varchar(100) NOT NULL,
   `fixed_loss` varchar(100) NOT NULL,
-  `contiguous` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `opm_define_recipe_details`
---
-
+  `contiguous` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3062,8 +2851,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_recipe_details` (
 -- Table structure for table `opm_define_recipe_summery`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_recipe_summery` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_recipe_summery` (
+  `id` int(10) NOT NULL,
   `recipe` varchar(100) NOT NULL,
   `recipe_version` varchar(100) NOT NULL,
   `status` varchar(100) NOT NULL,
@@ -3085,16 +2874,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_recipe_summery` (
   `fixed_loss_uom` varchar(100) NOT NULL,
   `enhanced_process_instructions` int(10) NOT NULL,
   `total_output_quentity` varchar(100) NOT NULL,
-  `total_output_quentity_uom` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_define_recipe_summery`
---
-
-INSERT INTO `opm_define_recipe_summery` (`id`, `recipe`, `recipe_version`, `status`, `description`, `product_id`, `formula_id`, `routing_id`, `quentity`, `uom`, `formula_version`, `cretionation_organiza`, `planned_loss`, `calculate_step_quentity`, `owner`, `theoratical_loss`, `contiguous`, `recipe_type`, `fixed_loss`, `fixed_loss_uom`, `enhanced_process_instructions`, `total_output_quentity`, `total_output_quentity_uom`) VALUES
-(1, 'ChocolateMix Receipe', '', '12', '', 1, 1, 1, '', '', '', '', '', 0, '', '', 0, 0, '', '', 0, '', '');
+  `total_output_quentity_uom` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3102,8 +2883,8 @@ INSERT INTO `opm_define_recipe_summery` (`id`, `recipe`, `recipe_version`, `stat
 -- Table structure for table `opm_define_resources_summery`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_resources_summery` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_resources_summery` (
+  `id` int(10) NOT NULL,
   `resource` varchar(100) NOT NULL,
   `description` varchar(100) NOT NULL,
   `usage_uom` int(10) NOT NULL,
@@ -3115,17 +2896,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_resources_summery` (
   `calculate_charges` int(10) NOT NULL,
   `capacity_tolerace` double(10,2) NOT NULL,
   `utilization` double(10,2) NOT NULL,
-  `efficiency` double(10,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `opm_define_resources_summery`
---
-
-INSERT INTO `opm_define_resources_summery` (`id`, `resource`, `description`, `usage_uom`, `resource_class`, `cost_component_class`, `minimum`, `maximum`, `capacity_uom`, `calculate_charges`, `capacity_tolerace`, `utilization`, `efficiency`) VALUES
-(1, 'Microwave', 'Resource Chocolate Mix', 155, 0, 151, 0, 0, 0, 0, 0.00, 0.00, 0.00),
-(2, 'Freeze', '', 155, 0, 151, 0, 0, 0, 0, 0.00, 0.00, 0.00);
+  `efficiency` double(10,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3133,23 +2905,15 @@ INSERT INTO `opm_define_resources_summery` (`id`, `resource`, `description`, `us
 -- Table structure for table `opm_define_routing_details`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_routing_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_routing_details` (
+  `id` int(10) NOT NULL,
   `opm_define_routing_summery_id` int(10) NOT NULL,
   `steps` int(5) NOT NULL,
   `operation_id` int(10) NOT NULL,
   `description` varchar(100) NOT NULL,
   `qnty` double(10,2) NOT NULL,
-  `uom_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_define_routing_details`
---
-
-INSERT INTO `opm_define_routing_details` (`id`, `opm_define_routing_summery_id`, `steps`, `operation_id`, `description`, `qnty`, `uom_id`) VALUES
-(1, 1, 1, 1, '', 1.00, 155);
+  `uom_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3157,8 +2921,8 @@ INSERT INTO `opm_define_routing_details` (`id`, `opm_define_routing_summery_id`,
 -- Table structure for table `opm_define_routing_summery`
 --
 
-CREATE TABLE IF NOT EXISTS `opm_define_routing_summery` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `opm_define_routing_summery` (
+  `id` int(10) NOT NULL,
   `routing` varchar(100) NOT NULL,
   `routing_version` varchar(100) NOT NULL,
   `status` varchar(15) NOT NULL,
@@ -3177,16 +2941,8 @@ CREATE TABLE IF NOT EXISTS `opm_define_routing_summery` (
   `owner_organization` varchar(100) NOT NULL,
   `fixed_loss` varchar(100) NOT NULL,
   `fixed_loss_uom` varchar(100) NOT NULL,
-  `change_status_to` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `opm_define_routing_summery`
---
-
-INSERT INTO `opm_define_routing_summery` (`id`, `routing`, `routing_version`, `status`, `routing_description`, `class`, `class_description`, `valid_from`, `valid_to`, `qnty`, `uom`, `planned_loss`, `enforce_step_defendency`, `owner`, `theoritical_loss`, `contiguous`, `owner_organization`, `fixed_loss`, `fixed_loss_uom`, `change_status_to`) VALUES
-(1, 'Routing', '', '12', '', '', '', '', '', 1.00, 155, 0.00, 0, '', 0.00, '', '', '', '', 0);
+  `change_status_to` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -3194,7 +2950,7 @@ INSERT INTO `opm_define_routing_summery` (`id`, `routing`, `routing_version`, `s
 -- Table structure for table `plus_login`
 --
 
-CREATE TABLE IF NOT EXISTS `plus_login` (
+CREATE TABLE `plus_login` (
   `id` varchar(50) NOT NULL DEFAULT '',
   `userid` varchar(10) NOT NULL DEFAULT '',
   `ip` varchar(20) NOT NULL DEFAULT '',
@@ -3202,29 +2958,22 @@ CREATE TABLE IF NOT EXISTS `plus_login` (
   `status` char(3) NOT NULL DEFAULT 'ON'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `plus_login`
---
-
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `p_webmaster`
 --
 
-CREATE TABLE IF NOT EXISTS `p_webmaster` (
-  `a_id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `p_webmaster` (
+  `a_id` int(11) NOT NULL,
   `user_name` varchar(255) DEFAULT NULL,
   `user_pass` varchar(255) DEFAULT NULL,
   `usertype` int(11) DEFAULT '1',
   `name` varchar(200) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `contact` varchar(200) DEFAULT NULL,
-  `status` enum('A','I','D') NOT NULL DEFAULT 'A',
-  PRIMARY KEY (`a_id`),
-  UNIQUE KEY `user_name` (`user_name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+  `status` enum('A','I','D') NOT NULL DEFAULT 'A'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `p_webmaster`
@@ -3246,8 +2995,8 @@ INSERT INTO `p_webmaster` (`a_id`, `user_name`, `user_pass`, `usertype`, `name`,
 -- Table structure for table `sales_trend`
 --
 
-CREATE TABLE IF NOT EXISTS `sales_trend` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `sales_trend` (
+  `id` int(10) NOT NULL,
   `sales_order_name` varchar(100) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
   `invoice_date` date NOT NULL,
@@ -3257,9 +3006,8 @@ CREATE TABLE IF NOT EXISTS `sales_trend` (
   `inv_item_id` varchar(100) NOT NULL,
   `quientity` varchar(100) NOT NULL,
   `inv_value` varchar(100) NOT NULL,
-  `previous_inv_value` double(13,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10242 ;
+  `previous_inv_value` double(13,2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sales_trend`
@@ -4794,8 +4542,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (1523, '2019000142', '2019001039', '2019-01-15', '2019-01', '2681', 'Habib Store', '5', '', '13355.20', 0.00),
 (1524, '2018018075', '2019000964', '2019-01-15', '2019-01', '3113', 'Surovi Partical Gallery', '40', '', '0.00', 0.00),
 (1525, '2019000084', '2019000925', '2019-01-15', '2019-01', '3431', 'Shafi Enterprise', '10', '', '34003.20', 0.00),
-(1526, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '18', '', '65260.80', 0.00),
-(1527, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '50', '', '133552.00', 0.00),
+(1526, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '18', '', '65260.80', 0.00),
+(1527, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '50', '', '133552.00', 0.00),
 (1528, '2019000494', '2019000934', '2019-01-15', '2019-01', '2483', 'Freedom Trade Link', '25', '', '66776.00', 0.00),
 (1529, '2019000649', '2019000990', '2019-01-15', '2019-01', '2510', 'General Hard Ware', '28', '', '20808.00', 0.00),
 (1530, '2018011234', '2019000975', '2019-01-15', '2019-01', '3028', 'Pabna Particle Center', '20', '', '77849.60', 0.00),
@@ -4855,8 +4603,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (1584, '2019000589', '2019000972', '2019-01-15', '2019-01', '2908', 'Latif Art & Glass House', '20', '', '65555.20', 0.00),
 (1585, '2019000539', '2019000998', '2019-01-15', '2019-01', '3376', 'Robi Traders', '112', '', '83232.00', 0.00),
 (1586, '2018018090', '2019000921', '2019-01-15', '2019-01', '95292', 'Japasty Company Ltd. ,Ka-11/2,Bashundhara Road', '24', '', '37361.79', 0.00),
-(1587, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '20', '', '77849.60', 0.00),
-(1588, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '10', '', '32777.60', 0.00),
+(1587, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '20', '', '77849.60', 0.00),
+(1588, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '10', '', '32777.60', 0.00),
 (1589, '2018017004', '2019000994', '2019-01-15', '2019-01', '56587', 'J.H. Enterprise ,Rajshahi', '15', '', '22972.07', 0.00),
 (1590, '2019000009', '2019000918', '2019-01-15', '2019-01', '88123', 'Taqwa Holdings Ltd. ,H-767,R-23,B-F,Bashundhara R/A', '6', '', '6993.66', 0.00),
 (1591, '2019000493', '2019000979', '2019-01-15', '2019-01', '2804', 'Mim Enterprise - Kawran Bazar', '93', '', '85284.00', 0.00),
@@ -4891,9 +4639,9 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (1619, '2018017824', '2019000961', '2019-01-15', '2019-01', '2632', 'Kakon Glass Centre', '30', '', '70953.60', 0.00),
 (1620, '2019000589', '2019000972', '2019-01-15', '2019-01', '2908', 'Latif Art & Glass House', '2', '', '4126.08', 0.00),
 (1621, '2018018090', '2019000921', '2019-01-15', '2019-01', '95292', 'Japasty Company Ltd. ,Ka-11/2,Bashundhara Road', '30', '', '42736.20', 0.00),
-(1622, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '5', '', '14331.20', 0.00),
-(1623, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '10', '', '20630.40', 0.00),
-(1624, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '20', '', '59609.60', 0.00),
+(1622, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '5', '', '14331.20', 0.00),
+(1623, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '10', '', '20630.40', 0.00),
+(1624, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '20', '', '59609.60', 0.00),
 (1625, '2018012503', '2019001040', '2019-01-15', '2019-01', '3345', 'Ray Glass House - Patuakhali', '3', '', '7950.72', 0.00),
 (1626, '2018016822', '2019000953', '2019-01-15', '2019-01', '3310', 'Rahman & Sons', '15', '', '51004.80', 0.00),
 (1627, '2018015430', '2019000952', '2019-01-15', '2019-01', '47796', 'FCI (BD) Ltd. & Talisman Ltd.', '22', '', '45386.88', 0.00),
@@ -4913,7 +4661,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (1641, '2018016905', '2019000973', '2019-01-15', '2019-01', '2924', 'Lucky Steel Industries', '20', '', '77849.60', 0.00),
 (1642, '2018016477', '2019000960', '2019-01-15', '2019-01', '16945', 'Janata Plywood Center', '20', '', '0.00', 0.00),
 (1643, '2018016907', '2019000987', '2019-01-15', '2019-01', '3431', 'Shafi Enterprise', '40', '', '0.00', 0.00),
-(1644, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '135', '', '177555.84', 0.00),
+(1644, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '135', '', '177555.84', 0.00),
 (1645, '2018017001', '2019000996', '2019-01-15', '2019-01', '56587', 'J.H. Enterprise ,Rajshahi', '160', '', '175692.55', 0.00),
 (1646, '2018017001', '2019000996', '2019-01-15', '2019-01', '56587', 'J.H. Enterprise ,Rajshahi', '30', '', '42339.64', 0.00),
 (1647, '2019000553', '2019000938', '2019-01-15', '2019-01', '3316', 'Rahman Enterprise - Dhaka', '12', '', '10146.05', 0.00),
@@ -4932,7 +4680,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (1660, '2019000631', '2019000943', '2019-01-15', '2019-01', '2027', 'M.R Traders', '28', '', '59404.80', 0.00),
 (1661, '2019000577', '2019000999', '2019-01-15', '2019-01', '2844', 'Shawdagor Enterprise', '28', '', '59404.80', 0.00),
 (1662, '2019000615', '2019000928', '2019-01-15', '2019-01', '3431', 'Shafi Enterprise', '10', '', '31500.80', 0.00),
-(1663, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son''S', '20', '', '29657.60', 0.00),
+(1663, '2019000639', '2019001002', '2019-01-15', '2019-01', '2628', 'Kader & Son\'S', '20', '', '29657.60', 0.00),
 (1664, '2019000084', '2019000984', '2019-01-15', '2019-01', '3431', 'Shafi Enterprise', '10', '', '34003.20', 0.00),
 (1665, '2019000012', '2019000043', '2019-01-15', '2019-01', '15546', 'Partex Furniture Industries Limited', '16', '', '73216.00', 0.00),
 (1666, '2018017004', '2019000994', '2019-01-15', '2019-01', '56587', 'J.H. Enterprise ,Rajshahi', '4', '', '20719.54', 0.00),
@@ -6872,7 +6620,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (3596, '2019000049', '2019002115', '2019-01-31', '2019-01', '26962', 'Aziz Trading', '70', '', '86520.00', 0.00),
 (3597, '2019001042', '2019002140', '2019-01-31', '2019-01', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '6', '', '8129.36', 0.00),
 (3598, '2019000891', '2019002183', '2019-01-31', '2019-01', '2364', 'Bismillah Enterprise', '85', '', '105060.00', 0.00),
-(3599, '2019001393', '2019002234', '2019-01-31', '2019-01', '2628', 'Kader & Son''S', '297', '', '285516.00', 0.00),
+(3599, '2019001393', '2019002234', '2019-01-31', '2019-01', '2628', 'Kader & Son\'S', '297', '', '285516.00', 0.00),
 (3600, '2018017713', '2019002191', '2019-01-31', '2019-01', '17588', 'Rupayan Housing State Limited', '1', '', '68265.56', 0.00),
 (3601, '2019000395', '2019002228', '2019-01-31', '2019-01', '2545', 'Abdullah Al Kafi', '472', '', '285862.08', 0.00),
 (3602, '2019000252', '2019002134', '2019-01-31', '2019-01', '2924', 'Lucky Steel Industries', '50', '', '36559.59', 0.00),
@@ -6899,7 +6647,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (3622, '2019001303', '2019002125', '2019-01-31', '2019-01', '17270', 'The Structural Engineers Limited (Sel)', '94', '', '193769.49', 0.00),
 (3623, '2019000891', '2019002183', '2019-01-31', '2019-01', '2364', 'Bismillah Enterprise', '2', '', '3382.02', 0.00),
 (3624, '2019001378', '2019002214', '2019-01-31', '2019-01', '2566', 'Ahmed Trading Co.', '12', '', '41767.68', 0.00),
-(3625, '2019001393', '2019002234', '2019-01-31', '2019-01', '2628', 'Kader & Son''S', '135', '', '177555.84', 0.00),
+(3625, '2019001393', '2019002234', '2019-01-31', '2019-01', '2628', 'Kader & Son\'S', '135', '', '177555.84', 0.00),
 (3626, '2019001249', '2019002145', '2019-01-31', '2019-01', '2674', 'N.N Plywood Center', '17', '', '18601.09', 0.00),
 (3627, '2019001097', '2019002205', '2019-01-31', '2019-01', '17634', 'Furnico', '14', '', '44101.12', 0.00),
 (3628, '2019000857', '2019002178', '2019-01-31', '2019-01', '20953', 'Apon Door', '6', '', '9120.00', 0.00),
@@ -8559,8 +8307,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5280, '2019001987', '2019003336', '2019-02-16', '2019-02', '3316', 'Rahman Enterprise - Dhaka', '27', '', '25956.00', 0.00),
 (5281, '2019000249', '2019003342', '2019-02-16', '2019-02', '2924', 'Lucky Steel Industries', '50', '', '79907.52', 0.00),
 (5282, '2019001964', '2019003313', '2019-02-16', '2019-02', '16854', 'Basic Builders Limited', '18', '', '35881.56', 0.00),
-(5283, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '30', '', '61891.20', 0.00),
-(5284, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '20', '', '29657.60', 0.00),
+(5283, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '30', '', '61891.20', 0.00),
+(5284, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '20', '', '29657.60', 0.00),
 (5285, '2018016903', '2019003356', '2019-02-16', '2019-02', '2924', 'Lucky Steel Industries', '10', '', '15901.44', 0.00),
 (5286, '2019000736', '2019003324', '2019-02-16', '2019-02', '2632', 'Kakon Glass Centre', '45', '', '92836.80', 0.00),
 (5287, '2019001983', '2019003362', '2019-02-16', '2019-02', '3177', 'Space Scope', '120', '', '226309.25', 0.00),
@@ -8590,7 +8338,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5311, '2019001964', '2019003313', '2019-02-16', '2019-02', '16854', 'Basic Builders Limited', '4', '', '6644.73', 0.00),
 (5312, '2019001796', '2019003378', '2019-02-16', '2019-02', '31581', 'Al Mocca Hardware', '54', '', '108964.40', 0.00),
 (5313, '2019000700', '2019003314', '2019-02-16', '2019-02', '48830', 'Khandakar Aminur Rahman', '6', '', '7968.78', 0.00),
-(5314, '2018013611', '2019003374', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '1', '', '2451.20', 0.00),
+(5314, '2018013611', '2019003374', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '1', '', '2451.20', 0.00),
 (5315, '2019001959', '2019003333', '2019-02-16', '2019-02', '2511', 'Genuine Furnishers', '25', '', '51576.00', 0.00),
 (5316, '2019001991', '2019003338', '2019-02-16', '2019-02', '16945', 'Janata Plywood Center', '28', '', '56762.88', 0.00),
 (5317, '2019001873', '2019003341', '2019-02-16', '2019-02', '3380', 'Romim Enterprise', '30', '', '61891.20', 0.00),
@@ -8604,8 +8352,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5325, '2019002013', '2019003365', '2019-02-16', '2019-02', '2844', 'Shawdagor Enterprise', '90', '', '111240.00', 0.00),
 (5326, '2019001964', '2019003313', '2019-02-16', '2019-02', '16854', 'Basic Builders Limited', '4', '', '5315.79', 0.00),
 (5327, '2019001796', '2019003378', '2019-02-16', '2019-02', '31581', 'Al Mocca Hardware', '6', '', '4359.67', 0.00),
-(5328, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '3', '', '10876.80', 0.00),
-(5329, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '5', '', '14142.40', 0.00),
+(5328, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '3', '', '10876.80', 0.00),
+(5329, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '5', '', '14142.40', 0.00),
 (5330, '2019001796', '2019003358', '2019-02-16', '2019-02', '31581', 'Al Mocca Hardware', '8', '', '13489.82', 0.00),
 (5331, '2018018151', '2019003312', '2019-02-16', '2019-02', '2364', 'Bismillah Enterprise', '35', '', '72206.40', 0.00),
 (5332, '2019000546', '2019003361', '2019-02-16', '2019-02', '3345', 'Ray Glass House - Patuakhali', '6', '', '9392.66', 0.00),
@@ -8640,7 +8388,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5361, '2019001091', '2019003331', '2019-02-16', '2019-02', '3316', 'Rahman Enterprise - Dhaka', '25', '', '37072.00', 0.00),
 (5362, '2019001964', '2019003313', '2019-02-16', '2019-02', '16854', 'Basic Builders Limited', '12', '', '17940.78', 0.00),
 (5363, '2019001796', '2019003378', '2019-02-16', '2019-02', '31581', 'Al Mocca Hardware', '4', '', '6744.91', 0.00),
-(5364, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '20', '', '53420.80', 0.00),
+(5364, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '20', '', '53420.80', 0.00),
 (5365, '2019001268', '2019003332', '2019-02-16', '2019-02', '62192', 'Open Source ,29, Sher Shah Suri Road', '15', '', '49166.40', 0.00),
 (5366, '2019001980', '2019003360', '2019-02-16', '2019-02', '3177', 'Space Scope', '240', '', '130521.60', 0.00),
 (5367, '2019001622', '2019003349', '2019-02-16', '2019-02', '2924', 'Lucky Steel Industries', '20', '', '25200.64', 0.00),
@@ -8663,7 +8411,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5384, '2019002013', '2019003377', '2019-02-16', '2019-02', '2844', 'Shawdagor Enterprise', '196', '', '145656.00', 0.00),
 (5385, '2019000253', '2019003346', '2019-02-16', '2019-02', '2924', 'Lucky Steel Industries', '30', '', '28160.50', 0.00),
 (5386, '2019001786', '2019003325', '2019-02-16', '2019-02', '2632', 'Kakon Glass Centre', '5', '', '10315.20', 0.00),
-(5387, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son''S', '5', '', '17520.00', 0.00),
+(5387, '2019000637', '2019003375', '2019-02-16', '2019-02', '2628', 'Kader & Son\'S', '5', '', '17520.00', 0.00),
 (5388, '2019001946', '2019003351', '2019-02-16', '2019-02', '3380', 'Romim Enterprise', '8', '', '13601.28', 0.00),
 (5389, '2019001796', '2019003358', '2019-02-16', '2019-02', '31581', 'Al Mocca Hardware', '80', '', '58128.90', 0.00),
 (5390, '2019000990', '2019003373', '2019-02-16', '2019-02', '34717', 'Royal Door Gallery', '9', '', '18481.48', 0.00),
@@ -8883,7 +8631,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5604, '2019001963', '2019003534', '2019-02-18', '2019-02', '3321', 'Rahman Thai Aluminium & Glass House', '27', '', '25956.00', 0.00),
 (5605, '2019001893', '2019003490', '2019-02-18', '2019-02', '2566', 'Ahmed Trading Co.', '50', '', '61800.00', 0.00),
 (5606, '2019001784', '2019003483', '2019-02-18', '2019-02', '3483', 'Unity Particle Trade International', '5', '', '16388.80', 0.00),
-(5607, '2019001972', '2019003535', '2019-02-18', '2019-02', '2628', 'Kader & Son''S', '18', '', '65260.80', 0.00),
+(5607, '2019001972', '2019003535', '2019-02-18', '2019-02', '2628', 'Kader & Son\'S', '18', '', '65260.80', 0.00),
 (5608, '2019001091', '2019003487', '2019-02-18', '2019-02', '3316', 'Rahman Enterprise - Dhaka', '5', '', '7414.40', 0.00),
 (5609, '2019001838', '2019003509', '2019-02-18', '2019-02', '2569', 'Akash Enterprise', '118', '', '79104.00', 0.00),
 (5610, '2019002040', '2019003539', '2019-02-18', '2019-02', '3372', 'Rizu Glass House & Thai Almunium', '52', '', '40040.00', 0.00),
@@ -8939,7 +8687,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5659, '2019001546', '2019003514', '2019-02-18', '2019-02', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '105', '', '134383.98', 0.00),
 (5660, '2019001989', '2019003529', '2019-02-18', '2019-02', '55996', 'Labib Design & Technology, Beribadh, Switch Gate, Ashulia, Dhaka', '70', '', '52020.00', 0.00),
 (5661, '2019000048', '2019003499', '2019-02-18', '2019-02', '26962', 'Aziz Trading', '45', '', '13005.00', 0.00),
-(5662, '2019001972', '2019003535', '2019-02-18', '2019-02', '2628', 'Kader & Son''S', '10', '', '34806.40', 0.00),
+(5662, '2019001972', '2019003535', '2019-02-18', '2019-02', '2628', 'Kader & Son\'S', '10', '', '34806.40', 0.00),
 (5663, '2019001976', '2019003507', '2019-02-18', '2019-02', '3113', 'Surovi Partical Gallery', '30', '', '94502.40', 0.00),
 (5664, '2019001976', '2019003507', '2019-02-18', '2019-02', '3113', 'Surovi Partical Gallery', '35', '', '82779.20', 0.00),
 (5665, '2018017493', '2019003504', '2019-02-18', '2019-02', '17588', 'Rupayan Housing State Limited', '2', '', '112231.06', 0.00),
@@ -9184,7 +8932,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (5904, '2018018160', '2019003639', '2019-02-20', '2019-02', '3108', 'Sumon Enterprise', '10', '', '12360.00', 0.00),
 (5905, '2019000717', '2019003687', '2019-02-20', '2019-02', '3431', 'Shafi Enterprise', '8', '', '26222.08', 0.00),
 (5906, '2019001826', '2019003712', '2019-02-20', '2019-02', '2804', 'Mim Enterprise - Kawran Bazar', '120', '', '148320.00', 0.00),
-(5907, '2019001972', '2019003733', '2019-02-20', '2019-02', '2628', 'Kader & Son''S', '30', '', '80131.20', 0.00),
+(5907, '2019001972', '2019003733', '2019-02-20', '2019-02', '2628', 'Kader & Son\'S', '30', '', '80131.20', 0.00),
 (5908, '2019002212', '2019003698', '2019-02-20', '2019-02', '3380', 'Romim Enterprise', '14', '', '40803.84', 0.00),
 (5909, '2019001583', '2019003685', '2019-02-20', '2019-02', '3431', 'Shafi Enterprise', '60', '', '91667.33', 0.00),
 (5910, '2019002123', '2019003681', '2019-02-20', '2019-02', '88740', 'Mohammed Shahjahan', '2', '', '3040.00', 0.00),
@@ -9315,7 +9063,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (6034, '2019001844', '2019003795', '2019-02-23', '2019-02', '2483', 'Freedom Trade Link', '30', '', '61891.20', 0.00),
 (6035, '2019002262', '2019003772', '2019-02-23', '2019-02', '15258', 'AL-AMIN AGENCY', '40', '', '49440.00', 0.00),
 (6036, '2019002254', '2019003817', '2019-02-23', '2019-02', '15546', 'Partex Furniture Industries Limited', '200', '', '148000.00', 0.00),
-(6037, '2019000889', '2019003815', '2019-02-23', '2019-02', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox''s Bazar', '10', '', '14382.59', 0.00),
+(6037, '2019000889', '2019003815', '2019-02-23', '2019-02', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox\'s Bazar', '10', '', '14382.59', 0.00),
 (6038, '2019001028', '2019003751', '2019-02-23', '2019-02', '3310', 'Rahman & Sons', '15', '', '40065.60', 0.00),
 (6039, '2019001028', '2019003751', '2019-02-23', '2019-02', '3310', 'Rahman & Sons', '15', '', '58387.20', 0.00),
 (6040, '2019002267', '2019003771', '2019-02-23', '2019-02', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '40803.84', 0.00),
@@ -9899,7 +9647,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (6617, '2019001900', '2019004077', '2019-02-27', '2019-02', '17588', 'Rupayan Housing State Limited', '18', '', '26711.21', 0.00),
 (6618, '2019001900', '2019004077', '2019-02-27', '2019-02', '17588', 'Rupayan Housing State Limited', '12', '', '17520.82', 0.00),
 (6619, '2019002399', '2019004100', '2019-02-27', '2019-02', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '18', '', '9789.12', 0.00),
-(6620, '2019001404', '2019004063', '2019-02-27', '2019-02', '99656', 'Sharif & Son''s ,61,Bijoynagar', '9', '', '16140.60', 0.00),
+(6620, '2019001404', '2019004063', '2019-02-27', '2019-02', '99656', 'Sharif & Son\'s ,61,Bijoynagar', '9', '', '16140.60', 0.00),
 (6621, '2019001585', '2019004142', '2019-02-27', '2019-02', '2519', 'Golden Trade', '18', '', '36701.15', 0.00),
 (6622, '2019002384', '2019004073', '2019-02-27', '2019-02', '99610', 'Southeast University ,251/A & 252,Tejgaon I/A', '21', '', '73093.44', 0.00),
 (6623, '2019001834', '2019004082', '2019-02-27', '2019-02', '16833', 'ABC Real Estate Limited', '21', '', '17790.39', 0.00),
@@ -10431,7 +10179,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7150, '2019001903', '2019004466', '2019-03-04', '2019-03', '31476', 'Mir Real Estate Ltd.', '3', '', '3567.54', 0.00),
 (7151, '2019000673', '2019004429', '2019-03-04', '2019-03', '58838', 'Waki Enterprise ,14/A,Shershah Suri Road', '7', '', '8652.00', 0.00),
 (7152, '2019002281', '2019004406', '2019-03-04', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '3', '', '6738.60', 0.00),
-(7153, '2019001404', '2019004449', '2019-03-04', '2019-03', '99656', 'Sharif & Son''s ,61,Bijoynagar', '6', '', '8171.65', 0.00),
+(7153, '2019001404', '2019004449', '2019-03-04', '2019-03', '99656', 'Sharif & Son\'s ,61,Bijoynagar', '6', '', '8171.65', 0.00),
 (7154, '2019000009', '2019000014', '2019-03-04', '2019-03', '31263', 'Pinatta/KLW Wood Products (M) Sdn Bhd', '36', '', '0.00', 0.00),
 (7155, '2019002641', '2019004460', '2019-03-04', '2019-03', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '4', '', '10684.16', 0.00),
 (7156, '2019000672', '2019004428', '2019-03-04', '2019-03', '58838', 'Waki Enterprise ,14/A,Shershah Suri Road', '10', '', '14828.80', 0.00),
@@ -10796,7 +10544,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7514, '2018014564', '2019004710', '2019-03-07', '2019-03', '26962', 'Aziz Trading', '2', '', '5732.48', 0.00),
 (7515, '2019002528', '2019004714', '2019-03-07', '2019-03', '94287', 'Anwer Khan Modern Medical College Hospital Ltd. ,H-17,R-8,Dhanmondi', '56', '', '85809.78', 0.00),
 (7516, '2019001219', '2019004696', '2019-03-07', '2019-03', '3431', 'Shafi Enterprise', '3', '', '0.00', 0.00),
-(7517, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son''S', '15', '', '42427.20', 0.00),
+(7517, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son\'S', '15', '', '42427.20', 0.00),
 (7518, '2019002446', '2019004733', '2019-03-07', '2019-03', '3310', 'Rahman & Sons', '15', '', '18540.00', 0.00),
 (7519, '2019000717', '2019004691', '2019-03-07', '2019-03', '3431', 'Shafi Enterprise', '2', '', '6555.52', 0.00),
 (7520, '2019002191', '2019004707', '2019-03-07', '2019-03', '26888', 'The Civil Engineering Ltd.', '36', '', '60984.80', 0.00),
@@ -10888,8 +10636,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7606, '2019002443', '2019004731', '2019-03-07', '2019-03', '101429', 'P.Y. Garments Manufacturing (BD) Ltd. ,Comilla', '2', '', '3174.11', 0.00),
 (7607, '2018017827', '2019004750', '2019-03-07', '2019-03', '2632', 'Kakon Glass Centre', '140', '', '173040.00', 0.00),
 (7608, '2018015512', '2019004751', '2019-03-07', '2019-03', '2937', 'M.B Enterprise - Khulna', '14', '', '23674.11', 0.00),
-(7609, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son''S', '20', '', '72512.00', 0.00),
-(7610, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son''S', '20', '', '65555.20', 0.00),
+(7609, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son\'S', '20', '', '72512.00', 0.00),
+(7610, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son\'S', '20', '', '65555.20', 0.00),
 (7611, '2019002826', '2019004770', '2019-03-07', '2019-03', '77262', 'Shakil Enterprise ,Ka-32/5-A,Shahjadpur,Gulshan', '56', '', '124815.36', 0.00),
 (7612, '2019002317', '2019004730', '2019-03-07', '2019-03', '88740', 'Mohammed Shahjahan', '20', '', '30400.00', 0.00),
 (7613, '2019002635', '2019004746', '2019-03-07', '2019-03', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '4', '', '6800.64', 0.00),
@@ -10906,7 +10654,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7624, '2018010625', '2019004703', '2019-03-07', '2019-03', '3028', 'Pabna Particle Center', '10', '', '20630.40', 0.00),
 (7625, '2019002404', '2019004769', '2019-03-07', '2019-03', '86072', 'ISOL Limited ,H-92,R-23,B-A,Banani', '100', '', '101088.96', 0.00),
 (7626, '2019002806', '2019004764', '2019-03-07', '2019-03', '2144', 'Nasir Glass House', '30', '', '46200.00', 0.00),
-(7627, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son''S', '21', '', '56091.84', 0.00),
+(7627, '2019002603', '2019004772', '2019-03-07', '2019-03', '2628', 'Kader & Son\'S', '21', '', '56091.84', 0.00),
 (7628, '2019001353', '2019004760', '2019-03-07', '2019-03', '32206', 'Islam Glass House', '10', '', '8670.00', 0.00),
 (7629, '2019002826', '2019004770', '2019-03-07', '2019-03', '77262', 'Shakil Enterprise ,Ka-32/5-A,Shahjadpur,Gulshan', '14', '', '27843.84', 0.00),
 (7630, '2019001885', '2019004693', '2019-03-07', '2019-03', '3431', 'Shafi Enterprise', '19', '', '50749.76', 0.00),
@@ -11009,7 +10757,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7726, '2019001786', '2019004852', '2019-03-09', '2019-03', '2632', 'Kakon Glass Centre', '20', '', '53420.80', 0.00),
 (7727, '2019002662', '2019004842', '2019-03-09', '2019-03', '3401', 'Zannat Enterprise', '250', '', '104267.59', 0.00),
 (7728, '2019001691', '2019004787', '2019-03-09', '2019-03', '16853', 'Building Technology & Ideas Ltd. (bti)', '36', '', '49694.38', 0.00),
-(7729, '2019002603', '2019004843', '2019-03-09', '2019-03', '2628', 'Kader & Son''S', '31', '', '63954.24', 0.00),
+(7729, '2019002603', '2019004843', '2019-03-09', '2019-03', '2628', 'Kader & Son\'S', '31', '', '63954.24', 0.00),
 (7730, '2019002837', '2019004788', '2019-03-09', '2019-03', '3028', 'Pabna Particle Center', '35', '', '110252.80', 0.00),
 (7731, '2019002631', '2019004783', '2019-03-09', '2019-03', '17557', 'Navana Real Estate Limited', '4', '', '7513.82', 0.00),
 (7732, '2018018151', '2019004778', '2019-03-09', '2019-03', '2364', 'Bismillah Enterprise', '3', '', '8013.12', 0.00),
@@ -11180,8 +10928,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (7897, '2019002841', '2019004878', '2019-03-10', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '23203.20', 0.00),
 (7898, '2019002616', '2019004875', '2019-03-10', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '10', '', '26710.40', 0.00),
 (7899, '2019002841', '2019004877', '2019-03-10', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '31500.80', 0.00),
-(7900, '2019000862', '2019004953', '2019-03-10', '2019-03', '2628', 'Kader & Son''S', '24', '', '31862.20', 0.00),
-(7901, '2019000862', '2019004953', '2019-03-10', '2019-03', '2628', 'Kader & Son''S', '41', '', '46078.17', 0.00),
+(7900, '2019000862', '2019004953', '2019-03-10', '2019-03', '2628', 'Kader & Son\'S', '24', '', '31862.20', 0.00),
+(7901, '2019000862', '2019004953', '2019-03-10', '2019-03', '2628', 'Kader & Son\'S', '41', '', '46078.17', 0.00),
 (7902, '2019002876', '2019004904', '2019-03-10', '2019-03', '3310', 'Rahman & Sons', '3', '', '7500.48', 0.00),
 (7903, '2019001873', '2019004867', '2019-03-10', '2019-03', '3380', 'Romim Enterprise', '10', '', '20630.40', 0.00),
 (7904, '2019002730', '2019004934', '2019-03-10', '2019-03', '50616', 'Board Tech ,P-6,B-B,Kalshi Road,Mirpur-12', '18', '', '33111.68', 0.00),
@@ -11294,7 +11042,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (8011, '2018013613', '2019005156', '2019-03-11', '2019-03', '3448', 'Shakhawat Timber Traders', '10', '', '38924.80', 0.00),
 (8012, '2019001873', '2019005002', '2019-03-11', '2019-03', '3380', 'Romim Enterprise', '13', '', '42610.88', 0.00),
 (8013, '2019002764', '2019005014', '2019-03-11', '2019-03', '34282', 'Sadman Enterprise', '220', '', '173400.00', 0.00),
-(8014, '2019001699', '2019005044', '2019-03-11', '2019-03', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox''s Bazar', '4', '', '6654.97', 0.00),
+(8014, '2019001699', '2019005044', '2019-03-11', '2019-03', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox\'s Bazar', '4', '', '6654.97', 0.00),
 (8015, '2019002408', '2019004983', '2019-03-11', '2019-03', '2027', 'M.R Traders', '45', '', '55620.00', 0.00),
 (8016, '2019002208', '2019004982', '2019-03-11', '2019-03', '2924', 'Lucky Steel Industries', '40', '', '31283.00', 0.00),
 (8017, '2019002895', '2019004964', '2019-03-11', '2019-03', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '28', '', '75601.92', 0.00),
@@ -11353,7 +11101,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (8069, '2019000253', '2019005133', '2019-03-12', '2019-03', '2924', 'Lucky Steel Industries', '20', '', '24306.46', 0.00),
 (8070, '2019002855', '2019005074', '2019-03-12', '2019-03', '75320', 'Tama Holdings Ltd. ,H-91,R-9/A(New),Dhanmondi R/A', '12', '', '14435.11', 0.00),
 (8071, '2019002198', '2019005061', '2019-03-12', '2019-03', '97403', 'Aakash Group ,H-36,R-13/D,Banani', '21', '', '38422.90', 0.00),
-(8072, '2019002918', '2019005126', '2019-03-12', '2019-03', '2628', 'Kader & Son''S', '16', '', '55690.24', 0.00),
+(8072, '2019002918', '2019005126', '2019-03-12', '2019-03', '2628', 'Kader & Son\'S', '16', '', '55690.24', 0.00),
 (8073, '2019002706', '2019005112', '2019-03-12', '2019-03', '2632', 'Kakon Glass Centre', '30', '', '61891.20', 0.00),
 (8074, '2019002972', '2019005122', '2019-03-12', '2019-03', '3380', 'Romim Enterprise', '40', '', '106841.60', 0.00),
 (8075, '2019001262', '2019005058', '2019-03-12', '2019-03', '17401', 'Moulana Developement Company Limited', '6', '', '7545.15', 0.00),
@@ -11595,7 +11343,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (8311, '2019002720', '2019005296', '2019-03-14', '2019-03', '26962', 'Aziz Trading', '15', '', '25365.12', 0.00),
 (8312, '2019002876', '2019005248', '2019-03-14', '2019-03', '3310', 'Rahman & Sons', '14', '', '37394.56', 0.00),
 (8313, '2019002389', '2019005282', '2019-03-14', '2019-03', '101414', 'Md. Ziaul Karim ,Ta,159/1,Middle Badda', '3', '', '3599.59', 0.00),
-(8314, '2019002918', '2019005301', '2019-03-14', '2019-03', '2628', 'Kader & Son''S', '4', '', '13922.56', 0.00),
+(8314, '2019002918', '2019005301', '2019-03-14', '2019-03', '2628', 'Kader & Son\'S', '4', '', '13922.56', 0.00),
 (8315, '2019000253', '2019005270', '2019-03-14', '2019-03', '2924', 'Lucky Steel Industries', '30', '', '36459.70', 0.00),
 (8316, '2019002992', '2019005223', '2019-03-14', '2019-03', '3431', 'Shafi Enterprise', '7', '', '18697.28', 0.00),
 (8317, '2019003020', '2019005258', '2019-03-14', '2019-03', '18003', 'Dipu Pavel Foreign Furniture', '390', '', '111150.16', 0.00),
@@ -12279,9 +12027,9 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (8993, '2019002541', '2019005715', '2019-03-20', '2019-03', '2694', 'Hanufa Enterprise', '105', '', '77700.00', 0.00),
 (8994, '2019001737', '2019005690', '2019-03-20', '2019-03', '26962', 'Aziz Trading', '4', '', '9900.80', 0.00),
 (8995, '2019001491', '2019005695', '2019-03-20', '2019-03', '2566', 'Ahmed Trading Co.', '67', '', '219609.92', 0.00),
-(8996, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son''S', '30', '', '44486.40', 0.00),
-(8997, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son''S', '100', '', '114000.00', 0.00),
-(8998, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son''S', '20', '', '59609.60', 0.00),
+(8996, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son\'S', '30', '', '44486.40', 0.00),
+(8997, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son\'S', '100', '', '114000.00', 0.00),
+(8998, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son\'S', '20', '', '59609.60', 0.00),
 (8999, '2019001786', '2019005657', '2019-03-20', '2019-03', '2632', 'Kakon Glass Centre', '9', '', '27938.88', 0.00),
 (9000, '2019003317', '2019005687', '2019-03-20', '2019-03', '2483', 'Freedom Trade Link', '28', '', '95208.96', 0.00),
 (9001, '2019003317', '2019005687', '2019-03-20', '2019-03', '2483', 'Freedom Trade Link', '14', '', '34652.80', 0.00),
@@ -12328,7 +12076,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9042, '2019003259', '2019005643', '2019-03-20', '2019-03', '36295', 'M B Trade International', '30', '', '34200.00', 0.00),
 (9043, '2019003282', '2019005641', '2019-03-20', '2019-03', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '51', '', '148807.68', 0.00),
 (9044, '2019003105', '2019005696', '2019-03-20', '2019-03', '2005', 'New Norsingdi Glass House', '10', '', '32777.60', 0.00),
-(9045, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son''S', '20', '', '53420.80', 0.00),
+(9045, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son\'S', '20', '', '53420.80', 0.00),
 (9046, '2019003248', '2019005717', '2019-03-20', '2019-03', '2660', 'Jhuma Enterprise', '56', '', '163215.36', 0.00),
 (9047, '2019001623', '2019005662', '2019-03-20', '2019-03', '2924', 'Lucky Steel Industries', '50', '', '61800.00', 0.00),
 (9048, '2019003317', '2019005687', '2019-03-20', '2019-03', '2483', 'Freedom Trade Link', '28', '', '66223.36', 0.00),
@@ -12343,7 +12091,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9057, '2018016841', '2019005645', '2019-03-20', '2019-03', '17557', 'Navana Real Estate Limited', '4', '', '7968.79', 0.00),
 (9058, '2019002841', '2019005663', '2019-03-20', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '20003.20', 0.00),
 (9059, '2019002841', '2019005663', '2019-03-20', '2019-03', '62192', 'Open Source ,29, Sher Shah Suri Road', '2', '', '4640.64', 0.00),
-(9060, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son''S', '28', '', '59404.80', 0.00),
+(9060, '2019003238', '2019005676', '2019-03-20', '2019-03', '2628', 'Kader & Son\'S', '28', '', '59404.80', 0.00),
 (9061, '2019002788', '2019005692', '2019-03-20', '2019-03', '2704', 'Hasan Enterprise', '270', '', '80911.65', 0.00),
 (9062, '2019002924', '2019005698', '2019-03-20', '2019-03', '3316', 'Rahman Enterprise - Dhaka', '10', '', '11400.00', 0.00),
 (9063, '2019002689', '2019005680', '2019-03-20', '2019-03', '47117', 'Iftekhar Hossain', '12', '', '16777.64', 0.00),
@@ -12453,8 +12201,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9167, '2019002720', '2019005718', '2019-03-21', '2019-03', '26962', 'Aziz Trading', '20', '', '33820.16', 0.00),
 (9168, '2019001491', '2019005779', '2019-03-21', '2019-03', '2566', 'Ahmed Trading Co.', '20', '', '29657.60', 0.00),
 (9169, '2019003393', '2019005772', '2019-03-21', '2019-03', '3380', 'Romim Enterprise', '14', '', '40200.96', 0.00),
-(9170, '2019003273', '2019005790', '2019-03-21', '2019-03', '2628', 'Kader & Son''S', '10', '', '28284.80', 0.00),
-(9171, '2019003273', '2019005790', '2019-03-21', '2019-03', '2628', 'Kader & Son''S', '10', '', '35040.00', 0.00),
+(9170, '2019003273', '2019005790', '2019-03-21', '2019-03', '2628', 'Kader & Son\'S', '10', '', '28284.80', 0.00),
+(9171, '2019003273', '2019005790', '2019-03-21', '2019-03', '2628', 'Kader & Son\'S', '10', '', '35040.00', 0.00),
 (9172, '2019001873', '2019005763', '2019-03-21', '2019-03', '3380', 'Romim Enterprise', '24', '', '35589.12', 0.00),
 (9173, '2019002972', '2019005764', '2019-03-21', '2019-03', '3380', 'Romim Enterprise', '25', '', '66776.00', 0.00),
 (9174, '2019003214', '2019005767', '2019-03-21', '2019-03', '2566', 'Ahmed Trading Co.', '75', '', '154728.00', 0.00),
@@ -12807,7 +12555,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9520, '2019002992', '2019005999', '2019-03-25', '2019-03', '3431', 'Shafi Enterprise', '5', '', '19462.40', 0.00),
 (9521, '2018018141', '2019005983', '2019-03-25', '2019-03', '2511', 'Genuine Furnishers', '7', '', '11837.06', 0.00),
 (9522, '2019003455', '2019006042', '2019-03-25', '2019-03', '96177', 'Forid Glass House - Comilla', '8', '', '17266.54', 0.00),
-(9523, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son''S', '30', '', '61891.20', 0.00),
+(9523, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son\'S', '30', '', '61891.20', 0.00),
 (9524, '2019002706', '2019006018', '2019-03-25', '2019-03', '2632', 'Kakon Glass Centre', '20', '', '53420.80', 0.00),
 (9525, '2019003512', '2019005975', '2019-03-25', '2019-03', '16854', 'Basic Builders Limited', '6', '', '8970.39', 0.00),
 (9526, '2019003520', '2019006017', '2019-03-25', '2019-03', '2519', 'Golden Trade', '28', '', '81607.68', 0.00),
@@ -12893,8 +12641,8 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9606, '2019001885', '2019005998', '2019-03-25', '2019-03', '3431', 'Shafi Enterprise', '10', '', '32777.60', 0.00),
 (9607, '2018018140', '2019005982', '2019-03-25', '2019-03', '2511', 'Genuine Furnishers', '50', '', '61800.00', 0.00),
 (9608, '2019003114', '2019006024', '2019-03-25', '2019-03', '26921', 'New Mukta Traders ,Ga-14,Shahjadpur', '90', '', '145574.59', 0.00),
-(9609, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son''S', '40', '', '106841.60', 0.00),
-(9610, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son''S', '10', '', '34806.40', 0.00),
+(9609, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son\'S', '40', '', '106841.60', 0.00),
+(9610, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son\'S', '10', '', '34806.40', 0.00),
 (9611, '2019003456', '2019005973', '2019-03-25', '2019-03', '3310', 'Rahman & Sons', '21', '', '42006.72', 0.00),
 (9612, '2019003372', '2019006034', '2019-03-25', '2019-03', '2704', 'Hasan Enterprise', '20', '', '53420.80', 0.00),
 (9613, '2019001786', '2019006054', '2019-03-25', '2019-03', '2632', 'Kakon Glass Centre', '20', '', '77849.60', 0.00),
@@ -12911,7 +12659,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (9624, '2019003506', '2019005990', '2019-03-25', '2019-03', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '6', '', '3540.70', 0.00),
 (9625, '2019003418', '2019006036', '2019-03-25', '2019-03', '2804', 'Mim Enterprise - Kawran Bazar', '12', '', '40803.84', 0.00),
 (9626, '2019003045', '2019006040', '2019-03-25', '2019-03', '52430', 'East West Media Group Ltd. ,P-C/52,B-K,Bashundhara R/A', '4', '', '12800.00', 0.00),
-(9627, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son''S', '1', '', '1482.88', 0.00),
+(9627, '2019003238', '2019006052', '2019-03-25', '2019-03', '2628', 'Kader & Son\'S', '1', '', '1482.88', 0.00),
 (9628, '2019003456', '2019005973', '2019-03-25', '2019-03', '3310', 'Rahman & Sons', '4', '', '8252.16', 0.00),
 (9629, '2019003452', '2019005992', '2019-03-25', '2019-03', '2027', 'M.R Traders', '70', '', '144412.80', 0.00),
 (9630, '2019003429', '2019006047', '2019-03-25', '2019-03', '57304', 'Asif Enterprise ,24/1,B,Keraniganj Bazar', '210', '', '156060.00', 0.00),
@@ -13339,7 +13087,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (10050, '2019001153', '2019006322', '2019-03-30', '2019-03', '71823', 'Alam Enterprise - Jatrabari', '2', '', '2544.55', 0.00),
 (10051, '2019001153', '2019006322', '2019-03-30', '2019-03', '71823', 'Alam Enterprise - Jatrabari', '4', '', '6284.52', 0.00),
 (10052, '2019003509', '2019006328', '2019-03-30', '2019-03', '3401', 'Zannat Enterprise', '242', '', '96933.02', 0.00),
-(10053, '2019002416', '2019006253', '2019-03-30', '2019-03', '101413', 'Hotel Amir''s ,Kosai Bari,Dakshinkhan', '60', '', '67673.70', 0.00),
+(10053, '2019002416', '2019006253', '2019-03-30', '2019-03', '101413', 'Hotel Amir\'s ,Kosai Bari,Dakshinkhan', '60', '', '67673.70', 0.00),
 (10054, '2019001576', '2019006312', '2019-03-30', '2019-03', '2804', 'Mim Enterprise - Kawran Bazar', '18', '', '58999.68', 0.00),
 (10055, '2019003097', '2019006292', '2019-03-30', '2019-03', '2924', 'Lucky Steel Industries', '6', '', '0.00', 0.00),
 (10056, '2019002992', '2019006254', '2019-03-30', '2019-03', '3431', 'Shafi Enterprise', '35', '', '93486.40', 0.00),
@@ -13444,7 +13192,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 (10155, '2018000521', '2019000195', '2019-03-31', '2019-03', '15546', 'Partex Furniture Industries Limited', '48', '', '76800.00', 0.00),
 (10156, '2019003466', '2019006381', '2019-03-31', '2019-03', '17634', 'Furnico', '11', '', '29381.44', 0.00),
 (10157, '2019003738', '2019006435', '2019-03-31', '2019-03', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '20', '', '30800.00', 0.00),
-(10158, '2019003507', '2019006341', '2019-03-31', '2019-03', '2628', 'Kader & Son''S', '13', '', '47132.80', 0.00),
+(10158, '2019003507', '2019006341', '2019-03-31', '2019-03', '2628', 'Kader & Son\'S', '13', '', '47132.80', 0.00),
 (10159, '2019000116', '2019000178', '2019-03-31', '2019-03', '15546', 'Partex Furniture Industries Limited', '6', '', '11143.78', 0.00),
 (10160, '2019000125', '2019000191', '2019-03-31', '2019-03', '15546', 'Partex Furniture Industries Limited', '8', '', '12204.41', 0.00),
 (10161, '2019000073', '2019000202', '2019-03-31', '2019-03', '15546', 'Partex Furniture Industries Limited', '2', '', '4174.08', 0.00),
@@ -13535,7 +13283,7 @@ INSERT INTO `sales_trend` (`id`, `sales_order_name`, `invoice_number`, `invoice_
 -- Table structure for table `sales_trend_backup`
 --
 
-CREATE TABLE IF NOT EXISTS `sales_trend_backup` (
+CREATE TABLE `sales_trend_backup` (
   `sales_order_name` varchar(100) NOT NULL,
   `invoice_number` varchar(100) NOT NULL,
   `invoice_date` varchar(30) NOT NULL,
@@ -15079,8 +14827,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019000142', '2019001039', '15X01X2019', '2681', 'Habib Store', '5', '', '13355.20'),
 ('2018018075', '2019000964', '15X01X2019', '3113', 'Surovi Partical Gallery', '40', '', '0.00'),
 ('2019000084', '2019000925', '15X01X2019', '3431', 'Shafi Enterprise', '10', '', '34003.20'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '18', '', '65260.80'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '50', '', '133552.00'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '18', '', '65260.80'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '50', '', '133552.00'),
 ('2019000494', '2019000934', '15X01X2019', '2483', 'Freedom Trade Link', '25', '', '66776.00'),
 ('2019000649', '2019000990', '15X01X2019', '2510', 'General Hard Ware', '28', '', '20808.00'),
 ('2018011234', '2019000975', '15X01X2019', '3028', 'Pabna Particle Center', '20', '', '77849.60'),
@@ -15140,8 +14888,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019000589', '2019000972', '15X01X2019', '2908', 'Latif Art & Glass House', '20', '', '65555.20'),
 ('2019000539', '2019000998', '15X01X2019', '3376', 'Robi Traders', '112', '', '83232.00'),
 ('2018018090', '2019000921', '15X01X2019', '95292', 'Japasty Company Ltd. ,Ka-11/2,Bashundhara Road', '24', '', '37361.79'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '20', '', '77849.60'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '10', '', '32777.60'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '20', '', '77849.60'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '10', '', '32777.60'),
 ('2018017004', '2019000994', '15X01X2019', '56587', 'J.H. Enterprise ,Rajshahi', '15', '', '22972.07'),
 ('2019000009', '2019000918', '15X01X2019', '88123', 'Taqwa Holdings Ltd. ,H-767,R-23,B-F,Bashundhara R/A', '6', '', '6993.66'),
 ('2019000493', '2019000979', '15X01X2019', '2804', 'Mim Enterprise - Kawran Bazar', '93', '', '85284.00'),
@@ -15175,9 +14923,9 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018017824', '2019000961', '15X01X2019', '2632', 'Kakon Glass Centre', '30', '', '70953.60'),
 ('2019000589', '2019000972', '15X01X2019', '2908', 'Latif Art & Glass House', '2', '', '4126.08'),
 ('2018018090', '2019000921', '15X01X2019', '95292', 'Japasty Company Ltd. ,Ka-11/2,Bashundhara Road', '30', '', '42736.20'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '5', '', '14331.20'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '10', '', '20630.40'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '20', '', '59609.60'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '5', '', '14331.20'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '10', '', '20630.40'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '20', '', '59609.60'),
 ('2018012503', '2019001040', '15X01X2019', '3345', 'Ray Glass House - Patuakhali', '3', '', '7950.72'),
 ('2018016822', '2019000953', '15X01X2019', '3310', 'Rahman & Sons', '15', '', '51004.80'),
 ('2018015430', '2019000952', '15X01X2019', '47796', 'FCI (BD) Ltd. & Talisman Ltd.', '22', '', '45386.88'),
@@ -15197,7 +14945,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018016905', '2019000973', '15X01X2019', '2924', 'Lucky Steel Industries', '20', '', '77849.60'),
 ('2018016477', '2019000960', '15X01X2019', '16945', 'Janata Plywood Center', '20', '', '0.00'),
 ('2018016907', '2019000987', '15X01X2019', '3431', 'Shafi Enterprise', '40', '', '0.00'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '135', '', '177555.84'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '135', '', '177555.84'),
 ('2018017001', '2019000996', '15X01X2019', '56587', 'J.H. Enterprise ,Rajshahi', '160', '', '175692.55'),
 ('2018017001', '2019000996', '15X01X2019', '56587', 'J.H. Enterprise ,Rajshahi', '30', '', '42339.64'),
 ('2019000553', '2019000938', '15X01X2019', '3316', 'Rahman Enterprise - Dhaka', '12', '', '10146.05'),
@@ -15216,7 +14964,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019000631', '2019000943', '15X01X2019', '2027', 'M.R Traders', '28', '', '59404.80'),
 ('2019000577', '2019000999', '15X01X2019', '2844', 'Shawdagor Enterprise', '28', '', '59404.80'),
 ('2019000615', '2019000928', '15X01X2019', '3431', 'Shafi Enterprise', '10', '', '31500.80'),
-('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son''S', '20', '', '29657.60'),
+('2019000639', '2019001002', '15X01X2019', '2628', 'Kader & Son\'S', '20', '', '29657.60'),
 ('2019000084', '2019000984', '15X01X2019', '3431', 'Shafi Enterprise', '10', '', '34003.20'),
 ('2019000012', '2019000043', '15X01X2019', '15546', 'Partex Furniture Industries Limited', '16', '', '73216.00'),
 ('2018017004', '2019000994', '15X01X2019', '56587', 'J.H. Enterprise ,Rajshahi', '4', '', '20719.54'),
@@ -17156,7 +16904,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019000049', '2019002115', '31X01X2019', '26962', 'Aziz Trading', '70', '', '86520.00'),
 ('2019001042', '2019002140', '31X01X2019', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '6', '', '8129.36'),
 ('2019000891', '2019002183', '31X01X2019', '2364', 'Bismillah Enterprise', '85', '', '105060.00'),
-('2019001393', '2019002234', '31X01X2019', '2628', 'Kader & Son''S', '297', '', '285516.00'),
+('2019001393', '2019002234', '31X01X2019', '2628', 'Kader & Son\'S', '297', '', '285516.00'),
 ('2018017713', '2019002191', '31X01X2019', '17588', 'Rupayan Housing State Limited', '1', '', '68265.56'),
 ('2019000395', '2019002228', '31X01X2019', '2545', 'Abdullah Al Kafi', '472', '', '285862.08'),
 ('2019000252', '2019002134', '31X01X2019', '2924', 'Lucky Steel Industries', '50', '', '36559.59'),
@@ -17182,7 +16930,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001303', '2019002125', '31X01X2019', '17270', 'The Structural Engineers Limited (Sel)', '94', '', '193769.49'),
 ('2019000891', '2019002183', '31X01X2019', '2364', 'Bismillah Enterprise', '2', '', '3382.02'),
 ('2019001378', '2019002214', '31X01X2019', '2566', 'Ahmed Trading Co.', '12', '', '41767.68'),
-('2019001393', '2019002234', '31X01X2019', '2628', 'Kader & Son''S', '135', '', '177555.84'),
+('2019001393', '2019002234', '31X01X2019', '2628', 'Kader & Son\'S', '135', '', '177555.84'),
 ('2019001249', '2019002145', '31X01X2019', '2674', 'N.N Plywood Center', '17', '', '18601.09'),
 ('2019001097', '2019002205', '31X01X2019', '17634', 'Furnico', '14', '', '44101.12'),
 ('2019000857', '2019002178', '31X01X2019', '20953', 'Apon Door', '6', '', '9120.00'),
@@ -18843,8 +18591,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001987', '2019003336', '16X02X2019', '3316', 'Rahman Enterprise - Dhaka', '27', '', '25956.00'),
 ('2019000249', '2019003342', '16X02X2019', '2924', 'Lucky Steel Industries', '50', '', '79907.52'),
 ('2019001964', '2019003313', '16X02X2019', '16854', 'Basic Builders Limited', '18', '', '35881.56'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '30', '', '61891.20'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '20', '', '29657.60'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '30', '', '61891.20'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '20', '', '29657.60'),
 ('2018016903', '2019003356', '16X02X2019', '2924', 'Lucky Steel Industries', '10', '', '15901.44'),
 ('2019000736', '2019003324', '16X02X2019', '2632', 'Kakon Glass Centre', '45', '', '92836.80'),
 ('2019001983', '2019003362', '16X02X2019', '3177', 'Space Scope', '120', '', '226309.25'),
@@ -18874,7 +18622,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001964', '2019003313', '16X02X2019', '16854', 'Basic Builders Limited', '4', '', '6644.73'),
 ('2019001796', '2019003378', '16X02X2019', '31581', 'Al Mocca Hardware', '54', '', '108964.40'),
 ('2019000700', '2019003314', '16X02X2019', '48830', 'Khandakar Aminur Rahman', '6', '', '7968.78'),
-('2018013611', '2019003374', '16X02X2019', '2628', 'Kader & Son''S', '1', '', '2451.20'),
+('2018013611', '2019003374', '16X02X2019', '2628', 'Kader & Son\'S', '1', '', '2451.20'),
 ('2019001959', '2019003333', '16X02X2019', '2511', 'Genuine Furnishers', '25', '', '51576.00'),
 ('2019001991', '2019003338', '16X02X2019', '16945', 'Janata Plywood Center', '28', '', '56762.88'),
 ('2019001873', '2019003341', '16X02X2019', '3380', 'Romim Enterprise', '30', '', '61891.20'),
@@ -18888,8 +18636,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002013', '2019003365', '16X02X2019', '2844', 'Shawdagor Enterprise', '90', '', '111240.00'),
 ('2019001964', '2019003313', '16X02X2019', '16854', 'Basic Builders Limited', '4', '', '5315.79'),
 ('2019001796', '2019003378', '16X02X2019', '31581', 'Al Mocca Hardware', '6', '', '4359.67'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '3', '', '10876.80'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '5', '', '14142.40'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '3', '', '10876.80'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '5', '', '14142.40'),
 ('2019001796', '2019003358', '16X02X2019', '31581', 'Al Mocca Hardware', '8', '', '13489.82'),
 ('2018018151', '2019003312', '16X02X2019', '2364', 'Bismillah Enterprise', '35', '', '72206.40'),
 ('2019000546', '2019003361', '16X02X2019', '3345', 'Ray Glass House - Patuakhali', '6', '', '9392.66'),
@@ -18924,7 +18672,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001091', '2019003331', '16X02X2019', '3316', 'Rahman Enterprise - Dhaka', '25', '', '37072.00'),
 ('2019001964', '2019003313', '16X02X2019', '16854', 'Basic Builders Limited', '12', '', '17940.78'),
 ('2019001796', '2019003378', '16X02X2019', '31581', 'Al Mocca Hardware', '4', '', '6744.91'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '20', '', '53420.80'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '20', '', '53420.80'),
 ('2019001268', '2019003332', '16X02X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '15', '', '49166.40'),
 ('2019001980', '2019003360', '16X02X2019', '3177', 'Space Scope', '240', '', '130521.60'),
 ('2019001622', '2019003349', '16X02X2019', '2924', 'Lucky Steel Industries', '20', '', '25200.64'),
@@ -18947,7 +18695,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002013', '2019003377', '16X02X2019', '2844', 'Shawdagor Enterprise', '196', '', '145656.00'),
 ('2019000253', '2019003346', '16X02X2019', '2924', 'Lucky Steel Industries', '30', '', '28160.50'),
 ('2019001786', '2019003325', '16X02X2019', '2632', 'Kakon Glass Centre', '5', '', '10315.20'),
-('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son''S', '5', '', '17520.00'),
+('2019000637', '2019003375', '16X02X2019', '2628', 'Kader & Son\'S', '5', '', '17520.00'),
 ('2019001946', '2019003351', '16X02X2019', '3380', 'Romim Enterprise', '8', '', '13601.28'),
 ('2019001796', '2019003358', '16X02X2019', '31581', 'Al Mocca Hardware', '80', '', '58128.90'),
 ('2019000990', '2019003373', '16X02X2019', '34717', 'Royal Door Gallery', '9', '', '18481.48'),
@@ -19168,7 +18916,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001963', '2019003534', '18X02X2019', '3321', 'Rahman Thai Aluminium & Glass House', '27', '', '25956.00'),
 ('2019001893', '2019003490', '18X02X2019', '2566', 'Ahmed Trading Co.', '50', '', '61800.00'),
 ('2019001784', '2019003483', '18X02X2019', '3483', 'Unity Particle Trade International', '5', '', '16388.80'),
-('2019001972', '2019003535', '18X02X2019', '2628', 'Kader & Son''S', '18', '', '65260.80'),
+('2019001972', '2019003535', '18X02X2019', '2628', 'Kader & Son\'S', '18', '', '65260.80'),
 ('2019001091', '2019003487', '18X02X2019', '3316', 'Rahman Enterprise - Dhaka', '5', '', '7414.40'),
 ('2019001838', '2019003509', '18X02X2019', '2569', 'Akash Enterprise', '118', '', '79104.00'),
 ('2019002040', '2019003539', '18X02X2019', '3372', 'Rizu Glass House & Thai Almunium', '52', '', '40040.00'),
@@ -19223,7 +18971,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001546', '2019003514', '18X02X2019', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '105', '', '134383.98'),
 ('2019001989', '2019003529', '18X02X2019', '55996', 'Labib Design & Technology, Beribadh, Switch Gate, Ashulia, Dhaka', '70', '', '52020.00'),
 ('2019000048', '2019003499', '18X02X2019', '26962', 'Aziz Trading', '45', '', '13005.00'),
-('2019001972', '2019003535', '18X02X2019', '2628', 'Kader & Son''S', '10', '', '34806.40'),
+('2019001972', '2019003535', '18X02X2019', '2628', 'Kader & Son\'S', '10', '', '34806.40'),
 ('2019001976', '2019003507', '18X02X2019', '3113', 'Surovi Partical Gallery', '30', '', '94502.40'),
 ('2019001976', '2019003507', '18X02X2019', '3113', 'Surovi Partical Gallery', '35', '', '82779.20'),
 ('2018017493', '2019003504', '18X02X2019', '17588', 'Rupayan Housing State Limited', '2', '', '112231.06'),
@@ -19468,7 +19216,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018018160', '2019003639', '20X02X2019', '3108', 'Sumon Enterprise', '10', '', '12360.00'),
 ('2019000717', '2019003687', '20X02X2019', '3431', 'Shafi Enterprise', '8', '', '26222.08'),
 ('2019001826', '2019003712', '20X02X2019', '2804', 'Mim Enterprise - Kawran Bazar', '120', '', '148320.00'),
-('2019001972', '2019003733', '20X02X2019', '2628', 'Kader & Son''S', '30', '', '80131.20'),
+('2019001972', '2019003733', '20X02X2019', '2628', 'Kader & Son\'S', '30', '', '80131.20'),
 ('2019002212', '2019003698', '20X02X2019', '3380', 'Romim Enterprise', '14', '', '40803.84'),
 ('2019001583', '2019003685', '20X02X2019', '3431', 'Shafi Enterprise', '60', '', '91667.33'),
 ('2019002123', '2019003681', '20X02X2019', '88740', 'Mohammed Shahjahan', '2', '', '3040.00'),
@@ -19599,7 +19347,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001844', '2019003795', '23X02X2019', '2483', 'Freedom Trade Link', '30', '', '61891.20'),
 ('2019002262', '2019003772', '23X02X2019', '15258', 'AL-AMIN AGENCY', '40', '', '49440.00'),
 ('2019002254', '2019003817', '23X02X2019', '15546', 'Partex Furniture Industries Limited', '200', '', '148000.00'),
-('2019000889', '2019003815', '23X02X2019', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox''s Bazar', '10', '', '14382.59'),
+('2019000889', '2019003815', '23X02X2019', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox\'s Bazar', '10', '', '14382.59'),
 ('2019001028', '2019003751', '23X02X2019', '3310', 'Rahman & Sons', '15', '', '40065.60'),
 ('2019001028', '2019003751', '23X02X2019', '3310', 'Rahman & Sons', '15', '', '58387.20'),
 ('2019002267', '2019003771', '23X02X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '40803.84'),
@@ -20183,7 +19931,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001900', '2019004077', '27X02X2019', '17588', 'Rupayan Housing State Limited', '18', '', '26711.21'),
 ('2019001900', '2019004077', '27X02X2019', '17588', 'Rupayan Housing State Limited', '12', '', '17520.82'),
 ('2019002399', '2019004100', '27X02X2019', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '18', '', '9789.12'),
-('2019001404', '2019004063', '27X02X2019', '99656', 'Sharif & Son''s ,61,Bijoynagar', '9', '', '16140.60'),
+('2019001404', '2019004063', '27X02X2019', '99656', 'Sharif & Son\'s ,61,Bijoynagar', '9', '', '16140.60'),
 ('2019001585', '2019004142', '27X02X2019', '2519', 'Golden Trade', '18', '', '36701.15'),
 ('2019002384', '2019004073', '27X02X2019', '99610', 'Southeast University ,251/A & 252,Tejgaon I/A', '21', '', '73093.44'),
 ('2019001834', '2019004082', '27X02X2019', '16833', 'ABC Real Estate Limited', '21', '', '17790.39'),
@@ -20717,7 +20465,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001903', '2019004466', '04X03X2019', '31476', 'Mir Real Estate Ltd.', '3', '', '3567.54'),
 ('2019000673', '2019004429', '04X03X2019', '58838', 'Waki Enterprise ,14/A,Shershah Suri Road', '7', '', '8652.00'),
 ('2019002281', '2019004406', '04X03X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '3', '', '6738.60'),
-('2019001404', '2019004449', '04X03X2019', '99656', 'Sharif & Son''s ,61,Bijoynagar', '6', '', '8171.65'),
+('2019001404', '2019004449', '04X03X2019', '99656', 'Sharif & Son\'s ,61,Bijoynagar', '6', '', '8171.65'),
 ('2019000009', '2019000014', '04X03X2019', '31263', 'Pinatta/KLW Wood Products (M) Sdn Bhd', '36', '', '0.00'),
 ('2019002641', '2019004460', '04X03X2019', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '4', '', '10684.16'),
 ('2019000672', '2019004428', '04X03X2019', '58838', 'Waki Enterprise ,14/A,Shershah Suri Road', '10', '', '14828.80'),
@@ -21082,7 +20830,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018014564', '2019004710', '07X03X2019', '26962', 'Aziz Trading', '2', '', '5732.48'),
 ('2019002528', '2019004714', '07X03X2019', '94287', 'Anwer Khan Modern Medical College Hospital Ltd. ,H-17,R-8,Dhanmondi', '56', '', '85809.78'),
 ('2019001219', '2019004696', '07X03X2019', '3431', 'Shafi Enterprise', '3', '', '0.00'),
-('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son''S', '15', '', '42427.20'),
+('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son\'S', '15', '', '42427.20'),
 ('2019002446', '2019004733', '07X03X2019', '3310', 'Rahman & Sons', '15', '', '18540.00'),
 ('2019000717', '2019004691', '07X03X2019', '3431', 'Shafi Enterprise', '2', '', '6555.52'),
 ('2019002191', '2019004707', '07X03X2019', '26888', 'The Civil Engineering Ltd.', '36', '', '60984.80'),
@@ -21174,8 +20922,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002443', '2019004731', '07X03X2019', '101429', 'P.Y. Garments Manufacturing (BD) Ltd. ,Comilla', '2', '', '3174.11'),
 ('2018017827', '2019004750', '07X03X2019', '2632', 'Kakon Glass Centre', '140', '', '173040.00'),
 ('2018015512', '2019004751', '07X03X2019', '2937', 'M.B Enterprise - Khulna', '14', '', '23674.11'),
-('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son''S', '20', '', '72512.00'),
-('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son''S', '20', '', '65555.20'),
+('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son\'S', '20', '', '72512.00'),
+('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son\'S', '20', '', '65555.20'),
 ('2019002826', '2019004770', '07X03X2019', '77262', 'Shakil Enterprise ,Ka-32/5-A,Shahjadpur,Gulshan', '56', '', '124815.36'),
 ('2019002317', '2019004730', '07X03X2019', '88740', 'Mohammed Shahjahan', '20', '', '30400.00'),
 ('2019002635', '2019004746', '07X03X2019', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '4', '', '6800.64'),
@@ -21192,7 +20940,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018010625', '2019004703', '07X03X2019', '3028', 'Pabna Particle Center', '10', '', '20630.40'),
 ('2019002404', '2019004769', '07X03X2019', '86072', 'ISOL Limited ,H-92,R-23,B-A,Banani', '100', '', '101088.96'),
 ('2019002806', '2019004764', '07X03X2019', '2144', 'Nasir Glass House', '30', '', '46200.00'),
-('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son''S', '21', '', '56091.84'),
+('2019002603', '2019004772', '07X03X2019', '2628', 'Kader & Son\'S', '21', '', '56091.84'),
 ('2019001353', '2019004760', '07X03X2019', '32206', 'Islam Glass House', '10', '', '8670.00'),
 ('2019002826', '2019004770', '07X03X2019', '77262', 'Shakil Enterprise ,Ka-32/5-A,Shahjadpur,Gulshan', '14', '', '27843.84'),
 ('2019001885', '2019004693', '07X03X2019', '3431', 'Shafi Enterprise', '19', '', '50749.76'),
@@ -21294,7 +21042,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001786', '2019004852', '09X03X2019', '2632', 'Kakon Glass Centre', '20', '', '53420.80'),
 ('2019002662', '2019004842', '09X03X2019', '3401', 'Zannat Enterprise', '250', '', '104267.59'),
 ('2019001691', '2019004787', '09X03X2019', '16853', 'Building Technology & Ideas Ltd. (bti)', '36', '', '49694.38'),
-('2019002603', '2019004843', '09X03X2019', '2628', 'Kader & Son''S', '31', '', '63954.24'),
+('2019002603', '2019004843', '09X03X2019', '2628', 'Kader & Son\'S', '31', '', '63954.24'),
 ('2019002837', '2019004788', '09X03X2019', '3028', 'Pabna Particle Center', '35', '', '110252.80'),
 ('2019002631', '2019004783', '09X03X2019', '17557', 'Navana Real Estate Limited', '4', '', '7513.82'),
 ('2018018151', '2019004778', '09X03X2019', '2364', 'Bismillah Enterprise', '3', '', '8013.12'),
@@ -21466,8 +21214,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002616', '2019004875', '10X03X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '10', '', '26710.40');
 INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice_date`, `customer_no`, `customer_name`, `inv_item_id`, `quientity`, `inv_value`) VALUES
 ('2019002841', '2019004877', '10X03X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '31500.80'),
-('2019000862', '2019004953', '10X03X2019', '2628', 'Kader & Son''S', '24', '', '31862.20'),
-('2019000862', '2019004953', '10X03X2019', '2628', 'Kader & Son''S', '41', '', '46078.17'),
+('2019000862', '2019004953', '10X03X2019', '2628', 'Kader & Son\'S', '24', '', '31862.20'),
+('2019000862', '2019004953', '10X03X2019', '2628', 'Kader & Son\'S', '41', '', '46078.17'),
 ('2019002876', '2019004904', '10X03X2019', '3310', 'Rahman & Sons', '3', '', '7500.48'),
 ('2019001873', '2019004867', '10X03X2019', '3380', 'Romim Enterprise', '10', '', '20630.40'),
 ('2019002730', '2019004934', '10X03X2019', '50616', 'Board Tech ,P-6,B-B,Kalshi Road,Mirpur-12', '18', '', '33111.68'),
@@ -21580,7 +21328,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018013613', '2019005156', '11X03X2019', '3448', 'Shakhawat Timber Traders', '10', '', '38924.80'),
 ('2019001873', '2019005002', '11X03X2019', '3380', 'Romim Enterprise', '13', '', '42610.88'),
 ('2019002764', '2019005014', '11X03X2019', '34282', 'Sadman Enterprise', '220', '', '173400.00'),
-('2019001699', '2019005044', '11X03X2019', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox''s Bazar', '4', '', '6654.97'),
+('2019001699', '2019005044', '11X03X2019', '81530', 'Atiqul Islam ,Central Jail Gate,Kolatoli Bypass,Cox\'s Bazar', '4', '', '6654.97'),
 ('2019002408', '2019004983', '11X03X2019', '2027', 'M.R Traders', '45', '', '55620.00'),
 ('2019002208', '2019004982', '11X03X2019', '2924', 'Lucky Steel Industries', '40', '', '31283.00'),
 ('2019002895', '2019004964', '11X03X2019', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '28', '', '75601.92'),
@@ -21638,7 +21386,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019000253', '2019005133', '12X03X2019', '2924', 'Lucky Steel Industries', '20', '', '24306.46'),
 ('2019002855', '2019005074', '12X03X2019', '75320', 'Tama Holdings Ltd. ,H-91,R-9/A(New),Dhanmondi R/A', '12', '', '14435.11'),
 ('2019002198', '2019005061', '12X03X2019', '97403', 'Aakash Group ,H-36,R-13/D,Banani', '21', '', '38422.90'),
-('2019002918', '2019005126', '12X03X2019', '2628', 'Kader & Son''S', '16', '', '55690.24'),
+('2019002918', '2019005126', '12X03X2019', '2628', 'Kader & Son\'S', '16', '', '55690.24'),
 ('2019002706', '2019005112', '12X03X2019', '2632', 'Kakon Glass Centre', '30', '', '61891.20'),
 ('2019002972', '2019005122', '12X03X2019', '3380', 'Romim Enterprise', '40', '', '106841.60'),
 ('2019001262', '2019005058', '12X03X2019', '17401', 'Moulana Developement Company Limited', '6', '', '7545.15'),
@@ -21880,7 +21628,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002720', '2019005296', '14X03X2019', '26962', 'Aziz Trading', '15', '', '25365.12'),
 ('2019002876', '2019005248', '14X03X2019', '3310', 'Rahman & Sons', '14', '', '37394.56'),
 ('2019002389', '2019005282', '14X03X2019', '101414', 'Md. Ziaul Karim ,Ta,159/1,Middle Badda', '3', '', '3599.59'),
-('2019002918', '2019005301', '14X03X2019', '2628', 'Kader & Son''S', '4', '', '13922.56'),
+('2019002918', '2019005301', '14X03X2019', '2628', 'Kader & Son\'S', '4', '', '13922.56'),
 ('2019000253', '2019005270', '14X03X2019', '2924', 'Lucky Steel Industries', '30', '', '36459.70'),
 ('2019002992', '2019005223', '14X03X2019', '3431', 'Shafi Enterprise', '7', '', '18697.28'),
 ('2019003020', '2019005258', '14X03X2019', '18003', 'Dipu Pavel Foreign Furniture', '390', '', '111150.16'),
@@ -22564,9 +22312,9 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002541', '2019005715', '20X03X2019', '2694', 'Hanufa Enterprise', '105', '', '77700.00'),
 ('2019001737', '2019005690', '20X03X2019', '26962', 'Aziz Trading', '4', '', '9900.80'),
 ('2019001491', '2019005695', '20X03X2019', '2566', 'Ahmed Trading Co.', '67', '', '219609.92'),
-('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son''S', '30', '', '44486.40'),
-('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son''S', '100', '', '114000.00'),
-('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son''S', '20', '', '59609.60'),
+('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son\'S', '30', '', '44486.40'),
+('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son\'S', '100', '', '114000.00'),
+('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son\'S', '20', '', '59609.60'),
 ('2019001786', '2019005657', '20X03X2019', '2632', 'Kakon Glass Centre', '9', '', '27938.88'),
 ('2019003317', '2019005687', '20X03X2019', '2483', 'Freedom Trade Link', '28', '', '95208.96'),
 ('2019003317', '2019005687', '20X03X2019', '2483', 'Freedom Trade Link', '14', '', '34652.80'),
@@ -22613,7 +22361,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019003259', '2019005643', '20X03X2019', '36295', 'M B Trade International', '30', '', '34200.00'),
 ('2019003282', '2019005641', '20X03X2019', '58060', 'Ma Hardware ,Bonder Bazar,Sylhet', '51', '', '148807.68'),
 ('2019003105', '2019005696', '20X03X2019', '2005', 'New Norsingdi Glass House', '10', '', '32777.60'),
-('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son''S', '20', '', '53420.80'),
+('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son\'S', '20', '', '53420.80'),
 ('2019003248', '2019005717', '20X03X2019', '2660', 'Jhuma Enterprise', '56', '', '163215.36'),
 ('2019001623', '2019005662', '20X03X2019', '2924', 'Lucky Steel Industries', '50', '', '61800.00'),
 ('2019003317', '2019005687', '20X03X2019', '2483', 'Freedom Trade Link', '28', '', '66223.36'),
@@ -22628,7 +22376,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018016841', '2019005645', '20X03X2019', '17557', 'Navana Real Estate Limited', '4', '', '7968.79'),
 ('2019002841', '2019005663', '20X03X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '14', '', '20003.20'),
 ('2019002841', '2019005663', '20X03X2019', '62192', 'Open Source ,29, Sher Shah Suri Road', '2', '', '4640.64'),
-('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son''S', '28', '', '59404.80'),
+('2019003238', '2019005676', '20X03X2019', '2628', 'Kader & Son\'S', '28', '', '59404.80'),
 ('2019002788', '2019005692', '20X03X2019', '2704', 'Hasan Enterprise', '270', '', '80911.65'),
 ('2019002924', '2019005698', '20X03X2019', '3316', 'Rahman Enterprise - Dhaka', '10', '', '11400.00'),
 ('2019002689', '2019005680', '20X03X2019', '47117', 'Iftekhar Hossain', '12', '', '16777.64'),
@@ -22738,8 +22486,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002720', '2019005718', '21X03X2019', '26962', 'Aziz Trading', '20', '', '33820.16'),
 ('2019001491', '2019005779', '21X03X2019', '2566', 'Ahmed Trading Co.', '20', '', '29657.60'),
 ('2019003393', '2019005772', '21X03X2019', '3380', 'Romim Enterprise', '14', '', '40200.96'),
-('2019003273', '2019005790', '21X03X2019', '2628', 'Kader & Son''S', '10', '', '28284.80'),
-('2019003273', '2019005790', '21X03X2019', '2628', 'Kader & Son''S', '10', '', '35040.00'),
+('2019003273', '2019005790', '21X03X2019', '2628', 'Kader & Son\'S', '10', '', '28284.80'),
+('2019003273', '2019005790', '21X03X2019', '2628', 'Kader & Son\'S', '10', '', '35040.00'),
 ('2019001873', '2019005763', '21X03X2019', '3380', 'Romim Enterprise', '24', '', '35589.12'),
 ('2019002972', '2019005764', '21X03X2019', '3380', 'Romim Enterprise', '25', '', '66776.00'),
 ('2019003214', '2019005767', '21X03X2019', '2566', 'Ahmed Trading Co.', '75', '', '154728.00'),
@@ -23092,7 +22840,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019002992', '2019005999', '25X03X2019', '3431', 'Shafi Enterprise', '5', '', '19462.40'),
 ('2018018141', '2019005983', '25X03X2019', '2511', 'Genuine Furnishers', '7', '', '11837.06'),
 ('2019003455', '2019006042', '25X03X2019', '96177', 'Forid Glass House - Comilla', '8', '', '17266.54'),
-('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son''S', '30', '', '61891.20'),
+('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son\'S', '30', '', '61891.20'),
 ('2019002706', '2019006018', '25X03X2019', '2632', 'Kakon Glass Centre', '20', '', '53420.80'),
 ('2019003512', '2019005975', '25X03X2019', '16854', 'Basic Builders Limited', '6', '', '8970.39'),
 ('2019003520', '2019006017', '25X03X2019', '2519', 'Golden Trade', '28', '', '81607.68'),
@@ -23178,8 +22926,8 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001885', '2019005998', '25X03X2019', '3431', 'Shafi Enterprise', '10', '', '32777.60'),
 ('2018018140', '2019005982', '25X03X2019', '2511', 'Genuine Furnishers', '50', '', '61800.00'),
 ('2019003114', '2019006024', '25X03X2019', '26921', 'New Mukta Traders ,Ga-14,Shahjadpur', '90', '', '145574.59'),
-('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son''S', '40', '', '106841.60'),
-('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son''S', '10', '', '34806.40'),
+('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son\'S', '40', '', '106841.60'),
+('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son\'S', '10', '', '34806.40'),
 ('2019003456', '2019005973', '25X03X2019', '3310', 'Rahman & Sons', '21', '', '42006.72'),
 ('2019003372', '2019006034', '25X03X2019', '2704', 'Hasan Enterprise', '20', '', '53420.80'),
 ('2019001786', '2019006054', '25X03X2019', '2632', 'Kakon Glass Centre', '20', '', '77849.60'),
@@ -23196,7 +22944,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019003506', '2019005990', '25X03X2019', '76521', 'Liberty Knitwear Ltd. Unit-2 ,Chandra,Gazipur', '6', '', '3540.70'),
 ('2019003418', '2019006036', '25X03X2019', '2804', 'Mim Enterprise - Kawran Bazar', '12', '', '40803.84'),
 ('2019003045', '2019006040', '25X03X2019', '52430', 'East West Media Group Ltd. ,P-C/52,B-K,Bashundhara R/A', '4', '', '12800.00'),
-('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son''S', '1', '', '1482.88'),
+('2019003238', '2019006052', '25X03X2019', '2628', 'Kader & Son\'S', '1', '', '1482.88'),
 ('2019003456', '2019005973', '25X03X2019', '3310', 'Rahman & Sons', '4', '', '8252.16'),
 ('2019003452', '2019005992', '25X03X2019', '2027', 'M.R Traders', '70', '', '144412.80'),
 ('2019003429', '2019006047', '25X03X2019', '57304', 'Asif Enterprise ,24/1,B,Keraniganj Bazar', '210', '', '156060.00'),
@@ -23623,7 +23371,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2019001153', '2019006322', '30X03X2019', '71823', 'Alam Enterprise - Jatrabari', '2', '', '2544.55'),
 ('2019001153', '2019006322', '30X03X2019', '71823', 'Alam Enterprise - Jatrabari', '4', '', '6284.52'),
 ('2019003509', '2019006328', '30X03X2019', '3401', 'Zannat Enterprise', '242', '', '96933.02'),
-('2019002416', '2019006253', '30X03X2019', '101413', 'Hotel Amir''s ,Kosai Bari,Dakshinkhan', '60', '', '67673.70'),
+('2019002416', '2019006253', '30X03X2019', '101413', 'Hotel Amir\'s ,Kosai Bari,Dakshinkhan', '60', '', '67673.70'),
 ('2019001576', '2019006312', '30X03X2019', '2804', 'Mim Enterprise - Kawran Bazar', '18', '', '58999.68'),
 ('2019003097', '2019006292', '30X03X2019', '2924', 'Lucky Steel Industries', '6', '', '0.00'),
 ('2019002992', '2019006254', '30X03X2019', '3431', 'Shafi Enterprise', '35', '', '93486.40'),
@@ -23728,7 +23476,7 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 ('2018000521', '2019000195', '31X03X2019', '15546', 'Partex Furniture Industries Limited', '48', '', '76800.00'),
 ('2019003466', '2019006381', '31X03X2019', '17634', 'Furnico', '11', '', '29381.44'),
 ('2019003738', '2019006435', '31X03X2019', '73226', 'Hameem & Company ,34/6,Kazi Nazrul Islam Avenue', '20', '', '30800.00'),
-('2019003507', '2019006341', '31X03X2019', '2628', 'Kader & Son''S', '13', '', '47132.80'),
+('2019003507', '2019006341', '31X03X2019', '2628', 'Kader & Son\'S', '13', '', '47132.80'),
 ('2019000116', '2019000178', '31X03X2019', '15546', 'Partex Furniture Industries Limited', '6', '', '11143.78'),
 ('2019000125', '2019000191', '31X03X2019', '15546', 'Partex Furniture Industries Limited', '8', '', '12204.41'),
 ('2019000073', '2019000202', '31X03X2019', '15546', 'Partex Furniture Industries Limited', '2', '', '4174.08'),
@@ -23819,16 +23567,15 @@ INSERT INTO `sales_trend_backup` (`sales_order_name`, `invoice_number`, `invoice
 -- Table structure for table `software_architecture_details`
 --
 
-CREATE TABLE IF NOT EXISTS `software_architecture_details` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `software_architecture_details` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `controller_path` varchar(100) NOT NULL,
   `orderby` int(10) NOT NULL,
   `status` varchar(20) NOT NULL DEFAULT 'ACTIVE',
-  `data_type` int(10) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+  `data_type` int(10) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `software_architecture_details`
@@ -23855,7 +23602,7 @@ INSERT INTO `software_architecture_details` (`id`, `parent_id`, `name`, `control
 (45, 30, 'Supplier Setup', 'Project_controller/load_form_report/master_form/master_form/38/', 14, 'ACTIVE', 73),
 (46, 30, 'Account Setup', 'Project_controller/load_form_report/master_form/master_form/40/', 13, 'ACTIVE', 73),
 (47, 30, 'Calendar', 'Project_controller/load_form_report/calender', 10, 'ACTIVE', 73),
-(48, 30, 'chart of Accounts value Set', 'Project_controller/load_form_report/CHART_OF_ACCOUNT_VALUESET/acc_tran/47/', 8, 'INACTIVE', 73),
+(48, 30, 'chart of Accounts value Set', 'Project_controller/load_form_report/chart_of_accounts_values', 8, 'ACTIVE', 73),
 (49, 30, 'Chart of Accounts', 'Project_controller/load_form_report/CHART_OF_ACCOUNTS/acc_tran/75/', 4, 'ACTIVE', 73);
 
 -- --------------------------------------------------------
@@ -23864,15 +23611,14 @@ INSERT INTO `software_architecture_details` (`id`, `parent_id`, `name`, `control
 -- Table structure for table `software_archi_role_manage`
 --
 
-CREATE TABLE IF NOT EXISTS `software_archi_role_manage` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `software_archi_role_manage` (
+  `id` int(10) NOT NULL,
   `roll_name` varchar(150) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `software_architecture_details_id` int(10) NOT NULL,
   `status` varchar(20) NOT NULL,
-  `data_type` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=53 ;
+  `data_type` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `software_archi_role_manage`
@@ -23898,7 +23644,7 @@ INSERT INTO `software_archi_role_manage` (`id`, `roll_name`, `parent_id`, `softw
 (47, '', 31, 46, 'ACTIVE', 'DETAILS'),
 (48, '', 31, 47, 'INACTIVE', 'DETAILS'),
 (49, '', 31, 37, 'INACTIVE', 'DETAILS'),
-(50, '', 31, 48, 'INACTIVE', 'DETAILS'),
+(50, '', 31, 48, 'ACTIVE', 'DETAILS'),
 (51, '', 31, 45, 'ACTIVE', 'DETAILS'),
 (52, '', 31, 49, 'ACTIVE', 'DETAILS');
 
@@ -23908,8 +23654,8 @@ INSERT INTO `software_archi_role_manage` (`id`, `roll_name`, `parent_id`, `softw
 -- Table structure for table `tbl_calender`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_calender` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_calender` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `period_type` varchar(30) NOT NULL,
   `period_per_year` int(5) NOT NULL,
@@ -23922,9 +23668,8 @@ CREATE TABLE IF NOT EXISTS `tbl_calender` (
   `todate` date NOT NULL,
   `month_name` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+  `status` varchar(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_calender`
@@ -23946,7 +23691,8 @@ INSERT INTO `tbl_calender` (`id`, `parent_id`, `period_type`, `period_per_year`,
 (21, 9, 'PSG_PERIOD', 2018, '', 'DEC', '', 4, 12, '0000-00-00', '0000-00-00', '', 'DEC-18', 'ACTIVE'),
 (22, 9, 'PSG_PERIOD', 2018, '', 'DEC-CL', '', 4, 13, '0000-00-00', '0000-00-00', '', 'DEC-18', 'ACTIVE'),
 (23, 9, 'PSG_PERIOD', 2018, '', 'DEC-ADJ', '', 4, 14, '0000-00-00', '0000-00-00', '', 'DEC-18', 'ACTIVE'),
-(24, 9, 'PSG_PERIOD', 2018, '', 'JAN-OP', '', 1, 15, '0000-00-00', '0000-00-00', '', 'JAN-18', 'ACTIVE');
+(24, 9, 'PSG_PERIOD', 2018, '', 'JAN-OP', '', 1, 15, '0000-00-00', '0000-00-00', '', 'JAN-18', 'ACTIVE'),
+(25, 0, 'Calendar', 13, '12 + 1 Adjustment period', '', '', 0, 0, '0000-00-00', '0000-00-00', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -23954,8 +23700,8 @@ INSERT INTO `tbl_calender` (`id`, `parent_id`, `period_type`, `period_per_year`,
 -- Table structure for table `tbl_chart_of_accounts`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_chart_of_accounts` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_chart_of_accounts` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `code` varchar(100) NOT NULL,
   `title` varchar(100) NOT NULL,
@@ -23968,26 +23714,2167 @@ CREATE TABLE IF NOT EXISTS `tbl_chart_of_accounts` (
   `field_qualifier` int(10) NOT NULL,
   `chart_of_account_id` int(10) NOT NULL,
   `segment_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=276 ;
+  `level_no` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_chart_of_accounts`
 --
 
-INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
-(264, 0, '1', '1', '2', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 264, 0),
-(265, 264, '1', '1', '1', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 264, 265),
-(266, 265, '2', '2', '2', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 264, 265),
-(267, 265, '3', '3', '3', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 264, 265),
-(268, 265, '4', '4', '4', '158', 266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 264, 265),
-(269, 0, 'CJW', 'CJW', 'CJW CHART OF ACCOUNTS', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 0, 0),
-(270, 269, '01', 'BALANCING SEGMENT', 'AC', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 0, 0),
-(271, 269, '02', 'COST CENTER', 'CC', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 78, 0, 0),
-(272, 269, '03', 'NATURAL ACCOUNTS', 'NA', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 79, 0, 0),
-(273, 269, '04', 'PRODUCTS', 'PRD', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 96, 0, 0),
-(274, 272, 'AC-1', 'ASSET', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
-(275, 272, 'AC-2', 'STOCK', 'STCK/INVENTORY', '158', 274, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0);
+INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`, `level_no`) VALUES
+(1, 0, 'BDT100', 'PSG COA', 'PSG CHART OF ACCOUNTS', '158', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 0, 0, 0),
+(2, 1, '01', 'COMPANY', 'COMPANY', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 0, 0, 0),
+(3, 1, '02', 'COST CENTER', 'COST CENTER', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 78, 0, 0, 0),
+(3118, 3, '4104', 'Sales-Depot-Khulna', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(14, 1, '03', 'ACCOUNTS', 'ACCOUNTS', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 79, 0, 0, 0),
+(3164, 3, '02', 'PCL', 'Partex Cables Limited (PCL )', '157', 18, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(18, 3, '01', 'SPBML', 'Star particle boards', '157', 3189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(17, 1, '04', 'PRODUCTS', 'PRODUCTS', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 96, 0, 0, 0),
+(3116, 3, '4102', 'Sales-Depot-Barisal', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3115, 3, '4000', 'Information Technology', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3114, 3, '3400', 'Finance & Accounts', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3111, 3, '3199', 'Safety & Security', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3112, 3, '3200', 'Other Admin Services', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3113, 3, '3300', 'Human Resource', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3109, 3, '3102', 'Administration', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3110, 3, '3103', 'Transport', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3108, 3, '3000', 'Commercial-Department', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3106, 3, '1899', 'Factory Administration', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3107, 3, '2000', 'Other-Prod-Others', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3105, 3, '1804', 'Other-Prod-Security & Safety At Factory', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3104, 3, '1803', 'Other-Prod-Time Keeping', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3102, 3, '1800', 'QC Department', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3103, 3, '1802', 'Other-Prod-Water Treatment', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3101, 3, '1702', 'Store Department', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3099, 3, '1602', 'Power Generation', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3100, 3, '1700', 'Steam Generation', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3097, 3, '1503', 'Maintenance-Electrical', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3098, 3, '1600', 'Maintenance-Civil', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3095, 3, '1500', 'SPBML Plant-Other', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3096, 3, '1502', 'Maintenance-Mechanical', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3093, 3, '1107', 'Resin Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3094, 3, '1199', 'PB3 Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3092, 3, '1106', 'Plywood Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3090, 3, '1104', 'Veneering Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3091, 3, '1105', 'Door Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3087, 3, '1000', 'NA', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3088, 3, '1102', 'PB1 Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3089, 3, '1103', 'PB2 Plant', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3085, 3, '5900', 'OTHERS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3086, 3, '5901', 'OTHERS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3083, 3, '4501', 'MARKETING', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3084, 3, '4601', 'GODOWN', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3082, 3, '4301', 'DISTRIBUTION-DEPOTS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3080, 3, '4100', 'SALES,DISRIBUTION & MARKETING', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3081, 3, '4101', 'SALES FROM DEPOTS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3078, 3, '3301', 'FINANCE & ACCOUNTS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3079, 3, '3401', 'INFORMATION TECHNOLOGY', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3076, 3, '3101', 'ADMINISTRATION', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3077, 3, '3201', 'HUMAN RESOURCES', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3074, 3, '2101', 'COMMERCIAL', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3075, 3, '3100', 'HR & ADMINISTRATION', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3073, 3, '2100', 'PROCUREMENT', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3071, 3, '1701', 'STORE MANAGEMENT & QUALITY CONTROL', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3072, 3, '1801', 'OTHER MANUFACTURING SERVICES', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3069, 3, '1501', 'MAINTENANCE', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3070, 3, '1601', 'ENERGY GENERATION', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3067, 3, '1100', 'MANUFACTURING', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3068, 3, '1101', 'SPBML PLANTS', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3066, 17, '1106', 'Resin', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3064, 17, '1104', 'Door & Door Frame', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3065, 17, '1105', 'Plywood', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3062, 17, '1102', 'Woodex Plain Board', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3063, 17, '1103', 'Veneered Board', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3061, 17, '1101', 'Jutex Plain Board', '', '158', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3059, 17, '1000', 'COMPLEX-1', '', '157', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3060, 17, '1100', 'SPBML', '', '157', 3190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3057, 14, '5799998', 'OTHER EXP-Material Overhead Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3058, 14, '5799999', 'OTHER EXP-Others', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3056, 14, '5799997', 'OTHER EXP-Resource Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3055, 14, '5799996', 'OTHER EXP-Overhead Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3054, 14, '5799995', 'OTHER EXP-Invoice Price Variance', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3052, 14, '5799993', 'OTHER EXP-Average Cost Variance Account', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3053, 14, '5799994', 'OTHER EXP-Purchase Price Variance', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3051, 14, '5799992', 'OTHER EXP-Credit Transfer', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3050, 14, '5799991', 'OTHER EXP-PO Rate Variance Gain/Loss', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3049, 14, '5799990', 'OTHER EXP-OSP ABSORPTION', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3048, 14, '5700005', 'OTHER EXP-Goods Delivered to CDC', '', '158', 2273, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3047, 14, '5700002', 'OTHER EXP-Dividend Paid', '', '158', 2273, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3045, 14, '5601999', 'FIN EXP-Others', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3046, 14, '5700001', 'OTHER EXP-Suspense', '', '158', 2273, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3044, 14, '5601021', 'FIN EXP-Interest On Lankan Alliance Finance Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3043, 14, '5601020', 'FIN EXP-Interest On LTL-IPDC Finance Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3041, 14, '5601018', 'FIN EXP-Interest On Specific Time Loan', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3042, 14, '5601019', 'FIN EXP-Interest On LTL-Premier Bank', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3040, 14, '5601017', 'FIN EXP-Interest On Revolving Loan-STLN', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3039, 14, '5601016', 'FIN EXP-Interest On LTL-United Finance', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3038, 14, '5601015', 'FIN EXP-Interest On Short Term Loan (Other Than Bank)', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3037, 14, '5601014', 'FIN EXP-Interest On LTL (HPSM-Equipment)-Shahjalal Islami Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3035, 14, '5601012', 'FIN EXP-Interest on Prime Finance & Investment Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3036, 14, '5601013', 'FIN Exp-Interest on National Finance Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3034, 14, '5601011', 'FIN EXP-Interest On LTL-IFIC Bank', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3033, 14, '5601010', 'FIN EXP-Compensation Charges-LTR', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3032, 14, '5601009', 'FIN EXP-Operating Lease Rental', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3031, 14, '5601008', 'FIN EXP-Bank Charges', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3029, 14, '5601006', 'FIN EXP-Interest On CC/Overdraft', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3030, 14, '5601007', 'FIN EXP-Interest On TR/LTR/PAD', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3028, 14, '5601005', 'FIN EXP-Interest On Lease', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3027, 14, '5601002', 'FIN EXP-Interest On LTL-Prime Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3026, 14, '5601001', 'FIN EXP-Interest On LTL-Sonali Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3025, 14, '5599999', 'ADM EXP-Other Expenses', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3023, 14, '5599001', 'ADM EXP-Others-General', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3024, 14, '5599002', 'ADM EXP-Others-Utilities', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3022, 14, '5598001', 'ADM EXP-Miscellaneous Expenses', '', '158', 2269, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3020, 14, '5516001', 'ADM EXP-Managing Director\'s Expenses', '', '158', 2268, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3021, 14, '5516002', 'ADM EXP-White House Expenses', '', '158', 2268, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3019, 14, '5515001', 'ADM EXP-Corporate Expenses', '', '158', 2267, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3018, 14, '5514003', 'ADM EXP-Donation, Subs-Gift', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3017, 14, '5514002', 'ADM EXP-Donation, Subs-Subscription', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3015, 14, '5513999', 'ADM EXP-Others', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3016, 14, '5514001', 'ADM EXP-Donation, Subs-Donation', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3014, 14, '5513004', 'ADM EXP-Generator', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3013, 14, '5513003', 'ADM EXP-Wasa', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3012, 14, '5513002', 'ADM EXP-Gas', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3011, 14, '5513001', 'ADM EXP-Electricity', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3009, 14, '5512011', 'ADM EXP-Salaries, Wages-Gratuity', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3117, 3, '4103', 'Sales-Depot-Jessore', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3010, 14, '5512999', 'ADM EXP-Salaries, Wages-Others', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3008, 14, '5512010', 'ADM EXP-Salaries, Wages-Directors Bonus', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3007, 14, '5512009', 'ADM EXP-Salaries, Wages-Group Insurance', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3006, 14, '5512008', 'ADM EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3004, 14, '5512006', 'ADM EXP-Salaries, Wages-Directors Remuneration', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3005, 14, '5512007', 'ADM EXP-Salaries, Wages-Workers Profit Participation Fund', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3003, 14, '5512005', 'ADM EXP-Salaries, Wages-Night Allowance', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3001, 14, '5512003', 'ADM EXP-Salaries, Wages-Emp. Bonus', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3002, 14, '5512004', 'ADM EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3000, 14, '5512002', 'ADM EXP-Salaries, Wages-Emp. Overtime', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2998, 14, '5511999', 'ADM EXP-Office Expenses-Others', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2999, 14, '5512001', 'ADM EXP-Salaries, Wages-Salary', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2997, 14, '5511002', 'ADM EXP-Stationery', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2996, 14, '5511001', 'ADM EXP-Printing', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2995, 14, '5510999', 'ADM EXP-Staff Amenities & Welfare-Others', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2994, 14, '5510002', 'ADM EXP-Staff Entertainment', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2993, 14, '5510001', 'ADM EXP-Staff Amenities & Welfare', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2992, 14, '5509001', 'ADM EXP-Training Expenses', '', '158', 2261, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2991, 14, '5508999', 'ADM EXP-Fee & Proffesional Charge-Others', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2990, 14, '5508002', 'ADM EXP-Audit & Accounting Fee', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2989, 14, '5508001', 'ADM EXP-Fee & Professional Charge', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2988, 14, '5507001', 'ADM EXP-Advertisement & Publicity', '', '158', 2259, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2987, 14, '5506999', 'ADM EXP-Rent, Rates & Taxes-Others', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2985, 14, '5506004', 'ADM EXP-Rent, Rates & Taxes-Land Development Tax', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2986, 14, '5506005', 'ADM EXP-Rent, Rates & Taxes-Conference Hall Booking', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2984, 14, '5506003', 'ADM EXP-Rent, Rates & Taxes-Guest House Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2982, 14, '5506001', 'ADM EXP-Rent, Rates & Taxes-Office Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2983, 14, '5506002', 'ADM EXP-Rent, Rates & Taxes-Guarrage Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2981, 14, '5505999', 'ADM EXP-Repair & Maint.-Others', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2980, 14, '5505004', 'ADM EXP-Repair & Maint.-Furniture & Fixture', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2979, 14, '5505003', 'ADM EXP-Repair & Maint.-IT Equipment/ERP Software Maint.', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2977, 14, '5505001', 'ADM EXP-Repair & Maint.-Office', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2978, 14, '5505002', 'ADM EXP-Repair & Maint.-Office Equipment', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2976, 14, '5504999', 'ADM EXP-Entertain & Ceremonial Exp-Others', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2975, 14, '5504003', 'ADM EXP-Entertain & Ceremonial Exp-Public Function', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2974, 14, '5504002', 'ADM EXP-Entertain & Ceremonial Exp-Ceremonial Expenses', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2973, 14, '5504001', 'ADM EXP-Entertain & Ceremonial Exp-Entertainment', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2972, 14, '5503999', 'ADM EXP-Vehicle Maint.-Others', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2971, 14, '5503004', 'ADM EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2970, 14, '5503003', 'ADM EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2969, 14, '5503002', 'ADM EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2968, 14, '5503001', 'ADM EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2967, 14, '5502999', 'ADM EXP-Post, Telep & Internet-Others', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2966, 14, '5502005', 'ADM EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2965, 14, '5502004', 'ADM EXP-Post, Telep & Internet-Internet', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2963, 14, '5502002', 'ADM EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2964, 14, '5502003', 'ADM EXP-Post, Telep & Internet-Mobile', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2962, 14, '5502001', 'ADM EXP-Post, Telep & Internet-Postage/Courier', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2961, 14, '5501999', 'ADM EXP-Travel And Convey-Others', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2960, 14, '5501003', 'ADM EXP-Travel And Convey-Ta & Da/Tour Expense', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2958, 14, '5501001', 'ADM EXP-Travel And Convey-Foreign Travel', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2959, 14, '5501002', 'ADM EXP-Travel And Convey-Conveyance Local', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2957, 14, '5499999', 'DIST EXP-Other Expenses', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2955, 14, '5499004', 'DIST EXP-Entertainment', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2956, 14, '5499005', 'DIST EXP-Training & Development', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2954, 14, '5499003', 'DIST EXP-Printing & Stationery', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2951, 14, '5498001', 'DIST EXP-Miscellaneous Expenses', '', '158', 2250, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2952, 14, '5499001', 'DIST EXP-Brokerage And Commission', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2953, 14, '5499002', 'DIST EXP-Travelling & Conveyance', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2950, 14, '5410001', 'DIST EXP-Entertainment', '', '158', 2249, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2948, 14, '5409001', 'DIST EXP-Printing', '', '158', 2248, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2949, 14, '5409002', 'DIST EXP-Stationery', '', '158', 2248, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2947, 14, '5408001', 'DIST EXP-Godown/Depot Rent', '', '158', 2247, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2946, 14, '5407001', 'DIST EXP-Transport Expense', '', '158', 2246, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2945, 14, '5406003', 'DIST EXP-TA & DA /Local Tour', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2943, 14, '5406001', 'DIST EXP-Foreign Travelling', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2944, 14, '5406002', 'DIST EXP-Conveyance', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2942, 14, '5405999', 'DIST EXP-Salaries, Wages-Others', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2941, 14, '5405015', 'DIST EXP-Salaries, Wages-Night Allowances', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2939, 14, '5405013', 'DIST EXP-Salaries, Wages-Gratuity', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2940, 14, '5405014', 'DIST EXP-Salaries, Wages-Meal Allowances', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2938, 14, '5405012', 'DIST EXP-Salaries, Wages-Group Insurance', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2936, 14, '5405010', 'DIST EXP-Salaries, Wages-Workman Compensation', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2937, 14, '5405011', 'DIST EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2935, 14, '5405009', 'DIST EXP-Salaries, Wages-Medical Leave Encashment', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2934, 14, '5405008', 'DIST EXP-Salaries, Wages-Holiday Allowance', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2932, 14, '5405006', 'DIST EXP-Salaries, Wages-Emp. Bonus-Workers', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2933, 14, '5405007', 'DIST EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2931, 14, '5405005', 'DIST EXP-Salaries, Wages-Emp. Bonus-Officer & Staff', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2930, 14, '5405004', 'DIST EXP-Salaries, Wages-Emp. Overtime-Workers', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2928, 14, '5405002', 'DIST EXP-Salaries, Wages-Wages', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2929, 14, '5405003', 'DIST EXP-Salaries, Wages-Emp. Overtime-Staff', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2927, 14, '5405001', 'DIST EXP-Salaries, Wages-Salary', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2926, 14, '5404004', 'DIST EXP-Power & Fuel-Gas', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2924, 14, '5404002', 'DIST EXP-Power & Fuel-Wasa', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2925, 14, '5404003', 'DIST EXP-Power & Fuel-Fuel/Gas For Generator', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2923, 14, '5404001', 'DIST EXP-Power & Fuel-Electricity', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2922, 14, '5403003', 'DIST EXP-Carry, Hand & Del-Loading & Unloading', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2921, 14, '5403002', 'DIST EXP-Carry, Hand & Del-Delivery Expenses', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2919, 14, '5402999', 'DIST EXP-Vehicle Maint.-Others', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2920, 14, '5403001', 'DIST EXP-Carry, Hand & Del-Carrying & Handling', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2918, 14, '5402004', 'DIST EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2917, 14, '5402003', 'DIST EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2916, 14, '5402002', 'DIST EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2915, 14, '5402001', 'DIST EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2914, 14, '5401005', 'DIST EXP-Post, Telep & Internet-Mobile Bill', '', '158', 2240, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2912, 14, '5401003', 'DIST EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2240, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2913, 14, '5401004', 'DIST EXP-Post, Telep & Internet-Internet Services', '', '158', 2240, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2911, 14, '5401002', 'DIST EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2240, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2910, 14, '5401001', 'DIST EXP-Post, Telep & Internet-Postage', '', '158', 2240, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2909, 14, '5399999', 'SELL & MKTG EXP-Other Expenses', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2908, 14, '5399998', 'SELL & MKTG EXP-Other Allowance', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2906, 14, '5399996', 'SELL & MKTG EXP-Earned Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2907, 14, '5399997', 'SELL & MKTG EXP-Unearned Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2905, 14, '5399006', 'SELL & MKTG EXP-Incentive', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2904, 14, '5399005', 'SELL & MKTG EXP-Brokerage And Commission', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2903, 14, '5399004', 'SELL & MKTG EXP-Entertainment', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2902, 14, '5399003', 'SELL & MKTG EXP-Printing & Stationery', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2901, 14, '5399002', 'SELL & MKTG EXP-Sales Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2899, 14, '5398001', 'SELL & MKTG EXP-Miscellaneous Expenses', '', '158', 2237, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2900, 14, '5399001', 'SELL & MKTG EXP-Sales Commission', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2898, 14, '5321001', 'SELL & MKTG EXP-Export Expenses', '', '158', 2236, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2897, 14, '5320001', 'SELL & MKTG EXP-VAT on Rent', '', '158', 2235, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2896, 14, '5319003', 'SELL & MKTG EXP-Gift', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2895, 14, '5319002', 'SELL & MKTG EXP-Subscription', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2894, 14, '5319001', 'SELL & MKTG EXP-Donation', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2893, 14, '5318999', 'SELL & MKTG EXP-Repairs & Maint.-Others', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2891, 14, '5318002', 'SELL & MKTG EXP-Repairs & Maint.-Office Equipment', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2892, 14, '5318003', 'SELL & MKTG EXP-Repairs & Maint.-Office Furniture & Fixture', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2890, 14, '5318001', 'SELL & MKTG EXP-Repairs & Maint.-Office', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2888, 14, '5317001', 'SELL & MKTG EXP-Dealer Incentive', '', '158', 2232, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2889, 14, '5317002', 'SELL & MKTG EXP-Sales Force Incentive', '', '158', 2232, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2887, 14, '5316999', 'SELL & MKTG EXP-Others', '', '158', 2231, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2886, 14, '5316001', 'SELL & MKTG EXP-Legal Fee', '', '158', 2231, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2885, 14, '5315001', 'SELL & MKTG EXP-Brokerage & Commission', '', '158', 2230, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2882, 14, '5313002', 'SELL & MKTG EXP-Stationery', '', '158', 2228, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2883, 14, '5314001', 'SELL & MKTG EXP-Entertainment Dealer', '', '158', 2229, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2884, 14, '5314999', 'SELL & MKTG EXP-Entertainment Others', '', '158', 2229, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2881, 14, '5313001', 'SELL & MKTG EXP-Printing', '', '158', 2228, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2879, 14, '5312001', 'SELL & MKTG EXP-Sales Discount', '', '158', 2227, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2880, 14, '5312002', 'SELL & MKTG EXP-Sales Other Discount', '', '158', 2227, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2878, 14, '5311004', 'SELL & MKTG EXP-Credit Card Installment Charge', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2877, 14, '5311003', 'SELL & MKTG EXP-TR Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2876, 14, '5311002', 'SELL & MKTG EXP-Sales Other Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2875, 14, '5311001', 'SELL & MKTG EXP-Sales Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2874, 14, '5310003', 'SELL & MKTG EXP-Godown Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2873, 14, '5310002', 'SELL & MKTG EXP-Showroom/Depot Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2872, 14, '5310001', 'SELL & MKTG EXP-Office Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2871, 14, '5309002', 'SELL & MKTG EXP-Promotional Exp-Others', '', '158', 2224, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2870, 14, '5309001', 'SELL & MKTG EXP-Promotional Exp', '', '158', 2224, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2868, 14, '5308005', 'SELL & MKTG EXP-Retail AIT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2869, 14, '5308999', 'SELL & MKTG EXP-VAT-Others', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2866, 14, '5308003', 'SELL & MKTG EXP-Corporate AIT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2867, 14, '5308004', 'SELL & MKTG EXP-Retail VAT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2864, 14, '5308001', 'SELL & MKTG EXP-VAT Expenses', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2865, 14, '5308002', 'SELL & MKTG EXP-Corporate VAT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2862, 14, '5307013', 'SELL & MKTG EXP-Salaries, Wages-Gratuity', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2863, 14, '5307999', 'SELL & MKTG EXP-Salaries, Wages-Others', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2861, 14, '5307012', 'SELL & MKTG EXP-Salaries, Wages-Group Insurance', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2859, 14, '5307010', 'SELL & MKTG EXP-Salaries, Wages-Workman Compensation', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2860, 14, '5307011', 'SELL & MKTG EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2857, 14, '5307008', 'SELL & MKTG EXP-Salaries, Wages-Holiday Allowance', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2858, 14, '5307009', 'SELL & MKTG EXP-Salaries, Wages-Medical Leave Encashment', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2855, 14, '5307006', 'SELL & MKTG EXP-Salaries, Wages-Emp. Bonus-Workers', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2856, 14, '5307007', 'SELL & MKTG EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2853, 14, '5307004', 'SELL & MKTG EXP-Salaries, Wages-Emp. Overtime-Workers', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2854, 14, '5307005', 'SELL & MKTG EXP-Salaries, Wages-Emp. Bonus-Officer & Staff', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2852, 14, '5307003', 'SELL & MKTG EXP-Salaries, Wages-Emp. Overtime-Staff', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2851, 14, '5307002', 'SELL & MKTG EXP-Salaries, Wages-Casual Salary/Wages', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2850, 14, '5307001', 'SELL & MKTG EXP-Salaries, Wages-Salary', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2849, 14, '5306004', 'SELL & MKTG EXP-Power & Fuel-Gas', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2848, 14, '5306003', 'SELL & MKTG EXP-Power & Fuel-Fuel/Gas For Generator', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2847, 14, '5306002', 'SELL & MKTG EXP-Power & Fuel-Wasa', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2846, 14, '5306001', 'SELL & MKTG EXP-Power & Fuel-Electricity', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2844, 14, '5305002', 'SELL & MKTG EXP-Training Exp-TA & DA', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2845, 14, '5305003', 'SELL & MKTG EXP-Training Exp-Subsistence Allowance', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2843, 14, '5305001', 'SELL & MKTG EXP-Training Exp-Training Fee', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2842, 14, '5304999', 'SELL & MKTG EXP-Advert & Publicity-Other', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2841, 14, '5304005', 'SELL & MKTG EXP-Advert & Publicity-Trade Fair', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2840, 14, '5304004', 'SELL & MKTG EXP-Advert & Publicity-Showroom Opening Campaign', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2839, 14, '5304003', 'SELL & MKTG EXP-Advert & Publicity-Special Trade Offer', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2838, 14, '5304002', 'SELL & MKTG EXP-Advert & Publicity-Print Media', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2837, 14, '5304001', 'SELL & MKTG EXP-Advert & Publicity-Electronic Media', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2836, 14, '5303999', 'SELL & MKTG EXP-Vehicle Maint.-Others', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2835, 14, '5303004', 'SELL & MKTG EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2834, 14, '5303003', 'SELL & MKTG EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2833, 14, '5303002', 'SELL & MKTG EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2831, 14, '5302005', 'SELL & MKTG EXP-Post, Telep & Internet-Mobile Bill', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2832, 14, '5303001', 'SELL & MKTG EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2829, 14, '5302003', 'SELL & MKTG EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2830, 14, '5302004', 'SELL & MKTG EXP-Post, Telep & Internet-Internet Services', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2828, 14, '5302002', 'SELL & MKTG EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2827, 14, '5302001', 'SELL & MKTG EXP-Post, Telep & Internet-Postage/Courier', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2826, 14, '5301004', 'SELL & MKTG EXP-Travel And Convey-Others', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2825, 14, '5301003', 'SELL & MKTG EXP-Travel And Convey-Foreign Travelling', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2823, 14, '5301001', 'SELL & MKTG EXP-Travel And Convey-Local Conveyance', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2824, 14, '5301002', 'SELL & MKTG EXP-Travel And Convey-TA & DA/Tour', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2822, 14, '5203999', 'Amortization Expense-Others', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2821, 14, '5203003', 'Amortization Expense-Deferred Revenue Expenditure', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2820, 14, '5203002', 'Amortization Expense-Software', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2819, 14, '5203001', 'Amortization Expense-Goodwill', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2817, 14, '5202998', 'Depreciation Adjustment', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2818, 14, '5202999', 'Deferred Depreciation Expense', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2815, 14, '5201010', 'DEP EXP-Sundry Assets', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2816, 14, '5202001', 'Impairment Expense', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2814, 14, '5201009', 'DEP EXP-I.T Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2812, 14, '5201007', 'DEP EXP-Office & Other Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2813, 14, '5201008', 'DEP EXP-Electric & Gas Installation', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2811, 14, '5201006', 'DEP EXP-Electrical Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2809, 14, '5201004', 'DEP EXP-Furniture, Fixtures & Fittings', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2810, 14, '5201005', 'DEP EXP-Vehicles & Ground Handling Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2808, 14, '5201003', 'DEP EXP-Road, Walls & Drainage', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2807, 14, '5201002', 'DEP EXP-Buildings-Buildings & Structures', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2805, 14, '5199999', 'MFG EXP-Other Expenses', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2806, 14, '5201001', 'DEP EXP-Plant Machinery & Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2804, 14, '5199016', 'MFG EXP-Mobile & Telephone Bill', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2803, 14, '5199015', 'MFG EXP-Hired House-Rent', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2802, 14, '5199014', 'MFG EXP-Hired House-Electricity Bill', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2801, 14, '5199013', 'MFG EXP-Power of Generator Allocations', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2800, 14, '5199012', 'MFG EXP-Indirect Materials', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2798, 14, '5199010', 'MFG EXP-Travelling & Conveyance', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2799, 14, '5199011', 'MFG EXP-Consultancy Fees', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2796, 14, '5199008', 'MFG EXP-Loading & Unloading', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2797, 14, '5199009', 'MFG EXP-Carrying & Handling', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2795, 14, '5199007', 'MFG EXP-Rent', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2793, 14, '5199005', 'MFG EXP-Postage & Telephone', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2794, 14, '5199006', 'MFG EXP-Training Expenses', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2792, 14, '5199004', 'MFG EXP-License & Renewals', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2791, 14, '5199003', 'MFG EXP-Entertainment', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2790, 14, '5199002', 'MFG EXP-Printing & Stationery', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2789, 14, '5199001', 'MFG EXP-FOH Absorption', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2788, 14, '5198001', 'MFG EXP-Miscellaneous Expenses', '', '158', 2209, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2787, 14, '5117002', 'MFG EXP-Special Award', '', '158', 2208, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2786, 14, '5117001', 'MFG EXP-Incentive', '', '158', 2208, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2785, 14, '5116999', 'MFG EXP-Others Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2784, 14, '5116006', 'MFG EXP-Inspection Service/Variation Notice Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2783, 14, '5116005', 'MFG EXP-Environment License Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2782, 14, '5116004', 'MFG EXP-Jetty & Foreshore Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2780, 14, '5116002', 'MFG EXP-Trade License Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2781, 14, '5116003', 'MFG EXP-Boiler Inspection Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2779, 14, '5116001', 'MFG EXP-Consultancy Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2778, 14, '5115003', 'MFG EXP-Foreign Tour', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2776, 14, '5115001', 'MFG EXP-Local Conveyance', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2777, 14, '5115002', 'MFG EXP-Local Tour', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2774, 14, '5114001', 'MFG EXP-Carrying & Handling', '', '158', 2205, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2775, 14, '5114002', 'MFG EXP-Loading & Unloading', '', '158', 2205, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2773, 14, '5113999', 'MFG EXP-Others', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2771, 14, '5113004', 'MFG EXP-Holding Taxes', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2772, 14, '5113005', 'MFG EXP-Rent for Factory Building', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2770, 14, '5113003', 'MFG EXP-Land Development Taxes', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2769, 14, '5113002', 'MFG EXP-Rent of Haripur', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2768, 14, '5113001', 'MFG EXP-Rent for Chapatali', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2766, 14, '5111005', 'MFG EXP-Mobile', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2767, 14, '5112001', 'MFG EXP-Training Expenses', '', '158', 2203, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2765, 14, '5111004', 'MFG EXP-Internet', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2763, 14, '5111002', 'MFG EXP-Telephone-Office', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2764, 14, '5111003', 'MFG EXP-Telephone-Residence', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2762, 14, '5111001', 'MFG EXP-Postage/Courier', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2761, 14, '5110999', 'MFG EXP-Entertainment-Others', '', '158', 2201, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2760, 14, '5110001', 'MFG EXP-Entertainment-Guest House', '', '158', 2201, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2759, 14, '5109002', 'MFG EXP-Stationery', '', '158', 2200, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2758, 14, '5109001', 'MFG EXP-Printing', '', '158', 2200, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2757, 14, '5108999', 'MFG EXP-Indirect Labour-Other Benefits', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2756, 14, '5108011', 'MFG EXP-Indirect Labour-Group Insurrance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2755, 14, '5108010', 'MFG EXP-Indirect Labour-Meal Allowance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2754, 14, '5108009', 'MFG EXP-Indirect Labour-Night Allowance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2752, 14, '5108007', 'MFG EXP-Indirect Labour-Workmen Compensation', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2753, 14, '5108008', 'MFG EXP-Indirect Labour-Medical Leave', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2751, 14, '5108006', 'MFG EXP-Indirect Labour-Emp. Bonus', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2750, 14, '5108005', 'MFG EXP-Indirect Labour-Emp. Gratuity', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2749, 14, '5108004', 'MFG EXP-Indirect Labour-Emp. Leave Pay', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2748, 14, '5108003', 'MFG EXP-Indirect Labour-Emp. Overtime', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2747, 14, '5108002', 'MFG EXP-Indirect Labour-P.F Employer Contribution', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2746, 14, '5108001', 'MFG EXP-Indirect Labour-Salary', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2744, 14, '5107026', 'MFG EXP-Others-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2745, 14, '5107999', 'MFG EXP-Direct Labour-Other Benefits', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2743, 14, '5107025', 'MFG EXP-Salary & Wages-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2742, 14, '5107024', 'MFG EXP-Power & Fuel-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2741, 14, '5107023', 'MFG EXP-Depreciation-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2740, 14, '5107022', 'MFG EXP-Direct Labour-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0);
+INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`, `level_no`) VALUES
+(2739, 14, '5107021', 'MFG EXP-Direct Labour-Absorption-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2738, 14, '5107020', 'MFG EXP-Direct Labour-Absorption-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2737, 14, '5107019', 'MFG EXP-Direct Labour-Absorption-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2735, 14, '5107017', 'MFG EXP-Direct Labour-Rate Variance', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2736, 14, '5107018', 'MFG EXP-Direct Labour-Efficiency Variance', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2734, 14, '5107016', 'MFG EXP-Applied Direct Labour', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2733, 14, '5107015', 'MFG EXP-Direct Labour Control', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2732, 14, '5107014', 'MFG EXP-Direct Labour-Other Allowances-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2731, 14, '5107013', 'MFG EXP-Direct Labour-Bonus-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2730, 14, '5107012', 'MFG EXP-Direct Labour-Wages-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2729, 14, '5107011', 'MFG EXP-Direct Labour-Other Allowances-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2728, 14, '5107010', 'MFG EXP-Direct Labour-Bonus-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2726, 14, '5107008', 'MFG EXP-Direct Labour-Night Allowance-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2727, 14, '5107009', 'MFG EXP-Direct Labour-Wages-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2725, 14, '5107007', 'MFG EXP-Direct Labour-Meal Allowance-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2723, 14, '5107005', 'MFG EXP-Direct Labour-Gratuity-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2724, 14, '5107006', 'MFG EXP-Direct Labour-P.F Employer Contribution-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2722, 14, '5107004', 'MFG EXP-Direct Labour-Leave Pay-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2721, 14, '5107003', 'MFG EXP-Direct Labour-Overtime-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2719, 14, '5107001', 'MFG EXP-Direct Labour-Wages-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2720, 14, '5107002', 'MFG EXP-Direct Labour-Bonus-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2718, 14, '5106999', 'MFG EXP-Vehicle Maint.-Others', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2717, 14, '5106004', 'MFG EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2716, 14, '5106003', 'MFG EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2715, 14, '5106002', 'MFG EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2714, 14, '5106001', 'MFG EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2713, 14, '5105999', 'MFG EXP-Repairs & Maint.-Others', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2712, 14, '5105011', 'MFG EXP-Repairs & Maint.-Customer Service', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2711, 14, '5105010', 'MFG EXP-Repairs & Maint.-Generator', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2710, 14, '5105009', 'MFG EXP-Repairs & Maint.-Metal', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2709, 14, '5105008', 'MFG EXP-Repairs & Maint.-Construction Material', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2706, 14, '5105005', 'MFG EXP-Repairs & Maint.-Office Equipment', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2707, 14, '5105006', 'MFG EXP-Repairs & Maint.-Electrical Materials', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2708, 14, '5105007', 'MFG EXP-Repairs & Maint.-Goods Delivered To Show Room/CWH', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2705, 14, '5105004', 'MFG EXP-Repairs & Maint.-Furniture & Fixtures', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2703, 14, '5105002', 'MFG EXP-Repairs & Maint.-Factory Building', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2704, 14, '5105003', 'MFG EXP-Repairs & Maint.-Godown', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2701, 14, '5104999', 'MFG EXP-Insurance-Others', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2702, 14, '5105001', 'MFG EXP-Repairs & Maint.-Plant & Machienry', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2699, 14, '5104005', 'MFG EXP-Insurance-Group Insurance', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2700, 14, '5104006', 'MFG EXP-Insurance-WIP', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2698, 14, '5104004', 'MFG EXP-Insurance-Raw Materials', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2697, 14, '5104003', 'MFG EXP-Insurance-Godown Finished Product', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2696, 14, '5104002', 'MFG EXP-Insurance-Factory Building', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2695, 14, '5104001', 'MFG EXP-Insurance-Plant & Machienry', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2694, 14, '5103004', 'MFG EXP-Power & Fuel-Diesel For Generator', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2693, 14, '5103003', 'MFG EXP-Power & Fuel-Fuel & Lubricant', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2692, 14, '5103002', 'MFG EXP-Power & Fuel-Gas', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2691, 14, '5103001', 'MFG EXP-Power & Fuel-Electricity', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2690, 14, '5102999', 'MFG EXP-Stores & Spares Maint.-Other Maintenance', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2689, 14, '5102004', 'MFG EXP-Stores & Spares Maint.-Laboratory Stores', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2688, 14, '5102003', 'MFG EXP-Stores & Spares Maint.-Godown', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2687, 14, '5102002', 'MFG EXP-Stores & Spares Maint.-Factory', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2686, 14, '5102001', 'MFG EXP-Stores & Spares Maint.-Machinery', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2685, 14, '5101999', 'FG Adjustment Account', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2684, 14, '5101998', 'WIP Adjustment Account', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2683, 14, '5101997', 'Raw Material Consumption', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2682, 14, '5101996', 'Indirect Raw Material Consumption', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2680, 14, '5101994', 'Freezing Compound', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2681, 14, '5101995', 'FG Stock Adjustment Account', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2679, 14, '5101002', 'COGS-Inter plant', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2678, 14, '5101001', 'COGS-Manufactured Products', '', '158', 2192, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2677, 14, '4999999', 'Non-Operating Income-Other Income', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2676, 14, '4999998', 'Non-Operating Income-Foreign Exchange Gain/Loss', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2675, 14, '4999997', 'Non-Operating Income-Auto Invoice Clearing Account', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2674, 14, '4999996', 'Non-Operating Income-Currency/Number Rounding', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2673, 14, '4999995', 'Non-Operating Income-Discount Taken', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2672, 14, '4999994', 'Non-Operating Income-Realized Gain Account', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2671, 14, '4999993', 'Non-Operating Income-Gain/Loss On Sale Of Assets', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2670, 14, '4999992', 'Non-Operating Income-Gain/Loss On Sale Of Shares', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2669, 14, '4999010', 'Non-Operating Income-Income from return Truck Fare', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2668, 14, '4999009', 'Non-Operating Income-Commission Received', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2667, 14, '4999008', 'Non-Operating Income-Freight Charges', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2666, 14, '4999007', 'Non-Operating Income-Bonus Shares', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2665, 14, '4999006', 'Non-Operating Income-Export Incentive', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2664, 14, '4999005', 'Non-Operating Income-Duty Draw Back', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2662, 14, '4999003', 'Non-Operating Income-Gain/Loss on Insurance Claim', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2663, 14, '4999004', 'Non-Operating Income-Rent', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2661, 14, '4999002', 'Non-Operating Income-Interest Received', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2660, 14, '4999001', 'Non-Operating Income-Share Dividend', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2659, 14, '4901001', 'SPBML-Scrap Sale', '', '158', 2187, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2658, 14, '4102001', 'SPBML-Sale Of By Products', '', '158', 2186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2657, 14, '4101999', 'SPBML Sales-Other', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2655, 14, '4101004', 'SPBML Transfer Profit', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2656, 14, '4101005', 'SPBML Inter Plant Revenue', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2654, 14, '4101003', 'SPBML Intercompany Revenue', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2653, 14, '4101002', 'SPBML Export Product Revenue', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2652, 14, '4101001', 'SPBML Local Product Revenue', '', '158', 2185, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2651, 14, '3220999', 'Provisions For Expenses-Other Provisions', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2649, 14, '3220018', 'Provisions For Incentive', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2650, 14, '3220019', 'Provisions For Commission', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2648, 14, '3220017', 'Provisions For Carrying & Handling', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2647, 14, '3220016', 'Provisions For Meal Allowance', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2646, 14, '3220015', 'Provisions For Casual Labor', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2644, 14, '3220013', 'Provisions For Overtime', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2645, 14, '3220014', 'Directors\' Remuneration Payable', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2643, 14, '3220012', 'Provisions For Contractor Bill', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2642, 14, '3220011', 'Provisions For Female Worker', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2641, 14, '3220010', 'Provisions For Carpenter Bill', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2640, 14, '3220009', 'Provisions For Gratuity', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2639, 14, '3220008', 'Provisions For Wages', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2638, 14, '3220007', 'Provisions For Salary/Bonus', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2637, 14, '3220006', 'Provisions For Interest', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2636, 14, '3220005', 'Provisions For Advertisement', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2635, 14, '3220004', 'Provisions For Leave Salary', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2634, 14, '3220003', 'Provisions For Custom Duty', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2633, 14, '3220002', 'Provisions For Audit Fee', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2632, 14, '3220001', 'Provisions For Taxation', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2630, 14, '3218001', 'Dividend Payable-Unpaid Dividend', '', '158', 2180, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2631, 14, '3219001', 'Interest Payable-Unpaid Ineterest', '', '158', 2181, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2629, 14, '3217001', 'Accrued Markup/Interest', '', '158', 2179, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2628, 14, '3216003', 'Finance Lease Obligation-Short Term (Hajj Finance Co. Ltd)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2627, 14, '3216002', 'Finance Lease Obligation-Short Term (IFIC Bank)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2626, 14, '3216001', 'Finance Lease Obligation-Short Term (Prime Bank)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2625, 14, '3215999', 'Other Liabilities-Others', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2624, 14, '3215998', 'Other Liabilities-AP/AR Clearing Account', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2622, 14, '3215996', 'Other Liabilities-Loan Clearing Account', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2623, 14, '3215997', 'Other Liabilities-Inter-Org Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2621, 14, '3215995', 'Other Liabilities-Finance', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2620, 14, '3215994', 'Other Liabilities-Fire/Group Life Insurance', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2619, 14, '3215005', 'Other Liabilities-VAT Outstanding', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2617, 14, '3215003', 'Other Liabilities-Import Bills Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2618, 14, '3215004', 'Other Liabilities-Death/Injury Claim Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2616, 14, '3215002', 'Other Liabilities-Sundry Creditors', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2615, 14, '3215001', 'Other Liabilities-Custom Duty', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2613, 14, '3214013', 'Tax Payable-Tax Deducted at Source from Advertisement', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2614, 14, '3214014', 'Tax Payable-Tax Deducted at Source from Carrying Bill', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2612, 14, '3214012', 'Tax Payable-Tax Deducted at Source from Rent', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2611, 14, '3214011', 'Tax Payable-SD Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2609, 14, '3214009', 'Tax Payable-VAT Payable', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2610, 14, '3214010', 'Tax Payable-SD Payable', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2608, 14, '3214008', 'Tax Payable-VAT Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2607, 14, '3214007', 'Tax Payable-AIT Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2606, 14, '3214006', 'Tax Payable-TDS Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2605, 14, '3214005', 'Tax Payable-Deduction At Source-Director', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2604, 14, '3214004', 'Tax Payable-Deduction At Source Party (VAT)', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2603, 14, '3214003', 'Tax Payable-Company\'S Income Tax', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2602, 14, '3214002', 'Tax Payable-Tax Withheld At Source (Party)-TDS', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2600, 14, '3213999', 'Reserve For Encumbrance', '', '158', 2175, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2601, 14, '3214001', 'Tax Payable-Staff Income Tax/Deduction At Source', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2599, 14, '3212999', 'Post Emp Benefits-Others', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2598, 14, '3212005', 'Post Emp Benefits-Recovery Of P.F. Interest', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2596, 14, '3212003', 'Post Emp Benefits-Unpaid Gratuity', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2597, 14, '3212004', 'Post Emp Benefits-Recovery Of P.F. Loan', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2595, 14, '3212002', 'Post Emp Benefits-Employee P.F. Contribution', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2594, 14, '3212001', 'Post Emp Benefits-Employer P.F. Contribution', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2593, 14, '3211999', 'Salaries & Wages-Others', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2591, 14, '3211007', 'Deduction from employees-House Rent', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2592, 14, '3211008', 'Deduction from employees-Gas', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2590, 14, '3211006', 'Salaries & Wages-Gratuity', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2588, 14, '3211004', 'Salaries & Wages-Leave Pay', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2589, 14, '3211005', 'Salaries & Wages-Bonus', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2587, 14, '3211003', 'Salaries & Wages-Misc. Recoveries From Employees', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2586, 14, '3211002', 'Salaries & Wages-Workers Profit Participation Fund', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2584, 14, '3210999', 'Other Liability Deposits', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2585, 14, '3211001', 'Salaries & Wages Payable', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2582, 14, '3210001', 'Security Refundable', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2583, 14, '3210002', 'Earnest Money Liability', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2581, 14, '3209999', 'On Account Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2578, 14, '3209996', 'Refund Clearing Account', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2579, 14, '3209997', 'Unidentified Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2580, 14, '3209998', 'Unapplied Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2576, 14, '3209002', 'Advance Received Against Misc', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2577, 14, '3209003', 'Unearned Income/Deferred Revenues', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2575, 14, '3209001', 'Advance Received Against Sale', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2573, 14, '3208029', 'Bank-NRB-Commercial Bank Ltd.', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2574, 14, '3208030', 'Bank-NRB-Commercial Bank Ltd.-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2572, 14, '3208028', 'Bank-Jamuna Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2571, 14, '3208027', 'Bank-Jamuna Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2569, 14, '3208025', 'Bank-Uttara Bank Ltd. (STL)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2570, 14, '3208026', 'Lankan Alliance Finance Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2568, 14, '3208024', 'NDB Capital Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2567, 14, '3208023', 'Bank-Bank Asia Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2565, 14, '3208021', 'IPDC Finance Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2566, 14, '3208022', 'Bank-Bank Asia Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2564, 14, '3208020', 'Bank-Premier Bank Ltd. (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2563, 14, '3208019', 'Bank-Premier Bank Ltd. (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2561, 14, '3208017', 'National Finance Ltd.', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2562, 14, '3208018', 'National Finance Ltd-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2560, 14, '3208016', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2559, 14, '3208015', 'Bank-Social Islami Bank Ltd', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2558, 14, '3208014', 'Bank-South East Bank Ltd. (OD)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2557, 14, '3208013', 'Bank-South East Bank Ltd. (OD)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2556, 14, '3208012', 'Bank-Shahjalal Islami Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2555, 14, '3208011', 'Bank-Shahjalal Islami Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2554, 14, '3208010', 'Bank-Exim Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2553, 14, '3208009', 'Bank-Exim Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2552, 14, '3208006', 'Bank-Sonali Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2550, 14, '3208002', 'Bank-Jamuna Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2551, 14, '3208005', 'Bank-Sonali Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2549, 14, '3208001', 'Bank-Jamuna Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2548, 14, '3207999', 'Expense AP Accrual', '', '158', 2169, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2547, 14, '3207001', 'Creditors For Services And Expenses', '', '158', 2169, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2546, 14, '3206999', 'Inventory AP Accrual', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2545, 14, '3206998', 'Creditors For Goods-Others', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2544, 14, '3206002', 'Creditors For Goods-Foreign Supplies', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2543, 14, '3206001', 'Creditors For Goods-Local Supplies', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2542, 14, '3202022', 'STL-Laxmi Vander', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2541, 14, '3202021', 'STL-NRB Commercial Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2540, 14, '3202020', 'STL-Wall Mart Trade International', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2539, 14, '3202019', 'STL-Meximco Trading Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2538, 14, '3202018', 'STL-Loknath Vander', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2535, 14, '3202015', 'STL-Dhaka Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2536, 14, '3202016', 'STL-Shamsul Karim', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2537, 14, '3202017', 'STL-Dulal & Brothers-Moulvi Bazar-Dhaka', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2534, 14, '3202014', 'STL-Prime Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2533, 14, '3202013', 'STL-IIDFC', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2532, 14, '3202012', 'STL-Social Islami Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2531, 14, '3202011', 'STL-Duratech Corporation Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2530, 14, '3202010', 'STL-Prime Finance & Investment (Short Term Portion of LTL)', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2528, 14, '3202008', 'STL-Darbar Flower Mills Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2529, 14, '3202009', 'STL-Sonali Bank Ltd (Short Term Portion of LTL)', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2527, 14, '3202007', 'STL-Sonali Trading', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2526, 14, '3202006', 'STL-S & S Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2524, 14, '3202004', 'STL-Multi Securities Services Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2525, 14, '3202005', 'STL-N.S Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2523, 14, '3202003', 'STL-Sonali Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2522, 14, '3202002', 'STL-Shahjalal Islami Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2520, 14, '3201005', 'Inter-company SPBML AP/AR', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2521, 14, '3202001', 'STL-Jamuna Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2519, 14, '3201004', 'Inter-company PPIL AP/AR', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2518, 14, '3201003', 'Related Parties-Partex Group', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2517, 14, '3201002', 'Sister Concern-CX2', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2516, 14, '3201001', 'Sister Concern-CX1', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2514, 14, '3106002', 'Long Term Lease- Prime Finance & Investment Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2515, 14, '3106003', 'Long Term Lease-Prime Bank Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2513, 14, '3106001', 'Long Term Lease-Hajj Finance Co. Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2512, 14, '3105999', 'Deferred Other Liability', '', '158', 2163, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2510, 14, '3102001', 'LTL-Jamuna Bank Ltd', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2511, 14, '3105001', 'Deferred Tax Liability', '', '158', 2163, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2509, 14, '3101008', 'LTL-Industrial & Infrastructure Dev. Finance Co. Ltd.-IIDFCL', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2508, 14, '3101007', 'LTL-IPDC Finance Limited', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2507, 14, '3101006', 'LTL-United Finance Limited', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2506, 14, '3101005', 'LTL-Shahjalal  Islami Bank Ltd.', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2504, 14, '3101003', 'LTL-Prime Finance & Investment Ltd.', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2505, 14, '3101004', 'LTL-Social Islami Bank Ltd.', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2503, 14, '3101002', 'LTL-Prime Bank Ltd', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2501, 14, '2104002', 'Prior Year Adjustment', '', '158', 2159, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2502, 14, '3101001', 'LTL-Sonali Bank Ltd', '', '158', 2162, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2500, 14, '2104001', 'Unappropriated Profits/Losses', '', '158', 2159, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2499, 14, '2103001', 'Capital Gain/Loss', '', '158', 2158, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2497, 14, '2102010', 'Share Money Deposit', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2498, 14, '2102999', 'Revaluation Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2496, 14, '2102009', 'Stock Dividend', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2495, 14, '2102008', 'Special Reserve for Re-Construction', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2494, 14, '2102007', 'Proposed Bonus Share', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2493, 14, '2102006', 'General Fund', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2491, 14, '2102004', 'Proposed  Dividend', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2492, 14, '2102005', 'Employee\'s Welfare Fund', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2489, 14, '2102002', 'Income Tax Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2490, 14, '2102003', 'Taxholiday Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2488, 14, '2102001', 'General Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2487, 14, '2101003', 'Share Premium', '', '158', 2156, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2486, 14, '2101002', 'Preference Share Capital', '', '158', 2156, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2485, 14, '2101001', 'Ordinary Share Capital', '', '158', 2156, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2484, 14, '1212999', 'Inter-Bank Transfers', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2483, 14, '1212998', 'AP/AR Netting', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2482, 14, '1212060', 'Bangladesh Krishi Bank-559', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2481, 14, '1212058', 'Bank-NRB Commercial Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2480, 14, '1212057', 'Bank-NRB Commercial Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2479, 14, '1212056', 'Bank-South Bangla Agriculture & Commerce Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2478, 14, '1212055', 'Bank-South Bangla Agriculture & Commerce Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2477, 14, '1212054', 'Bank-Midland Bank Limited-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2475, 14, '1212052', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2476, 14, '1212053', 'Bank-Midland Bank Limited', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2473, 14, '1212048', 'Bank-Bank Alfalah Limited-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2474, 14, '1212051', 'Bank-Social Islami Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2472, 14, '1212047', 'Bank-Bank Alfalah Limited', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2470, 14, '1212045', 'Bank-Uttara Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2471, 14, '1212046', 'Bank-Uttara Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2468, 14, '1212043', 'Bank-United Commercial Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2469, 14, '1212044', 'Bank-United Commercial Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2467, 14, '1212042', 'Bank-The City Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2466, 14, '1212041', 'Bank-The City Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2464, 14, '1212039', 'Bank-State Bank Of India', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2465, 14, '1212040', 'Bank-State Bank Of India-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2463, 14, '1212036', 'Bank-Southeast Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2461, 14, '1212034', 'Bank-Sonali Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2462, 14, '1212035', 'Bank-Southeast Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2460, 14, '1212033', 'Bank-Sonali Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2459, 14, '1212032', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2458, 14, '1212031', 'Bank-Social Islami Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2457, 14, '1212030', 'Bank-Social Investment Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2455, 14, '1212028', 'Bank-Shahjalal Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2456, 14, '1212029', 'Bank-Social Investment Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2454, 14, '1212027', 'Bank-Shahjalal Islami Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2452, 14, '1212025', 'Bank-Prime Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2453, 14, '1212026', 'Bank-Prime Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2451, 14, '1212024', 'Bank-Premier Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2449, 14, '1212022', 'Bank-Janata Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2450, 14, '1212023', 'Bank-Premier Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2448, 14, '1212021', 'Bank-Janata Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2447, 14, '1212020', 'Bank-Jamuna Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2446, 14, '1212019', 'Bank-Jamuna Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2445, 14, '1212018', 'Bank-Islami Bank Bd Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2444, 14, '1212017', 'Bank-Islami Bank Bd Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2443, 14, '1212012', 'Bank-Exim Bank Bd Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2442, 14, '1212011', 'Bank-Exim Bank Bd Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2440, 14, '1212009', 'Bank-Eastern Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2441, 14, '1212010', 'Bank-Eastern Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2439, 14, '1212008', 'Bank-Dutch Bangla Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2438, 14, '1212007', 'Bank-Dutch Bangla Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2437, 14, '1212006', 'Bank-Dhaka Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2436, 14, '1212005', 'Bank-Dhaka Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2434, 14, '1212003', 'Bank-Agrani Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2435, 14, '1212004', 'Bank-Agrani Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2433, 14, '1212002', 'Bank-AB Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2432, 14, '1212001', 'Bank-AB Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2430, 14, '1211061', 'Cash In Hand-Rampura Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2431, 14, '1211062', 'Cash In Hand-Rampura Showroom Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2429, 14, '1211060', 'Cash In Hand-Mirpur Zoo Road Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2428, 14, '1211059', 'Cash In Hand-Mirpur Zoo Road Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2426, 14, '1211057', 'Cash In Hand-Savar Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2427, 14, '1211058', 'Cash In Hand-Savar Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2425, 14, '1211056', 'Cash In Hand-Tejgaon Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2424, 14, '1211055', 'Cash In Hand-Tejgaon Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2423, 14, '1211054', 'Cash In Hand-Bijoynagar-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2421, 14, '1211052', 'Cash In Hand-Dealer-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2422, 14, '1211053', 'Cash In Hand-Bijoynagar', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2420, 14, '1211051', 'Cash In Hand-Dealer', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2419, 14, '1211050', 'Cash In Hand-Badda Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2418, 14, '1211049', 'Cash In Hand-Badda Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2417, 14, '1211046', 'Cash In Hand-Baridhara Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2415, 14, '1211044', 'Cash In Hand-F.Karim-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2416, 14, '1211045', 'Cash In Hand-Baridhara Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2414, 14, '1211043', 'Cash In Hand-F.Karim', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2413, 14, '1211028', 'Cash In Hand-Sylhet Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2411, 14, '1211018', 'Cash In Hand-Monipuripara Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2412, 14, '1211027', 'Cash In Hand-Sylhet Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2410, 14, '1211017', 'Cash In Hand-Monipuripara Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2409, 14, '1211016', 'Cash In Hand-Chittagong-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2407, 14, '1211014', 'Cash In Transit-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2408, 14, '1211015', 'Cash In Hand-Chittagong', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2406, 14, '1211013', 'Cash In Transit', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2405, 14, '1211012', 'Cash In Hand-Factory-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2404, 14, '1211011', 'Cash In Hand-Factory', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2403, 14, '1211010', 'Cash In Hand-Barisal Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2401, 14, '1211008', 'Cash In Hand-Bogra Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2402, 14, '1211009', 'Cash In Hand-Barisal Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2400, 14, '1211007', 'Cash In Hand-Bogra Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2399, 14, '1211006', 'Cash In Hand-Khulna Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2398, 14, '1211005', 'Cash In Hand-Khulna Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2397, 14, '1211004', 'Cash In Hand-Sylhet Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2396, 14, '1211003', 'Cash In Hand-Sylhet Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2395, 14, '1211002', 'Cash In Hand-HO-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2394, 14, '1211001', 'Cash In Hand-HO', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2392, 14, '1210009', 'SPBML-Tax-Others', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2393, 14, '1210999', 'Advance Corporate Tax', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2390, 14, '1210001', 'SPBML-Advance Income Tax-AIT', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2391, 14, '1210005', 'SPBML-VAT Current A/C', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2389, 14, '1209999', 'Prepayments, Advances, Deposits, Recoveries-Others', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2388, 14, '1209998', 'Maintenance Offset', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2387, 14, '1209019', 'Advance Against Project Cost', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2386, 14, '1209018', 'Security & Other Deposits', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2385, 14, '1209017', 'Advance against Misc./Promotional Exp.', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2384, 14, '1209016', 'Advance to Depot, Mill & Others', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2383, 14, '1209015', 'Prepaid Import Cost Adjustment', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2382, 14, '1209014', 'Amount deduction for Expenses-Showroom', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2381, 14, '1209013', 'Imprest Money-Showroom', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2380, 14, '1209012', 'Bank Guarantee Margin', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2379, 14, '1209011', 'LC Payment Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2378, 14, '1209010', 'Amount Held With The Brokerage House', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2377, 14, '1209009', 'Return Material Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2376, 14, '1209008', 'Earnest Money Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2375, 14, '1209007', 'Earnest Money Receivable', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2374, 14, '1209006', 'Security  Deposit - Against Tender Sales', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2373, 14, '1209005', 'Advances-Depot & Mill Office', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2372, 14, '1209004', 'Advances-Against Purchase', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2371, 14, '1209003', 'Prepayments-Advance Against Rent', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2370, 14, '1209002', 'Prepayments-Prepaid Insurance', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2369, 14, '1209001', 'Prepayments-Prepaid Import Cost', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2368, 14, '1208005', 'Loan From/To Director-Mr. Rubel Aziz MD-05', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2367, 14, '1208004', 'Loan From/To Director-Mr.Shawkat Aziz Md-04', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2366, 14, '1208003', 'Loan From/To Director-Mr.Aziz-Al-Masud Md-03', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2365, 14, '1208002', 'Loan From/To Director-Baridhara New House Md Cx-02 H-12.', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2364, 14, '1208001', 'Loan From/To Director-Md. M.A. Hashem-Chairman.', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2363, 14, '1207003', 'Loan From/To Director-Mr. Aziz Al-Mahmood, Director', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2362, 14, '1207002', 'Loan From/To Director-Mr. Aziz Al-Kaiser, Vice Chairman', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2361, 14, '1207001', 'Loan From/To Director-Mrs. Sultana Hashem. Chairman', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2360, 14, '1206999', 'Short Term Advances To Employees-Others', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2359, 14, '1206003', 'Loan To Employees Against PFIL Products', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2358, 14, '1206002', 'Short Term Advances To Employees-Against Salary', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2357, 14, '1206001', 'Short Term Advances To Employees-TA/DA Advance', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2356, 14, '1205003', 'Accrued Markup On Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2355, 14, '1205002', 'Current Maturity Of Long Term Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0);
+INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`, `level_no`) VALUES
+(2354, 14, '1205001', 'Short Term Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2353, 14, '1204999', 'Trade Receivables-Provision For Bad/Doubtful Debts', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2352, 14, '1204998', 'Trade Receivables-Sundry Debtors', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2351, 14, '1204997', 'Trade Receivables-Inter-Org Receivable', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2350, 14, '1204996', 'Trade Receivables/Loan to-Others', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2349, 14, '1204003', 'Trade Receivable-Intercompany', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2348, 14, '1204002', 'Trade Receivables-Control Account-Export', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2347, 14, '1204001', 'Trade Receivables-Control Account-Local', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2346, 14, '1203999', 'WIP-Overhead Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2344, 14, '1203997', 'WIP-Resource Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2345, 14, '1203998', 'WIP-OSP Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2343, 14, '1203996', 'WIP-Material Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2342, 14, '1203995', 'WIP-Scrap Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2340, 14, '1203993', 'WIP-Outside Processing', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2341, 14, '1203994', 'WIP-Overhead Valuation', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2339, 14, '1203992', 'WIP-Resource Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2337, 14, '1203990', 'WIP-Batch Close Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2338, 14, '1203991', 'WIP-Material Overhead', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2336, 14, '1203001', 'WIP-Material Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2335, 14, '1202999', 'Receiving Accrual', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2334, 14, '1202998', 'INV-Stage Sub-Inventory', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2332, 14, '1202001', 'INV-Stores-Control Account Material', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2333, 14, '1202002', 'INV-Control Account-Spares & Tools', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2331, 14, '1201999', 'Deferred Cost Of Goods Sold', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2330, 14, '1201998', 'Intransit Inventory Account', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2329, 14, '1201997', 'Receiving Inventory Account', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2328, 14, '1201996', 'Receipt Clearing Inventory Account', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2327, 14, '1201005', 'INV-Trading Items', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2326, 14, '1201004', 'INV-Stocks In Transit Material-Import', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2325, 14, '1201003', 'INV-Stocks In Transit Material-Local', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2324, 14, '1201002', 'INV-Inventory Adjustment', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2323, 14, '1201001', 'INV-Finished Goods', '', '158', 2142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2322, 14, '1199999', 'Other Non-Current Assets-Others', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2321, 14, '1199004', 'Cost Of Removal Clearing', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2320, 14, '1199003', 'Proceed Of Sale Clearing', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2319, 14, '1199002', 'CWIP Clearing Account', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2318, 14, '1199001', 'Asset Clearing Account', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2317, 14, '1107999', 'Long Term Investments-Others', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2316, 14, '1107004', 'Long Term Investments-PSP', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2315, 14, '1107003', 'Long Term Investments-FDR', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2314, 14, '1107002', 'Long Term Investments-Govt. Bond', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2313, 14, '1107001', 'Long Term Investments-Share & Debenture', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2312, 14, '1106003', 'Intangible Assets-Other', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2311, 14, '1106002', 'Intangible Assets-Software', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2310, 14, '1106001', 'Intangible Assets-Goodwill', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2309, 14, '1105999', 'C.W.I.P-Others', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2308, 14, '1105004', 'C.W.I.P-Electrical Equipment', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2307, 14, '1105003', 'C.W.I.P-Land & Land Development Asset', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2306, 14, '1105002', 'C.W.I.P-Plant & Machinery', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2305, 14, '1105001', 'C.W.I.P-Buildings', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2304, 14, '1104004', 'ACC. Amortization-Others', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2303, 14, '1104003', 'ACC. Amortization-Software', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2302, 14, '1104002', 'ACC. Amortization-Goodwill', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2301, 14, '1104001', 'ACC. Impairment', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2300, 14, '1103999', 'ACC.DEP-Deferred Depreciation Reserve', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2299, 14, '1103011', 'ACC.DEP-PPE-Sundry Assets', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2298, 14, '1103010', 'ACC.DEP-PPE-I.T Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2297, 14, '1103009', 'ACC.DEP-PPE-Electric & Gas Installation', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2296, 14, '1103008', 'ACC.DEP-PPE-Office & Other Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2295, 14, '1103007', 'ACC.DEP-PPE-Electrical Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2294, 14, '1103006', 'ACC.DEP-PPE-Vehicles & Ground Handling Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2292, 14, '1103004', 'ACC.DEP-PPE-Road, Walls & Drainage', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2293, 14, '1103005', 'ACC.DEP-PPE-Furniture, Fixtures & Fittings', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2290, 14, '1103002', 'ACC.DEP-PPE-Plant Machinery & Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2291, 14, '1103003', 'ACC.DEP-PPE-Buildings-Buildings & Structures', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2288, 14, '1102999', 'Other Deferred Expenditure', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2289, 14, '1103001', 'ACC.DEP-PPE-Freehold Land-Land & Developments', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2287, 14, '1102003', 'Deferred Revenue Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2286, 14, '1102002', 'Preliminary Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2285, 14, '1102001', 'PRE-Production Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2284, 14, '1101011', 'PPE-Sundry Assets', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2283, 14, '1101010', 'PPE-I.T Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2282, 14, '1101009', 'PPE-Electric & Gas Installation', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2281, 14, '1101008', 'PPE-Office & Other Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2280, 14, '1101007', 'PPE-Electrical Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2278, 14, '1101005', 'PPE-Furniture, Fixtures & Fittings', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2279, 14, '1101006', 'PPE-Vehicles & Ground Handling Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2277, 14, '1101004', 'PPE-Road, Walls & Drainage', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2276, 14, '1101003', 'PPE-Buildings-Buildings & Structures', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2275, 14, '1101002', 'PPE-Plant Machinery & Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2274, 14, '1101001', 'PPE-Freehold Land-Land & Developments', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2273, 14, '5700000', 'OTHER EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2272, 14, '5601000', 'FINANCIAL EXPENSES', '', '157', 2271, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2271, 14, '5600000', 'FINANCIAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2270, 14, '5599000', 'ADMINISTRATIVE EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2269, 14, '5598000', 'ADMINISTRATIVE EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2268, 14, '5516000', 'ADMINISTRATIVE EXPENSES-MANAGING DIRECTOR EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2267, 14, '5515000', 'ADMINISTRATIVE EXPENSES-CORPORATE EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2266, 14, '5514000', 'ADMINISTRATIVE EXPENSES-DONATION, SUBSCRIPTION & GIFT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2265, 14, '5513000', 'ADMINISTRATIVE EXPENSES-UTILITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2263, 14, '5511000', 'ADMINISTRATIVE EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2264, 14, '5512000', 'ADMINISTRATIVE EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2262, 14, '5510000', 'ADMINISTRATIVE EXPENSES-STAFF AMENITIES & WELFARE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2261, 14, '5509000', 'ADMINISTRATIVE EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2260, 14, '5508000', 'ADMINISTRATIVE EXPENSES-FEE & PROFESSIONAL CHARGE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2259, 14, '5507000', 'ADMINISTRATIVE EXPENSES-ADVERTISEMENT & PUBLICITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2258, 14, '5506000', 'ADMINISTRATIVE EXPENSES-RENT, RATES & TAXES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2256, 14, '5504000', 'ADMINISTRATIVE EXPENSES-ENTERTAINMENT & CEREMONIAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2257, 14, '5505000', 'ADMINISTRATIVE EXPENSES-REPAIR & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2255, 14, '5503000', 'ADMINISTRATIVE EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2254, 14, '5502000', 'ADMINISTRATIVE EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2253, 14, '5501000', 'ADMINISTRATIVE EXPENSES-TRAVELLING AND CONVEYANCE', '', '157', 2252, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2252, 14, '5500000', 'ADMINISTRATIVE EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2251, 14, '5499000', 'DISTRIBUTION EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2250, 14, '5498000', 'DISTRIBUTION EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2249, 14, '5410000', 'DISTRIBUTION EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2248, 14, '5409000', 'DISTRIBUTION EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2247, 14, '5408000', 'DISTRIBUTION EXPENSES-RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2246, 14, '5407000', 'DISTRIBUTION EXPENSES-TRANSPORT EXPENSE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2245, 14, '5406000', 'DISTRIBUTION EXPENSES-TRAVELLING & CONVEYANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2244, 14, '5405000', 'DISTRIBUTION EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2243, 14, '5404000', 'DISTRIBUTION EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2242, 14, '5403000', 'DISTRIBUTION EXPENSES-CARRYING, HANDLING & DELIVERY EXPENSE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2241, 14, '5402000', 'DISTRIBUTION EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2240, 14, '5401000', 'DISTRIBUTION EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2239, 14, '5400000', 'DISTRIBUTION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2238, 14, '5399000', 'SELLING & MARKETTING EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2237, 14, '5398000', 'SELLING & MARKETTING EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2235, 14, '5320000', 'SELLING & MARKETING EXPENSE-VAT ON RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2236, 14, '5321000', 'SELLING & MARKETING EXPENSE-EXPORT EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2234, 14, '5319000', 'SELLING & MARKETING EXPENSE-DONATION , SUBSCRIPTION & GIFT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2233, 14, '5318000', 'SELLING & MARKETING EXPENSE-REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2232, 14, '5317000', 'SELLING & MARKETING EXPENSES-INCENTIVE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2230, 14, '5315000', 'SELLING & MARKETTING EXPENSES-BROKERAGE COMMISSION', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2231, 14, '5316000', 'SELLING & MARKETTING EXPENSES-LEGAL FEES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2229, 14, '5314000', 'SELLING & MARKETTING EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2228, 14, '5313000', 'SELLING & MARKETTING EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2227, 14, '5312000', 'SELLING & MARKETTING EXPENSES-SALES DISCOUNT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2226, 14, '5311000', 'SELLING & MARKETTING EXPENSES-SALES COMMISSION', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2225, 14, '5310000', 'SELLING & MARKETTING EXPENSES-RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2224, 14, '5309000', 'SELLING & MARKETTING EXPENSES-PROMOTIONAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2223, 14, '5308000', 'SELLING & MARKETTING EXPENSES-VAT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2222, 14, '5307000', 'SELLING & MARKETTING EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2221, 14, '5306000', 'SELLING & MARKETTING EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2220, 14, '5305000', 'SELLING & MARKETTING EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2219, 14, '5304000', 'SELLING & MARKETTING EXPENSES-ADVERTISEMENT & PUBLICITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2218, 14, '5303000', 'SELLING & MARKETTING EXPENSES-VEHICLE REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2217, 14, '5302000', 'SELLING & MARKETTING EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2216, 14, '5301000', 'SELLING & MARKETTING EXPENSES-TRAVELLING AND CONVEYANCE', '', '157', 2215, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2215, 14, '5300000', 'SELLING & MARKETTING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2214, 14, '5203000', 'AMORTIZATION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2213, 14, '5202000', 'OTHER DEPRECIATION EXPENSE ACCOUNT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2212, 14, '5201000', 'DEPRECIATION EXPENSES-PROPERTY PLANT AND EQUIPMENT', '', '157', 2211, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2211, 14, '5200000', 'DEPRECIATION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2209, 14, '5198000', 'MANUFACTURING EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2210, 14, '5199000', 'MANUFACTURING EXPENSES-OTHER FACTORY EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2208, 14, '5117000', 'MANUFACTURING EXPENSES-Incentive & Special Award', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2207, 14, '5116000', 'MANUFACTURING EXPENSES-FEE & CHARGES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2206, 14, '5115000', 'MANUFACTURING EXPENSES-TRAVELLING & CONVEYANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2205, 14, '5114000', 'MANUFACTURING EXPENSES-CARRYING, LOADING & UNLOADING', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2204, 14, '5113000', 'MANUFACTURING EXPENSES-RENT, RATES & TAXES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2203, 14, '5112000', 'MANUFACTURING EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2202, 14, '5111000', 'MANUFACTURING EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2201, 14, '5110000', 'MANUFACTURING EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2200, 14, '5109000', 'MANUFACTURING EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2199, 14, '5108000', 'MANUFACTURING EXPENSES-INDIRECT SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2198, 14, '5107000', 'MANUFACTURING EXPENSES-DIRECT SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2196, 14, '5105000', 'MANUFACTURING EXPENSES-REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2197, 14, '5106000', 'MANUFACTURING EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2195, 14, '5104000', 'MANUFACTURING EXPENSES-INSURANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2194, 14, '5103000', 'MANUFACTURING EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2192, 14, '5101000', 'COST OF GOODS SOLD', '', '157', 2191, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2193, 14, '5102000', 'MANUFACTURING EXPENSES-STORES & SPARES MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2191, 14, '5100000', 'COST OF SALES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2189, 14, '4999000', 'OTHER INCOME', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2190, 14, '5000000', 'EXPENSES', '', '157', 3186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(2188, 14, '4901000', 'SCRAP SALE', '', '157', 2187, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2187, 14, '4900000', 'NON-OPERATING INCOME', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2186, 14, '4102000', 'SPBML BY PRODUCTS', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2185, 14, '4101000', 'SPBML PRODUCTS REVENUE', '', '157', 2184, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2184, 14, '4100000', 'SPBML OPERATING INCOME', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2183, 14, '4000000', 'REVENUE', '', '157', 3186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0, 0),
+(2182, 14, '3220000', 'PROVISIONS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2181, 14, '3219000', 'INTEREST PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2180, 14, '3218000', 'DIVIDEND PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2179, 14, '3217000', 'MARKUP ACCRUED ON BORROWINGS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2178, 14, '3216000', 'FINANCE LEASE OBLIGATION-SHORT TERM', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2177, 14, '3215000', 'OTHER LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2176, 14, '3214000', 'TAX PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2175, 14, '3213000', 'ACCRUED EXPENSES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2174, 14, '3212000', 'PROVISIONS FOR POST EMPLOYMENT BENEFITS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2173, 14, '3211000', 'SALARIES, WAGES & OTHER DEDUCTIONS PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2172, 14, '3210000', 'SECURITY REFUNDABLE & OTHER LIABILITY DEPOSITS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2170, 14, '3208000', 'BANK OVERDRAFTS/WORKING CAPITAL/ CC(H)', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2171, 14, '3209000', 'ADVANCES RECEIVED', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2169, 14, '3207000', 'CREDITORS FOR SERVICES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2168, 14, '3206000', 'CREDITORS FOR GOODS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2167, 14, '3202000', 'SHORT TERM LOANS-SPBML', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2165, 14, '3200000', 'CURRENT LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2166, 14, '3201000', 'SISTER CONCERN & RELATED PARTIES', '', '157', 2165, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2164, 14, '3106000', 'LONG TERM LEASE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2162, 14, '3101000', 'LONG TERM LOANS-SPBML', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2163, 14, '3105000', 'DEFERRED TAX LIABILITY', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2161, 14, '3100000', 'NON-CURRENT LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2160, 14, '3000000', 'LIABILITIES', '', '157', 3186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0, 0),
+(2159, 14, '2104000', 'ACCUMULATED PROFITS', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2158, 14, '2103000', 'CAPITAL GAIN', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2157, 14, '2102000', 'RESERVES', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2156, 14, '2101000', 'SHARE CAPITAL', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2155, 14, '2100000', 'SHARE CAPITAL & RESERVES', '', '157', 2154, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2154, 14, '2000000', 'EQUITY', '', '157', 3186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0, 0),
+(2153, 14, '1212000', 'BANK BALANCES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2152, 14, '1211000', 'CASH & CHEQUES IN HAND', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2151, 14, '1210000', 'CURRENT TAXATION', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2150, 14, '1209000', 'PREPAYMENTS, ADVANCES, DEPOSITS, RECOVERIES & OTHER RECEIVABLES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2149, 14, '1208000', 'LOAN FROM/TO RELATED PARTIES DIRECTORS/EX-DIRECTORS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2148, 14, '1207000', 'LOAN FROM/TO PARTEX STAR GROUP DIRECTORS/EX-DIRECTORS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2147, 14, '1206000', 'SHORT TERM ADVANCES/LOAN TO EMPLOYEES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2146, 14, '1205000', 'SHORT TERM INVESTMENTS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2145, 14, '1204000', 'TRADE RECEIVABLES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2144, 14, '1203000', 'WORK IN PROCESS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2143, 14, '1202000', 'INVENTORY STORES, SPARES & TOOLS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2142, 14, '1201000', 'INVENTORY STOCKS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2140, 14, '1199000', 'OTHER NON-CURRENT ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2141, 14, '1200000', 'CURRENT ASSETS', '', '157', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2139, 14, '1107000', 'LONG TERM INVESTMENTS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2138, 14, '1106000', 'INTANGIBLE ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2137, 14, '1105000', 'CAPITAL WORK IN PROGRESS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2136, 14, '1104000', 'ACCUMULATED AMORTISATION AND IMPAIRMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2135, 14, '1103000', 'ACC.DEP-PROPERTY PLANT AND EQUIPMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2134, 14, '1102000', 'P.P.E-OTHER ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2133, 14, '1101000', 'PROPERTY PLANT AND EQUIPMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2132, 14, '1100000', 'NON-CURRENT ASSETS', '', '157', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(2131, 14, '1000000', 'ASSETS', '', '157', 3186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(3119, 3, '4105', 'Sales-Depot-Bogra', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3120, 3, '4106', 'Sales-Office-Chittagong', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3121, 3, '4107', 'Sales-Depot-Sylhet', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3122, 3, '4108', 'Sales-Depot-Noakhali', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3123, 3, '4109', 'Sales-Depot-Tejgoan', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3124, 3, '4199', 'Sale Department', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3125, 3, '4208', 'Sales-Others', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3126, 3, '4214', 'Sales-Showroom-Sylhet', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3127, 3, '4215', 'Sales-Showroom-Badda', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3128, 3, '4216', 'Sales-Showroom-Mirpur Door Exclusive', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3129, 3, '4217', 'Sales-Showroom-Tejgaon Gulshan Link Road', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3130, 3, '4218', 'Sales-Showroom-Jamuna Future Park', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3131, 3, '4219', 'Sales-Showroom-Chapatoli House', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3132, 3, '4220', 'Sales-Showroom-Uttara Old', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3133, 3, '4221', 'Sales-Showroom-Sylhet Old', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3134, 3, '4222', 'Sales Office', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3135, 3, '4223', 'Dealer Operation', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3136, 3, '4224', 'Sales-Showroom-Kawran Bazar', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3137, 3, '4225', 'Sales-Showroom-Savar', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3138, 3, '4226', 'Sales-Showroom-Mirpur Zoo Road', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3139, 3, '4227', 'Sales-Showroom-Rampura', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3140, 3, '4300', 'Sales-Showroom-Bijoy Nagar', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3141, 3, '4302', 'Distribution-Depot-Barisal', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3142, 3, '4303', 'Distribution-Depot-Jessore', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3143, 3, '4304', 'Distribution-Depot-Khulna', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3144, 3, '4305', 'Distribution-Depot-Bogra', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3145, 3, '4306', 'Distribution-Depot-Chittagong', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3146, 3, '4307', 'Distribution-Depot-Sylhet', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3147, 3, '4308', 'Distribution-Depot-Noakhali', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3148, 3, '4309', 'Distribution-Depot-Tejgoan', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3149, 3, '4399', 'Distribution-Depot-Central Distribution Center', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3150, 3, '4500', 'Distribution-Others', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3151, 3, '4600', 'Marketing Department', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3152, 3, '4602', 'Chittagong Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3153, 3, '4603', 'Mirpur Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3154, 3, '4604', 'Uttara Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3155, 3, '4605', 'Chittagong Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3156, 3, '4606', 'Khulna Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3157, 3, '4607', 'Chowmuhoni Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3158, 3, '5000', 'Kanchpur Godown', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3159, 3, '5999', 'Shanta Western Tower (6th Floor)', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3160, 3, '6000', 'Others', '', '158', 3164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3169, 1, '05', 'FUTURE1', 'FUTURE1', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 97, 0, 0, 0),
+(3170, 1, '06', 'FUTURE2', 'FUTURE2', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 98, 0, 0, 0),
+(3174, 2, '01', 'PCL', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3180, 3170, '01', 'FUTURE2', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0, 0),
+(3179, 3169, '01', 'FUTURE1', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3185, 14, 'TEST', 'TEST', '', '158', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0, 0),
+(3186, 14, '03', 'ACCOUNTS (Root)', 'ACCOUNTS', '157', 14, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3188, 2, '01', 'COMPANY (Root)', 'COMPANY', '157', 2, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3189, 3, '02', 'COST CENTER (Root)', 'COST CENTER', '157', 3, 'CHART_OF_ACCOUNT_VALUESET', '', '', 0, 0, 0, 0),
+(3190, 17, '04', 'PRODUCTS (Root)', 'PRODUCTS', '157', 17, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3191, 3169, '05', 'FUTURE1 (Root)', 'FUTURE1', '157', 3169, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0),
+(3192, 3170, '06', 'FUTURE2 (Root)', 'FUTURE2', '157', 3170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_chart_of_accounts020520`
+--
+
+CREATE TABLE `tbl_chart_of_accounts020520` (
+  `id` int(10) NOT NULL,
+  `parent_id` int(10) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `acc_type` varchar(20) NOT NULL DEFAULT 'CHILD',
+  `parent_data_id` int(10) NOT NULL,
+  `trantype` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `data_type` varchar(20) NOT NULL,
+  `field_qualifier` int(10) NOT NULL,
+  `chart_of_account_id` int(10) NOT NULL,
+  `segment_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_chart_of_accounts020520`
+--
+
+INSERT INTO `tbl_chart_of_accounts020520` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
+(1, 0, 'BDT100', 'PCL', 'Partex Cables Limited (PCL )', 'CHILD', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_chart_of_accounts120520`
+--
+
+CREATE TABLE `tbl_chart_of_accounts120520` (
+  `id` int(10) NOT NULL,
+  `parent_id` int(10) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `acc_type` varchar(20) NOT NULL DEFAULT 'CHILD',
+  `parent_data_id` int(10) NOT NULL,
+  `trantype` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `data_type` varchar(20) NOT NULL,
+  `field_qualifier` int(10) NOT NULL,
+  `chart_of_account_id` int(10) NOT NULL,
+  `segment_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_chart_of_accounts120520`
+--
+
+INSERT INTO `tbl_chart_of_accounts120520` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
+(1, 0, 'BDT100', 'PSG COA', 'PSG CHART OF ACCOUNTS', '158', 0, 'CHART_OF_ACCOUNT', 'ACTIVE', '', 0, 0, 0),
+(2, 1, '01', 'COMPANY', 'COMPANY', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 77, 0, 0),
+(3, 1, '02', 'COST CENTER', 'COST CENTER', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 78, 0, 0),
+(3118, 3, '4104', 'Sales-Depot-Khulna', '', '158', 3117, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(14, 1, '03', 'ACCOUNTS', 'ACCOUNTS', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 79, 0, 0),
+(3164, 3, '02', 'PCL', 'Partex Cables Limited (PCL )', '158', 18, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(18, 3, '01', 'SPBML', 'Star particle boards', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(17, 1, '04', 'PRODUCTS', 'PRODUCTS', '158', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '74', 96, 0, 0),
+(3116, 3, '4102', 'Sales-Depot-Barisal', '', '158', 3081, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3115, 3, '4000', 'Information Technology', '', '158', 3079, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3114, 3, '3400', 'Finance & Accounts', '', '158', 3078, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3111, 3, '3199', 'Safety & Security', '', '158', 3110, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3112, 3, '3200', 'Other Admin Services', '', '158', 3111, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3113, 3, '3300', 'Human Resource', '', '158', 3077, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3109, 3, '3102', 'Administration', '', '158', 3076, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3110, 3, '3103', 'Transport', '', '158', 3109, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3108, 3, '3000', 'Commercial-Department', '', '158', 3074, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3106, 3, '1899', 'Factory Administration', '', '158', 3105, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3107, 3, '2000', 'Other-Prod-Others', '', '158', 3106, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3105, 3, '1804', 'Other-Prod-Security & Safety At Factory', '', '158', 3104, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3104, 3, '1803', 'Other-Prod-Time Keeping', '', '158', 3103, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3102, 3, '1800', 'QC Department', '', '158', 3101, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3103, 3, '1802', 'Other-Prod-Water Treatment', '', '158', 3072, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3101, 3, '1702', 'Store Department', '', '158', 3071, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3099, 3, '1602', 'Power Generation', '', '158', 3070, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3100, 3, '1700', 'Steam Generation', '', '158', 3099, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3097, 3, '1503', 'Maintenance-Electrical', '', '158', 3069, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3098, 3, '1600', 'Maintenance-Civil', '', '158', 3069, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3095, 3, '1500', 'SPBML Plant-Other', '', '158', 3094, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3096, 3, '1502', 'Maintenance-Mechanical', '', '158', 3069, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3093, 3, '1107', 'Resin Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3094, 3, '1199', 'PB3 Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3092, 3, '1106', 'Plywood Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3090, 3, '1104', 'Veneering Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3091, 3, '1105', 'Door Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3087, 3, '1000', 'NA', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3088, 3, '1102', 'PB1 Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3089, 3, '1103', 'PB2 Plant', '', '158', 3061, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3085, 3, '5900', 'OTHERS', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3086, 3, '5901', 'OTHERS', '', '157', 3085, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3083, 3, '4501', 'MARKETING', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3084, 3, '4601', 'GODOWN', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3082, 3, '4301', 'DISTRIBUTION-DEPOTS', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3080, 3, '4100', 'SALES,DISRIBUTION & MARKETING', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3081, 3, '4101', 'SALES FROM DEPOTS', '', '157', 3080, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3078, 3, '3301', 'FINANCE & ACCOUNTS', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3079, 3, '3401', 'INFORMATION TECHNOLOGY', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3076, 3, '3101', 'ADMINISTRATION', '', '157', 3075, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3077, 3, '3201', 'HUMAN RESOURCES', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3074, 3, '2101', 'COMMERCIAL', '', '157', 3073, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3075, 3, '3100', 'HR & ADMINISTRATION', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3073, 3, '2100', 'PROCUREMENT', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3071, 3, '1701', 'STORE MANAGEMENT & QUALITY CONTROL', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3072, 3, '1801', 'OTHER MANUFACTURING SERVICES', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3069, 3, '1501', 'MAINTENANCE', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3070, 3, '1601', 'ENERGY GENERATION', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3067, 3, '1100', 'MANUFACTURING', '', '157', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3068, 3, '1101', 'SPBML PLANTS', '', '157', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3066, 17, '1106', 'Resin', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3064, 17, '1104', 'Door & Door Frame', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3065, 17, '1105', 'Plywood', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3062, 17, '1102', 'Woodex Plain Board', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3063, 17, '1103', 'Veneered Board', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3061, 17, '1101', 'Jutex Plain Board', '', '158', 3060, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3059, 17, '1000', 'COMPLEX-1', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3060, 17, '1100', 'SPBML', '', '157', 3059, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3057, 14, '5799998', 'OTHER EXP-Material Overhead Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3058, 14, '5799999', 'OTHER EXP-Others', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3056, 14, '5799997', 'OTHER EXP-Resource Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3055, 14, '5799996', 'OTHER EXP-Overhead Absorption', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3054, 14, '5799995', 'OTHER EXP-Invoice Price Variance', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3052, 14, '5799993', 'OTHER EXP-Average Cost Variance Account', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3053, 14, '5799994', 'OTHER EXP-Purchase Price Variance', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3051, 14, '5799992', 'OTHER EXP-Credit Transfer', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3050, 14, '5799991', 'OTHER EXP-PO Rate Variance Gain/Loss', '', '158', 3049, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3049, 14, '5799990', 'OTHER EXP-OSP ABSORPTION', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3048, 14, '5700005', 'OTHER EXP-Goods Delivered to CDC', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3047, 14, '5700002', 'OTHER EXP-Dividend Paid', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3045, 14, '5601999', 'FIN EXP-Others', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3046, 14, '5700001', 'OTHER EXP-Suspense', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3044, 14, '5601021', 'FIN EXP-Interest On Lankan Alliance Finance Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3043, 14, '5601020', 'FIN EXP-Interest On LTL-IPDC Finance Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3041, 14, '5601018', 'FIN EXP-Interest On Specific Time Loan', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3042, 14, '5601019', 'FIN EXP-Interest On LTL-Premier Bank', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3040, 14, '5601017', 'FIN EXP-Interest On Revolving Loan-STLN', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3039, 14, '5601016', 'FIN EXP-Interest On LTL-United Finance', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3038, 14, '5601015', 'FIN EXP-Interest On Short Term Loan (Other Than Bank)', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3037, 14, '5601014', 'FIN EXP-Interest On LTL (HPSM-Equipment)-Shahjalal Islami Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3035, 14, '5601012', 'FIN EXP-Interest on Prime Finance & Investment Ltd.', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3036, 14, '5601013', 'FIN Exp-Interest on National Finance Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3034, 14, '5601011', 'FIN EXP-Interest On LTL-IFIC Bank', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3033, 14, '5601010', 'FIN EXP-Compensation Charges-LTR', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3032, 14, '5601009', 'FIN EXP-Operating Lease Rental', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3031, 14, '5601008', 'FIN EXP-Bank Charges', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3029, 14, '5601006', 'FIN EXP-Interest On CC/Overdraft', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3030, 14, '5601007', 'FIN EXP-Interest On TR/LTR/PAD', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3028, 14, '5601005', 'FIN EXP-Interest On Lease', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3027, 14, '5601002', 'FIN EXP-Interest On LTL-Prime Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3026, 14, '5601001', 'FIN EXP-Interest On LTL-Sonali Bank Ltd', '', '158', 2272, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3025, 14, '5599999', 'ADM EXP-Other Expenses', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3023, 14, '5599001', 'ADM EXP-Others-General', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3024, 14, '5599002', 'ADM EXP-Others-Utilities', '', '158', 2270, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3022, 14, '5598001', 'ADM EXP-Miscellaneous Expenses', '', '158', 2269, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3020, 14, '5516001', 'ADM EXP-Managing Director\'s Expenses', '', '158', 2268, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3021, 14, '5516002', 'ADM EXP-White House Expenses', '', '158', 2268, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3019, 14, '5515001', 'ADM EXP-Corporate Expenses', '', '158', 2267, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3018, 14, '5514003', 'ADM EXP-Donation, Subs-Gift', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3017, 14, '5514002', 'ADM EXP-Donation, Subs-Subscription', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3015, 14, '5513999', 'ADM EXP-Others', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3016, 14, '5514001', 'ADM EXP-Donation, Subs-Donation', '', '158', 2266, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3014, 14, '5513004', 'ADM EXP-Generator', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3013, 14, '5513003', 'ADM EXP-Wasa', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3012, 14, '5513002', 'ADM EXP-Gas', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3011, 14, '5513001', 'ADM EXP-Electricity', '', '158', 2265, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3009, 14, '5512011', 'ADM EXP-Salaries, Wages-Gratuity', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3117, 3, '4103', 'Sales-Depot-Jessore', '', '158', 3116, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3010, 14, '5512999', 'ADM EXP-Salaries, Wages-Others', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3008, 14, '5512010', 'ADM EXP-Salaries, Wages-Directors Bonus', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3007, 14, '5512009', 'ADM EXP-Salaries, Wages-Group Insurance', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3006, 14, '5512008', 'ADM EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3004, 14, '5512006', 'ADM EXP-Salaries, Wages-Directors Remuneration', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3005, 14, '5512007', 'ADM EXP-Salaries, Wages-Workers Profit Participation Fund', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3003, 14, '5512005', 'ADM EXP-Salaries, Wages-Night Allowance', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3001, 14, '5512003', 'ADM EXP-Salaries, Wages-Emp. Bonus', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3002, 14, '5512004', 'ADM EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3000, 14, '5512002', 'ADM EXP-Salaries, Wages-Emp. Overtime', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2998, 14, '5511999', 'ADM EXP-Office Expenses-Others', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2999, 14, '5512001', 'ADM EXP-Salaries, Wages-Salary', '', '158', 2264, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2997, 14, '5511002', 'ADM EXP-Stationery', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2996, 14, '5511001', 'ADM EXP-Printing', '', '158', 2263, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2995, 14, '5510999', 'ADM EXP-Staff Amenities & Welfare-Others', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2994, 14, '5510002', 'ADM EXP-Staff Entertainment', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2993, 14, '5510001', 'ADM EXP-Staff Amenities & Welfare', '', '158', 2262, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2992, 14, '5509001', 'ADM EXP-Training Expenses', '', '158', 2261, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2991, 14, '5508999', 'ADM EXP-Fee & Proffesional Charge-Others', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2990, 14, '5508002', 'ADM EXP-Audit & Accounting Fee', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2989, 14, '5508001', 'ADM EXP-Fee & Professional Charge', '', '158', 2260, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2988, 14, '5507001', 'ADM EXP-Advertisement & Publicity', '', '158', 2259, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2987, 14, '5506999', 'ADM EXP-Rent, Rates & Taxes-Others', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2985, 14, '5506004', 'ADM EXP-Rent, Rates & Taxes-Land Development Tax', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2986, 14, '5506005', 'ADM EXP-Rent, Rates & Taxes-Conference Hall Booking', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2984, 14, '5506003', 'ADM EXP-Rent, Rates & Taxes-Guest House Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2982, 14, '5506001', 'ADM EXP-Rent, Rates & Taxes-Office Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2983, 14, '5506002', 'ADM EXP-Rent, Rates & Taxes-Guarrage Rent', '', '158', 2258, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2981, 14, '5505999', 'ADM EXP-Repair & Maint.-Others', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2980, 14, '5505004', 'ADM EXP-Repair & Maint.-Furniture & Fixture', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2979, 14, '5505003', 'ADM EXP-Repair & Maint.-IT Equipment/ERP Software Maint.', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2977, 14, '5505001', 'ADM EXP-Repair & Maint.-Office', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2978, 14, '5505002', 'ADM EXP-Repair & Maint.-Office Equipment', '', '158', 2257, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2976, 14, '5504999', 'ADM EXP-Entertain & Ceremonial Exp-Others', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2975, 14, '5504003', 'ADM EXP-Entertain & Ceremonial Exp-Public Function', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2974, 14, '5504002', 'ADM EXP-Entertain & Ceremonial Exp-Ceremonial Expenses', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2973, 14, '5504001', 'ADM EXP-Entertain & Ceremonial Exp-Entertainment', '', '158', 2256, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2972, 14, '5503999', 'ADM EXP-Vehicle Maint.-Others', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2971, 14, '5503004', 'ADM EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2970, 14, '5503003', 'ADM EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2969, 14, '5503002', 'ADM EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2968, 14, '5503001', 'ADM EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2255, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2967, 14, '5502999', 'ADM EXP-Post, Telep & Internet-Others', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2966, 14, '5502005', 'ADM EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2965, 14, '5502004', 'ADM EXP-Post, Telep & Internet-Internet', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2963, 14, '5502002', 'ADM EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2964, 14, '5502003', 'ADM EXP-Post, Telep & Internet-Mobile', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2962, 14, '5502001', 'ADM EXP-Post, Telep & Internet-Postage/Courier', '', '158', 2254, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2961, 14, '5501999', 'ADM EXP-Travel And Convey-Others', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2960, 14, '5501003', 'ADM EXP-Travel And Convey-Ta & Da/Tour Expense', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2958, 14, '5501001', 'ADM EXP-Travel And Convey-Foreign Travel', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2959, 14, '5501002', 'ADM EXP-Travel And Convey-Conveyance Local', '', '158', 2253, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2957, 14, '5499999', 'DIST EXP-Other Expenses', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2955, 14, '5499004', 'DIST EXP-Entertainment', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2956, 14, '5499005', 'DIST EXP-Training & Development', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2954, 14, '5499003', 'DIST EXP-Printing & Stationery', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2951, 14, '5498001', 'DIST EXP-Miscellaneous Expenses', '', '158', 2250, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2952, 14, '5499001', 'DIST EXP-Brokerage And Commission', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2953, 14, '5499002', 'DIST EXP-Travelling & Conveyance', '', '158', 2251, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2950, 14, '5410001', 'DIST EXP-Entertainment', '', '158', 2249, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2948, 14, '5409001', 'DIST EXP-Printing', '', '158', 2248, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2949, 14, '5409002', 'DIST EXP-Stationery', '', '158', 2248, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2947, 14, '5408001', 'DIST EXP-Godown/Depot Rent', '', '158', 2247, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2946, 14, '5407001', 'DIST EXP-Transport Expense', '', '158', 2246, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2945, 14, '5406003', 'DIST EXP-TA & DA /Local Tour', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2943, 14, '5406001', 'DIST EXP-Foreign Travelling', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2944, 14, '5406002', 'DIST EXP-Conveyance', '', '158', 2245, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2942, 14, '5405999', 'DIST EXP-Salaries, Wages-Others', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2941, 14, '5405015', 'DIST EXP-Salaries, Wages-Night Allowances', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2939, 14, '5405013', 'DIST EXP-Salaries, Wages-Gratuity', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2940, 14, '5405014', 'DIST EXP-Salaries, Wages-Meal Allowances', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2938, 14, '5405012', 'DIST EXP-Salaries, Wages-Group Insurance', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2936, 14, '5405010', 'DIST EXP-Salaries, Wages-Workman Compensation', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2937, 14, '5405011', 'DIST EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2935, 14, '5405009', 'DIST EXP-Salaries, Wages-Medical Leave Encashment', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2934, 14, '5405008', 'DIST EXP-Salaries, Wages-Holiday Allowance', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2932, 14, '5405006', 'DIST EXP-Salaries, Wages-Emp. Bonus-Workers', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2933, 14, '5405007', 'DIST EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2931, 14, '5405005', 'DIST EXP-Salaries, Wages-Emp. Bonus-Officer & Staff', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2930, 14, '5405004', 'DIST EXP-Salaries, Wages-Emp. Overtime-Workers', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2928, 14, '5405002', 'DIST EXP-Salaries, Wages-Wages', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2929, 14, '5405003', 'DIST EXP-Salaries, Wages-Emp. Overtime-Staff', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2927, 14, '5405001', 'DIST EXP-Salaries, Wages-Salary', '', '158', 2244, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2926, 14, '5404004', 'DIST EXP-Power & Fuel-Gas', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2924, 14, '5404002', 'DIST EXP-Power & Fuel-Wasa', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2925, 14, '5404003', 'DIST EXP-Power & Fuel-Fuel/Gas For Generator', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2923, 14, '5404001', 'DIST EXP-Power & Fuel-Electricity', '', '158', 2243, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2922, 14, '5403003', 'DIST EXP-Carry, Hand & Del-Loading & Unloading', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2921, 14, '5403002', 'DIST EXP-Carry, Hand & Del-Delivery Expenses', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2919, 14, '5402999', 'DIST EXP-Vehicle Maint.-Others', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2920, 14, '5403001', 'DIST EXP-Carry, Hand & Del-Carrying & Handling', '', '158', 2242, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2918, 14, '5402004', 'DIST EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2917, 14, '5402003', 'DIST EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2916, 14, '5402002', 'DIST EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2915, 14, '5402001', 'DIST EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2241, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2914, 14, '5401005', 'DIST EXP-Post, Telep & Internet-Mobile Bill', '', '158', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2912, 14, '5401003', 'DIST EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2913, 14, '5401004', 'DIST EXP-Post, Telep & Internet-Internet Services', '', '158', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2911, 14, '5401002', 'DIST EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2910, 14, '5401001', 'DIST EXP-Post, Telep & Internet-Postage', '', '158', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2909, 14, '5399999', 'SELL & MKTG EXP-Other Expenses', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2908, 14, '5399998', 'SELL & MKTG EXP-Other Allowance', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2906, 14, '5399996', 'SELL & MKTG EXP-Earned Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2907, 14, '5399997', 'SELL & MKTG EXP-Unearned Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2905, 14, '5399006', 'SELL & MKTG EXP-Incentive', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2904, 14, '5399005', 'SELL & MKTG EXP-Brokerage And Commission', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2903, 14, '5399004', 'SELL & MKTG EXP-Entertainment', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2902, 14, '5399003', 'SELL & MKTG EXP-Printing & Stationery', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2901, 14, '5399002', 'SELL & MKTG EXP-Sales Discount', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2899, 14, '5398001', 'SELL & MKTG EXP-Miscellaneous Expenses', '', '158', 2237, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2900, 14, '5399001', 'SELL & MKTG EXP-Sales Commission', '', '158', 2238, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2898, 14, '5321001', 'SELL & MKTG EXP-Export Expenses', '', '158', 2236, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2897, 14, '5320001', 'SELL & MKTG EXP-VAT on Rent', '', '158', 2235, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2896, 14, '5319003', 'SELL & MKTG EXP-Gift', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2895, 14, '5319002', 'SELL & MKTG EXP-Subscription', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2894, 14, '5319001', 'SELL & MKTG EXP-Donation', '', '158', 2234, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2893, 14, '5318999', 'SELL & MKTG EXP-Repairs & Maint.-Others', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2891, 14, '5318002', 'SELL & MKTG EXP-Repairs & Maint.-Office Equipment', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2892, 14, '5318003', 'SELL & MKTG EXP-Repairs & Maint.-Office Furniture & Fixture', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2890, 14, '5318001', 'SELL & MKTG EXP-Repairs & Maint.-Office', '', '158', 2233, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2888, 14, '5317001', 'SELL & MKTG EXP-Dealer Incentive', '', '158', 2232, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2889, 14, '5317002', 'SELL & MKTG EXP-Sales Force Incentive', '', '158', 2232, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2887, 14, '5316999', 'SELL & MKTG EXP-Others', '', '158', 2231, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2886, 14, '5316001', 'SELL & MKTG EXP-Legal Fee', '', '158', 2231, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2885, 14, '5315001', 'SELL & MKTG EXP-Brokerage & Commission', '', '158', 2230, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2882, 14, '5313002', 'SELL & MKTG EXP-Stationery', '', '158', 2228, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2883, 14, '5314001', 'SELL & MKTG EXP-Entertainment Dealer', '', '158', 2229, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2884, 14, '5314999', 'SELL & MKTG EXP-Entertainment Others', '', '158', 2229, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2881, 14, '5313001', 'SELL & MKTG EXP-Printing', '', '158', 2228, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2879, 14, '5312001', 'SELL & MKTG EXP-Sales Discount', '', '158', 2227, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2880, 14, '5312002', 'SELL & MKTG EXP-Sales Other Discount', '', '158', 2227, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2878, 14, '5311004', 'SELL & MKTG EXP-Credit Card Installment Charge', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2877, 14, '5311003', 'SELL & MKTG EXP-TR Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2876, 14, '5311002', 'SELL & MKTG EXP-Sales Other Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2875, 14, '5311001', 'SELL & MKTG EXP-Sales Commission', '', '158', 2226, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2874, 14, '5310003', 'SELL & MKTG EXP-Godown Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2873, 14, '5310002', 'SELL & MKTG EXP-Showroom/Depot Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2872, 14, '5310001', 'SELL & MKTG EXP-Office Rent', '', '158', 2225, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2871, 14, '5309002', 'SELL & MKTG EXP-Promotional Exp-Others', '', '158', 2224, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2870, 14, '5309001', 'SELL & MKTG EXP-Promotional Exp', '', '158', 2224, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2868, 14, '5308005', 'SELL & MKTG EXP-Retail AIT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2869, 14, '5308999', 'SELL & MKTG EXP-VAT-Others', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2866, 14, '5308003', 'SELL & MKTG EXP-Corporate AIT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2867, 14, '5308004', 'SELL & MKTG EXP-Retail VAT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2864, 14, '5308001', 'SELL & MKTG EXP-VAT Expenses', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2865, 14, '5308002', 'SELL & MKTG EXP-Corporate VAT', '', '158', 2223, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2862, 14, '5307013', 'SELL & MKTG EXP-Salaries, Wages-Gratuity', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2863, 14, '5307999', 'SELL & MKTG EXP-Salaries, Wages-Others', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2861, 14, '5307012', 'SELL & MKTG EXP-Salaries, Wages-Group Insurance', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2859, 14, '5307010', 'SELL & MKTG EXP-Salaries, Wages-Workman Compensation', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2860, 14, '5307011', 'SELL & MKTG EXP-Salaries, Wages-P.F Employer Contribution', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2857, 14, '5307008', 'SELL & MKTG EXP-Salaries, Wages-Holiday Allowance', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2858, 14, '5307009', 'SELL & MKTG EXP-Salaries, Wages-Medical Leave Encashment', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2855, 14, '5307006', 'SELL & MKTG EXP-Salaries, Wages-Emp. Bonus-Workers', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2856, 14, '5307007', 'SELL & MKTG EXP-Salaries, Wages-Emp. Leave Pay', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2853, 14, '5307004', 'SELL & MKTG EXP-Salaries, Wages-Emp. Overtime-Workers', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2854, 14, '5307005', 'SELL & MKTG EXP-Salaries, Wages-Emp. Bonus-Officer & Staff', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2852, 14, '5307003', 'SELL & MKTG EXP-Salaries, Wages-Emp. Overtime-Staff', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2851, 14, '5307002', 'SELL & MKTG EXP-Salaries, Wages-Casual Salary/Wages', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2850, 14, '5307001', 'SELL & MKTG EXP-Salaries, Wages-Salary', '', '158', 2222, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2849, 14, '5306004', 'SELL & MKTG EXP-Power & Fuel-Gas', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2848, 14, '5306003', 'SELL & MKTG EXP-Power & Fuel-Fuel/Gas For Generator', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2847, 14, '5306002', 'SELL & MKTG EXP-Power & Fuel-Wasa', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2846, 14, '5306001', 'SELL & MKTG EXP-Power & Fuel-Electricity', '', '158', 2221, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2844, 14, '5305002', 'SELL & MKTG EXP-Training Exp-TA & DA', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2845, 14, '5305003', 'SELL & MKTG EXP-Training Exp-Subsistence Allowance', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2843, 14, '5305001', 'SELL & MKTG EXP-Training Exp-Training Fee', '', '158', 2220, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2842, 14, '5304999', 'SELL & MKTG EXP-Advert & Publicity-Other', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2841, 14, '5304005', 'SELL & MKTG EXP-Advert & Publicity-Trade Fair', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2840, 14, '5304004', 'SELL & MKTG EXP-Advert & Publicity-Showroom Opening Campaign', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2839, 14, '5304003', 'SELL & MKTG EXP-Advert & Publicity-Special Trade Offer', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2838, 14, '5304002', 'SELL & MKTG EXP-Advert & Publicity-Print Media', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2837, 14, '5304001', 'SELL & MKTG EXP-Advert & Publicity-Electronic Media', '', '158', 2219, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2836, 14, '5303999', 'SELL & MKTG EXP-Vehicle Maint.-Others', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2835, 14, '5303004', 'SELL & MKTG EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2834, 14, '5303003', 'SELL & MKTG EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2833, 14, '5303002', 'SELL & MKTG EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2831, 14, '5302005', 'SELL & MKTG EXP-Post, Telep & Internet-Mobile Bill', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2832, 14, '5303001', 'SELL & MKTG EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2218, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2829, 14, '5302003', 'SELL & MKTG EXP-Post, Telep & Internet-Telephone-Residence', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2830, 14, '5302004', 'SELL & MKTG EXP-Post, Telep & Internet-Internet Services', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2828, 14, '5302002', 'SELL & MKTG EXP-Post, Telep & Internet-Telephone-Office', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2827, 14, '5302001', 'SELL & MKTG EXP-Post, Telep & Internet-Postage/Courier', '', '158', 2217, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2826, 14, '5301004', 'SELL & MKTG EXP-Travel And Convey-Others', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2825, 14, '5301003', 'SELL & MKTG EXP-Travel And Convey-Foreign Travelling', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2823, 14, '5301001', 'SELL & MKTG EXP-Travel And Convey-Local Conveyance', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2824, 14, '5301002', 'SELL & MKTG EXP-Travel And Convey-TA & DA/Tour', '', '158', 2216, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2822, 14, '5203999', 'Amortization Expense-Others', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2821, 14, '5203003', 'Amortization Expense-Deferred Revenue Expenditure', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2820, 14, '5203002', 'Amortization Expense-Software', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2819, 14, '5203001', 'Amortization Expense-Goodwill', '', '158', 2214, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2817, 14, '5202998', 'Depreciation Adjustment', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2818, 14, '5202999', 'Deferred Depreciation Expense', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2815, 14, '5201010', 'DEP EXP-Sundry Assets', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2816, 14, '5202001', 'Impairment Expense', '', '158', 2213, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2814, 14, '5201009', 'DEP EXP-I.T Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2812, 14, '5201007', 'DEP EXP-Office & Other Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2813, 14, '5201008', 'DEP EXP-Electric & Gas Installation', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2811, 14, '5201006', 'DEP EXP-Electrical Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2809, 14, '5201004', 'DEP EXP-Furniture, Fixtures & Fittings', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2810, 14, '5201005', 'DEP EXP-Vehicles & Ground Handling Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2808, 14, '5201003', 'DEP EXP-Road, Walls & Drainage', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2807, 14, '5201002', 'DEP EXP-Buildings-Buildings & Structures', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2805, 14, '5199999', 'MFG EXP-Other Expenses', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2806, 14, '5201001', 'DEP EXP-Plant Machinery & Equipment', '', '158', 2212, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2804, 14, '5199016', 'MFG EXP-Mobile & Telephone Bill', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2803, 14, '5199015', 'MFG EXP-Hired House-Rent', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2802, 14, '5199014', 'MFG EXP-Hired House-Electricity Bill', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2801, 14, '5199013', 'MFG EXP-Power of Generator Allocations', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2800, 14, '5199012', 'MFG EXP-Indirect Materials', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2798, 14, '5199010', 'MFG EXP-Travelling & Conveyance', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2799, 14, '5199011', 'MFG EXP-Consultancy Fees', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2796, 14, '5199008', 'MFG EXP-Loading & Unloading', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2797, 14, '5199009', 'MFG EXP-Carrying & Handling', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2795, 14, '5199007', 'MFG EXP-Rent', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2793, 14, '5199005', 'MFG EXP-Postage & Telephone', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2794, 14, '5199006', 'MFG EXP-Training Expenses', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2792, 14, '5199004', 'MFG EXP-License & Renewals', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2791, 14, '5199003', 'MFG EXP-Entertainment', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2790, 14, '5199002', 'MFG EXP-Printing & Stationery', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2789, 14, '5199001', 'MFG EXP-FOH Absorption', '', '158', 2210, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2788, 14, '5198001', 'MFG EXP-Miscellaneous Expenses', '', '158', 2209, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2787, 14, '5117002', 'MFG EXP-Special Award', '', '158', 2208, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2786, 14, '5117001', 'MFG EXP-Incentive', '', '158', 2208, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2785, 14, '5116999', 'MFG EXP-Others Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2784, 14, '5116006', 'MFG EXP-Inspection Service/Variation Notice Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2783, 14, '5116005', 'MFG EXP-Environment License Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2782, 14, '5116004', 'MFG EXP-Jetty & Foreshore Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2780, 14, '5116002', 'MFG EXP-Trade License Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2781, 14, '5116003', 'MFG EXP-Boiler Inspection Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2779, 14, '5116001', 'MFG EXP-Consultancy Fee', '', '158', 2207, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2778, 14, '5115003', 'MFG EXP-Foreign Tour', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2776, 14, '5115001', 'MFG EXP-Local Conveyance', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2777, 14, '5115002', 'MFG EXP-Local Tour', '', '158', 2206, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2774, 14, '5114001', 'MFG EXP-Carrying & Handling', '', '158', 2205, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2775, 14, '5114002', 'MFG EXP-Loading & Unloading', '', '158', 2205, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2773, 14, '5113999', 'MFG EXP-Others', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2771, 14, '5113004', 'MFG EXP-Holding Taxes', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2772, 14, '5113005', 'MFG EXP-Rent for Factory Building', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2770, 14, '5113003', 'MFG EXP-Land Development Taxes', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2769, 14, '5113002', 'MFG EXP-Rent of Haripur', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2768, 14, '5113001', 'MFG EXP-Rent for Chapatali', '', '158', 2204, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2766, 14, '5111005', 'MFG EXP-Mobile', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2767, 14, '5112001', 'MFG EXP-Training Expenses', '', '158', 2203, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2765, 14, '5111004', 'MFG EXP-Internet', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2763, 14, '5111002', 'MFG EXP-Telephone-Office', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2764, 14, '5111003', 'MFG EXP-Telephone-Residence', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2762, 14, '5111001', 'MFG EXP-Postage/Courier', '', '158', 2202, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2761, 14, '5110999', 'MFG EXP-Entertainment-Others', '', '158', 2201, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2760, 14, '5110001', 'MFG EXP-Entertainment-Guest House', '', '158', 2201, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2759, 14, '5109002', 'MFG EXP-Stationery', '', '158', 2200, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2758, 14, '5109001', 'MFG EXP-Printing', '', '158', 2200, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2757, 14, '5108999', 'MFG EXP-Indirect Labour-Other Benefits', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2756, 14, '5108011', 'MFG EXP-Indirect Labour-Group Insurrance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2755, 14, '5108010', 'MFG EXP-Indirect Labour-Meal Allowance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2754, 14, '5108009', 'MFG EXP-Indirect Labour-Night Allowance', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2752, 14, '5108007', 'MFG EXP-Indirect Labour-Workmen Compensation', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2753, 14, '5108008', 'MFG EXP-Indirect Labour-Medical Leave', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2751, 14, '5108006', 'MFG EXP-Indirect Labour-Emp. Bonus', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2750, 14, '5108005', 'MFG EXP-Indirect Labour-Emp. Gratuity', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2749, 14, '5108004', 'MFG EXP-Indirect Labour-Emp. Leave Pay', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2748, 14, '5108003', 'MFG EXP-Indirect Labour-Emp. Overtime', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2747, 14, '5108002', 'MFG EXP-Indirect Labour-P.F Employer Contribution', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2746, 14, '5108001', 'MFG EXP-Indirect Labour-Salary', '', '158', 2199, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2744, 14, '5107026', 'MFG EXP-Others-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2745, 14, '5107999', 'MFG EXP-Direct Labour-Other Benefits', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2743, 14, '5107025', 'MFG EXP-Salary & Wages-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2742, 14, '5107024', 'MFG EXP-Power & Fuel-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2741, 14, '5107023', 'MFG EXP-Depreciation-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2740, 14, '5107022', 'MFG EXP-Direct Labour-Absorption', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2739, 14, '5107021', 'MFG EXP-Direct Labour-Absorption-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2738, 14, '5107020', 'MFG EXP-Direct Labour-Absorption-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2737, 14, '5107019', 'MFG EXP-Direct Labour-Absorption-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2735, 14, '5107017', 'MFG EXP-Direct Labour-Rate Variance', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2736, 14, '5107018', 'MFG EXP-Direct Labour-Efficiency Variance', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2734, 14, '5107016', 'MFG EXP-Applied Direct Labour', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2733, 14, '5107015', 'MFG EXP-Direct Labour Control', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2732, 14, '5107014', 'MFG EXP-Direct Labour-Other Allowances-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2731, 14, '5107013', 'MFG EXP-Direct Labour-Bonus-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2730, 14, '5107012', 'MFG EXP-Direct Labour-Wages-Contractual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0);
+INSERT INTO `tbl_chart_of_accounts120520` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
+(2729, 14, '5107011', 'MFG EXP-Direct Labour-Other Allowances-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2728, 14, '5107010', 'MFG EXP-Direct Labour-Bonus-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2726, 14, '5107008', 'MFG EXP-Direct Labour-Night Allowance-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2727, 14, '5107009', 'MFG EXP-Direct Labour-Wages-Casual', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2725, 14, '5107007', 'MFG EXP-Direct Labour-Meal Allowance-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2723, 14, '5107005', 'MFG EXP-Direct Labour-Gratuity-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2724, 14, '5107006', 'MFG EXP-Direct Labour-P.F Employer Contribution-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2722, 14, '5107004', 'MFG EXP-Direct Labour-Leave Pay-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2721, 14, '5107003', 'MFG EXP-Direct Labour-Overtime-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2719, 14, '5107001', 'MFG EXP-Direct Labour-Wages-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2720, 14, '5107002', 'MFG EXP-Direct Labour-Bonus-Permanent', '', '158', 2198, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2718, 14, '5106999', 'MFG EXP-Vehicle Maint.-Others', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2717, 14, '5106004', 'MFG EXP-Vehicle Maint.-Fee & Charge For Vehicle', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2716, 14, '5106003', 'MFG EXP-Vehicle Maint.-Vehicle Insurance', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2715, 14, '5106002', 'MFG EXP-Vehicle Maint.-Repairs To Vehicle', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2714, 14, '5106001', 'MFG EXP-Vehicle Maint.-Diesel & Octane', '', '158', 2197, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2713, 14, '5105999', 'MFG EXP-Repairs & Maint.-Others', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2712, 14, '5105011', 'MFG EXP-Repairs & Maint.-Customer Service', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2711, 14, '5105010', 'MFG EXP-Repairs & Maint.-Generator', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2710, 14, '5105009', 'MFG EXP-Repairs & Maint.-Metal', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2709, 14, '5105008', 'MFG EXP-Repairs & Maint.-Construction Material', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2706, 14, '5105005', 'MFG EXP-Repairs & Maint.-Office Equipment', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2707, 14, '5105006', 'MFG EXP-Repairs & Maint.-Electrical Materials', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2708, 14, '5105007', 'MFG EXP-Repairs & Maint.-Goods Delivered To Show Room/CWH', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2705, 14, '5105004', 'MFG EXP-Repairs & Maint.-Furniture & Fixtures', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2703, 14, '5105002', 'MFG EXP-Repairs & Maint.-Factory Building', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2704, 14, '5105003', 'MFG EXP-Repairs & Maint.-Godown', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2701, 14, '5104999', 'MFG EXP-Insurance-Others', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2702, 14, '5105001', 'MFG EXP-Repairs & Maint.-Plant & Machienry', '', '158', 2196, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2699, 14, '5104005', 'MFG EXP-Insurance-Group Insurance', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2700, 14, '5104006', 'MFG EXP-Insurance-WIP', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2698, 14, '5104004', 'MFG EXP-Insurance-Raw Materials', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2697, 14, '5104003', 'MFG EXP-Insurance-Godown Finished Product', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2696, 14, '5104002', 'MFG EXP-Insurance-Factory Building', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2695, 14, '5104001', 'MFG EXP-Insurance-Plant & Machienry', '', '158', 2195, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2694, 14, '5103004', 'MFG EXP-Power & Fuel-Diesel For Generator', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2693, 14, '5103003', 'MFG EXP-Power & Fuel-Fuel & Lubricant', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2692, 14, '5103002', 'MFG EXP-Power & Fuel-Gas', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2691, 14, '5103001', 'MFG EXP-Power & Fuel-Electricity', '', '158', 2194, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2690, 14, '5102999', 'MFG EXP-Stores & Spares Maint.-Other Maintenance', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2689, 14, '5102004', 'MFG EXP-Stores & Spares Maint.-Laboratory Stores', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2688, 14, '5102003', 'MFG EXP-Stores & Spares Maint.-Godown', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2687, 14, '5102002', 'MFG EXP-Stores & Spares Maint.-Factory', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2686, 14, '5102001', 'MFG EXP-Stores & Spares Maint.-Machinery', '', '158', 2193, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2685, 14, '5101999', 'FG Adjustment Account', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2684, 14, '5101998', 'WIP Adjustment Account', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2683, 14, '5101997', 'Raw Material Consumption', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2682, 14, '5101996', 'Indirect Raw Material Consumption', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2680, 14, '5101994', 'Freezing Compound', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2681, 14, '5101995', 'FG Stock Adjustment Account', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2679, 14, '5101002', 'COGS-Inter plant', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2678, 14, '5101001', 'COGS-Manufactured Products', '', '158', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2677, 14, '4999999', 'Non-Operating Income-Other Income', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2676, 14, '4999998', 'Non-Operating Income-Foreign Exchange Gain/Loss', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2675, 14, '4999997', 'Non-Operating Income-Auto Invoice Clearing Account', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2674, 14, '4999996', 'Non-Operating Income-Currency/Number Rounding', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2673, 14, '4999995', 'Non-Operating Income-Discount Taken', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2672, 14, '4999994', 'Non-Operating Income-Realized Gain Account', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2671, 14, '4999993', 'Non-Operating Income-Gain/Loss On Sale Of Assets', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2670, 14, '4999992', 'Non-Operating Income-Gain/Loss On Sale Of Shares', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2669, 14, '4999010', 'Non-Operating Income-Income from return Truck Fare', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2668, 14, '4999009', 'Non-Operating Income-Commission Received', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2667, 14, '4999008', 'Non-Operating Income-Freight Charges', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2666, 14, '4999007', 'Non-Operating Income-Bonus Shares', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2665, 14, '4999006', 'Non-Operating Income-Export Incentive', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2664, 14, '4999005', 'Non-Operating Income-Duty Draw Back', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2662, 14, '4999003', 'Non-Operating Income-Gain/Loss on Insurance Claim', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2663, 14, '4999004', 'Non-Operating Income-Rent', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2661, 14, '4999002', 'Non-Operating Income-Interest Received', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2660, 14, '4999001', 'Non-Operating Income-Share Dividend', '', '158', 2189, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2659, 14, '4901001', 'SPBML-Scrap Sale', '', '158', 2187, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2658, 14, '4102001', 'SPBML-Sale Of By Products', '', '158', 2186, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2657, 14, '4101999', 'SPBML Sales-Other', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2655, 14, '4101004', 'SPBML Transfer Profit', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2656, 14, '4101005', 'SPBML Inter Plant Revenue', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2654, 14, '4101003', 'SPBML Intercompany Revenue', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2653, 14, '4101002', 'SPBML Export Product Revenue', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2652, 14, '4101001', 'SPBML Local Product Revenue', '', '158', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2651, 14, '3220999', 'Provisions For Expenses-Other Provisions', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2649, 14, '3220018', 'Provisions For Incentive', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2650, 14, '3220019', 'Provisions For Commission', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2648, 14, '3220017', 'Provisions For Carrying & Handling', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2647, 14, '3220016', 'Provisions For Meal Allowance', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2646, 14, '3220015', 'Provisions For Casual Labor', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2644, 14, '3220013', 'Provisions For Overtime', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2645, 14, '3220014', 'Directors\' Remuneration Payable', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2643, 14, '3220012', 'Provisions For Contractor Bill', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2642, 14, '3220011', 'Provisions For Female Worker', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2641, 14, '3220010', 'Provisions For Carpenter Bill', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2640, 14, '3220009', 'Provisions For Gratuity', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2639, 14, '3220008', 'Provisions For Wages', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2638, 14, '3220007', 'Provisions For Salary/Bonus', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2637, 14, '3220006', 'Provisions For Interest', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2636, 14, '3220005', 'Provisions For Advertisement', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2635, 14, '3220004', 'Provisions For Leave Salary', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2634, 14, '3220003', 'Provisions For Custom Duty', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2633, 14, '3220002', 'Provisions For Audit Fee', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2632, 14, '3220001', 'Provisions For Taxation', '', '158', 2182, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2630, 14, '3218001', 'Dividend Payable-Unpaid Dividend', '', '158', 2180, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2631, 14, '3219001', 'Interest Payable-Unpaid Ineterest', '', '158', 2181, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2629, 14, '3217001', 'Accrued Markup/Interest', '', '158', 2179, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2628, 14, '3216003', 'Finance Lease Obligation-Short Term (Hajj Finance Co. Ltd)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2627, 14, '3216002', 'Finance Lease Obligation-Short Term (IFIC Bank)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2626, 14, '3216001', 'Finance Lease Obligation-Short Term (Prime Bank)', '', '158', 2178, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2625, 14, '3215999', 'Other Liabilities-Others', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2624, 14, '3215998', 'Other Liabilities-AP/AR Clearing Account', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2622, 14, '3215996', 'Other Liabilities-Loan Clearing Account', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2623, 14, '3215997', 'Other Liabilities-Inter-Org Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2621, 14, '3215995', 'Other Liabilities-Finance', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2620, 14, '3215994', 'Other Liabilities-Fire/Group Life Insurance', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2619, 14, '3215005', 'Other Liabilities-VAT Outstanding', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2617, 14, '3215003', 'Other Liabilities-Import Bills Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2618, 14, '3215004', 'Other Liabilities-Death/Injury Claim Payable', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2616, 14, '3215002', 'Other Liabilities-Sundry Creditors', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2615, 14, '3215001', 'Other Liabilities-Custom Duty', '', '158', 2177, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2613, 14, '3214013', 'Tax Payable-Tax Deducted at Source from Advertisement', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2614, 14, '3214014', 'Tax Payable-Tax Deducted at Source from Carrying Bill', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2612, 14, '3214012', 'Tax Payable-Tax Deducted at Source from Rent', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2611, 14, '3214011', 'Tax Payable-SD Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2609, 14, '3214009', 'Tax Payable-VAT Payable', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2610, 14, '3214010', 'Tax Payable-SD Payable', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2608, 14, '3214008', 'Tax Payable-VAT Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2607, 14, '3214007', 'Tax Payable-AIT Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2606, 14, '3214006', 'Tax Payable-TDS Clearing', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2605, 14, '3214005', 'Tax Payable-Deduction At Source-Director', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2604, 14, '3214004', 'Tax Payable-Deduction At Source Party (VAT)', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2603, 14, '3214003', 'Tax Payable-Company\'S Income Tax', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2602, 14, '3214002', 'Tax Payable-Tax Withheld At Source (Party)-TDS', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2600, 14, '3213999', 'Reserve For Encumbrance', '', '158', 2175, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2601, 14, '3214001', 'Tax Payable-Staff Income Tax/Deduction At Source', '', '158', 2176, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2599, 14, '3212999', 'Post Emp Benefits-Others', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2598, 14, '3212005', 'Post Emp Benefits-Recovery Of P.F. Interest', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2596, 14, '3212003', 'Post Emp Benefits-Unpaid Gratuity', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2597, 14, '3212004', 'Post Emp Benefits-Recovery Of P.F. Loan', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2595, 14, '3212002', 'Post Emp Benefits-Employee P.F. Contribution', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2594, 14, '3212001', 'Post Emp Benefits-Employer P.F. Contribution', '', '158', 2174, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2593, 14, '3211999', 'Salaries & Wages-Others', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2591, 14, '3211007', 'Deduction from employees-House Rent', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2592, 14, '3211008', 'Deduction from employees-Gas', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2590, 14, '3211006', 'Salaries & Wages-Gratuity', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2588, 14, '3211004', 'Salaries & Wages-Leave Pay', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2589, 14, '3211005', 'Salaries & Wages-Bonus', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2587, 14, '3211003', 'Salaries & Wages-Misc. Recoveries From Employees', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2586, 14, '3211002', 'Salaries & Wages-Workers Profit Participation Fund', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2584, 14, '3210999', 'Other Liability Deposits', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2585, 14, '3211001', 'Salaries & Wages Payable', '', '158', 2173, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2582, 14, '3210001', 'Security Refundable', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2583, 14, '3210002', 'Earnest Money Liability', '', '158', 2172, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2581, 14, '3209999', 'On Account Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2578, 14, '3209996', 'Refund Clearing Account', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2579, 14, '3209997', 'Unidentified Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2580, 14, '3209998', 'Unapplied Receipt', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2576, 14, '3209002', 'Advance Received Against Misc', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2577, 14, '3209003', 'Unearned Income/Deferred Revenues', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2575, 14, '3209001', 'Advance Received Against Sale', '', '158', 2171, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2573, 14, '3208029', 'Bank-NRB-Commercial Bank Ltd.', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2574, 14, '3208030', 'Bank-NRB-Commercial Bank Ltd.-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2572, 14, '3208028', 'Bank-Jamuna Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2571, 14, '3208027', 'Bank-Jamuna Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2569, 14, '3208025', 'Bank-Uttara Bank Ltd. (STL)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2570, 14, '3208026', 'Lankan Alliance Finance Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2568, 14, '3208024', 'NDB Capital Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2567, 14, '3208023', 'Bank-Bank Asia Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2565, 14, '3208021', 'IPDC Finance Limited', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2566, 14, '3208022', 'Bank-Bank Asia Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2564, 14, '3208020', 'Bank-Premier Bank Ltd. (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2563, 14, '3208019', 'Bank-Premier Bank Ltd. (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2561, 14, '3208017', 'National Finance Ltd.', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2562, 14, '3208018', 'National Finance Ltd-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2560, 14, '3208016', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2559, 14, '3208015', 'Bank-Social Islami Bank Ltd', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2558, 14, '3208014', 'Bank-South East Bank Ltd. (OD)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2557, 14, '3208013', 'Bank-South East Bank Ltd. (OD)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2556, 14, '3208012', 'Bank-Shahjalal Islami Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2555, 14, '3208011', 'Bank-Shahjalal Islami Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2554, 14, '3208010', 'Bank-Exim Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2553, 14, '3208009', 'Bank-Exim Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2552, 14, '3208006', 'Bank-Sonali Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2550, 14, '3208002', 'Bank-Jamuna Bank Ltd (CC)-Clearing', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2551, 14, '3208005', 'Bank-Sonali Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2549, 14, '3208001', 'Bank-Jamuna Bank Ltd (CC)', '', '158', 2170, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2548, 14, '3207999', 'Expense AP Accrual', '', '158', 2169, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2547, 14, '3207001', 'Creditors For Services And Expenses', '', '158', 2169, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2546, 14, '3206999', 'Inventory AP Accrual', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2545, 14, '3206998', 'Creditors For Goods-Others', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2544, 14, '3206002', 'Creditors For Goods-Foreign Supplies', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2543, 14, '3206001', 'Creditors For Goods-Local Supplies', '', '158', 2168, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2542, 14, '3202022', 'STL-Laxmi Vander', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2541, 14, '3202021', 'STL-NRB Commercial Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2540, 14, '3202020', 'STL-Wall Mart Trade International', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2539, 14, '3202019', 'STL-Meximco Trading Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2538, 14, '3202018', 'STL-Loknath Vander', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2535, 14, '3202015', 'STL-Dhaka Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2536, 14, '3202016', 'STL-Shamsul Karim', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2537, 14, '3202017', 'STL-Dulal & Brothers-Moulvi Bazar-Dhaka', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2534, 14, '3202014', 'STL-Prime Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2533, 14, '3202013', 'STL-IIDFC', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2532, 14, '3202012', 'STL-Social Islami Bank Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2531, 14, '3202011', 'STL-Duratech Corporation Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2530, 14, '3202010', 'STL-Prime Finance & Investment (Short Term Portion of LTL)', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2528, 14, '3202008', 'STL-Darbar Flower Mills Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2529, 14, '3202009', 'STL-Sonali Bank Ltd (Short Term Portion of LTL)', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2527, 14, '3202007', 'STL-Sonali Trading', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2526, 14, '3202006', 'STL-S & S Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2524, 14, '3202004', 'STL-Multi Securities Services Ltd.', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2525, 14, '3202005', 'STL-N.S Corporation', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2523, 14, '3202003', 'STL-Sonali Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2522, 14, '3202002', 'STL-Shahjalal Islami Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2520, 14, '3201005', 'Inter-company SPBML AP/AR', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2521, 14, '3202001', 'STL-Jamuna Bank Ltd', '', '158', 2167, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2519, 14, '3201004', 'Inter-company PPIL AP/AR', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2518, 14, '3201003', 'Related Parties-Partex Group', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2517, 14, '3201002', 'Sister Concern-CX2', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2516, 14, '3201001', 'Sister Concern-CX1', '', '158', 2166, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2514, 14, '3106002', 'Long Term Lease- Prime Finance & Investment Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2515, 14, '3106003', 'Long Term Lease-Prime Bank Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2513, 14, '3106001', 'Long Term Lease-Hajj Finance Co. Ltd', '', '158', 2164, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2512, 14, '3105999', 'Deferred Other Liability', '', '158', 2163, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2510, 14, '3102001', 'LTL-Jamuna Bank Ltd', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2511, 14, '3105001', 'Deferred Tax Liability', '', '158', 2163, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2509, 14, '3101008', 'LTL-Industrial & Infrastructure Dev. Finance Co. Ltd.-IIDFCL', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2508, 14, '3101007', 'LTL-IPDC Finance Limited', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2507, 14, '3101006', 'LTL-United Finance Limited', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2506, 14, '3101005', 'LTL-Shahjalal  Islami Bank Ltd.', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2504, 14, '3101003', 'LTL-Prime Finance & Investment Ltd.', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2505, 14, '3101004', 'LTL-Social Islami Bank Ltd.', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2503, 14, '3101002', 'LTL-Prime Bank Ltd', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2501, 14, '2104002', 'Prior Year Adjustment', '', '158', 2159, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2502, 14, '3101001', 'LTL-Sonali Bank Ltd', '', '158', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2500, 14, '2104001', 'Unappropriated Profits/Losses', '', '158', 2159, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2499, 14, '2103001', 'Capital Gain/Loss', '', '158', 2158, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2497, 14, '2102010', 'Share Money Deposit', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2498, 14, '2102999', 'Revaluation Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2496, 14, '2102009', 'Stock Dividend', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2495, 14, '2102008', 'Special Reserve for Re-Construction', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2494, 14, '2102007', 'Proposed Bonus Share', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2493, 14, '2102006', 'General Fund', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2491, 14, '2102004', 'Proposed  Dividend', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2492, 14, '2102005', 'Employee\'s Welfare Fund', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2489, 14, '2102002', 'Income Tax Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2490, 14, '2102003', 'Taxholiday Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2488, 14, '2102001', 'General Reserve', '', '158', 2157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2487, 14, '2101003', 'Share Premium', '', '158', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2486, 14, '2101002', 'Preference Share Capital', '', '158', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2485, 14, '2101001', 'Ordinary Share Capital', '', '158', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2484, 14, '1212999', 'Inter-Bank Transfers', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2483, 14, '1212998', 'AP/AR Netting', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2482, 14, '1212060', 'Bangladesh Krishi Bank-559', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2481, 14, '1212058', 'Bank-NRB Commercial Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2480, 14, '1212057', 'Bank-NRB Commercial Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2479, 14, '1212056', 'Bank-South Bangla Agriculture & Commerce Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2478, 14, '1212055', 'Bank-South Bangla Agriculture & Commerce Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2477, 14, '1212054', 'Bank-Midland Bank Limited-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2475, 14, '1212052', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2476, 14, '1212053', 'Bank-Midland Bank Limited', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2473, 14, '1212048', 'Bank-Bank Alfalah Limited-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2474, 14, '1212051', 'Bank-Social Islami Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2472, 14, '1212047', 'Bank-Bank Alfalah Limited', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2470, 14, '1212045', 'Bank-Uttara Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2471, 14, '1212046', 'Bank-Uttara Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2468, 14, '1212043', 'Bank-United Commercial Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2469, 14, '1212044', 'Bank-United Commercial Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2467, 14, '1212042', 'Bank-The City Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2466, 14, '1212041', 'Bank-The City Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2464, 14, '1212039', 'Bank-State Bank Of India', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2465, 14, '1212040', 'Bank-State Bank Of India-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2463, 14, '1212036', 'Bank-Southeast Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2461, 14, '1212034', 'Bank-Sonali Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2462, 14, '1212035', 'Bank-Southeast Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2460, 14, '1212033', 'Bank-Sonali Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2459, 14, '1212032', 'Bank-Social Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2458, 14, '1212031', 'Bank-Social Islami Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2457, 14, '1212030', 'Bank-Social Investment Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2455, 14, '1212028', 'Bank-Shahjalal Islami Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2456, 14, '1212029', 'Bank-Social Investment Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2454, 14, '1212027', 'Bank-Shahjalal Islami Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2452, 14, '1212025', 'Bank-Prime Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2453, 14, '1212026', 'Bank-Prime Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2451, 14, '1212024', 'Bank-Premier Bank Ltd.-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2449, 14, '1212022', 'Bank-Janata Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2450, 14, '1212023', 'Bank-Premier Bank Ltd.', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2448, 14, '1212021', 'Bank-Janata Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2447, 14, '1212020', 'Bank-Jamuna Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2446, 14, '1212019', 'Bank-Jamuna Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2445, 14, '1212018', 'Bank-Islami Bank Bd Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2444, 14, '1212017', 'Bank-Islami Bank Bd Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2443, 14, '1212012', 'Bank-Exim Bank Bd Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2442, 14, '1212011', 'Bank-Exim Bank Bd Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2440, 14, '1212009', 'Bank-Eastern Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2441, 14, '1212010', 'Bank-Eastern Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2439, 14, '1212008', 'Bank-Dutch Bangla Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2438, 14, '1212007', 'Bank-Dutch Bangla Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2437, 14, '1212006', 'Bank-Dhaka Bank-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2436, 14, '1212005', 'Bank-Dhaka Bank', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2434, 14, '1212003', 'Bank-Agrani Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2435, 14, '1212004', 'Bank-Agrani Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2433, 14, '1212002', 'Bank-AB Bank Ltd-Clearing', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2432, 14, '1212001', 'Bank-AB Bank Ltd', '', '158', 2153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2430, 14, '1211061', 'Cash In Hand-Rampura Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2431, 14, '1211062', 'Cash In Hand-Rampura Showroom Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2429, 14, '1211060', 'Cash In Hand-Mirpur Zoo Road Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2428, 14, '1211059', 'Cash In Hand-Mirpur Zoo Road Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2426, 14, '1211057', 'Cash In Hand-Savar Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2427, 14, '1211058', 'Cash In Hand-Savar Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2425, 14, '1211056', 'Cash In Hand-Tejgaon Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2424, 14, '1211055', 'Cash In Hand-Tejgaon Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2423, 14, '1211054', 'Cash In Hand-Bijoynagar-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2421, 14, '1211052', 'Cash In Hand-Dealer-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2422, 14, '1211053', 'Cash In Hand-Bijoynagar', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2420, 14, '1211051', 'Cash In Hand-Dealer', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2419, 14, '1211050', 'Cash In Hand-Badda Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2418, 14, '1211049', 'Cash In Hand-Badda Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2417, 14, '1211046', 'Cash In Hand-Baridhara Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2415, 14, '1211044', 'Cash In Hand-F.Karim-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2416, 14, '1211045', 'Cash In Hand-Baridhara Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2414, 14, '1211043', 'Cash In Hand-F.Karim', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2413, 14, '1211028', 'Cash In Hand-Sylhet Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2411, 14, '1211018', 'Cash In Hand-Monipuripara Showroom-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2412, 14, '1211027', 'Cash In Hand-Sylhet Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2410, 14, '1211017', 'Cash In Hand-Monipuripara Showroom', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2409, 14, '1211016', 'Cash In Hand-Chittagong-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2407, 14, '1211014', 'Cash In Transit-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2408, 14, '1211015', 'Cash In Hand-Chittagong', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2406, 14, '1211013', 'Cash In Transit', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2405, 14, '1211012', 'Cash In Hand-Factory-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2404, 14, '1211011', 'Cash In Hand-Factory', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2403, 14, '1211010', 'Cash In Hand-Barisal Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2401, 14, '1211008', 'Cash In Hand-Bogra Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2402, 14, '1211009', 'Cash In Hand-Barisal Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2400, 14, '1211007', 'Cash In Hand-Bogra Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2399, 14, '1211006', 'Cash In Hand-Khulna Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2398, 14, '1211005', 'Cash In Hand-Khulna Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2397, 14, '1211004', 'Cash In Hand-Sylhet Depot-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2396, 14, '1211003', 'Cash In Hand-Sylhet Depot', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2395, 14, '1211002', 'Cash In Hand-HO-Clearing', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2394, 14, '1211001', 'Cash In Hand-HO', '', '158', 2152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2392, 14, '1210009', 'SPBML-Tax-Others', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2393, 14, '1210999', 'Advance Corporate Tax', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2390, 14, '1210001', 'SPBML-Advance Income Tax-AIT', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2391, 14, '1210005', 'SPBML-VAT Current A/C', '', '158', 2151, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2389, 14, '1209999', 'Prepayments, Advances, Deposits, Recoveries-Others', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2388, 14, '1209998', 'Maintenance Offset', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2387, 14, '1209019', 'Advance Against Project Cost', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2386, 14, '1209018', 'Security & Other Deposits', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2385, 14, '1209017', 'Advance against Misc./Promotional Exp.', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2384, 14, '1209016', 'Advance to Depot, Mill & Others', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2383, 14, '1209015', 'Prepaid Import Cost Adjustment', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2382, 14, '1209014', 'Amount deduction for Expenses-Showroom', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2381, 14, '1209013', 'Imprest Money-Showroom', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2380, 14, '1209012', 'Bank Guarantee Margin', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2379, 14, '1209011', 'LC Payment Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2378, 14, '1209010', 'Amount Held With The Brokerage House', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2377, 14, '1209009', 'Return Material Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2376, 14, '1209008', 'Earnest Money Clearing', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2375, 14, '1209007', 'Earnest Money Receivable', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2374, 14, '1209006', 'Security  Deposit - Against Tender Sales', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2373, 14, '1209005', 'Advances-Depot & Mill Office', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2372, 14, '1209004', 'Advances-Against Purchase', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2371, 14, '1209003', 'Prepayments-Advance Against Rent', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2370, 14, '1209002', 'Prepayments-Prepaid Insurance', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2369, 14, '1209001', 'Prepayments-Prepaid Import Cost', '', '158', 2150, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2368, 14, '1208005', 'Loan From/To Director-Mr. Rubel Aziz MD-05', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2367, 14, '1208004', 'Loan From/To Director-Mr.Shawkat Aziz Md-04', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2366, 14, '1208003', 'Loan From/To Director-Mr.Aziz-Al-Masud Md-03', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2365, 14, '1208002', 'Loan From/To Director-Baridhara New House Md Cx-02 H-12.', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2364, 14, '1208001', 'Loan From/To Director-Md. M.A. Hashem-Chairman.', '', '158', 2149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2363, 14, '1207003', 'Loan From/To Director-Mr. Aziz Al-Mahmood, Director', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2362, 14, '1207002', 'Loan From/To Director-Mr. Aziz Al-Kaiser, Vice Chairman', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2361, 14, '1207001', 'Loan From/To Director-Mrs. Sultana Hashem. Chairman', '', '158', 2148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2360, 14, '1206999', 'Short Term Advances To Employees-Others', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2359, 14, '1206003', 'Loan To Employees Against PFIL Products', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2358, 14, '1206002', 'Short Term Advances To Employees-Against Salary', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2357, 14, '1206001', 'Short Term Advances To Employees-TA/DA Advance', '', '158', 2147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2356, 14, '1205003', 'Accrued Markup On Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2355, 14, '1205002', 'Current Maturity Of Long Term Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2354, 14, '1205001', 'Short Term Investments', '', '158', 2146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2353, 14, '1204999', 'Trade Receivables-Provision For Bad/Doubtful Debts', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2352, 14, '1204998', 'Trade Receivables-Sundry Debtors', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2351, 14, '1204997', 'Trade Receivables-Inter-Org Receivable', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2350, 14, '1204996', 'Trade Receivables/Loan to-Others', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2349, 14, '1204003', 'Trade Receivable-Intercompany', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2348, 14, '1204002', 'Trade Receivables-Control Account-Export', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2347, 14, '1204001', 'Trade Receivables-Control Account-Local', '', '158', 2145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2346, 14, '1203999', 'WIP-Overhead Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2344, 14, '1203997', 'WIP-Resource Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2345, 14, '1203998', 'WIP-OSP Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2343, 14, '1203996', 'WIP-Material Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2342, 14, '1203995', 'WIP-Scrap Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2340, 14, '1203993', 'WIP-Outside Processing', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2341, 14, '1203994', 'WIP-Overhead Valuation', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2339, 14, '1203992', 'WIP-Resource Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2337, 14, '1203990', 'WIP-Batch Close Variance', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2338, 14, '1203991', 'WIP-Material Overhead', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2336, 14, '1203001', 'WIP-Material Account', '', '158', 2144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2335, 14, '1202999', 'Receiving Accrual', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2334, 14, '1202998', 'INV-Stage Sub-Inventory', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0);
+INSERT INTO `tbl_chart_of_accounts120520` (`id`, `parent_id`, `code`, `title`, `description`, `acc_type`, `parent_data_id`, `trantype`, `status`, `data_type`, `field_qualifier`, `chart_of_account_id`, `segment_id`) VALUES
+(2332, 14, '1202001', 'INV-Stores-Control Account Material', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2333, 14, '1202002', 'INV-Control Account-Spares & Tools', '', '158', 2143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2331, 14, '1201999', 'Deferred Cost Of Goods Sold', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2330, 14, '1201998', 'Intransit Inventory Account', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2329, 14, '1201997', 'Receiving Inventory Account', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2328, 14, '1201996', 'Receipt Clearing Inventory Account', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2327, 14, '1201005', 'INV-Trading Items', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2326, 14, '1201004', 'INV-Stocks In Transit Material-Import', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2325, 14, '1201003', 'INV-Stocks In Transit Material-Local', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2324, 14, '1201002', 'INV-Inventory Adjustment', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2323, 14, '1201001', 'INV-Finished Goods', '', '158', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2322, 14, '1199999', 'Other Non-Current Assets-Others', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2321, 14, '1199004', 'Cost Of Removal Clearing', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2320, 14, '1199003', 'Proceed Of Sale Clearing', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2319, 14, '1199002', 'CWIP Clearing Account', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2318, 14, '1199001', 'Asset Clearing Account', '', '158', 2140, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2317, 14, '1107999', 'Long Term Investments-Others', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2316, 14, '1107004', 'Long Term Investments-PSP', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2315, 14, '1107003', 'Long Term Investments-FDR', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2314, 14, '1107002', 'Long Term Investments-Govt. Bond', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2313, 14, '1107001', 'Long Term Investments-Share & Debenture', '', '158', 2139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2312, 14, '1106003', 'Intangible Assets-Other', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2311, 14, '1106002', 'Intangible Assets-Software', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2310, 14, '1106001', 'Intangible Assets-Goodwill', '', '158', 2138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2309, 14, '1105999', 'C.W.I.P-Others', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2308, 14, '1105004', 'C.W.I.P-Electrical Equipment', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2307, 14, '1105003', 'C.W.I.P-Land & Land Development Asset', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2306, 14, '1105002', 'C.W.I.P-Plant & Machinery', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2305, 14, '1105001', 'C.W.I.P-Buildings', '', '158', 2137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2304, 14, '1104004', 'ACC. Amortization-Others', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2303, 14, '1104003', 'ACC. Amortization-Software', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2302, 14, '1104002', 'ACC. Amortization-Goodwill', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2301, 14, '1104001', 'ACC. Impairment', '', '158', 2136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2300, 14, '1103999', 'ACC.DEP-Deferred Depreciation Reserve', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2299, 14, '1103011', 'ACC.DEP-PPE-Sundry Assets', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2298, 14, '1103010', 'ACC.DEP-PPE-I.T Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2297, 14, '1103009', 'ACC.DEP-PPE-Electric & Gas Installation', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2296, 14, '1103008', 'ACC.DEP-PPE-Office & Other Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2295, 14, '1103007', 'ACC.DEP-PPE-Electrical Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2294, 14, '1103006', 'ACC.DEP-PPE-Vehicles & Ground Handling Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2292, 14, '1103004', 'ACC.DEP-PPE-Road, Walls & Drainage', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2293, 14, '1103005', 'ACC.DEP-PPE-Furniture, Fixtures & Fittings', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2290, 14, '1103002', 'ACC.DEP-PPE-Plant Machinery & Equipment', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2291, 14, '1103003', 'ACC.DEP-PPE-Buildings-Buildings & Structures', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2288, 14, '1102999', 'Other Deferred Expenditure', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2289, 14, '1103001', 'ACC.DEP-PPE-Freehold Land-Land & Developments', '', '158', 2135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2287, 14, '1102003', 'Deferred Revenue Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2286, 14, '1102002', 'Preliminary Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2285, 14, '1102001', 'PRE-Production Expenses', '', '158', 2134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2284, 14, '1101011', 'PPE-Sundry Assets', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2283, 14, '1101010', 'PPE-I.T Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2282, 14, '1101009', 'PPE-Electric & Gas Installation', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2281, 14, '1101008', 'PPE-Office & Other Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2280, 14, '1101007', 'PPE-Electrical Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2278, 14, '1101005', 'PPE-Furniture, Fixtures & Fittings', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2279, 14, '1101006', 'PPE-Vehicles & Ground Handling Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2277, 14, '1101004', 'PPE-Road, Walls & Drainage', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2276, 14, '1101003', 'PPE-Buildings-Buildings & Structures', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2275, 14, '1101002', 'PPE-Plant Machinery & Equipment', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2274, 14, '1101001', 'PPE-Freehold Land-Land & Developments', '', '158', 2133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2273, 14, '5700000', 'OTHER EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2272, 14, '5601000', 'FINANCIAL EXPENSES', '', '157', 2271, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2271, 14, '5600000', 'FINANCIAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2270, 14, '5599000', 'ADMINISTRATIVE EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2269, 14, '5598000', 'ADMINISTRATIVE EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2268, 14, '5516000', 'ADMINISTRATIVE EXPENSES-MANAGING DIRECTOR EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2267, 14, '5515000', 'ADMINISTRATIVE EXPENSES-CORPORATE EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2266, 14, '5514000', 'ADMINISTRATIVE EXPENSES-DONATION, SUBSCRIPTION & GIFT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2265, 14, '5513000', 'ADMINISTRATIVE EXPENSES-UTILITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2263, 14, '5511000', 'ADMINISTRATIVE EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2264, 14, '5512000', 'ADMINISTRATIVE EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2262, 14, '5510000', 'ADMINISTRATIVE EXPENSES-STAFF AMENITIES & WELFARE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2261, 14, '5509000', 'ADMINISTRATIVE EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2260, 14, '5508000', 'ADMINISTRATIVE EXPENSES-FEE & PROFESSIONAL CHARGE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2259, 14, '5507000', 'ADMINISTRATIVE EXPENSES-ADVERTISEMENT & PUBLICITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2258, 14, '5506000', 'ADMINISTRATIVE EXPENSES-RENT, RATES & TAXES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2256, 14, '5504000', 'ADMINISTRATIVE EXPENSES-ENTERTAINMENT & CEREMONIAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2257, 14, '5505000', 'ADMINISTRATIVE EXPENSES-REPAIR & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2255, 14, '5503000', 'ADMINISTRATIVE EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2254, 14, '5502000', 'ADMINISTRATIVE EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2253, 14, '5501000', 'ADMINISTRATIVE EXPENSES-TRAVELLING AND CONVEYANCE', '', '157', 2252, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2252, 14, '5500000', 'ADMINISTRATIVE EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2251, 14, '5499000', 'DISTRIBUTION EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2250, 14, '5498000', 'DISTRIBUTION EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2249, 14, '5410000', 'DISTRIBUTION EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2248, 14, '5409000', 'DISTRIBUTION EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2247, 14, '5408000', 'DISTRIBUTION EXPENSES-RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2246, 14, '5407000', 'DISTRIBUTION EXPENSES-TRANSPORT EXPENSE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2245, 14, '5406000', 'DISTRIBUTION EXPENSES-TRAVELLING & CONVEYANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2244, 14, '5405000', 'DISTRIBUTION EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2243, 14, '5404000', 'DISTRIBUTION EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2242, 14, '5403000', 'DISTRIBUTION EXPENSES-CARRYING, HANDLING & DELIVERY EXPENSE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2241, 14, '5402000', 'DISTRIBUTION EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2240, 14, '5401000', 'DISTRIBUTION EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2239, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2239, 14, '5400000', 'DISTRIBUTION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2238, 14, '5399000', 'SELLING & MARKETTING EXPENSES-OTHERS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2237, 14, '5398000', 'SELLING & MARKETTING EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2235, 14, '5320000', 'SELLING & MARKETING EXPENSE-VAT ON RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2236, 14, '5321000', 'SELLING & MARKETING EXPENSE-EXPORT EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2234, 14, '5319000', 'SELLING & MARKETING EXPENSE-DONATION , SUBSCRIPTION & GIFT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2233, 14, '5318000', 'SELLING & MARKETING EXPENSE-REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2232, 14, '5317000', 'SELLING & MARKETING EXPENSES-INCENTIVE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2230, 14, '5315000', 'SELLING & MARKETTING EXPENSES-BROKERAGE COMMISSION', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2231, 14, '5316000', 'SELLING & MARKETTING EXPENSES-LEGAL FEES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2229, 14, '5314000', 'SELLING & MARKETTING EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2228, 14, '5313000', 'SELLING & MARKETTING EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2227, 14, '5312000', 'SELLING & MARKETTING EXPENSES-SALES DISCOUNT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2226, 14, '5311000', 'SELLING & MARKETTING EXPENSES-SALES COMMISSION', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2225, 14, '5310000', 'SELLING & MARKETTING EXPENSES-RENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2224, 14, '5309000', 'SELLING & MARKETTING EXPENSES-PROMOTIONAL EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2223, 14, '5308000', 'SELLING & MARKETTING EXPENSES-VAT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2222, 14, '5307000', 'SELLING & MARKETTING EXPENSES-SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2221, 14, '5306000', 'SELLING & MARKETTING EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2220, 14, '5305000', 'SELLING & MARKETTING EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2219, 14, '5304000', 'SELLING & MARKETTING EXPENSES-ADVERTISEMENT & PUBLICITY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2218, 14, '5303000', 'SELLING & MARKETTING EXPENSES-VEHICLE REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2217, 14, '5302000', 'SELLING & MARKETTING EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2216, 14, '5301000', 'SELLING & MARKETTING EXPENSES-TRAVELLING AND CONVEYANCE', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2215, 14, '5300000', 'SELLING & MARKETTING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2214, 14, '5203000', 'AMORTIZATION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2213, 14, '5202000', 'OTHER DEPRECIATION EXPENSE ACCOUNT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2212, 14, '5201000', 'DEPRECIATION EXPENSES-PROPERTY PLANT AND EQUIPMENT', '', '157', 2211, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2211, 14, '5200000', 'DEPRECIATION EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2209, 14, '5198000', 'MANUFACTURING EXPENSES-MISCELLANEOUS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2210, 14, '5199000', 'MANUFACTURING EXPENSES-OTHER FACTORY EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2208, 14, '5117000', 'MANUFACTURING EXPENSES-Incentive & Special Award', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2207, 14, '5116000', 'MANUFACTURING EXPENSES-FEE & CHARGES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2206, 14, '5115000', 'MANUFACTURING EXPENSES-TRAVELLING & CONVEYANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2205, 14, '5114000', 'MANUFACTURING EXPENSES-CARRYING, LOADING & UNLOADING', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2204, 14, '5113000', 'MANUFACTURING EXPENSES-RENT, RATES & TAXES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2203, 14, '5112000', 'MANUFACTURING EXPENSES-TRAINING EXPENSES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2202, 14, '5111000', 'MANUFACTURING EXPENSES-POSTAGE, TELEPHONE & INTERNET', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2201, 14, '5110000', 'MANUFACTURING EXPENSES-ENTERTAINMENT', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2200, 14, '5109000', 'MANUFACTURING EXPENSES-PRINTING & STATIONERY', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2199, 14, '5108000', 'MANUFACTURING EXPENSES-INDIRECT SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2198, 14, '5107000', 'MANUFACTURING EXPENSES-DIRECT SALARIES, WAGES & OTHER EMPLOYEE BENEFITS', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2196, 14, '5105000', 'MANUFACTURING EXPENSES-REPAIRS & MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2197, 14, '5106000', 'MANUFACTURING EXPENSES-VEHICLE MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2195, 14, '5104000', 'MANUFACTURING EXPENSES-INSURANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2194, 14, '5103000', 'MANUFACTURING EXPENSES-POWER & FUEL', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2192, 14, '5101000', 'COST OF GOODS SOLD', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2193, 14, '5102000', 'MANUFACTURING EXPENSES-STORES & SPARES MAINTENANCE', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2191, 14, '5100000', 'COST OF SALES', '', '157', 2190, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2189, 14, '4999000', 'OTHER INCOME', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2190, 14, '5000000', 'EXPENSES', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(2188, 14, '4901000', 'SCRAP SALE', '', '157', 2187, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2187, 14, '4900000', 'NON-OPERATING INCOME', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2186, 14, '4102000', 'SPBML BY PRODUCTS', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2185, 14, '4101000', 'SPBML PRODUCTS REVENUE', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2184, 14, '4100000', 'SPBML OPERATING INCOME', '', '157', 2183, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2183, 14, '4000000', 'REVENUE', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 164, 0, 0),
+(2182, 14, '3220000', 'PROVISIONS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2181, 14, '3219000', 'INTEREST PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2180, 14, '3218000', 'DIVIDEND PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2179, 14, '3217000', 'MARKUP ACCRUED ON BORROWINGS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2178, 14, '3216000', 'FINANCE LEASE OBLIGATION-SHORT TERM', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2177, 14, '3215000', 'OTHER LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2176, 14, '3214000', 'TAX PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2175, 14, '3213000', 'ACCRUED EXPENSES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2174, 14, '3212000', 'PROVISIONS FOR POST EMPLOYMENT BENEFITS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2173, 14, '3211000', 'SALARIES, WAGES & OTHER DEDUCTIONS PAYABLE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2172, 14, '3210000', 'SECURITY REFUNDABLE & OTHER LIABILITY DEPOSITS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2170, 14, '3208000', 'BANK OVERDRAFTS/WORKING CAPITAL/ CC(H)', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2171, 14, '3209000', 'ADVANCES RECEIVED', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2169, 14, '3207000', 'CREDITORS FOR SERVICES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2168, 14, '3206000', 'CREDITORS FOR GOODS', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2167, 14, '3202000', 'SHORT TERM LOANS-SPBML', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2165, 14, '3200000', 'CURRENT LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2166, 14, '3201000', 'SISTER CONCERN & RELATED PARTIES', '', '157', 2165, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2164, 14, '3106000', 'LONG TERM LEASE', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2162, 14, '3101000', 'LONG TERM LOANS-SPBML', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2163, 14, '3105000', 'DEFERRED TAX LIABILITY', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2161, 14, '3100000', 'NON-CURRENT LIABILITIES', '', '157', 2160, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2160, 14, '3000000', 'LIABILITIES', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 81, 0, 0),
+(2159, 14, '2104000', 'ACCUMULATED PROFITS', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2158, 14, '2103000', 'CAPITAL GAIN', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2157, 14, '2102000', 'RESERVES', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2156, 14, '2101000', 'SHARE CAPITAL', '', '157', 2155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2155, 14, '2100000', 'SHARE CAPITAL & RESERVES', '', '157', 2154, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2154, 14, '2000000', 'EQUITY', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 83, 0, 0),
+(2153, 14, '1212000', 'BANK BALANCES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2152, 14, '1211000', 'CASH & CHEQUES IN HAND', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2151, 14, '1210000', 'CURRENT TAXATION', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2150, 14, '1209000', 'PREPAYMENTS, ADVANCES, DEPOSITS, RECOVERIES & OTHER RECEIVABLES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2149, 14, '1208000', 'LOAN FROM/TO RELATED PARTIES DIRECTORS/EX-DIRECTORS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2148, 14, '1207000', 'LOAN FROM/TO PARTEX STAR GROUP DIRECTORS/EX-DIRECTORS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2147, 14, '1206000', 'SHORT TERM ADVANCES/LOAN TO EMPLOYEES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2146, 14, '1205000', 'SHORT TERM INVESTMENTS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2145, 14, '1204000', 'TRADE RECEIVABLES', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2144, 14, '1203000', 'WORK IN PROCESS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2143, 14, '1202000', 'INVENTORY STORES, SPARES & TOOLS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2142, 14, '1201000', 'INVENTORY STOCKS', '', '157', 2141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2140, 14, '1199000', 'OTHER NON-CURRENT ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2141, 14, '1200000', 'CURRENT ASSETS', '', '157', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2139, 14, '1107000', 'LONG TERM INVESTMENTS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2138, 14, '1106000', 'INTANGIBLE ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2137, 14, '1105000', 'CAPITAL WORK IN PROGRESS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2136, 14, '1104000', 'ACCUMULATED AMORTISATION AND IMPAIRMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2135, 14, '1103000', 'ACC.DEP-PROPERTY PLANT AND EQUIPMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2134, 14, '1102000', 'P.P.E-OTHER ASSETS', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2133, 14, '1101000', 'PROPERTY PLANT AND EQUIPMENT', '', '157', 2132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2132, 14, '1100000', 'NON-CURRENT ASSETS', '', '157', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(2131, 14, '1000000', 'ASSETS', '', '157', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0),
+(3119, 3, '4105', 'Sales-Depot-Bogra', '', '158', 3118, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3120, 3, '4106', 'Sales-Office-Chittagong', '', '158', 3119, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3121, 3, '4107', 'Sales-Depot-Sylhet', '', '158', 3120, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3122, 3, '4108', 'Sales-Depot-Noakhali', '', '158', 3121, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3123, 3, '4109', 'Sales-Depot-Tejgoan', '', '158', 3122, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3124, 3, '4199', 'Sale Department', '', '158', 3123, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3125, 3, '4208', 'Sales-Others', '', '158', 3124, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3126, 3, '4214', 'Sales-Showroom-Sylhet', '', '158', 3125, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3127, 3, '4215', 'Sales-Showroom-Badda', '', '158', 3126, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3128, 3, '4216', 'Sales-Showroom-Mirpur Door Exclusive', '', '158', 3127, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3129, 3, '4217', 'Sales-Showroom-Tejgaon Gulshan Link Road', '', '158', 3128, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3130, 3, '4218', 'Sales-Showroom-Jamuna Future Park', '', '158', 3129, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3131, 3, '4219', 'Sales-Showroom-Chapatoli House', '', '158', 3130, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3132, 3, '4220', 'Sales-Showroom-Uttara Old', '', '158', 3131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3133, 3, '4221', 'Sales-Showroom-Sylhet Old', '', '158', 3132, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3134, 3, '4222', 'Sales Office', '', '158', 3133, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3135, 3, '4223', 'Dealer Operation', '', '158', 3134, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3136, 3, '4224', 'Sales-Showroom-Kawran Bazar', '', '158', 3135, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3137, 3, '4225', 'Sales-Showroom-Savar', '', '158', 3136, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3138, 3, '4226', 'Sales-Showroom-Mirpur Zoo Road', '', '158', 3137, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3139, 3, '4227', 'Sales-Showroom-Rampura', '', '158', 3138, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3140, 3, '4300', 'Sales-Showroom-Bijoy Nagar', '', '158', 3139, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3141, 3, '4302', 'Distribution-Depot-Barisal', '', '158', 3082, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3142, 3, '4303', 'Distribution-Depot-Jessore', '', '158', 3141, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3143, 3, '4304', 'Distribution-Depot-Khulna', '', '158', 3142, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3144, 3, '4305', 'Distribution-Depot-Bogra', '', '158', 3143, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3145, 3, '4306', 'Distribution-Depot-Chittagong', '', '158', 3144, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3146, 3, '4307', 'Distribution-Depot-Sylhet', '', '158', 3145, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3147, 3, '4308', 'Distribution-Depot-Noakhali', '', '158', 3146, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3148, 3, '4309', 'Distribution-Depot-Tejgoan', '', '158', 3147, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3149, 3, '4399', 'Distribution-Depot-Central Distribution Center', '', '158', 3148, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3150, 3, '4500', 'Distribution-Others', '', '158', 3149, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3151, 3, '4600', 'Marketing Department', '', '158', 3083, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3152, 3, '4602', 'Chittagong Godown', '', '158', 3084, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3153, 3, '4603', 'Mirpur Godown', '', '158', 3152, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3154, 3, '4604', 'Uttara Godown', '', '158', 3153, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3155, 3, '4605', 'Chittagong Godown', '', '158', 3154, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3156, 3, '4606', 'Khulna Godown', '', '158', 3155, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3157, 3, '4607', 'Chowmuhoni Godown', '', '158', 3156, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3158, 3, '5000', 'Kanchpur Godown', '', '158', 3157, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3159, 3, '5999', 'Shanta Western Tower (6th Floor)', '', '158', 3086, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3160, 3, '6000', 'Others', '', '158', 3159, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3169, 1, '05', 'FUTURE1', 'FUTURE1', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 97, 0, 0),
+(3170, 1, '06', 'FUTURE2', 'FUTURE2', 'CHILD', 0, 'CHART_OF_ACCOUNT_SEGMENT', 'ACTIVE', '75', 98, 0, 0),
+(3174, 2, '01', 'PCL', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3180, 3170, '01', 'FUTURE2', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 80, 0, 0),
+(3179, 3169, '01', 'FUTURE1', '', '158', 0, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 0, 0, 0),
+(3185, 14, 'TEST', 'TEST', '', '158', 2131, 'CHART_OF_ACCOUNT_VALUESET', 'ACTIVE', '', 82, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -23995,15 +25882,14 @@ INSERT INTO `tbl_chart_of_accounts` (`id`, `parent_id`, `code`, `title`, `descri
 -- Table structure for table `tbl_currency_daily_rate`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_currency_daily_rate` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_currency_daily_rate` (
+  `id` int(10) NOT NULL,
   `from_currency_id` int(10) NOT NULL,
   `to_currency_id` int(10) NOT NULL,
   `trandate` date NOT NULL,
   `from_to_rate` double(10,3) NOT NULL,
-  `to_from_rate` double(10,3) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `to_from_rate` double(10,3) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_currency_daily_rate`
@@ -24019,16 +25905,15 @@ INSERT INTO `tbl_currency_daily_rate` (`id`, `from_currency_id`, `to_currency_id
 -- Table structure for table `tbl_currency_master`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_currency_master` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_currency_master` (
+  `id` int(10) NOT NULL,
   `code` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
   `issue_teritory` varchar(100) NOT NULL,
   `symbol` varchar(20) NOT NULL,
-  `precision` int(2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `precision` int(2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_currency_master`
@@ -24036,7 +25921,8 @@ CREATE TABLE IF NOT EXISTS `tbl_currency_master` (
 
 INSERT INTO `tbl_currency_master` (`id`, `code`, `name`, `description`, `issue_teritory`, `symbol`, `precision`) VALUES
 (3, 'BDT', 'BANGLADESH TAKA', 'BANGLADESH CURRENCY', 'BANGLADESH ', '', 0),
-(4, 'INR', 'INDIAN RUPEE', 'INDIAN RUPEE', 'INDIA', '', 0);
+(4, 'INR', 'INDIAN RUPEE', 'INDIAN RUPEE', 'INDIA', '', 0),
+(5, 'BDT', 'BANGLADESH TAKA', '', 'BANGLADESH', 'BDT', 2);
 
 -- --------------------------------------------------------
 
@@ -24044,8 +25930,8 @@ INSERT INTO `tbl_currency_master` (`id`, `code`, `name`, `description`, `issue_t
 -- Table structure for table `tbl_employee_mstr`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_employee_mstr` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_employee_mstr` (
+  `id` int(10) NOT NULL,
   `code` varchar(20) NOT NULL,
   `name` varchar(150) NOT NULL,
   `address` varchar(300) NOT NULL,
@@ -24061,16 +25947,15 @@ CREATE TABLE IF NOT EXISTS `tbl_employee_mstr` (
   `USER_TYPE` varchar(20) NOT NULL DEFAULT 'USER',
   `login_key` varchar(200) NOT NULL,
   `software_archi_role_manage_id` int(10) NOT NULL,
-  `account_setup_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=297 ;
+  `account_setup_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_employee_mstr`
 --
 
 INSERT INTO `tbl_employee_mstr` (`id`, `code`, `name`, `address`, `contactno`, `email`, `city`, `tbl_designation_id`, `userid`, `password`, `login_status`, `ANDROID_CODE`, `status`, `USER_TYPE`, `login_key`, `software_archi_role_manage_id`, `account_setup_id`) VALUES
-(6, 'emp1', 'admin', 'admin', 'admin', 'admin@admin.com', 0, 1, 'admin', 'admin', 'ADMIN', 0, 'ACTIVE', 'USER', '', 31, 2),
+(6, 'emp1', 'admin', 'admin', 'admin', 'admin@admin.com', 0, 1, 'admin', 'admin', 'ADMIN', 0, 'ACTIVE', 'USER', '', 31, 3),
 (281, 'DEVELOPER', 'DEVELOPER', '', '', '', 0, 7, 'SUPER', 'SUPER', 'SUPER', 0, 'REPORT_ACTIVE', 'USER', '', 0, 0),
 (296, 'U0012', 'Avijit Mitra', '', '', '', 0, 0, 'USER', 'USER', 'USER', 0, 'ACTIVE', 'USER', '', 8, 2);
 
@@ -24080,17 +25965,16 @@ INSERT INTO `tbl_employee_mstr` (`id`, `code`, `name`, `address`, `contactno`, `
 -- Table structure for table `tbl_hierarchy_org`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_hierarchy_org` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_hierarchy_org` (
+  `id` int(11) NOT NULL,
   `unit_type_id` int(5) NOT NULL,
   `hierarchy_name` varchar(150) NOT NULL,
   `under_tbl_hierarchy_org` int(11) NOT NULL,
   `teritory_list` varchar(300) NOT NULL,
   `employee_id` int(10) NOT NULL,
   `city_id` int(10) NOT NULL,
-  `company_details_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6698 ;
+  `company_details_id` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_hierarchy_org`
@@ -24098,11 +25982,8 @@ CREATE TABLE IF NOT EXISTS `tbl_hierarchy_org` (
 
 INSERT INTO `tbl_hierarchy_org` (`id`, `unit_type_id`, `hierarchy_name`, `under_tbl_hierarchy_org`, `teritory_list`, `employee_id`, `city_id`, `company_details_id`) VALUES
 (1, 1, 'COMPANY', 0, '6085', 0, 18, 0),
-(6693, 57, 'KOLKATA WARE HOUSE', 0, '', 0, 4, 1),
-(6694, 0, 'Sealdah Warehouse', 6693, '', 0, 7, 1),
-(6695, 55, 'Inventory Under Sealdah', 6694, '', 0, 3, 0),
-(6696, 57, 'operating unit 1', 0, '', 0, 5, 4),
-(6697, 0, 'operating unit 2', 0, '', 0, 7, 4);
+(6698, 57, 'Gulshan Avenue', 0, '', 0, 10, 1),
+(6699, 57, 'Tejgoan road', 0, '', 0, 11, 2);
 
 -- --------------------------------------------------------
 
@@ -24110,30 +25991,26 @@ INSERT INTO `tbl_hierarchy_org` (`id`, `unit_type_id`, `hierarchy_name`, `under_
 -- Table structure for table `tbl_location`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_location` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_location` (
+  `id` int(10) NOT NULL,
   `parent_id` int(10) NOT NULL,
   `name` varchar(100) NOT NULL,
   `code` varchar(20) NOT NULL,
   `address` varchar(150) NOT NULL,
   `contactno` varchar(20) NOT NULL,
   `contact_person` varchar(100) NOT NULL,
-  `location_type` int(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `location_type` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_location`
 --
 
 INSERT INTO `tbl_location` (`id`, `parent_id`, `name`, `code`, `address`, `contactno`, `contact_person`, `location_type`) VALUES
-(1, 0, 'Tobin Road', 'KOL001', '79 DHIREN DHAR SARANI', '980415658', 'ASHOKE DAS', 68),
-(2, 1, 'West bengal', '', '', '', '', 49),
-(3, 2, 'Kolkata', '', '', '', '', 50),
-(4, 2, 'Asansol', '', '', '', '', 50),
-(5, 0, 'COX-BAZAR', 'L1', '143 HALIM ROAD', '', '', 68),
-(6, 0, 'BARISAL', 'L2', 'Upendra Bhaban (3rd Floor), 102/103 Sadar Road (Opposite of Town Hall)', '', '', 67),
-(7, 0, 'Noakhali', 'L3', 'Noakhali Mamun shop, Shop-G51, Morshed Alam Complex, Korim Road, Chowmuhani, Noakhali', '', '', 68);
+(8, 0, 'Jamal Uddin', 'BDT1000', '123 Tejgaon Road Shanta Tower', '899907125', 'Jamal Uddin', 68),
+(9, 0, 'Najmul Ahmed', 'BDT2000', '57, 57A Gulshan Ave, Dhaka 1212, Bangladesh', '7773276190', 'Najmul Ahmed', 68),
+(10, 0, 'Gulshan Avenue', 'BDT100', 'Uday Tower, Level-7, 57-57A, Gulshan-1, Dhaka-1212, Bangladesh', '+880 121335 5464', 'Najmul Haque', 68),
+(11, 0, 'Tejgoan road', 'BDT200', 'Shanta Western Tower, Level – 13 Bir Uttam Mir Shawkat Road, 186 Tejgaon I/A Dhaka – 1208, Bangladesh', '+88 02 8878800', 'Jamal Uddin Ahmed', 68);
 
 -- --------------------------------------------------------
 
@@ -24141,18 +26018,12 @@ INSERT INTO `tbl_location` (`id`, `parent_id`, `name`, `code`, `address`, `conta
 -- Table structure for table `tbl_organisation_chain`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_organisation_chain` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tbl_organisation_chain` (
+  `id` int(10) NOT NULL,
   `parentuid` int(10) NOT NULL,
   `childuid` int(10) NOT NULL,
-  `child_desig_srl` int(5) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `tbl_organisation_chain`
---
-
+  `child_desig_srl` int(5) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -24160,7 +26031,7 @@ CREATE TABLE IF NOT EXISTS `tbl_organisation_chain` (
 -- Table structure for table `test_table`
 --
 
-CREATE TABLE IF NOT EXISTS `test_table` (
+CREATE TABLE `test_table` (
   `id` int(10) NOT NULL,
   `test_data` text NOT NULL,
   `select_data` varchar(50) NOT NULL
@@ -24171,7 +26042,641 @@ CREATE TABLE IF NOT EXISTS `test_table` (
 --
 
 INSERT INTO `test_table` (`id`, `test_data`, `select_data`) VALUES
-(1, '[{"header":[{"section_type":"FORM","id":1,"parent_id":"","TableName":"opm_define_operations_summary","fields":[{"id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"67","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"id","InputName":"id","Inputvalue":"1","Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"operation":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"67","DIVClass":"6","Section":"0","SectionType":"HEADER","input_id_index":0,"LabelName":"Operation","InputName":"operation","Inputvalue":"Chocolate Mix Operation","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"status":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"67","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":1,"LabelName":"Status","InputName":"status","Inputvalue":"ACTIVE","Inputvalue_id":"12","InputType":"text","validation_type":"146","validation_msg":"","datafields":[{"FieldID":"12","FieldVal":"ACTIVE"},{"FieldID":"13","FieldVal":"INACTIVE"}]},"description":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"67","DIVClass":"10","Section":"0","SectionType":"HEADER","input_id_index":2,"LabelName":"Description","InputName":"description","Inputvalue":"","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""}}]},{"section_type":"GRID_ENTRY","id":1,"parent_id":"","TableName":"opm_define_operations_activity_details","fields":[{"id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"id","InputName":"id","Inputvalue":0,"Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"opm_define_operations_summary_id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"opm_define_operations_summary_id","InputName":"opm_define_operations_summary_id","Inputvalue":0,"Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"activity":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":3,"LabelName":"Activity","InputName":"activity","Inputvalue":"Activity-2","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"description":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"6","Section":"0","SectionType":"HEADER","input_id_index":4,"LabelName":"Description","InputName":"description","Inputvalue":0,"Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""}},{"id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"id","InputName":"id","Inputvalue":"1","Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"opm_define_operations_summary_id":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"1","Section":"0","SectionType":"HEADER","input_id_index":9000,"LabelName":"opm_define_operations_summary_id","InputName":"opm_define_operations_summary_id","Inputvalue":"1","Inputvalue_id":"","InputType":"hidden","validation_type":"146","validation_msg":"","datafields":""},"activity":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"4","Section":"0","SectionType":"HEADER","input_id_index":5,"LabelName":"Activity","InputName":"activity","Inputvalue":"Activity-1","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""},"description":{"MainTable":"acc_group_ledgers","LinkField":"","frmrpttemplatehdrID":"68","DIVClass":"6","Section":"0","SectionType":"HEADER","input_id_index":6,"LabelName":"Description","InputName":"description","Inputvalue":"","Inputvalue_id":"","InputType":"text","validation_type":"146","validation_msg":"","datafields":""}}]}]}]', '');
+(1, '[{\"header\":[{\"section_type\":\"FORM\",\"id\":1,\"parent_id\":\"\",\"TableName\":\"opm_define_operations_summary\",\"fields\":[{\"id\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"67\",\"DIVClass\":\"1\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":9000,\"LabelName\":\"id\",\"InputName\":\"id\",\"Inputvalue\":\"1\",\"Inputvalue_id\":\"\",\"InputType\":\"hidden\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"operation\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"67\",\"DIVClass\":\"6\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":0,\"LabelName\":\"Operation\",\"InputName\":\"operation\",\"Inputvalue\":\"Chocolate Mix Operation\",\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"status\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"67\",\"DIVClass\":\"4\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":1,\"LabelName\":\"Status\",\"InputName\":\"status\",\"Inputvalue\":\"ACTIVE\",\"Inputvalue_id\":\"12\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":[{\"FieldID\":\"12\",\"FieldVal\":\"ACTIVE\"},{\"FieldID\":\"13\",\"FieldVal\":\"INACTIVE\"}]},\"description\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"67\",\"DIVClass\":\"10\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":2,\"LabelName\":\"Description\",\"InputName\":\"description\",\"Inputvalue\":\"\",\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"}}]},{\"section_type\":\"GRID_ENTRY\",\"id\":1,\"parent_id\":\"\",\"TableName\":\"opm_define_operations_activity_details\",\"fields\":[{\"id\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"1\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":9000,\"LabelName\":\"id\",\"InputName\":\"id\",\"Inputvalue\":0,\"Inputvalue_id\":\"\",\"InputType\":\"hidden\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"opm_define_operations_summary_id\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"1\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":9000,\"LabelName\":\"opm_define_operations_summary_id\",\"InputName\":\"opm_define_operations_summary_id\",\"Inputvalue\":0,\"Inputvalue_id\":\"\",\"InputType\":\"hidden\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"activity\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"4\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":3,\"LabelName\":\"Activity\",\"InputName\":\"activity\",\"Inputvalue\":\"Activity-2\",\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"description\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"6\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":4,\"LabelName\":\"Description\",\"InputName\":\"description\",\"Inputvalue\":0,\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"}},{\"id\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"1\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":9000,\"LabelName\":\"id\",\"InputName\":\"id\",\"Inputvalue\":\"1\",\"Inputvalue_id\":\"\",\"InputType\":\"hidden\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"opm_define_operations_summary_id\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"1\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":9000,\"LabelName\":\"opm_define_operations_summary_id\",\"InputName\":\"opm_define_operations_summary_id\",\"Inputvalue\":\"1\",\"Inputvalue_id\":\"\",\"InputType\":\"hidden\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"activity\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"4\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":5,\"LabelName\":\"Activity\",\"InputName\":\"activity\",\"Inputvalue\":\"Activity-1\",\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"},\"description\":{\"MainTable\":\"acc_group_ledgers\",\"LinkField\":\"\",\"frmrpttemplatehdrID\":\"68\",\"DIVClass\":\"6\",\"Section\":\"0\",\"SectionType\":\"HEADER\",\"input_id_index\":6,\"LabelName\":\"Description\",\"InputName\":\"description\",\"Inputvalue\":\"\",\"Inputvalue_id\":\"\",\"InputType\":\"text\",\"validation_type\":\"146\",\"validation_msg\":\"\",\"datafields\":\"\"}}]}]}]', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `account_setup`
+--
+ALTER TABLE `account_setup`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `acc_group_ledgers`
+--
+ALTER TABLE `acc_group_ledgers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `acc_tran_details`
+--
+ALTER TABLE `acc_tran_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `acc_tran_details_details`
+--
+ALTER TABLE `acc_tran_details_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `acc_tran_header`
+--
+ALTER TABLE `acc_tran_header`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category_wise_sale`
+--
+ALTER TABLE `category_wise_sale`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `company_details`
+--
+ALTER TABLE `company_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frmrptgeneralmaster`
+--
+ALTER TABLE `frmrptgeneralmaster`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frmrpttemplatedetails`
+--
+ALTER TABLE `frmrpttemplatedetails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frmrpttemplatedetails_back`
+--
+ALTER TABLE `frmrpttemplatedetails_back`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frmrpttemplatehdr`
+--
+ALTER TABLE `frmrpttemplatehdr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `frmrpt_simple_query_builder`
+--
+ALTER TABLE `frmrpt_simple_query_builder`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoice_details`
+--
+ALTER TABLE `invoice_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoice_payment_receive`
+--
+ALTER TABLE `invoice_payment_receive`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoice_payment_receive_details`
+--
+ALTER TABLE `invoice_payment_receive_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoice_summary`
+--
+ALTER TABLE `invoice_summary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `invoice_tax_details`
+--
+ALTER TABLE `invoice_tax_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `item_wise_sale`
+--
+ALTER TABLE `item_wise_sale`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `menu_user_priviledge`
+--
+ALTER TABLE `menu_user_priviledge`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mstr_bank`
+--
+ALTER TABLE `mstr_bank`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mstr_customer`
+--
+ALTER TABLE `mstr_customer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mstr_employee`
+--
+ALTER TABLE `mstr_employee`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mstr_product`
+--
+ALTER TABLE `mstr_product`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mstr_supplier`
+--
+ALTER TABLE `mstr_supplier`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_batch_details`
+--
+ALTER TABLE `opm_batch_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_batch_summary`
+--
+ALTER TABLE `opm_batch_summary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_formula_details`
+--
+ALTER TABLE `opm_define_formula_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_formula_ingredient_details`
+--
+ALTER TABLE `opm_define_formula_ingredient_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_formula_summery`
+--
+ALTER TABLE `opm_define_formula_summery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_operations_activity_details`
+--
+ALTER TABLE `opm_define_operations_activity_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_operations_resource_details`
+--
+ALTER TABLE `opm_define_operations_resource_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_operations_summary`
+--
+ALTER TABLE `opm_define_operations_summary`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_recipe_details`
+--
+ALTER TABLE `opm_define_recipe_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_recipe_summery`
+--
+ALTER TABLE `opm_define_recipe_summery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_resources_summery`
+--
+ALTER TABLE `opm_define_resources_summery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_routing_details`
+--
+ALTER TABLE `opm_define_routing_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `opm_define_routing_summery`
+--
+ALTER TABLE `opm_define_routing_summery`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `p_webmaster`
+--
+ALTER TABLE `p_webmaster`
+  ADD PRIMARY KEY (`a_id`),
+  ADD UNIQUE KEY `user_name` (`user_name`);
+
+--
+-- Indexes for table `sales_trend`
+--
+ALTER TABLE `sales_trend`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `software_architecture_details`
+--
+ALTER TABLE `software_architecture_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `software_archi_role_manage`
+--
+ALTER TABLE `software_archi_role_manage`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_calender`
+--
+ALTER TABLE `tbl_calender`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_chart_of_accounts`
+--
+ALTER TABLE `tbl_chart_of_accounts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_chart_of_accounts020520`
+--
+ALTER TABLE `tbl_chart_of_accounts020520`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_chart_of_accounts120520`
+--
+ALTER TABLE `tbl_chart_of_accounts120520`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_currency_daily_rate`
+--
+ALTER TABLE `tbl_currency_daily_rate`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_currency_master`
+--
+ALTER TABLE `tbl_currency_master`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_employee_mstr`
+--
+ALTER TABLE `tbl_employee_mstr`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_hierarchy_org`
+--
+ALTER TABLE `tbl_hierarchy_org`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_location`
+--
+ALTER TABLE `tbl_location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_organisation_chain`
+--
+ALTER TABLE `tbl_organisation_chain`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `account_setup`
+--
+ALTER TABLE `account_setup`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `acc_group_ledgers`
+--
+ALTER TABLE `acc_group_ledgers`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `acc_tran_details`
+--
+ALTER TABLE `acc_tran_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `acc_tran_details_details`
+--
+ALTER TABLE `acc_tran_details_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `acc_tran_header`
+--
+ALTER TABLE `acc_tran_header`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `brands`
+--
+ALTER TABLE `brands`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+
+--
+-- AUTO_INCREMENT for table `category_wise_sale`
+--
+ALTER TABLE `category_wise_sale`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10240;
+
+--
+-- AUTO_INCREMENT for table `company_details`
+--
+ALTER TABLE `company_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `frmrptgeneralmaster`
+--
+ALTER TABLE `frmrptgeneralmaster`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
+
+--
+-- AUTO_INCREMENT for table `frmrpttemplatedetails`
+--
+ALTER TABLE `frmrpttemplatedetails`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1721;
+
+--
+-- AUTO_INCREMENT for table `frmrpttemplatedetails_back`
+--
+ALTER TABLE `frmrpttemplatedetails_back`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=582;
+
+--
+-- AUTO_INCREMENT for table `frmrpttemplatehdr`
+--
+ALTER TABLE `frmrpttemplatehdr`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+
+--
+-- AUTO_INCREMENT for table `frmrpt_simple_query_builder`
+--
+ALTER TABLE `frmrpt_simple_query_builder`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+
+--
+-- AUTO_INCREMENT for table `invoice_details`
+--
+ALTER TABLE `invoice_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `invoice_payment_receive`
+--
+ALTER TABLE `invoice_payment_receive`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `invoice_payment_receive_details`
+--
+ALTER TABLE `invoice_payment_receive_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `invoice_summary`
+--
+ALTER TABLE `invoice_summary`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `invoice_tax_details`
+--
+ALTER TABLE `invoice_tax_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `item_wise_sale`
+--
+ALTER TABLE `item_wise_sale`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10242;
+
+--
+-- AUTO_INCREMENT for table `menu_user_priviledge`
+--
+ALTER TABLE `menu_user_priviledge`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `mstr_bank`
+--
+ALTER TABLE `mstr_bank`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `mstr_customer`
+--
+ALTER TABLE `mstr_customer`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `mstr_employee`
+--
+ALTER TABLE `mstr_employee`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mstr_product`
+--
+ALTER TABLE `mstr_product`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `mstr_supplier`
+--
+ALTER TABLE `mstr_supplier`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `opm_batch_details`
+--
+ALTER TABLE `opm_batch_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_batch_summary`
+--
+ALTER TABLE `opm_batch_summary`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_formula_details`
+--
+ALTER TABLE `opm_define_formula_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_formula_ingredient_details`
+--
+ALTER TABLE `opm_define_formula_ingredient_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_formula_summery`
+--
+ALTER TABLE `opm_define_formula_summery`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_operations_activity_details`
+--
+ALTER TABLE `opm_define_operations_activity_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_operations_resource_details`
+--
+ALTER TABLE `opm_define_operations_resource_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_operations_summary`
+--
+ALTER TABLE `opm_define_operations_summary`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `opm_define_recipe_details`
+--
+ALTER TABLE `opm_define_recipe_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_recipe_summery`
+--
+ALTER TABLE `opm_define_recipe_summery`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_resources_summery`
+--
+ALTER TABLE `opm_define_resources_summery`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `opm_define_routing_details`
+--
+ALTER TABLE `opm_define_routing_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `opm_define_routing_summery`
+--
+ALTER TABLE `opm_define_routing_summery`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `p_webmaster`
+--
+ALTER TABLE `p_webmaster`
+  MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `sales_trend`
+--
+ALTER TABLE `sales_trend`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10242;
+
+--
+-- AUTO_INCREMENT for table `software_architecture_details`
+--
+ALTER TABLE `software_architecture_details`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `software_archi_role_manage`
+--
+ALTER TABLE `software_archi_role_manage`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `tbl_calender`
+--
+ALTER TABLE `tbl_calender`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `tbl_chart_of_accounts`
+--
+ALTER TABLE `tbl_chart_of_accounts`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3193;
+
+--
+-- AUTO_INCREMENT for table `tbl_chart_of_accounts020520`
+--
+ALTER TABLE `tbl_chart_of_accounts020520`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_chart_of_accounts120520`
+--
+ALTER TABLE `tbl_chart_of_accounts120520`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3186;
+
+--
+-- AUTO_INCREMENT for table `tbl_currency_daily_rate`
+--
+ALTER TABLE `tbl_currency_daily_rate`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tbl_currency_master`
+--
+ALTER TABLE `tbl_currency_master`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_employee_mstr`
+--
+ALTER TABLE `tbl_employee_mstr`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+
+--
+-- AUTO_INCREMENT for table `tbl_hierarchy_org`
+--
+ALTER TABLE `tbl_hierarchy_org`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6700;
+
+--
+-- AUTO_INCREMENT for table `tbl_location`
+--
+ALTER TABLE `tbl_location`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `tbl_organisation_chain`
+--
+ALTER TABLE `tbl_organisation_chain`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
